@@ -1,0 +1,12 @@
+server:
+  name: oracle-go
+  # 全局版本输出，eg： cli: oracle-go version
+  version: 1.0.0-beta
+
+cli:
+  # cli 父命令
+  name: oracle-go
+
+log:
+  level:
+    server: debug
