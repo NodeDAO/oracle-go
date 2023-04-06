@@ -2,7 +2,7 @@
 // @author renshiwei
 // Date: 2022/10/5 17:33
 
-package initialize
+package config
 
 import (
 	"fmt"

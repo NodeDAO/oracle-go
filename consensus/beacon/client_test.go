@@ -7,7 +7,7 @@ package beacon
 import (
 	"context"
 	"github.com/NodeDAO/oracle-go/common/global"
-	"github.com/NodeDAO/oracle-go/common/initialize"
+	"github.com/NodeDAO/oracle-go/config"
 	eth2client "github.com/attestantio/go-eth2-client"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -17,7 +17,7 @@ import (
 var clAddr string
 
 func initClAddr() {
-	initialize.InitConfig("../../config/config-dev.yaml")
+	config.InitConfig("../../conf/config-dev.yaml")
 	clAddr = global.Config.Eth.ClAddr
 }
 

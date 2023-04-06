@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"github.com/NodeDAO/oracle-go/cmd/version"
 	"github.com/NodeDAO/oracle-go/common/global"
-	"github.com/NodeDAO/oracle-go/common/initialize"
+	"github.com/NodeDAO/oracle-go/config"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"os"
@@ -45,9 +45,9 @@ func tip() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "config/config.yaml", "config file (default is config/config.yaml)")
+	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "conf/config-dev.yaml", "config file (default is config/config.yaml)")
 	// init config file ...
-	initialize.InitServer(cfgFile)
+	config.InitServer(cfgFile)
 
 	rootCmd.AddCommand(version.StartCmd)
 }

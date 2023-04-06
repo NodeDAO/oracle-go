@@ -2,7 +2,7 @@
 // @author renshiwei
 // Date: 2022/10/5 17:57
 
-package initialize
+package config
 
 import (
 	"github.com/NodeDAO/oracle-go/common/logger"
