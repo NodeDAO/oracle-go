@@ -28,5 +28,5 @@ func TestGetConsensusInfo(t *testing.T) {
 	firstSlotOfCurrentEpoch := consensusClient.ChainTimeService.FirstSlotOfEpoch(currentEpoch)
 	fmt.Printf("current epoch: %v\n", currentEpoch)
 	fmt.Printf("first slot of current epoch: %v\n", firstSlotOfCurrentEpoch)
-	require.Equal(t, firstSlotOfCurrentEpoch, consensusClient.ChainTimeService.SlotToEpoch(firstSlotOfCurrentEpoch))
+	require.Equal(t, currentEpoch, consensusClient.ChainTimeService.SlotToEpoch(firstSlotOfCurrentEpoch))
 }
