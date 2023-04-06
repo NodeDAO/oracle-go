@@ -27,4 +27,10 @@ type ConfigYaml struct {
 			Server string
 		}
 	}
+
+	Eth struct {
+		ElAddr        string `json:"elAddr"`
+		ElArchiveAddr string `json:"elArchiveAddr"`
+		ClAddr        string `json:"clAddr"`
+	} `json:"eth"`
 }

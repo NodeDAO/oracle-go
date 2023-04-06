@@ -10,3 +10,8 @@ cli:
 log:
   level:
     server: debug
+
+eth:
+  elAddr:
+  elArchiveAddr:
+  clAddr:
