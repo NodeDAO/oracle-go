@@ -31,13 +31,13 @@ type Error struct {
 }
 
 // timeout for tests.
-var timeout = 60 * time.Second
+//var timeout = 60 * time.Second
 
 func (e Error) Error() string {
 	return fmt.Sprintf("%s failed with status %d: %s", e.Method, e.StatusCode, e.Data)
 }
 
-func New(ctx context.Context) (*HttpTool, error) {
+func New(ctx context.Context, timeout time.Duration) (*HttpTool, error) {
 	client := &http.Client{
 		Timeout: timeout,
 		Transport: &http.Transport{

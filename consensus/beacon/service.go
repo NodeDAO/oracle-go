@@ -6,6 +6,7 @@ package beacon
 
 import (
 	"context"
+	"time"
 )
 
 // BeaconBlocksProvider is the interface for providing beacon blocks.
@@ -22,4 +23,12 @@ type ExecutionInfoProvider interface {
 
 type BeaconService struct {
 	BaseUrl string
+	Timeout time.Duration
+}
+
+func New(ctx context.Context, addr string, timeout time.Duration) (*BeaconService, error) {
+	return &BeaconService{
+		BaseUrl: addr,
+		Timeout: timeout,
+	}, nil
 }

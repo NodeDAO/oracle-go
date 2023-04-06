@@ -104,7 +104,7 @@ type ExecutionBlock struct {
 }
 
 func (b *BeaconService) BeaconBlock(ctx context.Context, blockID string) (*BeaconBlock, error) {
-	httpTool, err := httptool.New(ctx)
+	httpTool, err := httptool.New(ctx, b.Timeout)
 	if err != nil {
 		return nil, errors.Unwrap(err)
 	}

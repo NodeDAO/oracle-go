@@ -10,12 +10,14 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/require"
 	"testing"
+	"time"
 )
 
 func TestGetBeaconBlock(t *testing.T) {
 	initClAddr()
 	b := &BeaconService{
 		BaseUrl: clAddr,
+		Timeout: 1 * time.Minute,
 	}
 
 	beaconBlock, err := b.BeaconBlock(context.Background(), "head")
