@@ -12,7 +12,7 @@ import (
 )
 
 func (e *EthClient) BalanceAt(ctx context.Context, address string, blockNumber decimal.Decimal) (decimal.Decimal, error) {
-	balance, err := e.client.BalanceAt(ctx, common.HexToAddress(address), blockNumber.BigInt())
+	balance, err := e.Client.BalanceAt(ctx, common.HexToAddress(address), blockNumber.BigInt())
 	if err != nil {
 		return decimal.Zero, errors.Wrapf(err, "Fail to get balance address:%s blockNumber:%s", address, blockNumber.String())
 	}

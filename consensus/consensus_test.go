@@ -7,8 +7,8 @@ package consensus
 import (
 	"context"
 	"fmt"
-	"github.com/NodeDAO/oracle-go/common/global"
 	"github.com/NodeDAO/oracle-go/config"
+	"github.com/NodeDAO/oracle-go/config/global"
 	"github.com/stretchr/testify/require"
 	"testing"
 	"time"

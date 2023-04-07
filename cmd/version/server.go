@@ -2,7 +2,7 @@ package version
 
 import (
 	"fmt"
-	"github.com/NodeDAO/oracle-go/common/global"
+	"github.com/NodeDAO/oracle-go/config/global"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )

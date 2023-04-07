@@ -6,8 +6,8 @@ package beacon
 
 import (
 	"context"
-	"github.com/NodeDAO/oracle-go/common/global"
 	"github.com/NodeDAO/oracle-go/config"
+	"github.com/NodeDAO/oracle-go/config/global"
 	eth2client "github.com/attestantio/go-eth2-client"
 	"github.com/stretchr/testify/require"
 	"testing"

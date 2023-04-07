@@ -1,7 +1,7 @@
 // Code generated - DO NOT EDIT.
 // This file is a generated binding and any manual changes will be lost.
 
-package oracle
+package hashConsensus
 
 import (
 	"errors"
@@ -40,113 +40,113 @@ type HashConsensusMemberConsensusState struct {
 	CurrentFrameMemberReport    [32]byte
 }
 
-// OracleMetaData contains all meta data concerning the Oracle contract.
-var OracleMetaData = &bind.MetaData{
+// HashConsensusMetaData contains all meta data concerning the HashConsensus contract.
+var HashConsensusMetaData = &bind.MetaData{
 	ABI: "[{\"inputs\":[],\"name\":\"AddressCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ConsensusReportAlreadyProcessing\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DaoCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DuplicateMember\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DuplicateReport\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EmptyReport\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EpochsPerFrameCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FastLanePeriodCannotBeLongerThanFrame\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InitialEpochAlreadyArrived\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InitialEpochIsYetToArrive\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InitialEpochRefSlotCannotBeEarlierThanProcessingSlot\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidSlot\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NewProcessorCannotBeTheSame\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NonFastLaneMemberCannotReportWithinFastLaneInterval\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NonMember\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NumericOverflow\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"minQuorum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"receivedQuorum\",\"type\":\"uint256\"}],\"name\":\"QuorumTooSmall\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ReportProcessorCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"StaleReport\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"expected\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"received\",\"type\":\"uint256\"}],\"name\":\"UnexpectedConsensusVersion\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"report\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"support\",\"type\":\"uint256\"}],\"name\":\"ConsensusReached\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDao\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"DaoAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fastLaneLengthSlots\",\"type\":\"uint256\"}],\"name\":\"FastLaneConfigSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newInitialEpoch\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newEpochsPerFrame\",\"type\":\"uint256\"}],\"name\":\"FrameConfigSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newTotalMembers\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newQuorum\",\"type\":\"uint256\"}],\"name\":\"MemberAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newTotalMembers\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newQuorum\",\"type\":\"uint256\"}],\"name\":\"MemberRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newQuorum\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalMembers\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"prevQuorum\",\"type\":\"uint256\"}],\"name\":\"QuorumSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"processor\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"prevProcessor\",\"type\":\"address\"}],\"name\":\"ReportProcessorSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"member\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"report\",\"type\":\"bytes32\"}],\"name\":\"ReportReceived\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"quorum\",\"type\":\"uint256\"}],\"name\":\"addMember\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dao\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"disableConsensus\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getChainConfig\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"slotsPerEpoch\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"secondsPerSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"genesisTime\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getConsensusState\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"consensusReport\",\"type\":\"bytes32\"},{\"internalType\":\"bool\",\"name\":\"isReportProcessing\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"getConsensusStateForMember\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"currentFrameRefSlot\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"currentFrameConsensusReport\",\"type\":\"bytes32\"},{\"internalType\":\"bool\",\"name\":\"isMember\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"isFastLane\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"canReport\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"lastMemberReportRefSlot\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"currentFrameMemberReport\",\"type\":\"bytes32\"}],\"internalType\":\"structHashConsensus.MemberConsensusState\",\"name\":\"result\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCurrentFrame\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"reportProcessingDeadlineSlot\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getFastLaneMembers\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"addresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"lastReportedRefSlots\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getFrameConfig\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"initialEpoch\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"epochsPerFrame\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fastLaneLengthSlots\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getInitialRefSlot\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"getIsFastLaneMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"getIsMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMembers\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"addresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"lastReportedRefSlots\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getQuorum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getReportProcessor\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getReportVariants\",\"outputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"variants\",\"type\":\"bytes32[]\"},{\"internalType\":\"uint256[]\",\"name\":\"support\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slotsPerEpoch\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"secondsPerSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"genesisTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"epochsPerFrame\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fastLaneLengthSlots\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"reportProcessor\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"quorum\",\"type\":\"uint256\"}],\"name\":\"removeMember\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"setDaoAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"fastLaneLengthSlots\",\"type\":\"uint256\"}],\"name\":\"setFastLaneLengthSlots\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"epochsPerFrame\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fastLaneLengthSlots\",\"type\":\"uint256\"}],\"name\":\"setFrameConfig\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"quorum\",\"type\":\"uint256\"}],\"name\":\"setQuorum\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newProcessor\",\"type\":\"address\"}],\"name\":\"setReportProcessor\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"report\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"consensusVersion\",\"type\":\"uint256\"}],\"name\":\"submitReport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"initialEpoch\",\"type\":\"uint256\"}],\"name\":\"updateInitialEpoch\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}]",
 }
 
-// OracleABI is the input ABI used to generate the binding from.
-// Deprecated: Use OracleMetaData.ABI instead.
-var OracleABI = OracleMetaData.ABI
+// HashConsensusABI is the input ABI used to generate the binding from.
+// Deprecated: Use HashConsensusMetaData.ABI instead.
+var HashConsensusABI = HashConsensusMetaData.ABI
 
-// Oracle is an auto generated Go binding around an Ethereum contract.
-type Oracle struct {
-	OracleCaller     // Read-only binding to the contract
-	OracleTransactor // Write-only binding to the contract
-	OracleFilterer   // Log filterer for contract events
+// HashConsensus is an auto generated Go binding around an Ethereum contract.
+type HashConsensus struct {
+	HashConsensusCaller     // Read-only binding to the contract
+	HashConsensusTransactor // Write-only binding to the contract
+	HashConsensusFilterer   // Log filterer for contract events
 }
 
-// OracleCaller is an auto generated read-only Go binding around an Ethereum contract.
-type OracleCaller struct {
+// HashConsensusCaller is an auto generated read-only Go binding around an Ethereum contract.
+type HashConsensusCaller struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// OracleTransactor is an auto generated write-only Go binding around an Ethereum contract.
-type OracleTransactor struct {
+// HashConsensusTransactor is an auto generated write-only Go binding around an Ethereum contract.
+type HashConsensusTransactor struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// OracleFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
-type OracleFilterer struct {
+// HashConsensusFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
+type HashConsensusFilterer struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// OracleSession is an auto generated Go binding around an Ethereum contract,
+// HashConsensusSession is an auto generated Go binding around an Ethereum contract,
 // with pre-set call and transact options.
-type OracleSession struct {
-	Contract     *Oracle           // Generic contract binding to set the session for
+type HashConsensusSession struct {
+	Contract     *HashConsensus    // Generic contract binding to set the session for
 	CallOpts     bind.CallOpts     // Call options to use throughout this session
 	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
 }
 
-// OracleCallerSession is an auto generated read-only Go binding around an Ethereum contract,
+// HashConsensusCallerSession is an auto generated read-only Go binding around an Ethereum contract,
 // with pre-set call options.
-type OracleCallerSession struct {
-	Contract *OracleCaller // Generic contract caller binding to set the session for
-	CallOpts bind.CallOpts // Call options to use throughout this session
+type HashConsensusCallerSession struct {
+	Contract *HashConsensusCaller // Generic contract caller binding to set the session for
+	CallOpts bind.CallOpts        // Call options to use throughout this session
 }
 
-// OracleTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
+// HashConsensusTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
 // with pre-set transact options.
-type OracleTransactorSession struct {
-	Contract     *OracleTransactor // Generic contract transactor binding to set the session for
-	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
+type HashConsensusTransactorSession struct {
+	Contract     *HashConsensusTransactor // Generic contract transactor binding to set the session for
+	TransactOpts bind.TransactOpts        // Transaction auth options to use throughout this session
 }
 
-// OracleRaw is an auto generated low-level Go binding around an Ethereum contract.
-type OracleRaw struct {
-	Contract *Oracle // Generic contract binding to access the raw methods on
+// HashConsensusRaw is an auto generated low-level Go binding around an Ethereum contract.
+type HashConsensusRaw struct {
+	Contract *HashConsensus // Generic contract binding to access the raw methods on
 }
 
-// OracleCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
-type OracleCallerRaw struct {
-	Contract *OracleCaller // Generic read-only contract binding to access the raw methods on
+// HashConsensusCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
+type HashConsensusCallerRaw struct {
+	Contract *HashConsensusCaller // Generic read-only contract binding to access the raw methods on
 }
 
-// OracleTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
-type OracleTransactorRaw struct {
-	Contract *OracleTransactor // Generic write-only contract binding to access the raw methods on
+// HashConsensusTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
+type HashConsensusTransactorRaw struct {
+	Contract *HashConsensusTransactor // Generic write-only contract binding to access the raw methods on
 }
 
-// NewOracle creates a new instance of Oracle, bound to a specific deployed contract.
-func NewOracle(address common.Address, backend bind.ContractBackend) (*Oracle, error) {
-	contract, err := bindOracle(address, backend, backend, backend)
+// NewHashConsensus creates a new instance of HashConsensus, bound to a specific deployed contract.
+func NewHashConsensus(address common.Address, backend bind.ContractBackend) (*HashConsensus, error) {
+	contract, err := bindHashConsensus(address, backend, backend, backend)
 	if err != nil {
 		return nil, err
 	}
-	return &Oracle{OracleCaller: OracleCaller{contract: contract}, OracleTransactor: OracleTransactor{contract: contract}, OracleFilterer: OracleFilterer{contract: contract}}, nil
+	return &HashConsensus{HashConsensusCaller: HashConsensusCaller{contract: contract}, HashConsensusTransactor: HashConsensusTransactor{contract: contract}, HashConsensusFilterer: HashConsensusFilterer{contract: contract}}, nil
 }
 
-// NewOracleCaller creates a new read-only instance of Oracle, bound to a specific deployed contract.
-func NewOracleCaller(address common.Address, caller bind.ContractCaller) (*OracleCaller, error) {
-	contract, err := bindOracle(address, caller, nil, nil)
+// NewHashConsensusCaller creates a new read-only instance of HashConsensus, bound to a specific deployed contract.
+func NewHashConsensusCaller(address common.Address, caller bind.ContractCaller) (*HashConsensusCaller, error) {
+	contract, err := bindHashConsensus(address, caller, nil, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &OracleCaller{contract: contract}, nil
+	return &HashConsensusCaller{contract: contract}, nil
 }
 
-// NewOracleTransactor creates a new write-only instance of Oracle, bound to a specific deployed contract.
-func NewOracleTransactor(address common.Address, transactor bind.ContractTransactor) (*OracleTransactor, error) {
-	contract, err := bindOracle(address, nil, transactor, nil)
+// NewHashConsensusTransactor creates a new write-only instance of HashConsensus, bound to a specific deployed contract.
+func NewHashConsensusTransactor(address common.Address, transactor bind.ContractTransactor) (*HashConsensusTransactor, error) {
+	contract, err := bindHashConsensus(address, nil, transactor, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &OracleTransactor{contract: contract}, nil
+	return &HashConsensusTransactor{contract: contract}, nil
 }
 
-// NewOracleFilterer creates a new log filterer instance of Oracle, bound to a specific deployed contract.
-func NewOracleFilterer(address common.Address, filterer bind.ContractFilterer) (*OracleFilterer, error) {
-	contract, err := bindOracle(address, nil, nil, filterer)
+// NewHashConsensusFilterer creates a new log filterer instance of HashConsensus, bound to a specific deployed contract.
+func NewHashConsensusFilterer(address common.Address, filterer bind.ContractFilterer) (*HashConsensusFilterer, error) {
+	contract, err := bindHashConsensus(address, nil, nil, filterer)
 	if err != nil {
 		return nil, err
 	}
-	return &OracleFilterer{contract: contract}, nil
+	return &HashConsensusFilterer{contract: contract}, nil
 }
 
-// bindOracle binds a generic wrapper to an already deployed contract.
-func bindOracle(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
-	parsed, err := OracleMetaData.GetAbi()
+// bindHashConsensus binds a generic wrapper to an already deployed contract.
+func bindHashConsensus(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
+	parsed, err := HashConsensusMetaData.GetAbi()
 	if err != nil {
 		return nil, err
 	}
@@ -157,46 +157,46 @@ func bindOracle(address common.Address, caller bind.ContractCaller, transactor b
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Oracle *OracleRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
-	return _Oracle.Contract.OracleCaller.contract.Call(opts, result, method, params...)
+func (_HashConsensus *HashConsensusRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+	return _HashConsensus.Contract.HashConsensusCaller.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Oracle *OracleRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Oracle.Contract.OracleTransactor.contract.Transfer(opts)
+func (_HashConsensus *HashConsensusRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _HashConsensus.Contract.HashConsensusTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Oracle *OracleRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _Oracle.Contract.OracleTransactor.contract.Transact(opts, method, params...)
+func (_HashConsensus *HashConsensusRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _HashConsensus.Contract.HashConsensusTransactor.contract.Transact(opts, method, params...)
 }
 
 // Call invokes the (constant) contract method with params as input values and
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Oracle *OracleCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
-	return _Oracle.Contract.contract.Call(opts, result, method, params...)
+func (_HashConsensus *HashConsensusCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+	return _HashConsensus.Contract.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Oracle *OracleTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Oracle.Contract.contract.Transfer(opts)
+func (_HashConsensus *HashConsensusTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _HashConsensus.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Oracle *OracleTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _Oracle.Contract.contract.Transact(opts, method, params...)
+func (_HashConsensus *HashConsensusTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _HashConsensus.Contract.contract.Transact(opts, method, params...)
 }
 
 // Dao is a free data retrieval call binding the contract method 0x4162169f.
 //
 // Solidity: function dao() view returns(address)
-func (_Oracle *OracleCaller) Dao(opts *bind.CallOpts) (common.Address, error) {
+func (_HashConsensus *HashConsensusCaller) Dao(opts *bind.CallOpts) (common.Address, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "dao")
+	err := _HashConsensus.contract.Call(opts, &out, "dao")
 
 	if err != nil {
 		return *new(common.Address), err
@@ -211,27 +211,27 @@ func (_Oracle *OracleCaller) Dao(opts *bind.CallOpts) (common.Address, error) {
 // Dao is a free data retrieval call binding the contract method 0x4162169f.
 //
 // Solidity: function dao() view returns(address)
-func (_Oracle *OracleSession) Dao() (common.Address, error) {
-	return _Oracle.Contract.Dao(&_Oracle.CallOpts)
+func (_HashConsensus *HashConsensusSession) Dao() (common.Address, error) {
+	return _HashConsensus.Contract.Dao(&_HashConsensus.CallOpts)
 }
 
 // Dao is a free data retrieval call binding the contract method 0x4162169f.
 //
 // Solidity: function dao() view returns(address)
-func (_Oracle *OracleCallerSession) Dao() (common.Address, error) {
-	return _Oracle.Contract.Dao(&_Oracle.CallOpts)
+func (_HashConsensus *HashConsensusCallerSession) Dao() (common.Address, error) {
+	return _HashConsensus.Contract.Dao(&_HashConsensus.CallOpts)
 }
 
 // GetChainConfig is a free data retrieval call binding the contract method 0x606c0c94.
 //
 // Solidity: function getChainConfig() view returns(uint256 slotsPerEpoch, uint256 secondsPerSlot, uint256 genesisTime)
-func (_Oracle *OracleCaller) GetChainConfig(opts *bind.CallOpts) (struct {
+func (_HashConsensus *HashConsensusCaller) GetChainConfig(opts *bind.CallOpts) (struct {
 	SlotsPerEpoch  *big.Int
 	SecondsPerSlot *big.Int
 	GenesisTime    *big.Int
 }, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "getChainConfig")
+	err := _HashConsensus.contract.Call(opts, &out, "getChainConfig")
 
 	outstruct := new(struct {
 		SlotsPerEpoch  *big.Int
@@ -253,35 +253,35 @@ func (_Oracle *OracleCaller) GetChainConfig(opts *bind.CallOpts) (struct {
 // GetChainConfig is a free data retrieval call binding the contract method 0x606c0c94.
 //
 // Solidity: function getChainConfig() view returns(uint256 slotsPerEpoch, uint256 secondsPerSlot, uint256 genesisTime)
-func (_Oracle *OracleSession) GetChainConfig() (struct {
+func (_HashConsensus *HashConsensusSession) GetChainConfig() (struct {
 	SlotsPerEpoch  *big.Int
 	SecondsPerSlot *big.Int
 	GenesisTime    *big.Int
 }, error) {
-	return _Oracle.Contract.GetChainConfig(&_Oracle.CallOpts)
+	return _HashConsensus.Contract.GetChainConfig(&_HashConsensus.CallOpts)
 }
 
 // GetChainConfig is a free data retrieval call binding the contract method 0x606c0c94.
 //
 // Solidity: function getChainConfig() view returns(uint256 slotsPerEpoch, uint256 secondsPerSlot, uint256 genesisTime)
-func (_Oracle *OracleCallerSession) GetChainConfig() (struct {
+func (_HashConsensus *HashConsensusCallerSession) GetChainConfig() (struct {
 	SlotsPerEpoch  *big.Int
 	SecondsPerSlot *big.Int
 	GenesisTime    *big.Int
 }, error) {
-	return _Oracle.Contract.GetChainConfig(&_Oracle.CallOpts)
+	return _HashConsensus.Contract.GetChainConfig(&_HashConsensus.CallOpts)
 }
 
 // GetConsensusState is a free data retrieval call binding the contract method 0xea87627d.
 //
 // Solidity: function getConsensusState() view returns(uint256 refSlot, bytes32 consensusReport, bool isReportProcessing)
-func (_Oracle *OracleCaller) GetConsensusState(opts *bind.CallOpts) (struct {
+func (_HashConsensus *HashConsensusCaller) GetConsensusState(opts *bind.CallOpts) (struct {
 	RefSlot            *big.Int
 	ConsensusReport    [32]byte
 	IsReportProcessing bool
 }, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "getConsensusState")
+	err := _HashConsensus.contract.Call(opts, &out, "getConsensusState")
 
 	outstruct := new(struct {
 		RefSlot            *big.Int
@@ -303,31 +303,31 @@ func (_Oracle *OracleCaller) GetConsensusState(opts *bind.CallOpts) (struct {
 // GetConsensusState is a free data retrieval call binding the contract method 0xea87627d.
 //
 // Solidity: function getConsensusState() view returns(uint256 refSlot, bytes32 consensusReport, bool isReportProcessing)
-func (_Oracle *OracleSession) GetConsensusState() (struct {
+func (_HashConsensus *HashConsensusSession) GetConsensusState() (struct {
 	RefSlot            *big.Int
 	ConsensusReport    [32]byte
 	IsReportProcessing bool
 }, error) {
-	return _Oracle.Contract.GetConsensusState(&_Oracle.CallOpts)
+	return _HashConsensus.Contract.GetConsensusState(&_HashConsensus.CallOpts)
 }
 
 // GetConsensusState is a free data retrieval call binding the contract method 0xea87627d.
 //
 // Solidity: function getConsensusState() view returns(uint256 refSlot, bytes32 consensusReport, bool isReportProcessing)
-func (_Oracle *OracleCallerSession) GetConsensusState() (struct {
+func (_HashConsensus *HashConsensusCallerSession) GetConsensusState() (struct {
 	RefSlot            *big.Int
 	ConsensusReport    [32]byte
 	IsReportProcessing bool
 }, error) {
-	return _Oracle.Contract.GetConsensusState(&_Oracle.CallOpts)
+	return _HashConsensus.Contract.GetConsensusState(&_HashConsensus.CallOpts)
 }
 
 // GetConsensusStateForMember is a free data retrieval call binding the contract method 0x60e61801.
 //
 // Solidity: function getConsensusStateForMember(address addr) view returns((uint256,bytes32,bool,bool,bool,uint256,bytes32) result)
-func (_Oracle *OracleCaller) GetConsensusStateForMember(opts *bind.CallOpts, addr common.Address) (HashConsensusMemberConsensusState, error) {
+func (_HashConsensus *HashConsensusCaller) GetConsensusStateForMember(opts *bind.CallOpts, addr common.Address) (HashConsensusMemberConsensusState, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "getConsensusStateForMember", addr)
+	err := _HashConsensus.contract.Call(opts, &out, "getConsensusStateForMember", addr)
 
 	if err != nil {
 		return *new(HashConsensusMemberConsensusState), err
@@ -342,26 +342,26 @@ func (_Oracle *OracleCaller) GetConsensusStateForMember(opts *bind.CallOpts, add
 // GetConsensusStateForMember is a free data retrieval call binding the contract method 0x60e61801.
 //
 // Solidity: function getConsensusStateForMember(address addr) view returns((uint256,bytes32,bool,bool,bool,uint256,bytes32) result)
-func (_Oracle *OracleSession) GetConsensusStateForMember(addr common.Address) (HashConsensusMemberConsensusState, error) {
-	return _Oracle.Contract.GetConsensusStateForMember(&_Oracle.CallOpts, addr)
+func (_HashConsensus *HashConsensusSession) GetConsensusStateForMember(addr common.Address) (HashConsensusMemberConsensusState, error) {
+	return _HashConsensus.Contract.GetConsensusStateForMember(&_HashConsensus.CallOpts, addr)
 }
 
 // GetConsensusStateForMember is a free data retrieval call binding the contract method 0x60e61801.
 //
 // Solidity: function getConsensusStateForMember(address addr) view returns((uint256,bytes32,bool,bool,bool,uint256,bytes32) result)
-func (_Oracle *OracleCallerSession) GetConsensusStateForMember(addr common.Address) (HashConsensusMemberConsensusState, error) {
-	return _Oracle.Contract.GetConsensusStateForMember(&_Oracle.CallOpts, addr)
+func (_HashConsensus *HashConsensusCallerSession) GetConsensusStateForMember(addr common.Address) (HashConsensusMemberConsensusState, error) {
+	return _HashConsensus.Contract.GetConsensusStateForMember(&_HashConsensus.CallOpts, addr)
 }
 
 // GetCurrentFrame is a free data retrieval call binding the contract method 0x72f79b13.
 //
 // Solidity: function getCurrentFrame() view returns(uint256 refSlot, uint256 reportProcessingDeadlineSlot)
-func (_Oracle *OracleCaller) GetCurrentFrame(opts *bind.CallOpts) (struct {
+func (_HashConsensus *HashConsensusCaller) GetCurrentFrame(opts *bind.CallOpts) (struct {
 	RefSlot                      *big.Int
 	ReportProcessingDeadlineSlot *big.Int
 }, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "getCurrentFrame")
+	err := _HashConsensus.contract.Call(opts, &out, "getCurrentFrame")
 
 	outstruct := new(struct {
 		RefSlot                      *big.Int
@@ -381,32 +381,32 @@ func (_Oracle *OracleCaller) GetCurrentFrame(opts *bind.CallOpts) (struct {
 // GetCurrentFrame is a free data retrieval call binding the contract method 0x72f79b13.
 //
 // Solidity: function getCurrentFrame() view returns(uint256 refSlot, uint256 reportProcessingDeadlineSlot)
-func (_Oracle *OracleSession) GetCurrentFrame() (struct {
+func (_HashConsensus *HashConsensusSession) GetCurrentFrame() (struct {
 	RefSlot                      *big.Int
 	ReportProcessingDeadlineSlot *big.Int
 }, error) {
-	return _Oracle.Contract.GetCurrentFrame(&_Oracle.CallOpts)
+	return _HashConsensus.Contract.GetCurrentFrame(&_HashConsensus.CallOpts)
 }
 
 // GetCurrentFrame is a free data retrieval call binding the contract method 0x72f79b13.
 //
 // Solidity: function getCurrentFrame() view returns(uint256 refSlot, uint256 reportProcessingDeadlineSlot)
-func (_Oracle *OracleCallerSession) GetCurrentFrame() (struct {
+func (_HashConsensus *HashConsensusCallerSession) GetCurrentFrame() (struct {
 	RefSlot                      *big.Int
 	ReportProcessingDeadlineSlot *big.Int
 }, error) {
-	return _Oracle.Contract.GetCurrentFrame(&_Oracle.CallOpts)
+	return _HashConsensus.Contract.GetCurrentFrame(&_HashConsensus.CallOpts)
 }
 
 // GetFastLaneMembers is a free data retrieval call binding the contract method 0x433ab1f3.
 //
 // Solidity: function getFastLaneMembers() view returns(address[] addresses, uint256[] lastReportedRefSlots)
-func (_Oracle *OracleCaller) GetFastLaneMembers(opts *bind.CallOpts) (struct {
+func (_HashConsensus *HashConsensusCaller) GetFastLaneMembers(opts *bind.CallOpts) (struct {
 	Addresses            []common.Address
 	LastReportedRefSlots []*big.Int
 }, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "getFastLaneMembers")
+	err := _HashConsensus.contract.Call(opts, &out, "getFastLaneMembers")
 
 	outstruct := new(struct {
 		Addresses            []common.Address
@@ -426,33 +426,33 @@ func (_Oracle *OracleCaller) GetFastLaneMembers(opts *bind.CallOpts) (struct {
 // GetFastLaneMembers is a free data retrieval call binding the contract method 0x433ab1f3.
 //
 // Solidity: function getFastLaneMembers() view returns(address[] addresses, uint256[] lastReportedRefSlots)
-func (_Oracle *OracleSession) GetFastLaneMembers() (struct {
+func (_HashConsensus *HashConsensusSession) GetFastLaneMembers() (struct {
 	Addresses            []common.Address
 	LastReportedRefSlots []*big.Int
 }, error) {
-	return _Oracle.Contract.GetFastLaneMembers(&_Oracle.CallOpts)
+	return _HashConsensus.Contract.GetFastLaneMembers(&_HashConsensus.CallOpts)
 }
 
 // GetFastLaneMembers is a free data retrieval call binding the contract method 0x433ab1f3.
 //
 // Solidity: function getFastLaneMembers() view returns(address[] addresses, uint256[] lastReportedRefSlots)
-func (_Oracle *OracleCallerSession) GetFastLaneMembers() (struct {
+func (_HashConsensus *HashConsensusCallerSession) GetFastLaneMembers() (struct {
 	Addresses            []common.Address
 	LastReportedRefSlots []*big.Int
 }, error) {
-	return _Oracle.Contract.GetFastLaneMembers(&_Oracle.CallOpts)
+	return _HashConsensus.Contract.GetFastLaneMembers(&_HashConsensus.CallOpts)
 }
 
 // GetFrameConfig is a free data retrieval call binding the contract method 0x6fb1bf66.
 //
 // Solidity: function getFrameConfig() view returns(uint256 initialEpoch, uint256 epochsPerFrame, uint256 fastLaneLengthSlots)
-func (_Oracle *OracleCaller) GetFrameConfig(opts *bind.CallOpts) (struct {
+func (_HashConsensus *HashConsensusCaller) GetFrameConfig(opts *bind.CallOpts) (struct {
 	InitialEpoch        *big.Int
 	EpochsPerFrame      *big.Int
 	FastLaneLengthSlots *big.Int
 }, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "getFrameConfig")
+	err := _HashConsensus.contract.Call(opts, &out, "getFrameConfig")
 
 	outstruct := new(struct {
 		InitialEpoch        *big.Int
@@ -474,31 +474,31 @@ func (_Oracle *OracleCaller) GetFrameConfig(opts *bind.CallOpts) (struct {
 // GetFrameConfig is a free data retrieval call binding the contract method 0x6fb1bf66.
 //
 // Solidity: function getFrameConfig() view returns(uint256 initialEpoch, uint256 epochsPerFrame, uint256 fastLaneLengthSlots)
-func (_Oracle *OracleSession) GetFrameConfig() (struct {
+func (_HashConsensus *HashConsensusSession) GetFrameConfig() (struct {
 	InitialEpoch        *big.Int
 	EpochsPerFrame      *big.Int
 	FastLaneLengthSlots *big.Int
 }, error) {
-	return _Oracle.Contract.GetFrameConfig(&_Oracle.CallOpts)
+	return _HashConsensus.Contract.GetFrameConfig(&_HashConsensus.CallOpts)
 }
 
 // GetFrameConfig is a free data retrieval call binding the contract method 0x6fb1bf66.
 //
 // Solidity: function getFrameConfig() view returns(uint256 initialEpoch, uint256 epochsPerFrame, uint256 fastLaneLengthSlots)
-func (_Oracle *OracleCallerSession) GetFrameConfig() (struct {
+func (_HashConsensus *HashConsensusCallerSession) GetFrameConfig() (struct {
 	InitialEpoch        *big.Int
 	EpochsPerFrame      *big.Int
 	FastLaneLengthSlots *big.Int
 }, error) {
-	return _Oracle.Contract.GetFrameConfig(&_Oracle.CallOpts)
+	return _HashConsensus.Contract.GetFrameConfig(&_HashConsensus.CallOpts)
 }
 
 // GetInitialRefSlot is a free data retrieval call binding the contract method 0x6095012f.
 //
 // Solidity: function getInitialRefSlot() view returns(uint256)
-func (_Oracle *OracleCaller) GetInitialRefSlot(opts *bind.CallOpts) (*big.Int, error) {
+func (_HashConsensus *HashConsensusCaller) GetInitialRefSlot(opts *bind.CallOpts) (*big.Int, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "getInitialRefSlot")
+	err := _HashConsensus.contract.Call(opts, &out, "getInitialRefSlot")
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -513,23 +513,23 @@ func (_Oracle *OracleCaller) GetInitialRefSlot(opts *bind.CallOpts) (*big.Int, e
 // GetInitialRefSlot is a free data retrieval call binding the contract method 0x6095012f.
 //
 // Solidity: function getInitialRefSlot() view returns(uint256)
-func (_Oracle *OracleSession) GetInitialRefSlot() (*big.Int, error) {
-	return _Oracle.Contract.GetInitialRefSlot(&_Oracle.CallOpts)
+func (_HashConsensus *HashConsensusSession) GetInitialRefSlot() (*big.Int, error) {
+	return _HashConsensus.Contract.GetInitialRefSlot(&_HashConsensus.CallOpts)
 }
 
 // GetInitialRefSlot is a free data retrieval call binding the contract method 0x6095012f.
 //
 // Solidity: function getInitialRefSlot() view returns(uint256)
-func (_Oracle *OracleCallerSession) GetInitialRefSlot() (*big.Int, error) {
-	return _Oracle.Contract.GetInitialRefSlot(&_Oracle.CallOpts)
+func (_HashConsensus *HashConsensusCallerSession) GetInitialRefSlot() (*big.Int, error) {
+	return _HashConsensus.Contract.GetInitialRefSlot(&_HashConsensus.CallOpts)
 }
 
 // GetIsFastLaneMember is a free data retrieval call binding the contract method 0x20b4d751.
 //
 // Solidity: function getIsFastLaneMember(address addr) view returns(bool)
-func (_Oracle *OracleCaller) GetIsFastLaneMember(opts *bind.CallOpts, addr common.Address) (bool, error) {
+func (_HashConsensus *HashConsensusCaller) GetIsFastLaneMember(opts *bind.CallOpts, addr common.Address) (bool, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "getIsFastLaneMember", addr)
+	err := _HashConsensus.contract.Call(opts, &out, "getIsFastLaneMember", addr)
 
 	if err != nil {
 		return *new(bool), err
@@ -544,23 +544,23 @@ func (_Oracle *OracleCaller) GetIsFastLaneMember(opts *bind.CallOpts, addr commo
 // GetIsFastLaneMember is a free data retrieval call binding the contract method 0x20b4d751.
 //
 // Solidity: function getIsFastLaneMember(address addr) view returns(bool)
-func (_Oracle *OracleSession) GetIsFastLaneMember(addr common.Address) (bool, error) {
-	return _Oracle.Contract.GetIsFastLaneMember(&_Oracle.CallOpts, addr)
+func (_HashConsensus *HashConsensusSession) GetIsFastLaneMember(addr common.Address) (bool, error) {
+	return _HashConsensus.Contract.GetIsFastLaneMember(&_HashConsensus.CallOpts, addr)
 }
 
 // GetIsFastLaneMember is a free data retrieval call binding the contract method 0x20b4d751.
 //
 // Solidity: function getIsFastLaneMember(address addr) view returns(bool)
-func (_Oracle *OracleCallerSession) GetIsFastLaneMember(addr common.Address) (bool, error) {
-	return _Oracle.Contract.GetIsFastLaneMember(&_Oracle.CallOpts, addr)
+func (_HashConsensus *HashConsensusCallerSession) GetIsFastLaneMember(addr common.Address) (bool, error) {
+	return _HashConsensus.Contract.GetIsFastLaneMember(&_HashConsensus.CallOpts, addr)
 }
 
 // GetIsMember is a free data retrieval call binding the contract method 0x1951c037.
 //
 // Solidity: function getIsMember(address addr) view returns(bool)
-func (_Oracle *OracleCaller) GetIsMember(opts *bind.CallOpts, addr common.Address) (bool, error) {
+func (_HashConsensus *HashConsensusCaller) GetIsMember(opts *bind.CallOpts, addr common.Address) (bool, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "getIsMember", addr)
+	err := _HashConsensus.contract.Call(opts, &out, "getIsMember", addr)
 
 	if err != nil {
 		return *new(bool), err
@@ -575,26 +575,26 @@ func (_Oracle *OracleCaller) GetIsMember(opts *bind.CallOpts, addr common.Addres
 // GetIsMember is a free data retrieval call binding the contract method 0x1951c037.
 //
 // Solidity: function getIsMember(address addr) view returns(bool)
-func (_Oracle *OracleSession) GetIsMember(addr common.Address) (bool, error) {
-	return _Oracle.Contract.GetIsMember(&_Oracle.CallOpts, addr)
+func (_HashConsensus *HashConsensusSession) GetIsMember(addr common.Address) (bool, error) {
+	return _HashConsensus.Contract.GetIsMember(&_HashConsensus.CallOpts, addr)
 }
 
 // GetIsMember is a free data retrieval call binding the contract method 0x1951c037.
 //
 // Solidity: function getIsMember(address addr) view returns(bool)
-func (_Oracle *OracleCallerSession) GetIsMember(addr common.Address) (bool, error) {
-	return _Oracle.Contract.GetIsMember(&_Oracle.CallOpts, addr)
+func (_HashConsensus *HashConsensusCallerSession) GetIsMember(addr common.Address) (bool, error) {
+	return _HashConsensus.Contract.GetIsMember(&_HashConsensus.CallOpts, addr)
 }
 
 // GetMembers is a free data retrieval call binding the contract method 0x9eab5253.
 //
 // Solidity: function getMembers() view returns(address[] addresses, uint256[] lastReportedRefSlots)
-func (_Oracle *OracleCaller) GetMembers(opts *bind.CallOpts) (struct {
+func (_HashConsensus *HashConsensusCaller) GetMembers(opts *bind.CallOpts) (struct {
 	Addresses            []common.Address
 	LastReportedRefSlots []*big.Int
 }, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "getMembers")
+	err := _HashConsensus.contract.Call(opts, &out, "getMembers")
 
 	outstruct := new(struct {
 		Addresses            []common.Address
@@ -614,29 +614,29 @@ func (_Oracle *OracleCaller) GetMembers(opts *bind.CallOpts) (struct {
 // GetMembers is a free data retrieval call binding the contract method 0x9eab5253.
 //
 // Solidity: function getMembers() view returns(address[] addresses, uint256[] lastReportedRefSlots)
-func (_Oracle *OracleSession) GetMembers() (struct {
+func (_HashConsensus *HashConsensusSession) GetMembers() (struct {
 	Addresses            []common.Address
 	LastReportedRefSlots []*big.Int
 }, error) {
-	return _Oracle.Contract.GetMembers(&_Oracle.CallOpts)
+	return _HashConsensus.Contract.GetMembers(&_HashConsensus.CallOpts)
 }
 
 // GetMembers is a free data retrieval call binding the contract method 0x9eab5253.
 //
 // Solidity: function getMembers() view returns(address[] addresses, uint256[] lastReportedRefSlots)
-func (_Oracle *OracleCallerSession) GetMembers() (struct {
+func (_HashConsensus *HashConsensusCallerSession) GetMembers() (struct {
 	Addresses            []common.Address
 	LastReportedRefSlots []*big.Int
 }, error) {
-	return _Oracle.Contract.GetMembers(&_Oracle.CallOpts)
+	return _HashConsensus.Contract.GetMembers(&_HashConsensus.CallOpts)
 }
 
 // GetQuorum is a free data retrieval call binding the contract method 0xc26c12eb.
 //
 // Solidity: function getQuorum() view returns(uint256)
-func (_Oracle *OracleCaller) GetQuorum(opts *bind.CallOpts) (*big.Int, error) {
+func (_HashConsensus *HashConsensusCaller) GetQuorum(opts *bind.CallOpts) (*big.Int, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "getQuorum")
+	err := _HashConsensus.contract.Call(opts, &out, "getQuorum")
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -651,23 +651,23 @@ func (_Oracle *OracleCaller) GetQuorum(opts *bind.CallOpts) (*big.Int, error) {
 // GetQuorum is a free data retrieval call binding the contract method 0xc26c12eb.
 //
 // Solidity: function getQuorum() view returns(uint256)
-func (_Oracle *OracleSession) GetQuorum() (*big.Int, error) {
-	return _Oracle.Contract.GetQuorum(&_Oracle.CallOpts)
+func (_HashConsensus *HashConsensusSession) GetQuorum() (*big.Int, error) {
+	return _HashConsensus.Contract.GetQuorum(&_HashConsensus.CallOpts)
 }
 
 // GetQuorum is a free data retrieval call binding the contract method 0xc26c12eb.
 //
 // Solidity: function getQuorum() view returns(uint256)
-func (_Oracle *OracleCallerSession) GetQuorum() (*big.Int, error) {
-	return _Oracle.Contract.GetQuorum(&_Oracle.CallOpts)
+func (_HashConsensus *HashConsensusCallerSession) GetQuorum() (*big.Int, error) {
+	return _HashConsensus.Contract.GetQuorum(&_HashConsensus.CallOpts)
 }
 
 // GetReportProcessor is a free data retrieval call binding the contract method 0x6d058268.
 //
 // Solidity: function getReportProcessor() view returns(address)
-func (_Oracle *OracleCaller) GetReportProcessor(opts *bind.CallOpts) (common.Address, error) {
+func (_HashConsensus *HashConsensusCaller) GetReportProcessor(opts *bind.CallOpts) (common.Address, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "getReportProcessor")
+	err := _HashConsensus.contract.Call(opts, &out, "getReportProcessor")
 
 	if err != nil {
 		return *new(common.Address), err
@@ -682,26 +682,26 @@ func (_Oracle *OracleCaller) GetReportProcessor(opts *bind.CallOpts) (common.Add
 // GetReportProcessor is a free data retrieval call binding the contract method 0x6d058268.
 //
 // Solidity: function getReportProcessor() view returns(address)
-func (_Oracle *OracleSession) GetReportProcessor() (common.Address, error) {
-	return _Oracle.Contract.GetReportProcessor(&_Oracle.CallOpts)
+func (_HashConsensus *HashConsensusSession) GetReportProcessor() (common.Address, error) {
+	return _HashConsensus.Contract.GetReportProcessor(&_HashConsensus.CallOpts)
 }
 
 // GetReportProcessor is a free data retrieval call binding the contract method 0x6d058268.
 //
 // Solidity: function getReportProcessor() view returns(address)
-func (_Oracle *OracleCallerSession) GetReportProcessor() (common.Address, error) {
-	return _Oracle.Contract.GetReportProcessor(&_Oracle.CallOpts)
+func (_HashConsensus *HashConsensusCallerSession) GetReportProcessor() (common.Address, error) {
+	return _HashConsensus.Contract.GetReportProcessor(&_HashConsensus.CallOpts)
 }
 
 // GetReportVariants is a free data retrieval call binding the contract method 0x2fd2d750.
 //
 // Solidity: function getReportVariants() view returns(bytes32[] variants, uint256[] support)
-func (_Oracle *OracleCaller) GetReportVariants(opts *bind.CallOpts) (struct {
+func (_HashConsensus *HashConsensusCaller) GetReportVariants(opts *bind.CallOpts) (struct {
 	Variants [][32]byte
 	Support  []*big.Int
 }, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "getReportVariants")
+	err := _HashConsensus.contract.Call(opts, &out, "getReportVariants")
 
 	outstruct := new(struct {
 		Variants [][32]byte
@@ -721,29 +721,29 @@ func (_Oracle *OracleCaller) GetReportVariants(opts *bind.CallOpts) (struct {
 // GetReportVariants is a free data retrieval call binding the contract method 0x2fd2d750.
 //
 // Solidity: function getReportVariants() view returns(bytes32[] variants, uint256[] support)
-func (_Oracle *OracleSession) GetReportVariants() (struct {
+func (_HashConsensus *HashConsensusSession) GetReportVariants() (struct {
 	Variants [][32]byte
 	Support  []*big.Int
 }, error) {
-	return _Oracle.Contract.GetReportVariants(&_Oracle.CallOpts)
+	return _HashConsensus.Contract.GetReportVariants(&_HashConsensus.CallOpts)
 }
 
 // GetReportVariants is a free data retrieval call binding the contract method 0x2fd2d750.
 //
 // Solidity: function getReportVariants() view returns(bytes32[] variants, uint256[] support)
-func (_Oracle *OracleCallerSession) GetReportVariants() (struct {
+func (_HashConsensus *HashConsensusCallerSession) GetReportVariants() (struct {
 	Variants [][32]byte
 	Support  []*big.Int
 }, error) {
-	return _Oracle.Contract.GetReportVariants(&_Oracle.CallOpts)
+	return _HashConsensus.Contract.GetReportVariants(&_HashConsensus.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
 // Solidity: function owner() view returns(address)
-func (_Oracle *OracleCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
+func (_HashConsensus *HashConsensusCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "owner")
+	err := _HashConsensus.contract.Call(opts, &out, "owner")
 
 	if err != nil {
 		return *new(common.Address), err
@@ -758,23 +758,23 @@ func (_Oracle *OracleCaller) Owner(opts *bind.CallOpts) (common.Address, error) 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
 // Solidity: function owner() view returns(address)
-func (_Oracle *OracleSession) Owner() (common.Address, error) {
-	return _Oracle.Contract.Owner(&_Oracle.CallOpts)
+func (_HashConsensus *HashConsensusSession) Owner() (common.Address, error) {
+	return _HashConsensus.Contract.Owner(&_HashConsensus.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
 // Solidity: function owner() view returns(address)
-func (_Oracle *OracleCallerSession) Owner() (common.Address, error) {
-	return _Oracle.Contract.Owner(&_Oracle.CallOpts)
+func (_HashConsensus *HashConsensusCallerSession) Owner() (common.Address, error) {
+	return _HashConsensus.Contract.Owner(&_HashConsensus.CallOpts)
 }
 
 // ProxiableUUID is a free data retrieval call binding the contract method 0x52d1902d.
 //
 // Solidity: function proxiableUUID() view returns(bytes32)
-func (_Oracle *OracleCaller) ProxiableUUID(opts *bind.CallOpts) ([32]byte, error) {
+func (_HashConsensus *HashConsensusCaller) ProxiableUUID(opts *bind.CallOpts) ([32]byte, error) {
 	var out []interface{}
-	err := _Oracle.contract.Call(opts, &out, "proxiableUUID")
+	err := _HashConsensus.contract.Call(opts, &out, "proxiableUUID")
 
 	if err != nil {
 		return *new([32]byte), err
@@ -789,335 +789,335 @@ func (_Oracle *OracleCaller) ProxiableUUID(opts *bind.CallOpts) ([32]byte, error
 // ProxiableUUID is a free data retrieval call binding the contract method 0x52d1902d.
 //
 // Solidity: function proxiableUUID() view returns(bytes32)
-func (_Oracle *OracleSession) ProxiableUUID() ([32]byte, error) {
-	return _Oracle.Contract.ProxiableUUID(&_Oracle.CallOpts)
+func (_HashConsensus *HashConsensusSession) ProxiableUUID() ([32]byte, error) {
+	return _HashConsensus.Contract.ProxiableUUID(&_HashConsensus.CallOpts)
 }
 
 // ProxiableUUID is a free data retrieval call binding the contract method 0x52d1902d.
 //
 // Solidity: function proxiableUUID() view returns(bytes32)
-func (_Oracle *OracleCallerSession) ProxiableUUID() ([32]byte, error) {
-	return _Oracle.Contract.ProxiableUUID(&_Oracle.CallOpts)
+func (_HashConsensus *HashConsensusCallerSession) ProxiableUUID() ([32]byte, error) {
+	return _HashConsensus.Contract.ProxiableUUID(&_HashConsensus.CallOpts)
 }
 
 // AddMember is a paid mutator transaction binding the contract method 0x98041ea3.
 //
 // Solidity: function addMember(address addr, uint256 quorum) returns()
-func (_Oracle *OracleTransactor) AddMember(opts *bind.TransactOpts, addr common.Address, quorum *big.Int) (*types.Transaction, error) {
-	return _Oracle.contract.Transact(opts, "addMember", addr, quorum)
+func (_HashConsensus *HashConsensusTransactor) AddMember(opts *bind.TransactOpts, addr common.Address, quorum *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "addMember", addr, quorum)
 }
 
 // AddMember is a paid mutator transaction binding the contract method 0x98041ea3.
 //
 // Solidity: function addMember(address addr, uint256 quorum) returns()
-func (_Oracle *OracleSession) AddMember(addr common.Address, quorum *big.Int) (*types.Transaction, error) {
-	return _Oracle.Contract.AddMember(&_Oracle.TransactOpts, addr, quorum)
+func (_HashConsensus *HashConsensusSession) AddMember(addr common.Address, quorum *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.Contract.AddMember(&_HashConsensus.TransactOpts, addr, quorum)
 }
 
 // AddMember is a paid mutator transaction binding the contract method 0x98041ea3.
 //
 // Solidity: function addMember(address addr, uint256 quorum) returns()
-func (_Oracle *OracleTransactorSession) AddMember(addr common.Address, quorum *big.Int) (*types.Transaction, error) {
-	return _Oracle.Contract.AddMember(&_Oracle.TransactOpts, addr, quorum)
+func (_HashConsensus *HashConsensusTransactorSession) AddMember(addr common.Address, quorum *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.Contract.AddMember(&_HashConsensus.TransactOpts, addr, quorum)
 }
 
 // DisableConsensus is a paid mutator transaction binding the contract method 0xad231cb2.
 //
 // Solidity: function disableConsensus() returns()
-func (_Oracle *OracleTransactor) DisableConsensus(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Oracle.contract.Transact(opts, "disableConsensus")
+func (_HashConsensus *HashConsensusTransactor) DisableConsensus(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "disableConsensus")
 }
 
 // DisableConsensus is a paid mutator transaction binding the contract method 0xad231cb2.
 //
 // Solidity: function disableConsensus() returns()
-func (_Oracle *OracleSession) DisableConsensus() (*types.Transaction, error) {
-	return _Oracle.Contract.DisableConsensus(&_Oracle.TransactOpts)
+func (_HashConsensus *HashConsensusSession) DisableConsensus() (*types.Transaction, error) {
+	return _HashConsensus.Contract.DisableConsensus(&_HashConsensus.TransactOpts)
 }
 
 // DisableConsensus is a paid mutator transaction binding the contract method 0xad231cb2.
 //
 // Solidity: function disableConsensus() returns()
-func (_Oracle *OracleTransactorSession) DisableConsensus() (*types.Transaction, error) {
-	return _Oracle.Contract.DisableConsensus(&_Oracle.TransactOpts)
+func (_HashConsensus *HashConsensusTransactorSession) DisableConsensus() (*types.Transaction, error) {
+	return _HashConsensus.Contract.DisableConsensus(&_HashConsensus.TransactOpts)
 }
 
 // Initialize is a paid mutator transaction binding the contract method 0x1f85d8bc.
 //
 // Solidity: function initialize(uint256 slotsPerEpoch, uint256 secondsPerSlot, uint256 genesisTime, uint256 epochsPerFrame, uint256 fastLaneLengthSlots, address _dao, address reportProcessor) returns()
-func (_Oracle *OracleTransactor) Initialize(opts *bind.TransactOpts, slotsPerEpoch *big.Int, secondsPerSlot *big.Int, genesisTime *big.Int, epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int, _dao common.Address, reportProcessor common.Address) (*types.Transaction, error) {
-	return _Oracle.contract.Transact(opts, "initialize", slotsPerEpoch, secondsPerSlot, genesisTime, epochsPerFrame, fastLaneLengthSlots, _dao, reportProcessor)
+func (_HashConsensus *HashConsensusTransactor) Initialize(opts *bind.TransactOpts, slotsPerEpoch *big.Int, secondsPerSlot *big.Int, genesisTime *big.Int, epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int, _dao common.Address, reportProcessor common.Address) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "initialize", slotsPerEpoch, secondsPerSlot, genesisTime, epochsPerFrame, fastLaneLengthSlots, _dao, reportProcessor)
 }
 
 // Initialize is a paid mutator transaction binding the contract method 0x1f85d8bc.
 //
 // Solidity: function initialize(uint256 slotsPerEpoch, uint256 secondsPerSlot, uint256 genesisTime, uint256 epochsPerFrame, uint256 fastLaneLengthSlots, address _dao, address reportProcessor) returns()
-func (_Oracle *OracleSession) Initialize(slotsPerEpoch *big.Int, secondsPerSlot *big.Int, genesisTime *big.Int, epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int, _dao common.Address, reportProcessor common.Address) (*types.Transaction, error) {
-	return _Oracle.Contract.Initialize(&_Oracle.TransactOpts, slotsPerEpoch, secondsPerSlot, genesisTime, epochsPerFrame, fastLaneLengthSlots, _dao, reportProcessor)
+func (_HashConsensus *HashConsensusSession) Initialize(slotsPerEpoch *big.Int, secondsPerSlot *big.Int, genesisTime *big.Int, epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int, _dao common.Address, reportProcessor common.Address) (*types.Transaction, error) {
+	return _HashConsensus.Contract.Initialize(&_HashConsensus.TransactOpts, slotsPerEpoch, secondsPerSlot, genesisTime, epochsPerFrame, fastLaneLengthSlots, _dao, reportProcessor)
 }
 
 // Initialize is a paid mutator transaction binding the contract method 0x1f85d8bc.
 //
 // Solidity: function initialize(uint256 slotsPerEpoch, uint256 secondsPerSlot, uint256 genesisTime, uint256 epochsPerFrame, uint256 fastLaneLengthSlots, address _dao, address reportProcessor) returns()
-func (_Oracle *OracleTransactorSession) Initialize(slotsPerEpoch *big.Int, secondsPerSlot *big.Int, genesisTime *big.Int, epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int, _dao common.Address, reportProcessor common.Address) (*types.Transaction, error) {
-	return _Oracle.Contract.Initialize(&_Oracle.TransactOpts, slotsPerEpoch, secondsPerSlot, genesisTime, epochsPerFrame, fastLaneLengthSlots, _dao, reportProcessor)
+func (_HashConsensus *HashConsensusTransactorSession) Initialize(slotsPerEpoch *big.Int, secondsPerSlot *big.Int, genesisTime *big.Int, epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int, _dao common.Address, reportProcessor common.Address) (*types.Transaction, error) {
+	return _HashConsensus.Contract.Initialize(&_HashConsensus.TransactOpts, slotsPerEpoch, secondsPerSlot, genesisTime, epochsPerFrame, fastLaneLengthSlots, _dao, reportProcessor)
 }
 
 // RemoveMember is a paid mutator transaction binding the contract method 0x16f6f03e.
 //
 // Solidity: function removeMember(address addr, uint256 quorum) returns()
-func (_Oracle *OracleTransactor) RemoveMember(opts *bind.TransactOpts, addr common.Address, quorum *big.Int) (*types.Transaction, error) {
-	return _Oracle.contract.Transact(opts, "removeMember", addr, quorum)
+func (_HashConsensus *HashConsensusTransactor) RemoveMember(opts *bind.TransactOpts, addr common.Address, quorum *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "removeMember", addr, quorum)
 }
 
 // RemoveMember is a paid mutator transaction binding the contract method 0x16f6f03e.
 //
 // Solidity: function removeMember(address addr, uint256 quorum) returns()
-func (_Oracle *OracleSession) RemoveMember(addr common.Address, quorum *big.Int) (*types.Transaction, error) {
-	return _Oracle.Contract.RemoveMember(&_Oracle.TransactOpts, addr, quorum)
+func (_HashConsensus *HashConsensusSession) RemoveMember(addr common.Address, quorum *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.Contract.RemoveMember(&_HashConsensus.TransactOpts, addr, quorum)
 }
 
 // RemoveMember is a paid mutator transaction binding the contract method 0x16f6f03e.
 //
 // Solidity: function removeMember(address addr, uint256 quorum) returns()
-func (_Oracle *OracleTransactorSession) RemoveMember(addr common.Address, quorum *big.Int) (*types.Transaction, error) {
-	return _Oracle.Contract.RemoveMember(&_Oracle.TransactOpts, addr, quorum)
+func (_HashConsensus *HashConsensusTransactorSession) RemoveMember(addr common.Address, quorum *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.Contract.RemoveMember(&_HashConsensus.TransactOpts, addr, quorum)
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
 //
 // Solidity: function renounceOwnership() returns()
-func (_Oracle *OracleTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Oracle.contract.Transact(opts, "renounceOwnership")
+func (_HashConsensus *HashConsensusTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "renounceOwnership")
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
 //
 // Solidity: function renounceOwnership() returns()
-func (_Oracle *OracleSession) RenounceOwnership() (*types.Transaction, error) {
-	return _Oracle.Contract.RenounceOwnership(&_Oracle.TransactOpts)
+func (_HashConsensus *HashConsensusSession) RenounceOwnership() (*types.Transaction, error) {
+	return _HashConsensus.Contract.RenounceOwnership(&_HashConsensus.TransactOpts)
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
 //
 // Solidity: function renounceOwnership() returns()
-func (_Oracle *OracleTransactorSession) RenounceOwnership() (*types.Transaction, error) {
-	return _Oracle.Contract.RenounceOwnership(&_Oracle.TransactOpts)
+func (_HashConsensus *HashConsensusTransactorSession) RenounceOwnership() (*types.Transaction, error) {
+	return _HashConsensus.Contract.RenounceOwnership(&_HashConsensus.TransactOpts)
 }
 
 // SetDaoAddress is a paid mutator transaction binding the contract method 0x9a3cac6a.
 //
 // Solidity: function setDaoAddress(address _dao) returns()
-func (_Oracle *OracleTransactor) SetDaoAddress(opts *bind.TransactOpts, _dao common.Address) (*types.Transaction, error) {
-	return _Oracle.contract.Transact(opts, "setDaoAddress", _dao)
+func (_HashConsensus *HashConsensusTransactor) SetDaoAddress(opts *bind.TransactOpts, _dao common.Address) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "setDaoAddress", _dao)
 }
 
 // SetDaoAddress is a paid mutator transaction binding the contract method 0x9a3cac6a.
 //
 // Solidity: function setDaoAddress(address _dao) returns()
-func (_Oracle *OracleSession) SetDaoAddress(_dao common.Address) (*types.Transaction, error) {
-	return _Oracle.Contract.SetDaoAddress(&_Oracle.TransactOpts, _dao)
+func (_HashConsensus *HashConsensusSession) SetDaoAddress(_dao common.Address) (*types.Transaction, error) {
+	return _HashConsensus.Contract.SetDaoAddress(&_HashConsensus.TransactOpts, _dao)
 }
 
 // SetDaoAddress is a paid mutator transaction binding the contract method 0x9a3cac6a.
 //
 // Solidity: function setDaoAddress(address _dao) returns()
-func (_Oracle *OracleTransactorSession) SetDaoAddress(_dao common.Address) (*types.Transaction, error) {
-	return _Oracle.Contract.SetDaoAddress(&_Oracle.TransactOpts, _dao)
+func (_HashConsensus *HashConsensusTransactorSession) SetDaoAddress(_dao common.Address) (*types.Transaction, error) {
+	return _HashConsensus.Contract.SetDaoAddress(&_HashConsensus.TransactOpts, _dao)
 }
 
 // SetFastLaneLengthSlots is a paid mutator transaction binding the contract method 0x99229f58.
 //
 // Solidity: function setFastLaneLengthSlots(uint256 fastLaneLengthSlots) returns()
-func (_Oracle *OracleTransactor) SetFastLaneLengthSlots(opts *bind.TransactOpts, fastLaneLengthSlots *big.Int) (*types.Transaction, error) {
-	return _Oracle.contract.Transact(opts, "setFastLaneLengthSlots", fastLaneLengthSlots)
+func (_HashConsensus *HashConsensusTransactor) SetFastLaneLengthSlots(opts *bind.TransactOpts, fastLaneLengthSlots *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "setFastLaneLengthSlots", fastLaneLengthSlots)
 }
 
 // SetFastLaneLengthSlots is a paid mutator transaction binding the contract method 0x99229f58.
 //
 // Solidity: function setFastLaneLengthSlots(uint256 fastLaneLengthSlots) returns()
-func (_Oracle *OracleSession) SetFastLaneLengthSlots(fastLaneLengthSlots *big.Int) (*types.Transaction, error) {
-	return _Oracle.Contract.SetFastLaneLengthSlots(&_Oracle.TransactOpts, fastLaneLengthSlots)
+func (_HashConsensus *HashConsensusSession) SetFastLaneLengthSlots(fastLaneLengthSlots *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.Contract.SetFastLaneLengthSlots(&_HashConsensus.TransactOpts, fastLaneLengthSlots)
 }
 
 // SetFastLaneLengthSlots is a paid mutator transaction binding the contract method 0x99229f58.
 //
 // Solidity: function setFastLaneLengthSlots(uint256 fastLaneLengthSlots) returns()
-func (_Oracle *OracleTransactorSession) SetFastLaneLengthSlots(fastLaneLengthSlots *big.Int) (*types.Transaction, error) {
-	return _Oracle.Contract.SetFastLaneLengthSlots(&_Oracle.TransactOpts, fastLaneLengthSlots)
+func (_HashConsensus *HashConsensusTransactorSession) SetFastLaneLengthSlots(fastLaneLengthSlots *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.Contract.SetFastLaneLengthSlots(&_HashConsensus.TransactOpts, fastLaneLengthSlots)
 }
 
 // SetFrameConfig is a paid mutator transaction binding the contract method 0x34aa6753.
 //
 // Solidity: function setFrameConfig(uint256 epochsPerFrame, uint256 fastLaneLengthSlots) returns()
-func (_Oracle *OracleTransactor) SetFrameConfig(opts *bind.TransactOpts, epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int) (*types.Transaction, error) {
-	return _Oracle.contract.Transact(opts, "setFrameConfig", epochsPerFrame, fastLaneLengthSlots)
+func (_HashConsensus *HashConsensusTransactor) SetFrameConfig(opts *bind.TransactOpts, epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "setFrameConfig", epochsPerFrame, fastLaneLengthSlots)
 }
 
 // SetFrameConfig is a paid mutator transaction binding the contract method 0x34aa6753.
 //
 // Solidity: function setFrameConfig(uint256 epochsPerFrame, uint256 fastLaneLengthSlots) returns()
-func (_Oracle *OracleSession) SetFrameConfig(epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int) (*types.Transaction, error) {
-	return _Oracle.Contract.SetFrameConfig(&_Oracle.TransactOpts, epochsPerFrame, fastLaneLengthSlots)
+func (_HashConsensus *HashConsensusSession) SetFrameConfig(epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.Contract.SetFrameConfig(&_HashConsensus.TransactOpts, epochsPerFrame, fastLaneLengthSlots)
 }
 
 // SetFrameConfig is a paid mutator transaction binding the contract method 0x34aa6753.
 //
 // Solidity: function setFrameConfig(uint256 epochsPerFrame, uint256 fastLaneLengthSlots) returns()
-func (_Oracle *OracleTransactorSession) SetFrameConfig(epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int) (*types.Transaction, error) {
-	return _Oracle.Contract.SetFrameConfig(&_Oracle.TransactOpts, epochsPerFrame, fastLaneLengthSlots)
+func (_HashConsensus *HashConsensusTransactorSession) SetFrameConfig(epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.Contract.SetFrameConfig(&_HashConsensus.TransactOpts, epochsPerFrame, fastLaneLengthSlots)
 }
 
 // SetQuorum is a paid mutator transaction binding the contract method 0xc1ba4e59.
 //
 // Solidity: function setQuorum(uint256 quorum) returns()
-func (_Oracle *OracleTransactor) SetQuorum(opts *bind.TransactOpts, quorum *big.Int) (*types.Transaction, error) {
-	return _Oracle.contract.Transact(opts, "setQuorum", quorum)
+func (_HashConsensus *HashConsensusTransactor) SetQuorum(opts *bind.TransactOpts, quorum *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "setQuorum", quorum)
 }
 
 // SetQuorum is a paid mutator transaction binding the contract method 0xc1ba4e59.
 //
 // Solidity: function setQuorum(uint256 quorum) returns()
-func (_Oracle *OracleSession) SetQuorum(quorum *big.Int) (*types.Transaction, error) {
-	return _Oracle.Contract.SetQuorum(&_Oracle.TransactOpts, quorum)
+func (_HashConsensus *HashConsensusSession) SetQuorum(quorum *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.Contract.SetQuorum(&_HashConsensus.TransactOpts, quorum)
 }
 
 // SetQuorum is a paid mutator transaction binding the contract method 0xc1ba4e59.
 //
 // Solidity: function setQuorum(uint256 quorum) returns()
-func (_Oracle *OracleTransactorSession) SetQuorum(quorum *big.Int) (*types.Transaction, error) {
-	return _Oracle.Contract.SetQuorum(&_Oracle.TransactOpts, quorum)
+func (_HashConsensus *HashConsensusTransactorSession) SetQuorum(quorum *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.Contract.SetQuorum(&_HashConsensus.TransactOpts, quorum)
 }
 
 // SetReportProcessor is a paid mutator transaction binding the contract method 0xe76cd4e0.
 //
 // Solidity: function setReportProcessor(address newProcessor) returns()
-func (_Oracle *OracleTransactor) SetReportProcessor(opts *bind.TransactOpts, newProcessor common.Address) (*types.Transaction, error) {
-	return _Oracle.contract.Transact(opts, "setReportProcessor", newProcessor)
+func (_HashConsensus *HashConsensusTransactor) SetReportProcessor(opts *bind.TransactOpts, newProcessor common.Address) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "setReportProcessor", newProcessor)
 }
 
 // SetReportProcessor is a paid mutator transaction binding the contract method 0xe76cd4e0.
 //
 // Solidity: function setReportProcessor(address newProcessor) returns()
-func (_Oracle *OracleSession) SetReportProcessor(newProcessor common.Address) (*types.Transaction, error) {
-	return _Oracle.Contract.SetReportProcessor(&_Oracle.TransactOpts, newProcessor)
+func (_HashConsensus *HashConsensusSession) SetReportProcessor(newProcessor common.Address) (*types.Transaction, error) {
+	return _HashConsensus.Contract.SetReportProcessor(&_HashConsensus.TransactOpts, newProcessor)
 }
 
 // SetReportProcessor is a paid mutator transaction binding the contract method 0xe76cd4e0.
 //
 // Solidity: function setReportProcessor(address newProcessor) returns()
-func (_Oracle *OracleTransactorSession) SetReportProcessor(newProcessor common.Address) (*types.Transaction, error) {
-	return _Oracle.Contract.SetReportProcessor(&_Oracle.TransactOpts, newProcessor)
+func (_HashConsensus *HashConsensusTransactorSession) SetReportProcessor(newProcessor common.Address) (*types.Transaction, error) {
+	return _HashConsensus.Contract.SetReportProcessor(&_HashConsensus.TransactOpts, newProcessor)
 }
 
 // SubmitReport is a paid mutator transaction binding the contract method 0xe33a8d39.
 //
 // Solidity: function submitReport(uint256 slot, bytes32 report, uint256 consensusVersion) returns()
-func (_Oracle *OracleTransactor) SubmitReport(opts *bind.TransactOpts, slot *big.Int, report [32]byte, consensusVersion *big.Int) (*types.Transaction, error) {
-	return _Oracle.contract.Transact(opts, "submitReport", slot, report, consensusVersion)
+func (_HashConsensus *HashConsensusTransactor) SubmitReport(opts *bind.TransactOpts, slot *big.Int, report [32]byte, consensusVersion *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "submitReport", slot, report, consensusVersion)
 }
 
 // SubmitReport is a paid mutator transaction binding the contract method 0xe33a8d39.
 //
 // Solidity: function submitReport(uint256 slot, bytes32 report, uint256 consensusVersion) returns()
-func (_Oracle *OracleSession) SubmitReport(slot *big.Int, report [32]byte, consensusVersion *big.Int) (*types.Transaction, error) {
-	return _Oracle.Contract.SubmitReport(&_Oracle.TransactOpts, slot, report, consensusVersion)
+func (_HashConsensus *HashConsensusSession) SubmitReport(slot *big.Int, report [32]byte, consensusVersion *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.Contract.SubmitReport(&_HashConsensus.TransactOpts, slot, report, consensusVersion)
 }
 
 // SubmitReport is a paid mutator transaction binding the contract method 0xe33a8d39.
 //
 // Solidity: function submitReport(uint256 slot, bytes32 report, uint256 consensusVersion) returns()
-func (_Oracle *OracleTransactorSession) SubmitReport(slot *big.Int, report [32]byte, consensusVersion *big.Int) (*types.Transaction, error) {
-	return _Oracle.Contract.SubmitReport(&_Oracle.TransactOpts, slot, report, consensusVersion)
+func (_HashConsensus *HashConsensusTransactorSession) SubmitReport(slot *big.Int, report [32]byte, consensusVersion *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.Contract.SubmitReport(&_HashConsensus.TransactOpts, slot, report, consensusVersion)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
 //
 // Solidity: function transferOwnership(address newOwner) returns()
-func (_Oracle *OracleTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
-	return _Oracle.contract.Transact(opts, "transferOwnership", newOwner)
+func (_HashConsensus *HashConsensusTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "transferOwnership", newOwner)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
 //
 // Solidity: function transferOwnership(address newOwner) returns()
-func (_Oracle *OracleSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
-	return _Oracle.Contract.TransferOwnership(&_Oracle.TransactOpts, newOwner)
+func (_HashConsensus *HashConsensusSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+	return _HashConsensus.Contract.TransferOwnership(&_HashConsensus.TransactOpts, newOwner)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
 //
 // Solidity: function transferOwnership(address newOwner) returns()
-func (_Oracle *OracleTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
-	return _Oracle.Contract.TransferOwnership(&_Oracle.TransactOpts, newOwner)
+func (_HashConsensus *HashConsensusTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+	return _HashConsensus.Contract.TransferOwnership(&_HashConsensus.TransactOpts, newOwner)
 }
 
 // UpdateInitialEpoch is a paid mutator transaction binding the contract method 0x323a41f6.
 //
 // Solidity: function updateInitialEpoch(uint256 initialEpoch) returns()
-func (_Oracle *OracleTransactor) UpdateInitialEpoch(opts *bind.TransactOpts, initialEpoch *big.Int) (*types.Transaction, error) {
-	return _Oracle.contract.Transact(opts, "updateInitialEpoch", initialEpoch)
+func (_HashConsensus *HashConsensusTransactor) UpdateInitialEpoch(opts *bind.TransactOpts, initialEpoch *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "updateInitialEpoch", initialEpoch)
 }
 
 // UpdateInitialEpoch is a paid mutator transaction binding the contract method 0x323a41f6.
 //
 // Solidity: function updateInitialEpoch(uint256 initialEpoch) returns()
-func (_Oracle *OracleSession) UpdateInitialEpoch(initialEpoch *big.Int) (*types.Transaction, error) {
-	return _Oracle.Contract.UpdateInitialEpoch(&_Oracle.TransactOpts, initialEpoch)
+func (_HashConsensus *HashConsensusSession) UpdateInitialEpoch(initialEpoch *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.Contract.UpdateInitialEpoch(&_HashConsensus.TransactOpts, initialEpoch)
 }
 
 // UpdateInitialEpoch is a paid mutator transaction binding the contract method 0x323a41f6.
 //
 // Solidity: function updateInitialEpoch(uint256 initialEpoch) returns()
-func (_Oracle *OracleTransactorSession) UpdateInitialEpoch(initialEpoch *big.Int) (*types.Transaction, error) {
-	return _Oracle.Contract.UpdateInitialEpoch(&_Oracle.TransactOpts, initialEpoch)
+func (_HashConsensus *HashConsensusTransactorSession) UpdateInitialEpoch(initialEpoch *big.Int) (*types.Transaction, error) {
+	return _HashConsensus.Contract.UpdateInitialEpoch(&_HashConsensus.TransactOpts, initialEpoch)
 }
 
 // UpgradeTo is a paid mutator transaction binding the contract method 0x3659cfe6.
 //
 // Solidity: function upgradeTo(address newImplementation) returns()
-func (_Oracle *OracleTransactor) UpgradeTo(opts *bind.TransactOpts, newImplementation common.Address) (*types.Transaction, error) {
-	return _Oracle.contract.Transact(opts, "upgradeTo", newImplementation)
+func (_HashConsensus *HashConsensusTransactor) UpgradeTo(opts *bind.TransactOpts, newImplementation common.Address) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "upgradeTo", newImplementation)
 }
 
 // UpgradeTo is a paid mutator transaction binding the contract method 0x3659cfe6.
 //
 // Solidity: function upgradeTo(address newImplementation) returns()
-func (_Oracle *OracleSession) UpgradeTo(newImplementation common.Address) (*types.Transaction, error) {
-	return _Oracle.Contract.UpgradeTo(&_Oracle.TransactOpts, newImplementation)
+func (_HashConsensus *HashConsensusSession) UpgradeTo(newImplementation common.Address) (*types.Transaction, error) {
+	return _HashConsensus.Contract.UpgradeTo(&_HashConsensus.TransactOpts, newImplementation)
 }
 
 // UpgradeTo is a paid mutator transaction binding the contract method 0x3659cfe6.
 //
 // Solidity: function upgradeTo(address newImplementation) returns()
-func (_Oracle *OracleTransactorSession) UpgradeTo(newImplementation common.Address) (*types.Transaction, error) {
-	return _Oracle.Contract.UpgradeTo(&_Oracle.TransactOpts, newImplementation)
+func (_HashConsensus *HashConsensusTransactorSession) UpgradeTo(newImplementation common.Address) (*types.Transaction, error) {
+	return _HashConsensus.Contract.UpgradeTo(&_HashConsensus.TransactOpts, newImplementation)
 }
 
 // UpgradeToAndCall is a paid mutator transaction binding the contract method 0x4f1ef286.
 //
 // Solidity: function upgradeToAndCall(address newImplementation, bytes data) payable returns()
-func (_Oracle *OracleTransactor) UpgradeToAndCall(opts *bind.TransactOpts, newImplementation common.Address, data []byte) (*types.Transaction, error) {
-	return _Oracle.contract.Transact(opts, "upgradeToAndCall", newImplementation, data)
+func (_HashConsensus *HashConsensusTransactor) UpgradeToAndCall(opts *bind.TransactOpts, newImplementation common.Address, data []byte) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "upgradeToAndCall", newImplementation, data)
 }
 
 // UpgradeToAndCall is a paid mutator transaction binding the contract method 0x4f1ef286.
 //
 // Solidity: function upgradeToAndCall(address newImplementation, bytes data) payable returns()
-func (_Oracle *OracleSession) UpgradeToAndCall(newImplementation common.Address, data []byte) (*types.Transaction, error) {
-	return _Oracle.Contract.UpgradeToAndCall(&_Oracle.TransactOpts, newImplementation, data)
+func (_HashConsensus *HashConsensusSession) UpgradeToAndCall(newImplementation common.Address, data []byte) (*types.Transaction, error) {
+	return _HashConsensus.Contract.UpgradeToAndCall(&_HashConsensus.TransactOpts, newImplementation, data)
 }
 
 // UpgradeToAndCall is a paid mutator transaction binding the contract method 0x4f1ef286.
 //
 // Solidity: function upgradeToAndCall(address newImplementation, bytes data) payable returns()
-func (_Oracle *OracleTransactorSession) UpgradeToAndCall(newImplementation common.Address, data []byte) (*types.Transaction, error) {
-	return _Oracle.Contract.UpgradeToAndCall(&_Oracle.TransactOpts, newImplementation, data)
+func (_HashConsensus *HashConsensusTransactorSession) UpgradeToAndCall(newImplementation common.Address, data []byte) (*types.Transaction, error) {
+	return _HashConsensus.Contract.UpgradeToAndCall(&_HashConsensus.TransactOpts, newImplementation, data)
 }
 
-// OracleAdminChangedIterator is returned from FilterAdminChanged and is used to iterate over the raw logs and unpacked data for AdminChanged events raised by the Oracle contract.
-type OracleAdminChangedIterator struct {
-	Event *OracleAdminChanged // Event containing the contract specifics and raw log
+// HashConsensusAdminChangedIterator is returned from FilterAdminChanged and is used to iterate over the raw logs and unpacked data for AdminChanged events raised by the HashConsensus contract.
+type HashConsensusAdminChangedIterator struct {
+	Event *HashConsensusAdminChanged // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1131,7 +1131,7 @@ type OracleAdminChangedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *OracleAdminChangedIterator) Next() bool {
+func (it *HashConsensusAdminChangedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1140,7 +1140,7 @@ func (it *OracleAdminChangedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(OracleAdminChanged)
+			it.Event = new(HashConsensusAdminChanged)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1155,7 +1155,7 @@ func (it *OracleAdminChangedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(OracleAdminChanged)
+		it.Event = new(HashConsensusAdminChanged)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1171,19 +1171,19 @@ func (it *OracleAdminChangedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *OracleAdminChangedIterator) Error() error {
+func (it *HashConsensusAdminChangedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *OracleAdminChangedIterator) Close() error {
+func (it *HashConsensusAdminChangedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// OracleAdminChanged represents a AdminChanged event raised by the Oracle contract.
-type OracleAdminChanged struct {
+// HashConsensusAdminChanged represents a AdminChanged event raised by the HashConsensus contract.
+type HashConsensusAdminChanged struct {
 	PreviousAdmin common.Address
 	NewAdmin      common.Address
 	Raw           types.Log // Blockchain specific contextual infos
@@ -1192,21 +1192,21 @@ type OracleAdminChanged struct {
 // FilterAdminChanged is a free log retrieval operation binding the contract event 0x7e644d79422f17c01e4894b5f4f588d331ebfa28653d42ae832dc59e38c9798f.
 //
 // Solidity: event AdminChanged(address previousAdmin, address newAdmin)
-func (_Oracle *OracleFilterer) FilterAdminChanged(opts *bind.FilterOpts) (*OracleAdminChangedIterator, error) {
+func (_HashConsensus *HashConsensusFilterer) FilterAdminChanged(opts *bind.FilterOpts) (*HashConsensusAdminChangedIterator, error) {
 
-	logs, sub, err := _Oracle.contract.FilterLogs(opts, "AdminChanged")
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "AdminChanged")
 	if err != nil {
 		return nil, err
 	}
-	return &OracleAdminChangedIterator{contract: _Oracle.contract, event: "AdminChanged", logs: logs, sub: sub}, nil
+	return &HashConsensusAdminChangedIterator{contract: _HashConsensus.contract, event: "AdminChanged", logs: logs, sub: sub}, nil
 }
 
 // WatchAdminChanged is a free log subscription operation binding the contract event 0x7e644d79422f17c01e4894b5f4f588d331ebfa28653d42ae832dc59e38c9798f.
 //
 // Solidity: event AdminChanged(address previousAdmin, address newAdmin)
-func (_Oracle *OracleFilterer) WatchAdminChanged(opts *bind.WatchOpts, sink chan<- *OracleAdminChanged) (event.Subscription, error) {
+func (_HashConsensus *HashConsensusFilterer) WatchAdminChanged(opts *bind.WatchOpts, sink chan<- *HashConsensusAdminChanged) (event.Subscription, error) {
 
-	logs, sub, err := _Oracle.contract.WatchLogs(opts, "AdminChanged")
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "AdminChanged")
 	if err != nil {
 		return nil, err
 	}
@@ -1216,8 +1216,8 @@ func (_Oracle *OracleFilterer) WatchAdminChanged(opts *bind.WatchOpts, sink chan
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(OracleAdminChanged)
-				if err := _Oracle.contract.UnpackLog(event, "AdminChanged", log); err != nil {
+				event := new(HashConsensusAdminChanged)
+				if err := _HashConsensus.contract.UnpackLog(event, "AdminChanged", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1241,18 +1241,18 @@ func (_Oracle *OracleFilterer) WatchAdminChanged(opts *bind.WatchOpts, sink chan
 // ParseAdminChanged is a log parse operation binding the contract event 0x7e644d79422f17c01e4894b5f4f588d331ebfa28653d42ae832dc59e38c9798f.
 //
 // Solidity: event AdminChanged(address previousAdmin, address newAdmin)
-func (_Oracle *OracleFilterer) ParseAdminChanged(log types.Log) (*OracleAdminChanged, error) {
-	event := new(OracleAdminChanged)
-	if err := _Oracle.contract.UnpackLog(event, "AdminChanged", log); err != nil {
+func (_HashConsensus *HashConsensusFilterer) ParseAdminChanged(log types.Log) (*HashConsensusAdminChanged, error) {
+	event := new(HashConsensusAdminChanged)
+	if err := _HashConsensus.contract.UnpackLog(event, "AdminChanged", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// OracleBeaconUpgradedIterator is returned from FilterBeaconUpgraded and is used to iterate over the raw logs and unpacked data for BeaconUpgraded events raised by the Oracle contract.
-type OracleBeaconUpgradedIterator struct {
-	Event *OracleBeaconUpgraded // Event containing the contract specifics and raw log
+// HashConsensusBeaconUpgradedIterator is returned from FilterBeaconUpgraded and is used to iterate over the raw logs and unpacked data for BeaconUpgraded events raised by the HashConsensus contract.
+type HashConsensusBeaconUpgradedIterator struct {
+	Event *HashConsensusBeaconUpgraded // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1266,7 +1266,7 @@ type OracleBeaconUpgradedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *OracleBeaconUpgradedIterator) Next() bool {
+func (it *HashConsensusBeaconUpgradedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1275,7 +1275,7 @@ func (it *OracleBeaconUpgradedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(OracleBeaconUpgraded)
+			it.Event = new(HashConsensusBeaconUpgraded)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1290,7 +1290,7 @@ func (it *OracleBeaconUpgradedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(OracleBeaconUpgraded)
+		it.Event = new(HashConsensusBeaconUpgraded)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1306,19 +1306,19 @@ func (it *OracleBeaconUpgradedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *OracleBeaconUpgradedIterator) Error() error {
+func (it *HashConsensusBeaconUpgradedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *OracleBeaconUpgradedIterator) Close() error {
+func (it *HashConsensusBeaconUpgradedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// OracleBeaconUpgraded represents a BeaconUpgraded event raised by the Oracle contract.
-type OracleBeaconUpgraded struct {
+// HashConsensusBeaconUpgraded represents a BeaconUpgraded event raised by the HashConsensus contract.
+type HashConsensusBeaconUpgraded struct {
 	Beacon common.Address
 	Raw    types.Log // Blockchain specific contextual infos
 }
@@ -1326,31 +1326,31 @@ type OracleBeaconUpgraded struct {
 // FilterBeaconUpgraded is a free log retrieval operation binding the contract event 0x1cf3b03a6cf19fa2baba4df148e9dcabedea7f8a5c07840e207e5c089be95d3e.
 //
 // Solidity: event BeaconUpgraded(address indexed beacon)
-func (_Oracle *OracleFilterer) FilterBeaconUpgraded(opts *bind.FilterOpts, beacon []common.Address) (*OracleBeaconUpgradedIterator, error) {
+func (_HashConsensus *HashConsensusFilterer) FilterBeaconUpgraded(opts *bind.FilterOpts, beacon []common.Address) (*HashConsensusBeaconUpgradedIterator, error) {
 
 	var beaconRule []interface{}
 	for _, beaconItem := range beacon {
 		beaconRule = append(beaconRule, beaconItem)
 	}
 
-	logs, sub, err := _Oracle.contract.FilterLogs(opts, "BeaconUpgraded", beaconRule)
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "BeaconUpgraded", beaconRule)
 	if err != nil {
 		return nil, err
 	}
-	return &OracleBeaconUpgradedIterator{contract: _Oracle.contract, event: "BeaconUpgraded", logs: logs, sub: sub}, nil
+	return &HashConsensusBeaconUpgradedIterator{contract: _HashConsensus.contract, event: "BeaconUpgraded", logs: logs, sub: sub}, nil
 }
 
 // WatchBeaconUpgraded is a free log subscription operation binding the contract event 0x1cf3b03a6cf19fa2baba4df148e9dcabedea7f8a5c07840e207e5c089be95d3e.
 //
 // Solidity: event BeaconUpgraded(address indexed beacon)
-func (_Oracle *OracleFilterer) WatchBeaconUpgraded(opts *bind.WatchOpts, sink chan<- *OracleBeaconUpgraded, beacon []common.Address) (event.Subscription, error) {
+func (_HashConsensus *HashConsensusFilterer) WatchBeaconUpgraded(opts *bind.WatchOpts, sink chan<- *HashConsensusBeaconUpgraded, beacon []common.Address) (event.Subscription, error) {
 
 	var beaconRule []interface{}
 	for _, beaconItem := range beacon {
 		beaconRule = append(beaconRule, beaconItem)
 	}
 
-	logs, sub, err := _Oracle.contract.WatchLogs(opts, "BeaconUpgraded", beaconRule)
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "BeaconUpgraded", beaconRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1360,8 +1360,8 @@ func (_Oracle *OracleFilterer) WatchBeaconUpgraded(opts *bind.WatchOpts, sink ch
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(OracleBeaconUpgraded)
-				if err := _Oracle.contract.UnpackLog(event, "BeaconUpgraded", log); err != nil {
+				event := new(HashConsensusBeaconUpgraded)
+				if err := _HashConsensus.contract.UnpackLog(event, "BeaconUpgraded", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1385,18 +1385,18 @@ func (_Oracle *OracleFilterer) WatchBeaconUpgraded(opts *bind.WatchOpts, sink ch
 // ParseBeaconUpgraded is a log parse operation binding the contract event 0x1cf3b03a6cf19fa2baba4df148e9dcabedea7f8a5c07840e207e5c089be95d3e.
 //
 // Solidity: event BeaconUpgraded(address indexed beacon)
-func (_Oracle *OracleFilterer) ParseBeaconUpgraded(log types.Log) (*OracleBeaconUpgraded, error) {
-	event := new(OracleBeaconUpgraded)
-	if err := _Oracle.contract.UnpackLog(event, "BeaconUpgraded", log); err != nil {
+func (_HashConsensus *HashConsensusFilterer) ParseBeaconUpgraded(log types.Log) (*HashConsensusBeaconUpgraded, error) {
+	event := new(HashConsensusBeaconUpgraded)
+	if err := _HashConsensus.contract.UnpackLog(event, "BeaconUpgraded", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// OracleConsensusReachedIterator is returned from FilterConsensusReached and is used to iterate over the raw logs and unpacked data for ConsensusReached events raised by the Oracle contract.
-type OracleConsensusReachedIterator struct {
-	Event *OracleConsensusReached // Event containing the contract specifics and raw log
+// HashConsensusConsensusReachedIterator is returned from FilterConsensusReached and is used to iterate over the raw logs and unpacked data for ConsensusReached events raised by the HashConsensus contract.
+type HashConsensusConsensusReachedIterator struct {
+	Event *HashConsensusConsensusReached // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1410,7 +1410,7 @@ type OracleConsensusReachedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *OracleConsensusReachedIterator) Next() bool {
+func (it *HashConsensusConsensusReachedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1419,7 +1419,7 @@ func (it *OracleConsensusReachedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(OracleConsensusReached)
+			it.Event = new(HashConsensusConsensusReached)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1434,7 +1434,7 @@ func (it *OracleConsensusReachedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(OracleConsensusReached)
+		it.Event = new(HashConsensusConsensusReached)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1450,19 +1450,19 @@ func (it *OracleConsensusReachedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *OracleConsensusReachedIterator) Error() error {
+func (it *HashConsensusConsensusReachedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *OracleConsensusReachedIterator) Close() error {
+func (it *HashConsensusConsensusReachedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// OracleConsensusReached represents a ConsensusReached event raised by the Oracle contract.
-type OracleConsensusReached struct {
+// HashConsensusConsensusReached represents a ConsensusReached event raised by the HashConsensus contract.
+type HashConsensusConsensusReached struct {
 	RefSlot *big.Int
 	Report  [32]byte
 	Support *big.Int
@@ -1472,31 +1472,31 @@ type OracleConsensusReached struct {
 // FilterConsensusReached is a free log retrieval operation binding the contract event 0x2b6bc782c916fa763822f1e50c6db0f95dade36d6541a8a4cbe070735b8b226d.
 //
 // Solidity: event ConsensusReached(uint256 indexed refSlot, bytes32 report, uint256 support)
-func (_Oracle *OracleFilterer) FilterConsensusReached(opts *bind.FilterOpts, refSlot []*big.Int) (*OracleConsensusReachedIterator, error) {
+func (_HashConsensus *HashConsensusFilterer) FilterConsensusReached(opts *bind.FilterOpts, refSlot []*big.Int) (*HashConsensusConsensusReachedIterator, error) {
 
 	var refSlotRule []interface{}
 	for _, refSlotItem := range refSlot {
 		refSlotRule = append(refSlotRule, refSlotItem)
 	}
 
-	logs, sub, err := _Oracle.contract.FilterLogs(opts, "ConsensusReached", refSlotRule)
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "ConsensusReached", refSlotRule)
 	if err != nil {
 		return nil, err
 	}
-	return &OracleConsensusReachedIterator{contract: _Oracle.contract, event: "ConsensusReached", logs: logs, sub: sub}, nil
+	return &HashConsensusConsensusReachedIterator{contract: _HashConsensus.contract, event: "ConsensusReached", logs: logs, sub: sub}, nil
 }
 
 // WatchConsensusReached is a free log subscription operation binding the contract event 0x2b6bc782c916fa763822f1e50c6db0f95dade36d6541a8a4cbe070735b8b226d.
 //
 // Solidity: event ConsensusReached(uint256 indexed refSlot, bytes32 report, uint256 support)
-func (_Oracle *OracleFilterer) WatchConsensusReached(opts *bind.WatchOpts, sink chan<- *OracleConsensusReached, refSlot []*big.Int) (event.Subscription, error) {
+func (_HashConsensus *HashConsensusFilterer) WatchConsensusReached(opts *bind.WatchOpts, sink chan<- *HashConsensusConsensusReached, refSlot []*big.Int) (event.Subscription, error) {
 
 	var refSlotRule []interface{}
 	for _, refSlotItem := range refSlot {
 		refSlotRule = append(refSlotRule, refSlotItem)
 	}
 
-	logs, sub, err := _Oracle.contract.WatchLogs(opts, "ConsensusReached", refSlotRule)
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "ConsensusReached", refSlotRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1506,8 +1506,8 @@ func (_Oracle *OracleFilterer) WatchConsensusReached(opts *bind.WatchOpts, sink 
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(OracleConsensusReached)
-				if err := _Oracle.contract.UnpackLog(event, "ConsensusReached", log); err != nil {
+				event := new(HashConsensusConsensusReached)
+				if err := _HashConsensus.contract.UnpackLog(event, "ConsensusReached", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1531,18 +1531,18 @@ func (_Oracle *OracleFilterer) WatchConsensusReached(opts *bind.WatchOpts, sink 
 // ParseConsensusReached is a log parse operation binding the contract event 0x2b6bc782c916fa763822f1e50c6db0f95dade36d6541a8a4cbe070735b8b226d.
 //
 // Solidity: event ConsensusReached(uint256 indexed refSlot, bytes32 report, uint256 support)
-func (_Oracle *OracleFilterer) ParseConsensusReached(log types.Log) (*OracleConsensusReached, error) {
-	event := new(OracleConsensusReached)
-	if err := _Oracle.contract.UnpackLog(event, "ConsensusReached", log); err != nil {
+func (_HashConsensus *HashConsensusFilterer) ParseConsensusReached(log types.Log) (*HashConsensusConsensusReached, error) {
+	event := new(HashConsensusConsensusReached)
+	if err := _HashConsensus.contract.UnpackLog(event, "ConsensusReached", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// OracleDaoAddressChangedIterator is returned from FilterDaoAddressChanged and is used to iterate over the raw logs and unpacked data for DaoAddressChanged events raised by the Oracle contract.
-type OracleDaoAddressChangedIterator struct {
-	Event *OracleDaoAddressChanged // Event containing the contract specifics and raw log
+// HashConsensusDaoAddressChangedIterator is returned from FilterDaoAddressChanged and is used to iterate over the raw logs and unpacked data for DaoAddressChanged events raised by the HashConsensus contract.
+type HashConsensusDaoAddressChangedIterator struct {
+	Event *HashConsensusDaoAddressChanged // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1556,7 +1556,7 @@ type OracleDaoAddressChangedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *OracleDaoAddressChangedIterator) Next() bool {
+func (it *HashConsensusDaoAddressChangedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1565,7 +1565,7 @@ func (it *OracleDaoAddressChangedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(OracleDaoAddressChanged)
+			it.Event = new(HashConsensusDaoAddressChanged)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1580,7 +1580,7 @@ func (it *OracleDaoAddressChangedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(OracleDaoAddressChanged)
+		it.Event = new(HashConsensusDaoAddressChanged)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1596,19 +1596,19 @@ func (it *OracleDaoAddressChangedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *OracleDaoAddressChangedIterator) Error() error {
+func (it *HashConsensusDaoAddressChangedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *OracleDaoAddressChangedIterator) Close() error {
+func (it *HashConsensusDaoAddressChangedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// OracleDaoAddressChanged represents a DaoAddressChanged event raised by the Oracle contract.
-type OracleDaoAddressChanged struct {
+// HashConsensusDaoAddressChanged represents a DaoAddressChanged event raised by the HashConsensus contract.
+type HashConsensusDaoAddressChanged struct {
 	OldDao common.Address
 	Dao    common.Address
 	Raw    types.Log // Blockchain specific contextual infos
@@ -1617,21 +1617,21 @@ type OracleDaoAddressChanged struct {
 // FilterDaoAddressChanged is a free log retrieval operation binding the contract event 0xd5b3b0e6e0098a82fa04cf04faff9109f98389a10c80f20eb7186b9274168946.
 //
 // Solidity: event DaoAddressChanged(address _oldDao, address _dao)
-func (_Oracle *OracleFilterer) FilterDaoAddressChanged(opts *bind.FilterOpts) (*OracleDaoAddressChangedIterator, error) {
+func (_HashConsensus *HashConsensusFilterer) FilterDaoAddressChanged(opts *bind.FilterOpts) (*HashConsensusDaoAddressChangedIterator, error) {
 
-	logs, sub, err := _Oracle.contract.FilterLogs(opts, "DaoAddressChanged")
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "DaoAddressChanged")
 	if err != nil {
 		return nil, err
 	}
-	return &OracleDaoAddressChangedIterator{contract: _Oracle.contract, event: "DaoAddressChanged", logs: logs, sub: sub}, nil
+	return &HashConsensusDaoAddressChangedIterator{contract: _HashConsensus.contract, event: "DaoAddressChanged", logs: logs, sub: sub}, nil
 }
 
 // WatchDaoAddressChanged is a free log subscription operation binding the contract event 0xd5b3b0e6e0098a82fa04cf04faff9109f98389a10c80f20eb7186b9274168946.
 //
 // Solidity: event DaoAddressChanged(address _oldDao, address _dao)
-func (_Oracle *OracleFilterer) WatchDaoAddressChanged(opts *bind.WatchOpts, sink chan<- *OracleDaoAddressChanged) (event.Subscription, error) {
+func (_HashConsensus *HashConsensusFilterer) WatchDaoAddressChanged(opts *bind.WatchOpts, sink chan<- *HashConsensusDaoAddressChanged) (event.Subscription, error) {
 
-	logs, sub, err := _Oracle.contract.WatchLogs(opts, "DaoAddressChanged")
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "DaoAddressChanged")
 	if err != nil {
 		return nil, err
 	}
@@ -1641,8 +1641,8 @@ func (_Oracle *OracleFilterer) WatchDaoAddressChanged(opts *bind.WatchOpts, sink
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(OracleDaoAddressChanged)
-				if err := _Oracle.contract.UnpackLog(event, "DaoAddressChanged", log); err != nil {
+				event := new(HashConsensusDaoAddressChanged)
+				if err := _HashConsensus.contract.UnpackLog(event, "DaoAddressChanged", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1666,18 +1666,18 @@ func (_Oracle *OracleFilterer) WatchDaoAddressChanged(opts *bind.WatchOpts, sink
 // ParseDaoAddressChanged is a log parse operation binding the contract event 0xd5b3b0e6e0098a82fa04cf04faff9109f98389a10c80f20eb7186b9274168946.
 //
 // Solidity: event DaoAddressChanged(address _oldDao, address _dao)
-func (_Oracle *OracleFilterer) ParseDaoAddressChanged(log types.Log) (*OracleDaoAddressChanged, error) {
-	event := new(OracleDaoAddressChanged)
-	if err := _Oracle.contract.UnpackLog(event, "DaoAddressChanged", log); err != nil {
+func (_HashConsensus *HashConsensusFilterer) ParseDaoAddressChanged(log types.Log) (*HashConsensusDaoAddressChanged, error) {
+	event := new(HashConsensusDaoAddressChanged)
+	if err := _HashConsensus.contract.UnpackLog(event, "DaoAddressChanged", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// OracleFastLaneConfigSetIterator is returned from FilterFastLaneConfigSet and is used to iterate over the raw logs and unpacked data for FastLaneConfigSet events raised by the Oracle contract.
-type OracleFastLaneConfigSetIterator struct {
-	Event *OracleFastLaneConfigSet // Event containing the contract specifics and raw log
+// HashConsensusFastLaneConfigSetIterator is returned from FilterFastLaneConfigSet and is used to iterate over the raw logs and unpacked data for FastLaneConfigSet events raised by the HashConsensus contract.
+type HashConsensusFastLaneConfigSetIterator struct {
+	Event *HashConsensusFastLaneConfigSet // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1691,7 +1691,7 @@ type OracleFastLaneConfigSetIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *OracleFastLaneConfigSetIterator) Next() bool {
+func (it *HashConsensusFastLaneConfigSetIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1700,7 +1700,7 @@ func (it *OracleFastLaneConfigSetIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(OracleFastLaneConfigSet)
+			it.Event = new(HashConsensusFastLaneConfigSet)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1715,7 +1715,7 @@ func (it *OracleFastLaneConfigSetIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(OracleFastLaneConfigSet)
+		it.Event = new(HashConsensusFastLaneConfigSet)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1731,19 +1731,19 @@ func (it *OracleFastLaneConfigSetIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *OracleFastLaneConfigSetIterator) Error() error {
+func (it *HashConsensusFastLaneConfigSetIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *OracleFastLaneConfigSetIterator) Close() error {
+func (it *HashConsensusFastLaneConfigSetIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// OracleFastLaneConfigSet represents a FastLaneConfigSet event raised by the Oracle contract.
-type OracleFastLaneConfigSet struct {
+// HashConsensusFastLaneConfigSet represents a FastLaneConfigSet event raised by the HashConsensus contract.
+type HashConsensusFastLaneConfigSet struct {
 	FastLaneLengthSlots *big.Int
 	Raw                 types.Log // Blockchain specific contextual infos
 }
@@ -1751,21 +1751,21 @@ type OracleFastLaneConfigSet struct {
 // FilterFastLaneConfigSet is a free log retrieval operation binding the contract event 0xab8b22776606cc75c47792d32af7e63ed9ca74e85c9780a7fc7994fdbd6fde2b.
 //
 // Solidity: event FastLaneConfigSet(uint256 fastLaneLengthSlots)
-func (_Oracle *OracleFilterer) FilterFastLaneConfigSet(opts *bind.FilterOpts) (*OracleFastLaneConfigSetIterator, error) {
+func (_HashConsensus *HashConsensusFilterer) FilterFastLaneConfigSet(opts *bind.FilterOpts) (*HashConsensusFastLaneConfigSetIterator, error) {
 
-	logs, sub, err := _Oracle.contract.FilterLogs(opts, "FastLaneConfigSet")
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "FastLaneConfigSet")
 	if err != nil {
 		return nil, err
 	}
-	return &OracleFastLaneConfigSetIterator{contract: _Oracle.contract, event: "FastLaneConfigSet", logs: logs, sub: sub}, nil
+	return &HashConsensusFastLaneConfigSetIterator{contract: _HashConsensus.contract, event: "FastLaneConfigSet", logs: logs, sub: sub}, nil
 }
 
 // WatchFastLaneConfigSet is a free log subscription operation binding the contract event 0xab8b22776606cc75c47792d32af7e63ed9ca74e85c9780a7fc7994fdbd6fde2b.
 //
 // Solidity: event FastLaneConfigSet(uint256 fastLaneLengthSlots)
-func (_Oracle *OracleFilterer) WatchFastLaneConfigSet(opts *bind.WatchOpts, sink chan<- *OracleFastLaneConfigSet) (event.Subscription, error) {
+func (_HashConsensus *HashConsensusFilterer) WatchFastLaneConfigSet(opts *bind.WatchOpts, sink chan<- *HashConsensusFastLaneConfigSet) (event.Subscription, error) {
 
-	logs, sub, err := _Oracle.contract.WatchLogs(opts, "FastLaneConfigSet")
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "FastLaneConfigSet")
 	if err != nil {
 		return nil, err
 	}
@@ -1775,8 +1775,8 @@ func (_Oracle *OracleFilterer) WatchFastLaneConfigSet(opts *bind.WatchOpts, sink
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(OracleFastLaneConfigSet)
-				if err := _Oracle.contract.UnpackLog(event, "FastLaneConfigSet", log); err != nil {
+				event := new(HashConsensusFastLaneConfigSet)
+				if err := _HashConsensus.contract.UnpackLog(event, "FastLaneConfigSet", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1800,18 +1800,18 @@ func (_Oracle *OracleFilterer) WatchFastLaneConfigSet(opts *bind.WatchOpts, sink
 // ParseFastLaneConfigSet is a log parse operation binding the contract event 0xab8b22776606cc75c47792d32af7e63ed9ca74e85c9780a7fc7994fdbd6fde2b.
 //
 // Solidity: event FastLaneConfigSet(uint256 fastLaneLengthSlots)
-func (_Oracle *OracleFilterer) ParseFastLaneConfigSet(log types.Log) (*OracleFastLaneConfigSet, error) {
-	event := new(OracleFastLaneConfigSet)
-	if err := _Oracle.contract.UnpackLog(event, "FastLaneConfigSet", log); err != nil {
+func (_HashConsensus *HashConsensusFilterer) ParseFastLaneConfigSet(log types.Log) (*HashConsensusFastLaneConfigSet, error) {
+	event := new(HashConsensusFastLaneConfigSet)
+	if err := _HashConsensus.contract.UnpackLog(event, "FastLaneConfigSet", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// OracleFrameConfigSetIterator is returned from FilterFrameConfigSet and is used to iterate over the raw logs and unpacked data for FrameConfigSet events raised by the Oracle contract.
-type OracleFrameConfigSetIterator struct {
-	Event *OracleFrameConfigSet // Event containing the contract specifics and raw log
+// HashConsensusFrameConfigSetIterator is returned from FilterFrameConfigSet and is used to iterate over the raw logs and unpacked data for FrameConfigSet events raised by the HashConsensus contract.
+type HashConsensusFrameConfigSetIterator struct {
+	Event *HashConsensusFrameConfigSet // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1825,7 +1825,7 @@ type OracleFrameConfigSetIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *OracleFrameConfigSetIterator) Next() bool {
+func (it *HashConsensusFrameConfigSetIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1834,7 +1834,7 @@ func (it *OracleFrameConfigSetIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(OracleFrameConfigSet)
+			it.Event = new(HashConsensusFrameConfigSet)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1849,7 +1849,7 @@ func (it *OracleFrameConfigSetIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(OracleFrameConfigSet)
+		it.Event = new(HashConsensusFrameConfigSet)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1865,19 +1865,19 @@ func (it *OracleFrameConfigSetIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *OracleFrameConfigSetIterator) Error() error {
+func (it *HashConsensusFrameConfigSetIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *OracleFrameConfigSetIterator) Close() error {
+func (it *HashConsensusFrameConfigSetIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// OracleFrameConfigSet represents a FrameConfigSet event raised by the Oracle contract.
-type OracleFrameConfigSet struct {
+// HashConsensusFrameConfigSet represents a FrameConfigSet event raised by the HashConsensus contract.
+type HashConsensusFrameConfigSet struct {
 	NewInitialEpoch   *big.Int
 	NewEpochsPerFrame *big.Int
 	Raw               types.Log // Blockchain specific contextual infos
@@ -1886,21 +1886,21 @@ type OracleFrameConfigSet struct {
 // FilterFrameConfigSet is a free log retrieval operation binding the contract event 0xe343afa5219eaf28c50ce9cd658acd69cbe28b34fa773eb3a523e28007f64afc.
 //
 // Solidity: event FrameConfigSet(uint256 newInitialEpoch, uint256 newEpochsPerFrame)
-func (_Oracle *OracleFilterer) FilterFrameConfigSet(opts *bind.FilterOpts) (*OracleFrameConfigSetIterator, error) {
+func (_HashConsensus *HashConsensusFilterer) FilterFrameConfigSet(opts *bind.FilterOpts) (*HashConsensusFrameConfigSetIterator, error) {
 
-	logs, sub, err := _Oracle.contract.FilterLogs(opts, "FrameConfigSet")
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "FrameConfigSet")
 	if err != nil {
 		return nil, err
 	}
-	return &OracleFrameConfigSetIterator{contract: _Oracle.contract, event: "FrameConfigSet", logs: logs, sub: sub}, nil
+	return &HashConsensusFrameConfigSetIterator{contract: _HashConsensus.contract, event: "FrameConfigSet", logs: logs, sub: sub}, nil
 }
 
 // WatchFrameConfigSet is a free log subscription operation binding the contract event 0xe343afa5219eaf28c50ce9cd658acd69cbe28b34fa773eb3a523e28007f64afc.
 //
 // Solidity: event FrameConfigSet(uint256 newInitialEpoch, uint256 newEpochsPerFrame)
-func (_Oracle *OracleFilterer) WatchFrameConfigSet(opts *bind.WatchOpts, sink chan<- *OracleFrameConfigSet) (event.Subscription, error) {
+func (_HashConsensus *HashConsensusFilterer) WatchFrameConfigSet(opts *bind.WatchOpts, sink chan<- *HashConsensusFrameConfigSet) (event.Subscription, error) {
 
-	logs, sub, err := _Oracle.contract.WatchLogs(opts, "FrameConfigSet")
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "FrameConfigSet")
 	if err != nil {
 		return nil, err
 	}
@@ -1910,8 +1910,8 @@ func (_Oracle *OracleFilterer) WatchFrameConfigSet(opts *bind.WatchOpts, sink ch
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(OracleFrameConfigSet)
-				if err := _Oracle.contract.UnpackLog(event, "FrameConfigSet", log); err != nil {
+				event := new(HashConsensusFrameConfigSet)
+				if err := _HashConsensus.contract.UnpackLog(event, "FrameConfigSet", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1935,18 +1935,18 @@ func (_Oracle *OracleFilterer) WatchFrameConfigSet(opts *bind.WatchOpts, sink ch
 // ParseFrameConfigSet is a log parse operation binding the contract event 0xe343afa5219eaf28c50ce9cd658acd69cbe28b34fa773eb3a523e28007f64afc.
 //
 // Solidity: event FrameConfigSet(uint256 newInitialEpoch, uint256 newEpochsPerFrame)
-func (_Oracle *OracleFilterer) ParseFrameConfigSet(log types.Log) (*OracleFrameConfigSet, error) {
-	event := new(OracleFrameConfigSet)
-	if err := _Oracle.contract.UnpackLog(event, "FrameConfigSet", log); err != nil {
+func (_HashConsensus *HashConsensusFilterer) ParseFrameConfigSet(log types.Log) (*HashConsensusFrameConfigSet, error) {
+	event := new(HashConsensusFrameConfigSet)
+	if err := _HashConsensus.contract.UnpackLog(event, "FrameConfigSet", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// OracleInitializedIterator is returned from FilterInitialized and is used to iterate over the raw logs and unpacked data for Initialized events raised by the Oracle contract.
-type OracleInitializedIterator struct {
-	Event *OracleInitialized // Event containing the contract specifics and raw log
+// HashConsensusInitializedIterator is returned from FilterInitialized and is used to iterate over the raw logs and unpacked data for Initialized events raised by the HashConsensus contract.
+type HashConsensusInitializedIterator struct {
+	Event *HashConsensusInitialized // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1960,7 +1960,7 @@ type OracleInitializedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *OracleInitializedIterator) Next() bool {
+func (it *HashConsensusInitializedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1969,7 +1969,7 @@ func (it *OracleInitializedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(OracleInitialized)
+			it.Event = new(HashConsensusInitialized)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1984,7 +1984,7 @@ func (it *OracleInitializedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(OracleInitialized)
+		it.Event = new(HashConsensusInitialized)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -2000,19 +2000,19 @@ func (it *OracleInitializedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *OracleInitializedIterator) Error() error {
+func (it *HashConsensusInitializedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *OracleInitializedIterator) Close() error {
+func (it *HashConsensusInitializedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// OracleInitialized represents a Initialized event raised by the Oracle contract.
-type OracleInitialized struct {
+// HashConsensusInitialized represents a Initialized event raised by the HashConsensus contract.
+type HashConsensusInitialized struct {
 	Version uint8
 	Raw     types.Log // Blockchain specific contextual infos
 }
@@ -2020,21 +2020,21 @@ type OracleInitialized struct {
 // FilterInitialized is a free log retrieval operation binding the contract event 0x7f26b83ff96e1f2b6a682f133852f6798a09c465da95921460cefb3847402498.
 //
 // Solidity: event Initialized(uint8 version)
-func (_Oracle *OracleFilterer) FilterInitialized(opts *bind.FilterOpts) (*OracleInitializedIterator, error) {
+func (_HashConsensus *HashConsensusFilterer) FilterInitialized(opts *bind.FilterOpts) (*HashConsensusInitializedIterator, error) {
 
-	logs, sub, err := _Oracle.contract.FilterLogs(opts, "Initialized")
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "Initialized")
 	if err != nil {
 		return nil, err
 	}
-	return &OracleInitializedIterator{contract: _Oracle.contract, event: "Initialized", logs: logs, sub: sub}, nil
+	return &HashConsensusInitializedIterator{contract: _HashConsensus.contract, event: "Initialized", logs: logs, sub: sub}, nil
 }
 
 // WatchInitialized is a free log subscription operation binding the contract event 0x7f26b83ff96e1f2b6a682f133852f6798a09c465da95921460cefb3847402498.
 //
 // Solidity: event Initialized(uint8 version)
-func (_Oracle *OracleFilterer) WatchInitialized(opts *bind.WatchOpts, sink chan<- *OracleInitialized) (event.Subscription, error) {
+func (_HashConsensus *HashConsensusFilterer) WatchInitialized(opts *bind.WatchOpts, sink chan<- *HashConsensusInitialized) (event.Subscription, error) {
 
-	logs, sub, err := _Oracle.contract.WatchLogs(opts, "Initialized")
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "Initialized")
 	if err != nil {
 		return nil, err
 	}
@@ -2044,8 +2044,8 @@ func (_Oracle *OracleFilterer) WatchInitialized(opts *bind.WatchOpts, sink chan<
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(OracleInitialized)
-				if err := _Oracle.contract.UnpackLog(event, "Initialized", log); err != nil {
+				event := new(HashConsensusInitialized)
+				if err := _HashConsensus.contract.UnpackLog(event, "Initialized", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -2069,18 +2069,18 @@ func (_Oracle *OracleFilterer) WatchInitialized(opts *bind.WatchOpts, sink chan<
 // ParseInitialized is a log parse operation binding the contract event 0x7f26b83ff96e1f2b6a682f133852f6798a09c465da95921460cefb3847402498.
 //
 // Solidity: event Initialized(uint8 version)
-func (_Oracle *OracleFilterer) ParseInitialized(log types.Log) (*OracleInitialized, error) {
-	event := new(OracleInitialized)
-	if err := _Oracle.contract.UnpackLog(event, "Initialized", log); err != nil {
+func (_HashConsensus *HashConsensusFilterer) ParseInitialized(log types.Log) (*HashConsensusInitialized, error) {
+	event := new(HashConsensusInitialized)
+	if err := _HashConsensus.contract.UnpackLog(event, "Initialized", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// OracleMemberAddedIterator is returned from FilterMemberAdded and is used to iterate over the raw logs and unpacked data for MemberAdded events raised by the Oracle contract.
-type OracleMemberAddedIterator struct {
-	Event *OracleMemberAdded // Event containing the contract specifics and raw log
+// HashConsensusMemberAddedIterator is returned from FilterMemberAdded and is used to iterate over the raw logs and unpacked data for MemberAdded events raised by the HashConsensus contract.
+type HashConsensusMemberAddedIterator struct {
+	Event *HashConsensusMemberAdded // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -2094,7 +2094,7 @@ type OracleMemberAddedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *OracleMemberAddedIterator) Next() bool {
+func (it *HashConsensusMemberAddedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -2103,7 +2103,7 @@ func (it *OracleMemberAddedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(OracleMemberAdded)
+			it.Event = new(HashConsensusMemberAdded)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -2118,7 +2118,7 @@ func (it *OracleMemberAddedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(OracleMemberAdded)
+		it.Event = new(HashConsensusMemberAdded)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -2134,19 +2134,19 @@ func (it *OracleMemberAddedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *OracleMemberAddedIterator) Error() error {
+func (it *HashConsensusMemberAddedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *OracleMemberAddedIterator) Close() error {
+func (it *HashConsensusMemberAddedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// OracleMemberAdded represents a MemberAdded event raised by the Oracle contract.
-type OracleMemberAdded struct {
+// HashConsensusMemberAdded represents a MemberAdded event raised by the HashConsensus contract.
+type HashConsensusMemberAdded struct {
 	Addr            common.Address
 	NewTotalMembers *big.Int
 	NewQuorum       *big.Int
@@ -2156,31 +2156,31 @@ type OracleMemberAdded struct {
 // FilterMemberAdded is a free log retrieval operation binding the contract event 0xe17e0e2cd88e2144dd54f3d823c30d4569092bcac1aabaec1129883e9cc12d2e.
 //
 // Solidity: event MemberAdded(address indexed addr, uint256 newTotalMembers, uint256 newQuorum)
-func (_Oracle *OracleFilterer) FilterMemberAdded(opts *bind.FilterOpts, addr []common.Address) (*OracleMemberAddedIterator, error) {
+func (_HashConsensus *HashConsensusFilterer) FilterMemberAdded(opts *bind.FilterOpts, addr []common.Address) (*HashConsensusMemberAddedIterator, error) {
 
 	var addrRule []interface{}
 	for _, addrItem := range addr {
 		addrRule = append(addrRule, addrItem)
 	}
 
-	logs, sub, err := _Oracle.contract.FilterLogs(opts, "MemberAdded", addrRule)
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "MemberAdded", addrRule)
 	if err != nil {
 		return nil, err
 	}
-	return &OracleMemberAddedIterator{contract: _Oracle.contract, event: "MemberAdded", logs: logs, sub: sub}, nil
+	return &HashConsensusMemberAddedIterator{contract: _HashConsensus.contract, event: "MemberAdded", logs: logs, sub: sub}, nil
 }
 
 // WatchMemberAdded is a free log subscription operation binding the contract event 0xe17e0e2cd88e2144dd54f3d823c30d4569092bcac1aabaec1129883e9cc12d2e.
 //
 // Solidity: event MemberAdded(address indexed addr, uint256 newTotalMembers, uint256 newQuorum)
-func (_Oracle *OracleFilterer) WatchMemberAdded(opts *bind.WatchOpts, sink chan<- *OracleMemberAdded, addr []common.Address) (event.Subscription, error) {
+func (_HashConsensus *HashConsensusFilterer) WatchMemberAdded(opts *bind.WatchOpts, sink chan<- *HashConsensusMemberAdded, addr []common.Address) (event.Subscription, error) {
 
 	var addrRule []interface{}
 	for _, addrItem := range addr {
 		addrRule = append(addrRule, addrItem)
 	}
 
-	logs, sub, err := _Oracle.contract.WatchLogs(opts, "MemberAdded", addrRule)
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "MemberAdded", addrRule)
 	if err != nil {
 		return nil, err
 	}
@@ -2190,8 +2190,8 @@ func (_Oracle *OracleFilterer) WatchMemberAdded(opts *bind.WatchOpts, sink chan<
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(OracleMemberAdded)
-				if err := _Oracle.contract.UnpackLog(event, "MemberAdded", log); err != nil {
+				event := new(HashConsensusMemberAdded)
+				if err := _HashConsensus.contract.UnpackLog(event, "MemberAdded", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -2215,18 +2215,18 @@ func (_Oracle *OracleFilterer) WatchMemberAdded(opts *bind.WatchOpts, sink chan<
 // ParseMemberAdded is a log parse operation binding the contract event 0xe17e0e2cd88e2144dd54f3d823c30d4569092bcac1aabaec1129883e9cc12d2e.
 //
 // Solidity: event MemberAdded(address indexed addr, uint256 newTotalMembers, uint256 newQuorum)
-func (_Oracle *OracleFilterer) ParseMemberAdded(log types.Log) (*OracleMemberAdded, error) {
-	event := new(OracleMemberAdded)
-	if err := _Oracle.contract.UnpackLog(event, "MemberAdded", log); err != nil {
+func (_HashConsensus *HashConsensusFilterer) ParseMemberAdded(log types.Log) (*HashConsensusMemberAdded, error) {
+	event := new(HashConsensusMemberAdded)
+	if err := _HashConsensus.contract.UnpackLog(event, "MemberAdded", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// OracleMemberRemovedIterator is returned from FilterMemberRemoved and is used to iterate over the raw logs and unpacked data for MemberRemoved events raised by the Oracle contract.
-type OracleMemberRemovedIterator struct {
-	Event *OracleMemberRemoved // Event containing the contract specifics and raw log
+// HashConsensusMemberRemovedIterator is returned from FilterMemberRemoved and is used to iterate over the raw logs and unpacked data for MemberRemoved events raised by the HashConsensus contract.
+type HashConsensusMemberRemovedIterator struct {
+	Event *HashConsensusMemberRemoved // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -2240,7 +2240,7 @@ type OracleMemberRemovedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *OracleMemberRemovedIterator) Next() bool {
+func (it *HashConsensusMemberRemovedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -2249,7 +2249,7 @@ func (it *OracleMemberRemovedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(OracleMemberRemoved)
+			it.Event = new(HashConsensusMemberRemoved)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -2264,7 +2264,7 @@ func (it *OracleMemberRemovedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(OracleMemberRemoved)
+		it.Event = new(HashConsensusMemberRemoved)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -2280,19 +2280,19 @@ func (it *OracleMemberRemovedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *OracleMemberRemovedIterator) Error() error {
+func (it *HashConsensusMemberRemovedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *OracleMemberRemovedIterator) Close() error {
+func (it *HashConsensusMemberRemovedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// OracleMemberRemoved represents a MemberRemoved event raised by the Oracle contract.
-type OracleMemberRemoved struct {
+// HashConsensusMemberRemoved represents a MemberRemoved event raised by the HashConsensus contract.
+type HashConsensusMemberRemoved struct {
 	Addr            common.Address
 	NewTotalMembers *big.Int
 	NewQuorum       *big.Int
@@ -2302,31 +2302,31 @@ type OracleMemberRemoved struct {
 // FilterMemberRemoved is a free log retrieval operation binding the contract event 0xa182730913550d27dc6c5813fad297cb0785871bec3d0152c5650e59c5d39d60.
 //
 // Solidity: event MemberRemoved(address indexed addr, uint256 newTotalMembers, uint256 newQuorum)
-func (_Oracle *OracleFilterer) FilterMemberRemoved(opts *bind.FilterOpts, addr []common.Address) (*OracleMemberRemovedIterator, error) {
+func (_HashConsensus *HashConsensusFilterer) FilterMemberRemoved(opts *bind.FilterOpts, addr []common.Address) (*HashConsensusMemberRemovedIterator, error) {
 
 	var addrRule []interface{}
 	for _, addrItem := range addr {
 		addrRule = append(addrRule, addrItem)
 	}
 
-	logs, sub, err := _Oracle.contract.FilterLogs(opts, "MemberRemoved", addrRule)
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "MemberRemoved", addrRule)
 	if err != nil {
 		return nil, err
 	}
-	return &OracleMemberRemovedIterator{contract: _Oracle.contract, event: "MemberRemoved", logs: logs, sub: sub}, nil
+	return &HashConsensusMemberRemovedIterator{contract: _HashConsensus.contract, event: "MemberRemoved", logs: logs, sub: sub}, nil
 }
 
 // WatchMemberRemoved is a free log subscription operation binding the contract event 0xa182730913550d27dc6c5813fad297cb0785871bec3d0152c5650e59c5d39d60.
 //
 // Solidity: event MemberRemoved(address indexed addr, uint256 newTotalMembers, uint256 newQuorum)
-func (_Oracle *OracleFilterer) WatchMemberRemoved(opts *bind.WatchOpts, sink chan<- *OracleMemberRemoved, addr []common.Address) (event.Subscription, error) {
+func (_HashConsensus *HashConsensusFilterer) WatchMemberRemoved(opts *bind.WatchOpts, sink chan<- *HashConsensusMemberRemoved, addr []common.Address) (event.Subscription, error) {
 
 	var addrRule []interface{}
 	for _, addrItem := range addr {
 		addrRule = append(addrRule, addrItem)
 	}
 
-	logs, sub, err := _Oracle.contract.WatchLogs(opts, "MemberRemoved", addrRule)
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "MemberRemoved", addrRule)
 	if err != nil {
 		return nil, err
 	}
@@ -2336,8 +2336,8 @@ func (_Oracle *OracleFilterer) WatchMemberRemoved(opts *bind.WatchOpts, sink cha
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(OracleMemberRemoved)
-				if err := _Oracle.contract.UnpackLog(event, "MemberRemoved", log); err != nil {
+				event := new(HashConsensusMemberRemoved)
+				if err := _HashConsensus.contract.UnpackLog(event, "MemberRemoved", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -2361,18 +2361,18 @@ func (_Oracle *OracleFilterer) WatchMemberRemoved(opts *bind.WatchOpts, sink cha
 // ParseMemberRemoved is a log parse operation binding the contract event 0xa182730913550d27dc6c5813fad297cb0785871bec3d0152c5650e59c5d39d60.
 //
 // Solidity: event MemberRemoved(address indexed addr, uint256 newTotalMembers, uint256 newQuorum)
-func (_Oracle *OracleFilterer) ParseMemberRemoved(log types.Log) (*OracleMemberRemoved, error) {
-	event := new(OracleMemberRemoved)
-	if err := _Oracle.contract.UnpackLog(event, "MemberRemoved", log); err != nil {
+func (_HashConsensus *HashConsensusFilterer) ParseMemberRemoved(log types.Log) (*HashConsensusMemberRemoved, error) {
+	event := new(HashConsensusMemberRemoved)
+	if err := _HashConsensus.contract.UnpackLog(event, "MemberRemoved", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// OracleOwnershipTransferredIterator is returned from FilterOwnershipTransferred and is used to iterate over the raw logs and unpacked data for OwnershipTransferred events raised by the Oracle contract.
-type OracleOwnershipTransferredIterator struct {
-	Event *OracleOwnershipTransferred // Event containing the contract specifics and raw log
+// HashConsensusOwnershipTransferredIterator is returned from FilterOwnershipTransferred and is used to iterate over the raw logs and unpacked data for OwnershipTransferred events raised by the HashConsensus contract.
+type HashConsensusOwnershipTransferredIterator struct {
+	Event *HashConsensusOwnershipTransferred // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -2386,7 +2386,7 @@ type OracleOwnershipTransferredIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *OracleOwnershipTransferredIterator) Next() bool {
+func (it *HashConsensusOwnershipTransferredIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -2395,7 +2395,7 @@ func (it *OracleOwnershipTransferredIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(OracleOwnershipTransferred)
+			it.Event = new(HashConsensusOwnershipTransferred)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -2410,7 +2410,7 @@ func (it *OracleOwnershipTransferredIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(OracleOwnershipTransferred)
+		it.Event = new(HashConsensusOwnershipTransferred)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -2426,19 +2426,19 @@ func (it *OracleOwnershipTransferredIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *OracleOwnershipTransferredIterator) Error() error {
+func (it *HashConsensusOwnershipTransferredIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *OracleOwnershipTransferredIterator) Close() error {
+func (it *HashConsensusOwnershipTransferredIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// OracleOwnershipTransferred represents a OwnershipTransferred event raised by the Oracle contract.
-type OracleOwnershipTransferred struct {
+// HashConsensusOwnershipTransferred represents a OwnershipTransferred event raised by the HashConsensus contract.
+type HashConsensusOwnershipTransferred struct {
 	PreviousOwner common.Address
 	NewOwner      common.Address
 	Raw           types.Log // Blockchain specific contextual infos
@@ -2447,7 +2447,7 @@ type OracleOwnershipTransferred struct {
 // FilterOwnershipTransferred is a free log retrieval operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
 // Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
-func (_Oracle *OracleFilterer) FilterOwnershipTransferred(opts *bind.FilterOpts, previousOwner []common.Address, newOwner []common.Address) (*OracleOwnershipTransferredIterator, error) {
+func (_HashConsensus *HashConsensusFilterer) FilterOwnershipTransferred(opts *bind.FilterOpts, previousOwner []common.Address, newOwner []common.Address) (*HashConsensusOwnershipTransferredIterator, error) {
 
 	var previousOwnerRule []interface{}
 	for _, previousOwnerItem := range previousOwner {
@@ -2458,17 +2458,17 @@ func (_Oracle *OracleFilterer) FilterOwnershipTransferred(opts *bind.FilterOpts,
 		newOwnerRule = append(newOwnerRule, newOwnerItem)
 	}
 
-	logs, sub, err := _Oracle.contract.FilterLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
 	if err != nil {
 		return nil, err
 	}
-	return &OracleOwnershipTransferredIterator{contract: _Oracle.contract, event: "OwnershipTransferred", logs: logs, sub: sub}, nil
+	return &HashConsensusOwnershipTransferredIterator{contract: _HashConsensus.contract, event: "OwnershipTransferred", logs: logs, sub: sub}, nil
 }
 
 // WatchOwnershipTransferred is a free log subscription operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
 // Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
-func (_Oracle *OracleFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, sink chan<- *OracleOwnershipTransferred, previousOwner []common.Address, newOwner []common.Address) (event.Subscription, error) {
+func (_HashConsensus *HashConsensusFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, sink chan<- *HashConsensusOwnershipTransferred, previousOwner []common.Address, newOwner []common.Address) (event.Subscription, error) {
 
 	var previousOwnerRule []interface{}
 	for _, previousOwnerItem := range previousOwner {
@@ -2479,7 +2479,7 @@ func (_Oracle *OracleFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, s
 		newOwnerRule = append(newOwnerRule, newOwnerItem)
 	}
 
-	logs, sub, err := _Oracle.contract.WatchLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
 	if err != nil {
 		return nil, err
 	}
@@ -2489,8 +2489,8 @@ func (_Oracle *OracleFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, s
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(OracleOwnershipTransferred)
-				if err := _Oracle.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
+				event := new(HashConsensusOwnershipTransferred)
+				if err := _HashConsensus.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -2514,18 +2514,18 @@ func (_Oracle *OracleFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, s
 // ParseOwnershipTransferred is a log parse operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
 // Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
-func (_Oracle *OracleFilterer) ParseOwnershipTransferred(log types.Log) (*OracleOwnershipTransferred, error) {
-	event := new(OracleOwnershipTransferred)
-	if err := _Oracle.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
+func (_HashConsensus *HashConsensusFilterer) ParseOwnershipTransferred(log types.Log) (*HashConsensusOwnershipTransferred, error) {
+	event := new(HashConsensusOwnershipTransferred)
+	if err := _HashConsensus.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// OracleQuorumSetIterator is returned from FilterQuorumSet and is used to iterate over the raw logs and unpacked data for QuorumSet events raised by the Oracle contract.
-type OracleQuorumSetIterator struct {
-	Event *OracleQuorumSet // Event containing the contract specifics and raw log
+// HashConsensusQuorumSetIterator is returned from FilterQuorumSet and is used to iterate over the raw logs and unpacked data for QuorumSet events raised by the HashConsensus contract.
+type HashConsensusQuorumSetIterator struct {
+	Event *HashConsensusQuorumSet // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -2539,7 +2539,7 @@ type OracleQuorumSetIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *OracleQuorumSetIterator) Next() bool {
+func (it *HashConsensusQuorumSetIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -2548,7 +2548,7 @@ func (it *OracleQuorumSetIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(OracleQuorumSet)
+			it.Event = new(HashConsensusQuorumSet)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -2563,7 +2563,7 @@ func (it *OracleQuorumSetIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(OracleQuorumSet)
+		it.Event = new(HashConsensusQuorumSet)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -2579,19 +2579,19 @@ func (it *OracleQuorumSetIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *OracleQuorumSetIterator) Error() error {
+func (it *HashConsensusQuorumSetIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *OracleQuorumSetIterator) Close() error {
+func (it *HashConsensusQuorumSetIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// OracleQuorumSet represents a QuorumSet event raised by the Oracle contract.
-type OracleQuorumSet struct {
+// HashConsensusQuorumSet represents a QuorumSet event raised by the HashConsensus contract.
+type HashConsensusQuorumSet struct {
 	NewQuorum    *big.Int
 	TotalMembers *big.Int
 	PrevQuorum   *big.Int
@@ -2601,21 +2601,21 @@ type OracleQuorumSet struct {
 // FilterQuorumSet is a free log retrieval operation binding the contract event 0x9f40cfd22fe91777c78f252bd21a710f3fb007dc2f321876891e7644ba0ae175.
 //
 // Solidity: event QuorumSet(uint256 newQuorum, uint256 totalMembers, uint256 prevQuorum)
-func (_Oracle *OracleFilterer) FilterQuorumSet(opts *bind.FilterOpts) (*OracleQuorumSetIterator, error) {
+func (_HashConsensus *HashConsensusFilterer) FilterQuorumSet(opts *bind.FilterOpts) (*HashConsensusQuorumSetIterator, error) {
 
-	logs, sub, err := _Oracle.contract.FilterLogs(opts, "QuorumSet")
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "QuorumSet")
 	if err != nil {
 		return nil, err
 	}
-	return &OracleQuorumSetIterator{contract: _Oracle.contract, event: "QuorumSet", logs: logs, sub: sub}, nil
+	return &HashConsensusQuorumSetIterator{contract: _HashConsensus.contract, event: "QuorumSet", logs: logs, sub: sub}, nil
 }
 
 // WatchQuorumSet is a free log subscription operation binding the contract event 0x9f40cfd22fe91777c78f252bd21a710f3fb007dc2f321876891e7644ba0ae175.
 //
 // Solidity: event QuorumSet(uint256 newQuorum, uint256 totalMembers, uint256 prevQuorum)
-func (_Oracle *OracleFilterer) WatchQuorumSet(opts *bind.WatchOpts, sink chan<- *OracleQuorumSet) (event.Subscription, error) {
+func (_HashConsensus *HashConsensusFilterer) WatchQuorumSet(opts *bind.WatchOpts, sink chan<- *HashConsensusQuorumSet) (event.Subscription, error) {
 
-	logs, sub, err := _Oracle.contract.WatchLogs(opts, "QuorumSet")
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "QuorumSet")
 	if err != nil {
 		return nil, err
 	}
@@ -2625,8 +2625,8 @@ func (_Oracle *OracleFilterer) WatchQuorumSet(opts *bind.WatchOpts, sink chan<- 
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(OracleQuorumSet)
-				if err := _Oracle.contract.UnpackLog(event, "QuorumSet", log); err != nil {
+				event := new(HashConsensusQuorumSet)
+				if err := _HashConsensus.contract.UnpackLog(event, "QuorumSet", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -2650,18 +2650,18 @@ func (_Oracle *OracleFilterer) WatchQuorumSet(opts *bind.WatchOpts, sink chan<- 
 // ParseQuorumSet is a log parse operation binding the contract event 0x9f40cfd22fe91777c78f252bd21a710f3fb007dc2f321876891e7644ba0ae175.
 //
 // Solidity: event QuorumSet(uint256 newQuorum, uint256 totalMembers, uint256 prevQuorum)
-func (_Oracle *OracleFilterer) ParseQuorumSet(log types.Log) (*OracleQuorumSet, error) {
-	event := new(OracleQuorumSet)
-	if err := _Oracle.contract.UnpackLog(event, "QuorumSet", log); err != nil {
+func (_HashConsensus *HashConsensusFilterer) ParseQuorumSet(log types.Log) (*HashConsensusQuorumSet, error) {
+	event := new(HashConsensusQuorumSet)
+	if err := _HashConsensus.contract.UnpackLog(event, "QuorumSet", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// OracleReportProcessorSetIterator is returned from FilterReportProcessorSet and is used to iterate over the raw logs and unpacked data for ReportProcessorSet events raised by the Oracle contract.
-type OracleReportProcessorSetIterator struct {
-	Event *OracleReportProcessorSet // Event containing the contract specifics and raw log
+// HashConsensusReportProcessorSetIterator is returned from FilterReportProcessorSet and is used to iterate over the raw logs and unpacked data for ReportProcessorSet events raised by the HashConsensus contract.
+type HashConsensusReportProcessorSetIterator struct {
+	Event *HashConsensusReportProcessorSet // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -2675,7 +2675,7 @@ type OracleReportProcessorSetIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *OracleReportProcessorSetIterator) Next() bool {
+func (it *HashConsensusReportProcessorSetIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -2684,7 +2684,7 @@ func (it *OracleReportProcessorSetIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(OracleReportProcessorSet)
+			it.Event = new(HashConsensusReportProcessorSet)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -2699,7 +2699,7 @@ func (it *OracleReportProcessorSetIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(OracleReportProcessorSet)
+		it.Event = new(HashConsensusReportProcessorSet)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -2715,19 +2715,19 @@ func (it *OracleReportProcessorSetIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *OracleReportProcessorSetIterator) Error() error {
+func (it *HashConsensusReportProcessorSetIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *OracleReportProcessorSetIterator) Close() error {
+func (it *HashConsensusReportProcessorSetIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// OracleReportProcessorSet represents a ReportProcessorSet event raised by the Oracle contract.
-type OracleReportProcessorSet struct {
+// HashConsensusReportProcessorSet represents a ReportProcessorSet event raised by the HashConsensus contract.
+type HashConsensusReportProcessorSet struct {
 	Processor     common.Address
 	PrevProcessor common.Address
 	Raw           types.Log // Blockchain specific contextual infos
@@ -2736,7 +2736,7 @@ type OracleReportProcessorSet struct {
 // FilterReportProcessorSet is a free log retrieval operation binding the contract event 0x3b59429457a41af89ea682ac9ed8abb8e99eb5c7d3363d5eedfc6bff6271a81e.
 //
 // Solidity: event ReportProcessorSet(address indexed processor, address indexed prevProcessor)
-func (_Oracle *OracleFilterer) FilterReportProcessorSet(opts *bind.FilterOpts, processor []common.Address, prevProcessor []common.Address) (*OracleReportProcessorSetIterator, error) {
+func (_HashConsensus *HashConsensusFilterer) FilterReportProcessorSet(opts *bind.FilterOpts, processor []common.Address, prevProcessor []common.Address) (*HashConsensusReportProcessorSetIterator, error) {
 
 	var processorRule []interface{}
 	for _, processorItem := range processor {
@@ -2747,17 +2747,17 @@ func (_Oracle *OracleFilterer) FilterReportProcessorSet(opts *bind.FilterOpts, p
 		prevProcessorRule = append(prevProcessorRule, prevProcessorItem)
 	}
 
-	logs, sub, err := _Oracle.contract.FilterLogs(opts, "ReportProcessorSet", processorRule, prevProcessorRule)
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "ReportProcessorSet", processorRule, prevProcessorRule)
 	if err != nil {
 		return nil, err
 	}
-	return &OracleReportProcessorSetIterator{contract: _Oracle.contract, event: "ReportProcessorSet", logs: logs, sub: sub}, nil
+	return &HashConsensusReportProcessorSetIterator{contract: _HashConsensus.contract, event: "ReportProcessorSet", logs: logs, sub: sub}, nil
 }
 
 // WatchReportProcessorSet is a free log subscription operation binding the contract event 0x3b59429457a41af89ea682ac9ed8abb8e99eb5c7d3363d5eedfc6bff6271a81e.
 //
 // Solidity: event ReportProcessorSet(address indexed processor, address indexed prevProcessor)
-func (_Oracle *OracleFilterer) WatchReportProcessorSet(opts *bind.WatchOpts, sink chan<- *OracleReportProcessorSet, processor []common.Address, prevProcessor []common.Address) (event.Subscription, error) {
+func (_HashConsensus *HashConsensusFilterer) WatchReportProcessorSet(opts *bind.WatchOpts, sink chan<- *HashConsensusReportProcessorSet, processor []common.Address, prevProcessor []common.Address) (event.Subscription, error) {
 
 	var processorRule []interface{}
 	for _, processorItem := range processor {
@@ -2768,7 +2768,7 @@ func (_Oracle *OracleFilterer) WatchReportProcessorSet(opts *bind.WatchOpts, sin
 		prevProcessorRule = append(prevProcessorRule, prevProcessorItem)
 	}
 
-	logs, sub, err := _Oracle.contract.WatchLogs(opts, "ReportProcessorSet", processorRule, prevProcessorRule)
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "ReportProcessorSet", processorRule, prevProcessorRule)
 	if err != nil {
 		return nil, err
 	}
@@ -2778,8 +2778,8 @@ func (_Oracle *OracleFilterer) WatchReportProcessorSet(opts *bind.WatchOpts, sin
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(OracleReportProcessorSet)
-				if err := _Oracle.contract.UnpackLog(event, "ReportProcessorSet", log); err != nil {
+				event := new(HashConsensusReportProcessorSet)
+				if err := _HashConsensus.contract.UnpackLog(event, "ReportProcessorSet", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -2803,18 +2803,18 @@ func (_Oracle *OracleFilterer) WatchReportProcessorSet(opts *bind.WatchOpts, sin
 // ParseReportProcessorSet is a log parse operation binding the contract event 0x3b59429457a41af89ea682ac9ed8abb8e99eb5c7d3363d5eedfc6bff6271a81e.
 //
 // Solidity: event ReportProcessorSet(address indexed processor, address indexed prevProcessor)
-func (_Oracle *OracleFilterer) ParseReportProcessorSet(log types.Log) (*OracleReportProcessorSet, error) {
-	event := new(OracleReportProcessorSet)
-	if err := _Oracle.contract.UnpackLog(event, "ReportProcessorSet", log); err != nil {
+func (_HashConsensus *HashConsensusFilterer) ParseReportProcessorSet(log types.Log) (*HashConsensusReportProcessorSet, error) {
+	event := new(HashConsensusReportProcessorSet)
+	if err := _HashConsensus.contract.UnpackLog(event, "ReportProcessorSet", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// OracleReportReceivedIterator is returned from FilterReportReceived and is used to iterate over the raw logs and unpacked data for ReportReceived events raised by the Oracle contract.
-type OracleReportReceivedIterator struct {
-	Event *OracleReportReceived // Event containing the contract specifics and raw log
+// HashConsensusReportReceivedIterator is returned from FilterReportReceived and is used to iterate over the raw logs and unpacked data for ReportReceived events raised by the HashConsensus contract.
+type HashConsensusReportReceivedIterator struct {
+	Event *HashConsensusReportReceived // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -2828,7 +2828,7 @@ type OracleReportReceivedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *OracleReportReceivedIterator) Next() bool {
+func (it *HashConsensusReportReceivedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -2837,7 +2837,7 @@ func (it *OracleReportReceivedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(OracleReportReceived)
+			it.Event = new(HashConsensusReportReceived)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -2852,7 +2852,7 @@ func (it *OracleReportReceivedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(OracleReportReceived)
+		it.Event = new(HashConsensusReportReceived)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -2868,19 +2868,19 @@ func (it *OracleReportReceivedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *OracleReportReceivedIterator) Error() error {
+func (it *HashConsensusReportReceivedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *OracleReportReceivedIterator) Close() error {
+func (it *HashConsensusReportReceivedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// OracleReportReceived represents a ReportReceived event raised by the Oracle contract.
-type OracleReportReceived struct {
+// HashConsensusReportReceived represents a ReportReceived event raised by the HashConsensus contract.
+type HashConsensusReportReceived struct {
 	RefSlot *big.Int
 	Member  common.Address
 	Report  [32]byte
@@ -2890,7 +2890,7 @@ type OracleReportReceived struct {
 // FilterReportReceived is a free log retrieval operation binding the contract event 0x92f77576dabd7bad26f75c36abb3021b5bbb66a3e5688570a0355daddd417488.
 //
 // Solidity: event ReportReceived(uint256 indexed refSlot, address indexed member, bytes32 report)
-func (_Oracle *OracleFilterer) FilterReportReceived(opts *bind.FilterOpts, refSlot []*big.Int, member []common.Address) (*OracleReportReceivedIterator, error) {
+func (_HashConsensus *HashConsensusFilterer) FilterReportReceived(opts *bind.FilterOpts, refSlot []*big.Int, member []common.Address) (*HashConsensusReportReceivedIterator, error) {
 
 	var refSlotRule []interface{}
 	for _, refSlotItem := range refSlot {
@@ -2901,17 +2901,17 @@ func (_Oracle *OracleFilterer) FilterReportReceived(opts *bind.FilterOpts, refSl
 		memberRule = append(memberRule, memberItem)
 	}
 
-	logs, sub, err := _Oracle.contract.FilterLogs(opts, "ReportReceived", refSlotRule, memberRule)
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "ReportReceived", refSlotRule, memberRule)
 	if err != nil {
 		return nil, err
 	}
-	return &OracleReportReceivedIterator{contract: _Oracle.contract, event: "ReportReceived", logs: logs, sub: sub}, nil
+	return &HashConsensusReportReceivedIterator{contract: _HashConsensus.contract, event: "ReportReceived", logs: logs, sub: sub}, nil
 }
 
 // WatchReportReceived is a free log subscription operation binding the contract event 0x92f77576dabd7bad26f75c36abb3021b5bbb66a3e5688570a0355daddd417488.
 //
 // Solidity: event ReportReceived(uint256 indexed refSlot, address indexed member, bytes32 report)
-func (_Oracle *OracleFilterer) WatchReportReceived(opts *bind.WatchOpts, sink chan<- *OracleReportReceived, refSlot []*big.Int, member []common.Address) (event.Subscription, error) {
+func (_HashConsensus *HashConsensusFilterer) WatchReportReceived(opts *bind.WatchOpts, sink chan<- *HashConsensusReportReceived, refSlot []*big.Int, member []common.Address) (event.Subscription, error) {
 
 	var refSlotRule []interface{}
 	for _, refSlotItem := range refSlot {
@@ -2922,7 +2922,7 @@ func (_Oracle *OracleFilterer) WatchReportReceived(opts *bind.WatchOpts, sink ch
 		memberRule = append(memberRule, memberItem)
 	}
 
-	logs, sub, err := _Oracle.contract.WatchLogs(opts, "ReportReceived", refSlotRule, memberRule)
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "ReportReceived", refSlotRule, memberRule)
 	if err != nil {
 		return nil, err
 	}
@@ -2932,8 +2932,8 @@ func (_Oracle *OracleFilterer) WatchReportReceived(opts *bind.WatchOpts, sink ch
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(OracleReportReceived)
-				if err := _Oracle.contract.UnpackLog(event, "ReportReceived", log); err != nil {
+				event := new(HashConsensusReportReceived)
+				if err := _HashConsensus.contract.UnpackLog(event, "ReportReceived", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -2957,18 +2957,18 @@ func (_Oracle *OracleFilterer) WatchReportReceived(opts *bind.WatchOpts, sink ch
 // ParseReportReceived is a log parse operation binding the contract event 0x92f77576dabd7bad26f75c36abb3021b5bbb66a3e5688570a0355daddd417488.
 //
 // Solidity: event ReportReceived(uint256 indexed refSlot, address indexed member, bytes32 report)
-func (_Oracle *OracleFilterer) ParseReportReceived(log types.Log) (*OracleReportReceived, error) {
-	event := new(OracleReportReceived)
-	if err := _Oracle.contract.UnpackLog(event, "ReportReceived", log); err != nil {
+func (_HashConsensus *HashConsensusFilterer) ParseReportReceived(log types.Log) (*HashConsensusReportReceived, error) {
+	event := new(HashConsensusReportReceived)
+	if err := _HashConsensus.contract.UnpackLog(event, "ReportReceived", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// OracleUpgradedIterator is returned from FilterUpgraded and is used to iterate over the raw logs and unpacked data for Upgraded events raised by the Oracle contract.
-type OracleUpgradedIterator struct {
-	Event *OracleUpgraded // Event containing the contract specifics and raw log
+// HashConsensusUpgradedIterator is returned from FilterUpgraded and is used to iterate over the raw logs and unpacked data for Upgraded events raised by the HashConsensus contract.
+type HashConsensusUpgradedIterator struct {
+	Event *HashConsensusUpgraded // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -2982,7 +2982,7 @@ type OracleUpgradedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *OracleUpgradedIterator) Next() bool {
+func (it *HashConsensusUpgradedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -2991,7 +2991,7 @@ func (it *OracleUpgradedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(OracleUpgraded)
+			it.Event = new(HashConsensusUpgraded)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -3006,7 +3006,7 @@ func (it *OracleUpgradedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(OracleUpgraded)
+		it.Event = new(HashConsensusUpgraded)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -3022,19 +3022,19 @@ func (it *OracleUpgradedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *OracleUpgradedIterator) Error() error {
+func (it *HashConsensusUpgradedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *OracleUpgradedIterator) Close() error {
+func (it *HashConsensusUpgradedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// OracleUpgraded represents a Upgraded event raised by the Oracle contract.
-type OracleUpgraded struct {
+// HashConsensusUpgraded represents a Upgraded event raised by the HashConsensus contract.
+type HashConsensusUpgraded struct {
 	Implementation common.Address
 	Raw            types.Log // Blockchain specific contextual infos
 }
@@ -3042,31 +3042,31 @@ type OracleUpgraded struct {
 // FilterUpgraded is a free log retrieval operation binding the contract event 0xbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b.
 //
 // Solidity: event Upgraded(address indexed implementation)
-func (_Oracle *OracleFilterer) FilterUpgraded(opts *bind.FilterOpts, implementation []common.Address) (*OracleUpgradedIterator, error) {
+func (_HashConsensus *HashConsensusFilterer) FilterUpgraded(opts *bind.FilterOpts, implementation []common.Address) (*HashConsensusUpgradedIterator, error) {
 
 	var implementationRule []interface{}
 	for _, implementationItem := range implementation {
 		implementationRule = append(implementationRule, implementationItem)
 	}
 
-	logs, sub, err := _Oracle.contract.FilterLogs(opts, "Upgraded", implementationRule)
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "Upgraded", implementationRule)
 	if err != nil {
 		return nil, err
 	}
-	return &OracleUpgradedIterator{contract: _Oracle.contract, event: "Upgraded", logs: logs, sub: sub}, nil
+	return &HashConsensusUpgradedIterator{contract: _HashConsensus.contract, event: "Upgraded", logs: logs, sub: sub}, nil
 }
 
 // WatchUpgraded is a free log subscription operation binding the contract event 0xbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b.
 //
 // Solidity: event Upgraded(address indexed implementation)
-func (_Oracle *OracleFilterer) WatchUpgraded(opts *bind.WatchOpts, sink chan<- *OracleUpgraded, implementation []common.Address) (event.Subscription, error) {
+func (_HashConsensus *HashConsensusFilterer) WatchUpgraded(opts *bind.WatchOpts, sink chan<- *HashConsensusUpgraded, implementation []common.Address) (event.Subscription, error) {
 
 	var implementationRule []interface{}
 	for _, implementationItem := range implementation {
 		implementationRule = append(implementationRule, implementationItem)
 	}
 
-	logs, sub, err := _Oracle.contract.WatchLogs(opts, "Upgraded", implementationRule)
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "Upgraded", implementationRule)
 	if err != nil {
 		return nil, err
 	}
@@ -3076,8 +3076,8 @@ func (_Oracle *OracleFilterer) WatchUpgraded(opts *bind.WatchOpts, sink chan<- *
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(OracleUpgraded)
-				if err := _Oracle.contract.UnpackLog(event, "Upgraded", log); err != nil {
+				event := new(HashConsensusUpgraded)
+				if err := _HashConsensus.contract.UnpackLog(event, "Upgraded", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -3101,9 +3101,9 @@ func (_Oracle *OracleFilterer) WatchUpgraded(opts *bind.WatchOpts, sink chan<- *
 // ParseUpgraded is a log parse operation binding the contract event 0xbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b.
 //
 // Solidity: event Upgraded(address indexed implementation)
-func (_Oracle *OracleFilterer) ParseUpgraded(log types.Log) (*OracleUpgraded, error) {
-	event := new(OracleUpgraded)
-	if err := _Oracle.contract.UnpackLog(event, "Upgraded", log); err != nil {
+func (_HashConsensus *HashConsensusFilterer) ParseUpgraded(log types.Log) (*HashConsensusUpgraded, error) {
+	event := new(HashConsensusUpgraded)
+	if err := _HashConsensus.contract.UnpackLog(event, "Upgraded", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

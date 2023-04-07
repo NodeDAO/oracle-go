@@ -6,8 +6,8 @@ package config
 
 import (
 	"fmt"
-	"github.com/NodeDAO/oracle-go/common/global"
 	"github.com/NodeDAO/oracle-go/common/logger"
+	"github.com/NodeDAO/oracle-go/config/global"
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 )

@@ -11,7 +11,7 @@ import (
 )
 
 type EthClient struct {
-	client *ethclient.Client
+	Client *ethclient.Client
 }
 
 func NewEthClient(ctx context.Context, rpcHost string) (*EthClient, error) {
@@ -20,14 +20,14 @@ func NewEthClient(ctx context.Context, rpcHost string) (*EthClient, error) {
 		return nil, errors.Unwrap(err)
 	}
 	return &EthClient{
-		client: elClient,
+		Client: elClient,
 	}, nil
 }
 
 func getEthClient(ctx context.Context, rpcHost string) (*ethclient.Client, error) {
 	client, err := ethclient.Dial(rpcHost)
 	if err != nil {
-		return nil, errors.Wrap(err, "Fail to connect to Executive layer client")
+		return nil, errors.Wrap(err, "Fail to connect to Executive layer Client")
 	}
 	return client, nil
 }

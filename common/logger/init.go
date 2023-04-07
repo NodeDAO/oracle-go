@@ -6,7 +6,7 @@ package logger
 
 import (
 	"fmt"
-	"github.com/NodeDAO/oracle-go/common/global"
+	"github.com/NodeDAO/oracle-go/config/global"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"strings"
