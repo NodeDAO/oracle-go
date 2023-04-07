@@ -2,17 +2,10 @@
 // @author renshiwei
 // Date: 2022/10/5 17:06
 
-package global
-
-import (
-	"github.com/NodeDAO/oracle-go/consensus"
-	"github.com/NodeDAO/oracle-go/eth1"
-)
+package config
 
 var (
-	Config          ConfigYaml
-	ConsensusClient *consensus.Consensus
-	ElClient        *eth1.EthClient
+	Config ConfigYaml
 )
 
 type ConfigYaml struct {

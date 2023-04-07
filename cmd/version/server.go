@@ -2,7 +2,7 @@ package version
 
 import (
 	"fmt"
-	"github.com/NodeDAO/oracle-go/config/global"
+	"github.com/NodeDAO/oracle-go/config"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
@@ -11,7 +11,7 @@ var (
 	StartCmd = &cobra.Command{
 		Use:     "version",
 		Short:   "Get version info",
-		Example: global.Config.Cli.Name + " version",
+		Example: config.Config.Cli.Name + " version",
 		PreRun: func(cmd *cobra.Command, args []string) {
 
 		},
@@ -22,6 +22,6 @@ var (
 )
 
 func run() error {
-	fmt.Printf(global.Config.Cli.Name+" version: %s\n", color.GreenString(global.Config.Server.Version))
+	fmt.Printf(config.Config.Cli.Name+" version: %s\n", color.GreenString(config.Config.Server.Version))
 	return nil
 }

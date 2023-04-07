@@ -7,7 +7,6 @@ package beacon
 import (
 	"context"
 	"github.com/NodeDAO/oracle-go/config"
-	"github.com/NodeDAO/oracle-go/config/global"
 	eth2client "github.com/attestantio/go-eth2-client"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -18,7 +17,7 @@ var clAddr string
 
 func initClAddr() {
 	config.InitConfig("../../conf/config-dev.yaml")
-	clAddr = global.Config.Eth.ClAddr
+	clAddr = config.Config.Eth.ClAddr
 }
 
 func newBeaconClientTest() eth2client.Service {

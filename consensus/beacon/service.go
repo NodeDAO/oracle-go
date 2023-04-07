@@ -6,6 +6,7 @@ package beacon
 
 import (
 	"context"
+	consensusApi "github.com/attestantio/go-eth2-client/api/v1"
 	"time"
 )
 
@@ -19,6 +20,10 @@ type BeaconBlocksProvider interface {
 type ExecutionInfoProvider interface {
 	// ExecutionPayload provides the block's Execution info of a given block ID.
 	ExecutionPayload(ctx context.Context, blockID string) (*ExecutionPayload, error)
+}
+
+type ValidatorsProvider interface {
+	ValidatorsByPubKey(ctx context.Context, stateID string, validatorPubKeys []string) (map[string]*consensusApi.Validator, error)
 }
 
 type BeaconService struct {

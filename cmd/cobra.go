@@ -7,9 +7,9 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"github.com/NodeDAO/oracle-go/app"
 	"github.com/NodeDAO/oracle-go/cmd/version"
 	"github.com/NodeDAO/oracle-go/config"
-	"github.com/NodeDAO/oracle-go/config/global"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"os"
@@ -17,7 +17,7 @@ import (
 
 var (
 	cfgFile string
-	cliName = global.Config.Cli.Name
+	cliName = config.Config.Cli.Name
 )
 
 var rootCmd = &cobra.Command{
@@ -49,7 +49,7 @@ func init() {
 	ctx := context.Background()
 	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "conf/config-dev.yaml", "config file (default is config/config.yaml)")
 	// init config file ...
-	config.InitServer(ctx, cfgFile)
+	app.InitServer(ctx, cfgFile)
 
 	rootCmd.AddCommand(version.StartCmd)
 }

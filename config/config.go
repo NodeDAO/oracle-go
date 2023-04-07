@@ -6,8 +6,6 @@ package config
 
 import (
 	"fmt"
-	"github.com/NodeDAO/oracle-go/common/logger"
-	"github.com/NodeDAO/oracle-go/config/global"
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 )
@@ -21,13 +19,13 @@ func InitConfig(configDir string) {
 	}
 	viper.WatchConfig()
 
-	if err := viper.Unmarshal(&global.Config); err != nil {
-		logger.Errorf("read config file err. file: %s", configDir)
+	if err := viper.Unmarshal(&Config); err != nil {
+		panic(fmt.Errorf("read config file err. file: %s", configDir))
 	}
 
 	viper.OnConfigChange(func(e fsnotify.Event) {
 		fmt.Println("config file changed:", e.Name)
-		if err := viper.Unmarshal(&global.Config); err != nil {
+		if err := viper.Unmarshal(&Config); err != nil {
 			fmt.Println(err)
 		}
 	})

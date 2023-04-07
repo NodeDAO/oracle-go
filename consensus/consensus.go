@@ -22,6 +22,8 @@ type Consensus struct {
 	Timeout time.Duration
 }
 
+var ConsensusClient *Consensus
+
 func New(ctx context.Context, addr string, timeout time.Duration) (*Consensus, error) {
 	beaconNode, err := beacon.ConnectToBeaconNode(ctx, addr, timeout, true)
 	if err != nil {

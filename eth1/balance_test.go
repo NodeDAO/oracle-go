@@ -8,7 +8,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/NodeDAO/oracle-go/config"
-	"github.com/NodeDAO/oracle-go/config/global"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -16,7 +15,7 @@ import (
 
 func TestBalanceAt(t *testing.T) {
 	config.InitConfig("../conf/config-dev.yaml")
-	elAddr := global.Config.Eth.ElAddr
+	elAddr := config.Config.Eth.ElAddr
 	background := context.Background()
 
 	ethClient, err := NewEthClient(background, elAddr)

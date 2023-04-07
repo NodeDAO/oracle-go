@@ -6,7 +6,7 @@ package logger
 
 import (
 	"fmt"
-	"github.com/NodeDAO/oracle-go/config/global"
+	"github.com/NodeDAO/oracle-go/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"strings"
@@ -31,7 +31,7 @@ func InitLog() {
 	}
 
 	// 设置日志级别
-	atomLevel := zap.NewAtomicLevelAt(switchLogLevel(global.Config.Log.Level.Server))
+	atomLevel := zap.NewAtomicLevelAt(switchLogLevel(config.Config.Log.Level.Server))
 
 	config := zap.Config{
 		Level:         atomLevel,     // 日志级别

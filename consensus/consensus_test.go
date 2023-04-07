@@ -8,7 +8,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/NodeDAO/oracle-go/config"
-	"github.com/NodeDAO/oracle-go/config/global"
 	"github.com/stretchr/testify/require"
 	"testing"
 	"time"
@@ -16,7 +15,7 @@ import (
 
 func TestGetConsensusInfo(t *testing.T) {
 	config.InitConfig("../conf/config-dev.yaml")
-	clAddr := global.Config.Eth.ClAddr
+	clAddr := config.Config.Eth.ClAddr
 	timeout := 1 * time.Minute
 
 	background := context.Background()

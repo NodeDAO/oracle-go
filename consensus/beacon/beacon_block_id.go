@@ -17,16 +17,6 @@ import (
 	"github.com/pkg/errors"
 )
 
-//type BeaconBlock struct {
-//	Version             string `json:"version"`
-//	ExecutionOptimistic bool   `json:"execution_optimistic"`
-//	Data                struct {
-//		Message   *capella.BlindedBeaconBlock `json:"message"`
-//		Signature string                      `json:"signature"`
-//	} `json:"data"`
-//	Finalized bool `json:"finalized"`
-//}
-
 type BeaconBlock struct {
 	Version string `json:"version"`
 	Data    struct {
