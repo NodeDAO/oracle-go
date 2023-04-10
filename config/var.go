@@ -29,15 +29,8 @@ type ConfigYaml struct {
 	}
 
 	Eth struct {
-		ElAddr string
-		ClAddr string
-	}
-
-	Contracts struct {
-		Vnft           string
-		Liq            string
-		WithdrawOracle string
-		HashConsensus  string
-		ClVault        string
+		Network string
+		ElAddr  string
+		ClAddr  string
 	}
 }

@@ -12,12 +12,7 @@ log:
     server: debug
 
 eth:
+  network: goerli
   elAddr:
   clAddr:
 
-contracts:
-  vnft:
-  liq:
-  withdrawOracle:
-  hashConsensus:
-  clVault:

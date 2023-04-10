@@ -14,4 +14,6 @@ abigen --abi=contracts/vnft/VNFT.json --pkg=vnft --out=contracts/vnft/vnft.go
 abigen --abi=contracts/hashConsensus/HashConsensus.json --pkg=hashConsensus --out=contracts/hashConsensus/hash_consensus.go
 
 abigen --abi=contracts/withdrawOracle/WithdrawOracle.json --pkg=withdrawOracle --out=contracts/withdrawOracle/withdraw_oracle.go
+
+abigen --abi=contracts/operator/operator.json --pkg=operator --out=contracts/operator/operator.go
 ```
