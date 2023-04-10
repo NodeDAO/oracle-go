@@ -13,6 +13,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/NodeDAO/oracle-go/utils/httptool"
+	"math/big"
+	"strconv"
+
 	//"github.com/attestantio/go-eth2-client/api/v1/capella"
 	"github.com/pkg/errors"
 )
@@ -83,14 +86,14 @@ type ExecutionPayload struct {
 }
 
 type ExecutionBlock struct {
-	ParentHash    string `json:"parent_hash"`
-	FeeRecipient  string `json:"fee_recipient"`
-	BlockNumber   string `json:"block_number"`
-	GasLimit      string `json:"gas_limit"`
-	GasUsed       string `json:"gas_used"`
-	Timestamp     string `json:"timestamp"`
-	BaseFeePerGas string `json:"base_fee_per_gas"`
-	BlockHash     string `json:"block_hash"`
+	ParentHash    string   `json:"parent_hash"`
+	FeeRecipient  string   `json:"fee_recipient"`
+	BlockNumber   *big.Int `json:"block_number"`
+	GasLimit      *big.Int `json:"gas_limit"`
+	GasUsed       bool     `json:"gas_used"`
+	Timestamp     string   `json:"timestamp"`
+	BaseFeePerGas *big.Int `json:"base_fee_per_gas"`
+	BlockHash     string   `json:"block_hash"`
 }
 
 func (b *BeaconService) BeaconBlock(ctx context.Context, blockID string) (*BeaconBlock, error) {
@@ -130,14 +133,26 @@ func (b *BeaconService) ExecutionBlock(ctx context.Context, blockID string) (*Ex
 		return nil, errors.Unwrap(err)
 	}
 
+	blockNumber, ok := new(big.Int).SetString(executionPayload.BlockNumber, 10)
+	gasLimit, ok := new(big.Int).SetString(executionPayload.GasLimit, 10)
+	baseFeePerGas, ok := new(big.Int).SetString(executionPayload.BaseFeePerGas, 10)
+	if !ok {
+		return nil, errors.New("Failed string to big.Int")
+	}
+
+	gasUsed, err := strconv.ParseBool(executionPayload.GasUsed)
+	if err != nil {
+		return nil, errors.Wrap(err, "Failed string to bool")
+	}
+
 	return &ExecutionBlock{
 		ParentHash:    executionPayload.ParentHash,
 		FeeRecipient:  executionPayload.FeeRecipient,
-		BlockNumber:   executionPayload.BlockNumber,
-		GasLimit:      executionPayload.GasLimit,
-		GasUsed:       executionPayload.GasUsed,
+		BlockNumber:   blockNumber,
+		GasLimit:      gasLimit,
+		GasUsed:       gasUsed,
 		Timestamp:     executionPayload.Timestamp,
-		BaseFeePerGas: executionPayload.BaseFeePerGas,
+		BaseFeePerGas: baseFeePerGas,
 		BlockHash:     executionPayload.BlockHash,
 	}, nil
 }

@@ -31,7 +31,7 @@ type Error struct {
 }
 
 // timeout for tests.
-//var timeout = 60 * time.Second
+var defaultTimeout = 60 * time.Second
 
 func (e Error) Error() string {
 	return fmt.Sprintf("%s failed with status %d: %s", e.Method, e.StatusCode, e.Data)
@@ -62,8 +62,14 @@ func New(ctx context.Context, timeout time.Duration) (*HttpTool, error) {
 }
 
 func (h *HttpTool) GetRequest(ctx context.Context, endpoint string) (io.Reader, error) {
+	var timeout time.Duration
+	if h.timeout == 0 {
+		timeout = defaultTimeout
+	} else {
+		timeout = h.timeout
+	}
 
-	opCtx, cancel := context.WithTimeout(ctx, h.timeout)
+	opCtx, cancel := context.WithTimeout(ctx, timeout)
 	req, err := http.NewRequestWithContext(opCtx, http.MethodGet, endpoint, nil)
 	if err != nil {
 		cancel()

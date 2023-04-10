@@ -38,5 +38,6 @@ type ConfigYaml struct {
 		Liq            string
 		WithdrawOracle string
 		HashConsensus  string
+		ClVault        string
 	}
 }

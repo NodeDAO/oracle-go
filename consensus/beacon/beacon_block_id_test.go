@@ -33,6 +33,7 @@ func TestGetExecutionPayload(t *testing.T) {
 	initClAddr()
 	b := &BeaconService{
 		BaseUrl: clAddr,
+		Timeout: 1 * time.Minute,
 	}
 
 	executionPayload, err := b.ExecutionPayload(context.Background(), "head")
@@ -47,6 +48,7 @@ func TestGetExecutionBlock(t *testing.T) {
 	initClAddr()
 	b := &BeaconService{
 		BaseUrl: clAddr,
+		Timeout: 1 * time.Minute,
 	}
 
 	executionBlock, err := b.ExecutionBlock(context.Background(), "5354527")

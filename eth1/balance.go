@@ -9,12 +9,13 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 	"github.com/shopspring/decimal"
+	"math/big"
 )
 
-func (e *EthClient) BalanceAt(ctx context.Context, address string, blockNumber decimal.Decimal) (decimal.Decimal, error) {
-	balance, err := e.Client.BalanceAt(ctx, common.HexToAddress(address), blockNumber.BigInt())
+func (e *EthClient) BalanceAt(ctx context.Context, address string, blockNumber *big.Int) (*big.Int, error) {
+	balance, err := e.Client.BalanceAt(ctx, common.HexToAddress(address), blockNumber)
 	if err != nil {
-		return decimal.Zero, errors.Wrapf(err, "Fail to get balance address:%s blockNumber:%s", address, blockNumber.String())
+		return decimal.Zero.BigInt(), errors.Wrapf(err, "Fail to get balance address:%s blockNumber:%s", address, blockNumber.String())
 	}
-	return decimal.NewFromBigInt(balance, 0), nil
+	return balance, nil
 }

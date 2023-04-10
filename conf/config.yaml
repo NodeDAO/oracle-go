@@ -20,3 +20,4 @@ contracts:
   liq:
   withdrawOracle:
   hashConsensus:
+  clVault:
