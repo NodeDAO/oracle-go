@@ -2,7 +2,7 @@
 // @author renshiwei
 // Date: 2023/4/10 15:02
 
-package withdrawOracle
+package withdraw
 
 import (
 	"context"
@@ -34,7 +34,7 @@ func (v *WithdrawHelper) obtainValidatorConsensusInfo(ctx context.Context) error
 		pubkeys[i] = string(validatorBytes[i])
 	}
 
-	validators, err := consensus.ConsensusClient.CustomizeBeaconService.ValidatorsByPubKey(ctx, v.RefSlot.String(), pubkeys)
+	validators, err := consensus.ConsensusClient.CustomizeBeaconService.ValidatorsByPubKey(ctx, v.refSlot.String(), pubkeys)
 	for k, value := range validators {
 		validatorExa := &ValidatorExa{
 			Validator: value,

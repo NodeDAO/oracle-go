@@ -156,3 +156,12 @@ func (b *BeaconService) ExecutionBlock(ctx context.Context, blockID string) (*Ex
 		BlockHash:     executionPayload.BlockHash,
 	}, nil
 }
+
+func (b *BeaconService) HeadSlot(ctx context.Context) (*big.Int, error) {
+	headBlock, err := b.BeaconBlock(ctx, "head")
+	if err != nil {
+		return nil, errors.Wrap(err, "Failed to get beacon head block.")
+	}
+	headSlot, _ := new(big.Int).SetString(headBlock.Data.Message.Slot, 0)
+	return headSlot, nil
+}

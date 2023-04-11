@@ -57,7 +57,6 @@ type NodeOperator struct {
 
 var (
 	WithdrawOracleContract *WithdrawOracle
-	HashConsensusContract  *HashConsensus
 	VnftContract           *Vnft
 	LiqContract            *Liq
 	OperatorContract       *NodeOperator
@@ -77,9 +76,6 @@ const (
 
 	NODE_OPERATOR_ADDRESS_MAINNET = ""
 	NODE_OPERATOR_ADDRESS_GOERLI  = ""
-
-	HASH_CONSENSUS_ADDRESS_MAINNET = ""
-	HASH_CONSENSUS_ADDRESS_GOERLI  = ""
 
 	WITHDRAW_ORACLE_ADDRESS_MAINNET = ""
 	WITHDRAW_ORACLE_ADDRESS_GOERLI  = ""
@@ -101,7 +97,6 @@ func init() {
 	}
 
 	WithdrawOracleContract, err = NewWithdrawOracle()
-	HashConsensusContract, err = NewHashConsensus()
 	VnftContract, err = NewVnft()
 	LiqContract, err = NewLiq()
 	OperatorContract, err = NewNodeOperator()
@@ -136,24 +131,6 @@ func NewWithdrawOracle() (*WithdrawOracle, error) {
 	e.Contract, err = withdrawOracle.NewWithdrawOracle(common.HexToAddress(e.Address), eth1.ElClient.Client)
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to new withdraw Oracle.")
-	}
-	return e, nil
-}
-
-func NewHashConsensus() (*HashConsensus, error) {
-	e := &HashConsensus{
-		Network: network,
-	}
-	if strings.ToLower(network) == MAINNET {
-		e.Address = HASH_CONSENSUS_ADDRESS_MAINNET
-	} else if strings.ToLower(network) == GOERLI {
-		e.Address = HASH_CONSENSUS_ADDRESS_GOERLI
-	}
-
-	var err error
-	e.Contract, err = hashConsensus.NewHashConsensus(common.HexToAddress(e.Address), eth1.ElClient.Client)
-	if err != nil {
-		return nil, errors.Wrap(err, "Failed to new HashConsensus.")
 	}
 	return e, nil
 }

@@ -2,7 +2,7 @@
 // @author renshiwei
 // Date: 2023/4/10 15:02
 
-package withdrawOracle
+package withdraw
 
 import (
 	"context"

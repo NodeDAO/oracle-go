@@ -29,8 +29,9 @@ type ConfigYaml struct {
 	}
 
 	Eth struct {
-		Network string
-		ElAddr  string
-		ClAddr  string
+		Network    string
+		ElAddr     string
+		ClAddr     string
+		PrivateKey string
 	}
 }

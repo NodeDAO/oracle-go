@@ -15,4 +15,5 @@ eth:
   network: goerli
   elAddr:
   clAddr:
+  privateKey:
 

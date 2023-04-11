@@ -2,9 +2,10 @@
 // @author renshiwei
 // Date: 2023/4/7 15:33
 
-package withdrawOracle
+package withdraw
 
 import (
+	"github.com/NodeDAO/oracle-go/app/consensusModule"
 	"github.com/NodeDAO/oracle-go/consensus/beacon"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	consensusApi "github.com/attestantio/go-eth2-client/api/v1"
@@ -13,8 +14,8 @@ import (
 
 type WithdrawHelper struct {
 	// param
-	RefSlot          *big.Int
-	ConsensusVersion *big.Int
+	refSlot          *big.Int
+	consensusVersion *big.Int
 
 	executionBlock           *beacon.ExecutionBlock
 	delayedExitSlashStandard *big.Int
@@ -27,7 +28,7 @@ type WithdrawHelper struct {
 	clVaultBalance *big.Int
 
 	delayedExitTokenIds []*big.Int
-	// todo
+
 	largeExitDelayedRequestIds []*big.Int
 
 	totalOperatorClCapital *big.Int
@@ -38,6 +39,10 @@ type WithdrawHelper struct {
 
 	// res
 	reportData *withdrawOracle.WithdrawOracleReportData
+
+	// report
+	oracle              *Oracle
+	hashConsensusHelper *consensusModule.HashConsensusHelper
 }
 
 type ValidatorExa struct {
@@ -66,3 +71,12 @@ type EffectiveOperator struct {
 	VnftCount      uint64
 	OperatorReward withdrawOracle.WithdrawInfo
 }
+
+type Oracle struct {
+}
+
+// version
+const (
+	CONSENSUS_VERSION = 1
+	CONTRACT_VERSION  = 1
+)

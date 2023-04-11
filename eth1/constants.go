@@ -10,6 +10,8 @@ import (
 	"math/big"
 )
 
+var ZERO_HASH = [32]byte{}
+
 func GWEIToWEI(value *big.Int) *big.Int {
 	return new(big.Int).Mul(value, big.NewInt(params.GWei))
 }
