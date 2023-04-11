@@ -13,7 +13,8 @@ import (
 
 type WithdrawHelper struct {
 	// param
-	RefSlot *big.Int
+	RefSlot          *big.Int
+	ConsensusVersion *big.Int
 
 	executionBlock           *beacon.ExecutionBlock
 	delayedExitSlashStandard *big.Int
@@ -32,8 +33,8 @@ type WithdrawHelper struct {
 	totalOperatorClCapital *big.Int
 	totalNftCount          *big.Int
 
-	withdrawInfos      []*withdrawOracle.WithdrawInfo
-	exitValidatorInfos []*withdrawOracle.ExitValidatorInfo
+	withdrawInfos      []withdrawOracle.WithdrawInfo
+	exitValidatorInfos []withdrawOracle.ExitValidatorInfo
 
 	// res
 	reportData *withdrawOracle.WithdrawOracleReportData
@@ -63,5 +64,5 @@ type ValidatorExa struct {
 
 type EffectiveOperator struct {
 	VnftCount      uint64
-	OperatorReward *withdrawOracle.WithdrawInfo
+	OperatorReward withdrawOracle.WithdrawInfo
 }

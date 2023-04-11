@@ -203,7 +203,7 @@ func (v *WithdrawHelper) calculationIsDelayedExit(ctx context.Context, exa *Vali
 
 func (v *WithdrawHelper) calculationExitValidatorInfo(ctx context.Context) error {
 	for _, exa := range v.requireReportValidator {
-		w := &withdrawOracle.ExitValidatorInfo{
+		w := withdrawOracle.ExitValidatorInfo{
 			ExitTokenId:     exa.TokenId.Uint64(),
 			ExitBlockNumber: exa.ExitedBlockHeight,
 			SlashAmount:     exa.SlashAmount,

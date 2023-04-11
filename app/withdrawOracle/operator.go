@@ -71,7 +71,7 @@ func (v *WithdrawHelper) calculationOperatorWeight(ctx context.Context, effectiv
 
 			effectiveOperators[i] = &EffectiveOperator{
 				VnftCount: nftCount.Uint64(),
-				OperatorReward: &withdrawOracle.WithdrawInfo{
+				OperatorReward: withdrawOracle.WithdrawInfo{
 					OperatorId: uint64(i),
 				},
 			}

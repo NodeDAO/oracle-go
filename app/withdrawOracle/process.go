@@ -11,6 +11,7 @@ import (
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/pkg/errors"
 	"math/big"
+	"sort"
 )
 
 // core process
@@ -85,14 +86,43 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 
 	v.delayedExitTokenIds = make([]*big.Int, 0)
 	v.largeExitDelayedRequestIds = make([]*big.Int, 0)
-	v.withdrawInfos = make([]*withdrawOracle.WithdrawInfo, 0)
-	v.exitValidatorInfos = make([]*withdrawOracle.ExitValidatorInfo, 0)
+	v.withdrawInfos = make([]withdrawOracle.WithdrawInfo, 0)
+	v.exitValidatorInfos = make([]withdrawOracle.ExitValidatorInfo, 0)
 
 	return nil
 }
 
-// 1.
+// Slice types need to be sorted
 func (v *WithdrawHelper) obtainReportData(ctx context.Context) error {
+	// sort slice
+
+	sort.Slice(v.withdrawInfos, func(i, j int) bool {
+		return v.withdrawInfos[i].OperatorId < v.withdrawInfos[j].OperatorId
+	})
+
+	sort.Slice(v.exitValidatorInfos, func(i, j int) bool {
+		return v.exitValidatorInfos[i].ExitTokenId < v.exitValidatorInfos[j].ExitTokenId
+	})
+
+	sort.Slice(v.delayedExitTokenIds, func(i, j int) bool {
+		return v.delayedExitTokenIds[i].Cmp(v.delayedExitTokenIds[j]) < 0
+	})
+
+	sort.Slice(v.largeExitDelayedRequestIds, func(i, j int) bool {
+		return v.largeExitDelayedRequestIds[i].Cmp(v.largeExitDelayedRequestIds[j]) < 0
+	})
+
+	v.reportData = &withdrawOracle.WithdrawOracleReportData{
+		ConsensusVersion:           v.ConsensusVersion,
+		RefSlot:                    v.RefSlot,
+		ClBalance:                  v.clBalance,
+		ClVaultBalance:             v.clVaultBalance,
+		ReportExitedCount:          big.NewInt(int64(len(v.exitValidatorInfos))),
+		WithdrawInfos:              v.withdrawInfos,
+		ExitValidatorInfos:         v.exitValidatorInfos,
+		DelayedExitTokenIds:        v.delayedExitTokenIds,
+		LargeExitDelayedRequestIds: v.largeExitDelayedRequestIds,
+	}
 
 	return nil
 }
