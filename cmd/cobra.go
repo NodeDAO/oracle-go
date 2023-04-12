@@ -20,7 +20,7 @@ var (
 	cliName = config.Config.Cli.Name
 )
 
-var rootCmd = &cobra.Command{
+var RootCmd = &cobra.Command{
 	Use:          cliName,
 	Short:        cliName,
 	SilenceUsage: true,
@@ -47,16 +47,16 @@ func tip() {
 
 func init() {
 	ctx := context.Background()
-	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "conf/config-dev.yaml", "config file (default is config/config.yaml)")
+	RootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "conf/config-dev.yaml", "config file (default is config/config.yaml)")
 	// init config file ...
 	app.InitServer(ctx, cfgFile)
 
-	rootCmd.AddCommand(version.StartCmd)
+	RootCmd.AddCommand(version.StartCmd)
 }
 
 // Execute : apply commands
 func Execute() {
-	if err := rootCmd.Execute(); err != nil {
+	if err := RootCmd.Execute(); err != nil {
 		os.Exit(-1)
 	}
 }
