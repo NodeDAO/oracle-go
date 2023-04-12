@@ -21,7 +21,7 @@ type validatorsByPubKeyJSON struct {
 func (b *BeaconService) ValidatorsByPubKey(ctx context.Context, stateID string, validatorPubKeys []string) (map[string]*consensusApi.Validator, error) {
 	httpTool, err := httptool.New(ctx, b.Timeout)
 	if err != nil {
-		return nil, errors.Unwrap(err)
+		return nil, errors.Wrap(err, "")
 	}
 
 	url := fmt.Sprintf("%s/eth/v1/beacon/states/%s/validators", b.BaseUrl, stateID)

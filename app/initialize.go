@@ -23,6 +23,7 @@ func InitServer(ctx context.Context, configDir string) {
 	once.Do(func() {
 		config.InitConfig(configDir)
 		logger.InitLog()
+
 		consensus.ConsensusClient, err = consensus.New(ctx, config.Config.Eth.ClAddr, timeout)
 		if err != nil {
 			logger.Errorf("err:%+v", err)
@@ -30,5 +31,9 @@ func InitServer(ctx context.Context, configDir string) {
 		}
 
 		eth1.ElClient, err = eth1.NewEthClient(ctx, config.Config.Eth.ElAddr)
+		if err != nil {
+			logger.Errorf("err:%+v", err)
+			panic(err)
+		}
 	})
 }

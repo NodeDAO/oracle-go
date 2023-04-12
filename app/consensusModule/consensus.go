@@ -18,12 +18,12 @@ import (
 func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [32]byte, refSlot, consensusVersion *big.Int) error {
 	headSlot, err := consensus.ConsensusClient.CustomizeBeaconService.HeadSlot(ctx)
 	if err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	memberInfo, err := v.GetMemberInfo(ctx)
 	if err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 	if !memberInfo.IsFastLane {
 		if headSlot.Cmp(new(big.Int).Add(memberInfo.CurrentFrameRefSlot, memberInfo.FastLaneLengthSlot)) == -1 {
@@ -39,7 +39,7 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 		logger.Infof("Send report hash. hash:%s", dataHash)
 		err := v.submitReport(ctx, dataHash, refSlot, consensusVersion)
 		if err != nil {
-			return errors.Unwrap(err)
+			return errors.Wrap(err, "")
 		}
 	} else {
 		logger.Info("Provided hash already submitted.")
@@ -51,7 +51,7 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 func (v *HashConsensusHelper) submitReport(ctx context.Context, dataHash [32]byte, refSlot, consensusVersion *big.Int) error {
 	consensusContract, err := v.ReportContract.GetConsensusContract(ctx)
 	if err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 	tx, err := consensusContract.SubmitReport(nil, refSlot, dataHash, consensusVersion)
 	if err != nil {
@@ -68,7 +68,7 @@ func (v *HashConsensusHelper) submitReport(ctx context.Context, dataHash [32]byt
 func (v *HashConsensusHelper) GetMemberInfo(ctx context.Context) (*MemberInfo, error) {
 	consensusContract, err := v.ReportContract.GetConsensusContract(ctx)
 	if err != nil {
-		return nil, errors.Unwrap(err)
+		return nil, errors.Wrap(err, "")
 	}
 
 	currentFrame, err := consensusContract.GetCurrentFrame(nil)
@@ -83,7 +83,7 @@ func (v *HashConsensusHelper) GetMemberInfo(ctx context.Context) (*MemberInfo, e
 
 	memberAddress, err := eth1.PubkeyFromPrivateKey(config.Config.Eth.PrivateKey)
 	if err != nil {
-		return nil, errors.Unwrap(err)
+		return nil, errors.Wrap(err, "")
 	}
 
 	memberConsensusState, err := consensusContract.GetConsensusStateForMember(nil, memberAddress)
@@ -106,12 +106,12 @@ func (v *HashConsensusHelper) GetMemberInfo(ctx context.Context) (*MemberInfo, e
 func (v *HashConsensusHelper) GetRefSlotAndIsReport(ctx context.Context) (*big.Int, bool, error) {
 	headSlot, err := consensus.ConsensusClient.CustomizeBeaconService.HeadSlot(ctx)
 	if err != nil {
-		return nil, false, errors.Unwrap(err)
+		return nil, false, errors.Wrap(err, "")
 	}
 
 	memberInfo, err := v.GetMemberInfo(ctx)
 	if err != nil {
-		return nil, false, errors.Unwrap(err)
+		return nil, false, errors.Wrap(err, "")
 	}
 
 	// Slot < CurrentFrameRefSlot
@@ -136,12 +136,12 @@ func (v *HashConsensusHelper) GetRefSlotAndIsReport(ctx context.Context) (*big.I
 func (v *HashConsensusHelper) GetLastData(ctx context.Context) (*big.Int, *MemberInfo, error) {
 	headSlot, err := consensus.ConsensusClient.CustomizeBeaconService.HeadSlot(ctx)
 	if err != nil {
-		return nil, nil, errors.Unwrap(err)
+		return nil, nil, errors.Wrap(err, "")
 	}
 
 	memberInfo, err := v.GetMemberInfo(ctx)
 	if err != nil {
-		return nil, nil, errors.Unwrap(err)
+		return nil, nil, errors.Wrap(err, "")
 	}
 
 	return headSlot, memberInfo, nil

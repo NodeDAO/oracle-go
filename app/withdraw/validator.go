@@ -122,7 +122,7 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 					// ExitedAmount
 					isOwnerLiqPool, err := v.IsOwnerLiqPool(ctx, exa)
 					if err != nil {
-						return errors.Unwrap(err)
+						return errors.Wrap(err, "")
 					}
 					if isOwnerLiqPool {
 						pubkeys := make([]string, 1)

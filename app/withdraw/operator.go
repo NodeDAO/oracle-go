@@ -28,16 +28,16 @@ func (v *WithdrawHelper) calculationForOperator(ctx context.Context) error {
 	effectiveOperators := make(map[int64]*EffectiveOperator)
 
 	if err := v.calculationOperatorWeight(ctx, effectiveOperators); err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	if err := v.calculationOperatorClCapital(ctx, effectiveOperators); err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	// calculationOperatorClReward and dealWithdrawInfo
 	if err := v.calculationOperatorClReward(ctx, effectiveOperators); err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	return nil

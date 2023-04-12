@@ -8,6 +8,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/NodeDAO/oracle-go/app"
+	"github.com/NodeDAO/oracle-go/cmd/oracle"
 	"github.com/NodeDAO/oracle-go/cmd/version"
 	"github.com/NodeDAO/oracle-go/config"
 	"github.com/pkg/errors"
@@ -32,7 +33,11 @@ var RootCmd = &cobra.Command{
 		}
 		return nil
 	},
-	PersistentPreRunE: func(*cobra.Command, []string) error { return nil },
+	PersistentPreRun: func(*cobra.Command, []string) {
+		ctx := context.Background()
+		// init config file ...
+		app.InitServer(ctx, cfgFile)
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 		tip()
 	},
@@ -46,12 +51,11 @@ func tip() {
 }
 
 func init() {
-	ctx := context.Background()
-	RootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "conf/config-dev.yaml", "config file (default is config/config.yaml)")
-	// init config file ...
-	app.InitServer(ctx, cfgFile)
+
+	RootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "conf/config-dev.yaml", "config file")
 
 	RootCmd.AddCommand(version.StartCmd)
+	RootCmd.AddCommand(oracle.OracleCmd)
 }
 
 // Execute : apply commands

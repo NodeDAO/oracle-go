@@ -99,7 +99,7 @@ type ExecutionBlock struct {
 func (b *BeaconService) BeaconBlock(ctx context.Context, blockID string) (*BeaconBlock, error) {
 	httpTool, err := httptool.New(ctx, b.Timeout)
 	if err != nil {
-		return nil, errors.Unwrap(err)
+		return nil, errors.Wrap(err, "")
 	}
 
 	respBodyReader, err := httpTool.GetRequest(ctx, fmt.Sprintf("%s/eth/v2/beacon/blocks/%s", b.BaseUrl, blockID))
@@ -121,7 +121,7 @@ func (b *BeaconService) BeaconBlock(ctx context.Context, blockID string) (*Beaco
 func (b *BeaconService) ExecutionPayload(ctx context.Context, blockID string) (*ExecutionPayload, error) {
 	beaconBlock, err := b.BeaconBlock(ctx, blockID)
 	if err != nil {
-		return nil, errors.Unwrap(err)
+		return nil, errors.Wrap(err, "")
 	}
 
 	return beaconBlock.Data.Message.Body.ExecutionPayload, nil
@@ -130,7 +130,7 @@ func (b *BeaconService) ExecutionPayload(ctx context.Context, blockID string) (*
 func (b *BeaconService) ExecutionBlock(ctx context.Context, blockID string) (*ExecutionBlock, error) {
 	executionPayload, err := b.ExecutionPayload(ctx, blockID)
 	if err != nil {
-		return nil, errors.Unwrap(err)
+		return nil, errors.Wrap(err, "")
 	}
 
 	blockNumber, ok := new(big.Int).SetString(executionPayload.BlockNumber, 10)

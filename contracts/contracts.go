@@ -86,7 +86,7 @@ const (
 
 var network string
 
-func init() {
+func InitContracts() {
 	var err error
 
 	if config.Config.Eth.Network == "" {
@@ -127,7 +127,12 @@ func NewWithdrawOracle() (*WithdrawOracle, error) {
 		e.Address = WITHDRAW_ORACLE_ADDRESS_GOERLI
 	}
 
+	if e.Address == "" {
+		return nil, errors.New("WithdrawOracle contract address is empty.")
+	}
+
 	var err error
+	fmt.Println(eth1.ElClient.Client)
 	e.Contract, err = withdrawOracle.NewWithdrawOracle(common.HexToAddress(e.Address), eth1.ElClient.Client)
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to new withdraw Oracle.")
@@ -143,6 +148,10 @@ func NewVnft() (*Vnft, error) {
 		e.Address = VNFT_ADDRESS_MAINNET
 	} else if strings.ToLower(network) == GOERLI {
 		e.Address = VNFT_ADDRESS_GOERLI
+	}
+
+	if e.Address == "" {
+		return nil, errors.New("Vnft contract address is empty.")
 	}
 
 	var err error
@@ -163,10 +172,14 @@ func NewLiq() (*Liq, error) {
 		e.Address = LIQ_ADDRESS_GOERLI
 	}
 
+	if e.Address == "" {
+		return nil, errors.New("Liq contract address is empty.")
+	}
+
 	var err error
 	e.Contract, err = liq.NewLiq(common.HexToAddress(e.Address), eth1.ElClient.Client)
 	if err != nil {
-		return nil, errors.Wrap(err, "Failed to new withdraw Oracle.")
+		return nil, errors.Wrap(err, "Failed to new Liq.")
 	}
 	return e, nil
 }
@@ -179,6 +192,10 @@ func NewNodeOperator() (*NodeOperator, error) {
 		e.Address = NODE_OPERATOR_ADDRESS_MAINNET
 	} else if strings.ToLower(network) == GOERLI {
 		e.Address = NODE_OPERATOR_ADDRESS_GOERLI
+	}
+
+	if e.Address == "" {
+		return nil, errors.New("NodeOperator contract address is empty.")
 	}
 
 	var err error

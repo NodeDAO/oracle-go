@@ -27,7 +27,7 @@ var ConsensusClient *Consensus
 func New(ctx context.Context, addr string, timeout time.Duration) (*Consensus, error) {
 	beaconNode, err := beacon.ConnectToBeaconNode(ctx, addr, timeout, true)
 	if err != nil {
-		return nil, errors.Unwrap(err)
+		return nil, errors.Wrap(err, "")
 	}
 
 	beaconService, err := beacon.New(ctx, addr, timeout)

@@ -46,20 +46,20 @@ var (
 
 func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
 	if err := v.buildReportData(ctx); err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	reportDataHash, err := EncodeReportData(v.reportData)
 	if err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	if err := v.hashConsensusHelper.ProcessReportHash(ctx, reportDataHash, v.refSlot, v.consensusVersion); err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	if err := v.processReportData(ctx, reportDataHash); err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	return nil
@@ -76,35 +76,35 @@ func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
 // 8. obtainReportData
 func (v *WithdrawHelper) buildReportData(ctx context.Context) error {
 	if err := v.setup(ctx); err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	if err := v.obtainValidatorConsensusInfo(ctx); err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	if err := v.calculationValidatorExa(ctx); err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	if err := v.calculationClVaultBalance(ctx); err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	if err := v.calculationExitValidatorInfo(ctx); err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	if err := v.calculationForOperator(ctx); err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	if err := v.dealLargeExitDelayedRequest(ctx); err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	if err := v.obtainReportData(ctx); err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	return nil
@@ -113,7 +113,7 @@ func (v *WithdrawHelper) buildReportData(ctx context.Context) error {
 func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]byte) error {
 	_, memberInfo, err := v.hashConsensusHelper.GetLastData(ctx)
 	if err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 
 	if memberInfo.CurrentFrameConsensusReport == eth1.ZERO_HASH {
@@ -128,7 +128,7 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 
 	submitted, err := v.oracle.IsMainDataSubmitted(ctx)
 	if err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrap(err, "")
 	}
 	if submitted {
 		logger.Info("Main data already submitted.")
@@ -148,12 +148,9 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 }
 
 func (v *WithdrawHelper) setup(ctx context.Context) error {
-	// executionBlock
-	executionBlock, err := consensus.ConsensusClient.CustomizeBeaconService.ExecutionBlock(ctx, v.refSlot.String())
-	if err != nil {
-		return errors.Wrapf(err, "Failed to get execution block. slot:%s", v.refSlot.String())
-	}
-	v.executionBlock = executionBlock
+	var err error
+	// InitContracts
+	contracts.InitContracts()
 
 	// delayedExitSlashStandard
 	v.delayedExitSlashStandard, err = contracts.LiqContract.Contract.DelayedExitSlashStandard(nil)
@@ -185,8 +182,15 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	refSlot, canReport, err := v.hashConsensusHelper.GetRefSlotAndIsReport(ctx)
 	v.refSlot = refSlot
 
+	// executionBlock
+	executionBlock, err := consensus.ConsensusClient.CustomizeBeaconService.ExecutionBlock(ctx, v.refSlot.String())
 	if err != nil {
-		return errors.Unwrap(err)
+		return errors.Wrapf(err, "Failed to get execution block. slot:%s", v.refSlot.String())
+	}
+	v.executionBlock = executionBlock
+
+	if err != nil {
+		return errors.Wrap(err, "")
 	}
 	if !canReport {
 		// todo sleep

@@ -25,11 +25,10 @@ var (
 func run() {
 	ctx := context.Background()
 	w := new(withdraw.WithdrawHelper)
-
-	for {
-		err := w.ProcessReport(ctx)
-		if err != nil {
-			logger.Errorf("err:%+v", err)
-		}
+	//for {
+	err := w.ProcessReport(ctx)
+	if err != nil {
+		logger.Errorf("err:%+v", err)
 	}
+	//}
 }

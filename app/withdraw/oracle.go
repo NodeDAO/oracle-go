@@ -33,7 +33,7 @@ func EncodeReportData(reportData *withdrawOracle.WithdrawOracleReportData) ([32]
 func (v *Oracle) GetConsensusContract(ctx context.Context) (*hashConsensus.HashConsensus, error) {
 	address, err := v.GetConsensusContractAddress(ctx)
 	if err != nil {
-		return nil, errors.Unwrap(err)
+		return nil, errors.Wrap(err, "")
 	}
 	contract, err := hashConsensus.NewHashConsensus(address, eth1.ElClient.Client)
 	if err != nil {
@@ -75,7 +75,7 @@ func (v *Oracle) CheckContractVersions(ctx context.Context) error {
 func (v *Oracle) IsContractReportable(ctx context.Context) (bool, error) {
 	isReport, err := v.IsMainDataSubmitted(ctx)
 	if err != nil {
-		return false, errors.Unwrap(err)
+		return false, errors.Wrap(err, "")
 	}
 	return !isReport, nil
 }
@@ -83,7 +83,7 @@ func (v *Oracle) IsContractReportable(ctx context.Context) (bool, error) {
 func (v *Oracle) IsMainDataSubmitted(ctx context.Context) (bool, error) {
 	processingState, err := v.GetProcessingState(ctx)
 	if err != nil {
-		return false, errors.Unwrap(err)
+		return false, errors.Wrap(err, "")
 	}
 	return processingState.DataSubmitted, nil
 }

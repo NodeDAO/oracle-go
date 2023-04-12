@@ -19,7 +19,7 @@ var ElClient *EthClient
 func NewEthClient(ctx context.Context, rpcHost string) (*EthClient, error) {
 	elClient, err := getEthClient(ctx, rpcHost)
 	if err != nil {
-		return nil, errors.Unwrap(err)
+		return nil, errors.Wrap(err, "")
 	}
 	return &EthClient{
 		Client: elClient,

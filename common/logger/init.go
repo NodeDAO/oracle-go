@@ -12,8 +12,21 @@ import (
 	"strings"
 )
 
-var zapLog zap.Logger
+var zapLog *zap.Logger
 var sugarLog *zap.SugaredLogger
+
+func parseConfigLevelEncoder(levelEncoderName string) zapcore.LevelEncoder {
+	switch levelEncoderName {
+	case "capitalColor":
+		return zapcore.CapitalColorLevelEncoder
+	case "capital":
+		return zapcore.CapitalLevelEncoder
+	case "lowercase":
+		return zapcore.LowercaseLevelEncoder
+	default:
+		return zapcore.CapitalLevelEncoder
+	}
+}
 
 func InitLog() {
 	encoderConfig := zapcore.EncoderConfig{
@@ -43,12 +56,16 @@ func InitLog() {
 		ErrorOutputPaths: []string{"stderr"},
 	}
 
+	var err error
 	// 构建日志
-	zapLog, err := config.Build()
+	zapLog, err = config.Build()
 	if err != nil {
 		panic(fmt.Sprintf("log 初始化失败: %+v", err))
 	}
 	sugarLog = zapLog.Sugar()
+
+	Warn("config's network is empty. Using default network is goerli")
+	Infof("log init success...")
 }
 
 func switchLogLevel(level string) zapcore.Level {
