@@ -45,6 +45,15 @@ var (
 )
 
 func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
+	paused, err := v.oracle.Paused(ctx)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
+	if paused {
+		logger.Info("withdrawOracle is paused.")
+		// todo sleep
+	}
+
 	if err := v.buildReportData(ctx); err != nil {
 		return errors.Wrap(err, "")
 	}

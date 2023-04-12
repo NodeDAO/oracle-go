@@ -30,6 +30,15 @@ func EncodeReportData(reportData *withdrawOracle.WithdrawOracleReportData) ([32]
 	return res, nil
 }
 
+func (v *Oracle) Paused(ctx context.Context) (bool, error) {
+	paused, err := contracts.WithdrawOracleContract.Contract.Paused(nil)
+	if err != nil {
+		return true, errors.Wrap(err, "Failed to get WithdrawOracleContract Paused.")
+	}
+
+	return paused, nil
+}
+
 func (v *Oracle) GetConsensusContract(ctx context.Context) (*hashConsensus.HashConsensus, error) {
 	address, err := v.GetConsensusContractAddress(ctx)
 	if err != nil {

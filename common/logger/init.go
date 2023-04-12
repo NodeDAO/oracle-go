@@ -37,7 +37,7 @@ func InitLog() {
 		MessageKey:     "msg",
 		StacktraceKey:  "stacktrace",
 		LineEnding:     zapcore.DefaultLineEnding,
-		EncodeLevel:    zapcore.LowercaseLevelEncoder, // 小写编码器
+		EncodeLevel:    zapcore.CapitalLevelEncoder,
 		EncodeTime:     zapcore.TimeEncoderOfLayout("2006-01-02 15:04:05"),
 		EncodeDuration: zapcore.SecondsDurationEncoder,
 		EncodeCaller:   zapcore.FullCallerEncoder, // 全路径编码器
@@ -47,8 +47,9 @@ func InitLog() {
 	atomLevel := zap.NewAtomicLevelAt(switchLogLevel(config.Config.Log.Level.Server))
 
 	config := zap.Config{
-		Level:         atomLevel,     // 日志级别
-		Development:   true,          // 开发模式，堆栈跟踪
+		Level:         atomLevel, // 日志级别
+		Development:   false,     // 开发模式，堆栈跟踪
+		DisableCaller: true,
 		Encoding:      "console",     // 输出格式 console 或 json
 		EncoderConfig: encoderConfig, // 编码器配置
 		//InitialFields: map[string]interface{}{"serviceName": "spikeProxy"}, // 初始化字段，如：添加一个服务器名称
@@ -57,15 +58,11 @@ func InitLog() {
 	}
 
 	var err error
-	// 构建日志
 	zapLog, err = config.Build()
 	if err != nil {
 		panic(fmt.Sprintf("log 初始化失败: %+v", err))
 	}
 	sugarLog = zapLog.Sugar()
-
-	Warn("config's network is empty. Using default network is goerli")
-	Infof("log init success...")
 }
 
 func switchLogLevel(level string) zapcore.Level {

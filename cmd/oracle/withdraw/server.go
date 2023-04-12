@@ -25,6 +25,8 @@ var (
 func run() {
 	ctx := context.Background()
 	w := new(withdraw.WithdrawHelper)
+
+	//todo for
 	//for {
 	err := w.ProcessReport(ctx)
 	if err != nil {
