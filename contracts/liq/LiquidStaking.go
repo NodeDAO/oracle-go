@@ -29,20 +29,15 @@ var (
 	_ = abi.ConvertType
 )
 
-// LiquidStakingWithdrawalInfo is an auto generated low-level Go binding around an user-defined struct.
-type LiquidStakingWithdrawalInfo struct {
-	OperatorId         *big.Int
-	WithdrawHeight     *big.Int
-	WithdrawNethAmount *big.Int
-	WithdrawExchange   *big.Int
-	ClaimEthAmount     *big.Int
-	Owner              common.Address
-	IsClaim            bool
+// LiquidStakingStakeInfo is an auto generated low-level Go binding around an user-defined struct.
+type LiquidStakingStakeInfo struct {
+	OperatorId *big.Int
+	Quota      *big.Int
 }
 
 // LiqMetaData contains all meta data concerning the Liq contract.
 var LiqMetaData = &bind.MetaData{
-	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"ArrearsReceiveOfSlash\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldBeaconOracleContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_beaconOracleContractAddress\",\"type\":\"address\"}],\"name\":\"BeaconOracleContractSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_blacklistOperatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_totalAmount\",\"type\":\"uint256\"}],\"name\":\"BlacklistOperatorAssigned\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDao\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"DaoAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"DaoClaimRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDaoVaultAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"}],\"name\":\"DaoVaultAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_oldFeeRate\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_feeRate\",\"type\":\"uint256\"}],\"name\":\"DepositFeeRateSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountOut\",\"type\":\"uint256\"}],\"name\":\"EthStake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"targetOperatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"ender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amounts\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountOut\",\"type\":\"uint256\"}],\"name\":\"EthUnstake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalNethAmount\",\"type\":\"uint256\"}],\"name\":\"LargeWithdrawalsRequest\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"_oldLiquidStakingWithdrawalCredentials\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"_liquidStakingWithdrawalCredentials\",\"type\":\"bytes\"}],\"name\":\"LiquidStakingWithdrawalCredentialsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"tokenIds\",\"type\":\"uint256[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"exitBlockNumbers\",\"type\":\"uint256[]\"}],\"name\":\"NftExitBlockNumberSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_count\",\"type\":\"uint256\"}],\"name\":\"NftStake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"operatorId\",\"type\":\"uint256\"}],\"name\":\"NftUnstake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountOut\",\"type\":\"uint256\"}],\"name\":\"NftUnwrap\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountOut\",\"type\":\"uint256\"}],\"name\":\"NftWrap\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldNodeOperatorRegistryContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryContract\",\"type\":\"address\"}],\"name\":\"NodeOperatorRegistryContractSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"OperatorClaimRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"OperatorReinvestClRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"OperatorReinvestElRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_quitOperatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_totalAmount\",\"type\":\"uint256\"}],\"name\":\"QuitOperatorAssigned\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"RewardsReceive\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_slashAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_requirAmounts\",\"type\":\"uint256\"}],\"name\":\"SlashReceive\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"Transferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"_tokenIds\",\"type\":\"uint256[]\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"UserClaimRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"ValidatorRegistered\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"MAX_NETH_WITHDRAWAL_AMOUNT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MIN_NETH_WITHDRAWAL_AMOUNT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_assignOperatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"assignBlacklistOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_quitOperatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"assignQuitOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"beaconOracleContract\",\"outputs\":[{\"internalType\":\"contractIBeaconOracle\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"requestIds\",\"type\":\"uint256[]\"}],\"name\":\"claimLargeWitdrawals\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_operatorIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_rewards\",\"type\":\"uint256[]\"}],\"name\":\"claimRewardsOfDao\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_reward\",\"type\":\"uint256\"}],\"name\":\"claimRewardsOfOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256[]\",\"name\":\"_tokenIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_amounts\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256\",\"name\":\"_gasHeight\",\"type\":\"uint256\"}],\"name\":\"claimRewardsOfUser\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"consensusVaultContract\",\"outputs\":[{\"internalType\":\"contractIConsensusVault\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dao\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"daoVaultAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"delayedExitSlashStandard\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"depositContract\",\"outputs\":[{\"internalType\":\"contractIDepositContract\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"depositFeeRate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nethAmountIn\",\"type\":\"uint256\"}],\"name\":\"getEthOut\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getExchangeRate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_ethAmountIn\",\"type\":\"uint256\"}],\"name\":\"getNethOut\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getTotalEthValue\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"getUserUnstakeButOperatorNoExitNfs\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"getWithdrawalOfOperator\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"withdrawHeight\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"withdrawNethAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"withdrawExchange\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"claimEthAmount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"isClaim\",\"type\":\"bool\"}],\"internalType\":\"structLiquidStaking.WithdrawalInfo[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"getWithdrawalRequestIdOfOwner\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"_withdrawalCreds\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nETHContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nVNFTContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_beaconOracleContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_depositContractAddress\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initializeV2\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"isPaused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"largeExitDelayedSlashRecords\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"liquidStakingWithdrawalCredentials\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nETHContract\",\"outputs\":[{\"internalType\":\"contractINETH\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"nftExitDelayedSlashRecords\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_tokenIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_exitBlockNumbers\",\"type\":\"uint256[]\"}],\"name\":\"nftExitHandle\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"nftHasCompensated\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"nftUnstakeBlockNumbers\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"nftWillCompensated\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nodeOperatorRegistryContract\",\"outputs\":[{\"internalType\":\"contractINodeOperatorsRegistry\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"onERC721Received\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"operatorCompensatedIndex\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorLoadBlockNumbers\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorLoanRecords\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorPendingEthPoolBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorPendingEthRequestAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorPoolBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorSlashArrears\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"reAssignRecords\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"receiveRewards\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes[]\",\"name\":\"_pubkeys\",\"type\":\"bytes[]\"},{\"internalType\":\"bytes[]\",\"name\":\"_signatures\",\"type\":\"bytes[]\"},{\"internalType\":\"bytes32[]\",\"name\":\"_depositDataRoots\",\"type\":\"bytes32[]\"}],\"name\":\"registerValidator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_operatorIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_amounts\",\"type\":\"uint256[]\"}],\"name\":\"reinvestClRewards\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_operatorIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_amounts\",\"type\":\"uint256[]\"}],\"name\":\"reinvestElRewards\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256[]\",\"name\":\"_amounts\",\"type\":\"uint256[]\"}],\"name\":\"requestLargeWithdrawals\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_beaconOracleContractAddress\",\"type\":\"address\"}],\"name\":\"setBeaconOracleContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"setDaoAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"}],\"name\":\"setDaoVaultAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_feeRate\",\"type\":\"uint256\"}],\"name\":\"setDepositFeeRate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"_liquidStakingWithdrawalCredentials\",\"type\":\"bytes\"}],\"name\":\"setLiquidStakingWithdrawalCredentials\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryContract\",\"type\":\"address\"}],\"name\":\"setNodeOperatorRegistryContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"slashAmountPerBlockPerValidator\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"slashArrearsReceive\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_nftExitDelayedTokenIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_largeExitDelayedRequestIds\",\"type\":\"uint256[]\"}],\"name\":\"slashOfExitDelayed\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_exitTokenIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_amounts\",\"type\":\"uint256[]\"}],\"name\":\"slashOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_exitTokenIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_slashAmounts\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_requireAmounts\",\"type\":\"uint256[]\"}],\"name\":\"slashReceive\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"stakeETH\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"withdrawalCredentialsAddress\",\"type\":\"address\"}],\"name\":\"stakeNFT\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"stakeRecords\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"quota\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalLockedNethBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amounts\",\"type\":\"uint256\"}],\"name\":\"unstakeETH\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_tokenIds\",\"type\":\"uint256[]\"}],\"name\":\"unstakeNFT\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vNFTContract\",\"outputs\":[{\"internalType\":\"contractIVNFT\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultManagerContractAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"withdrawalQueues\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"withdrawHeight\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"withdrawNethAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"withdrawExchange\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"claimEthAmount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"isClaim\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[],\"name\":\"AssignMustSameOperator\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InsufficientFunds\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InsufficientMargin\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidAmount\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidDaoVaultAddr\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidParameter\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidWithdrawalCredentials\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OperatorHasArrears\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OperatorLoanFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PermissionDenied\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RequireBlacklistOperator\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RequireOperatorTrusted\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TotalEthIsZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"UnstakeEthNoQuota\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldBeaconOracleContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_beaconOracleContractAddress\",\"type\":\"address\"}],\"name\":\"BeaconOracleContractSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"vaultManagerContractAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_consensusVaultContract\",\"type\":\"address\"}],\"name\":\"ConsensusVaultContractSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDao\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"DaoAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"DaoClaimRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDaoVaultAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"}],\"name\":\"DaoVaultAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_oldFeeRate\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_feeRate\",\"type\":\"uint256\"}],\"name\":\"DepositFeeRateSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountOut\",\"type\":\"uint256\"}],\"name\":\"EthStake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"targetOperatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"ender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amounts\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountOut\",\"type\":\"uint256\"}],\"name\":\"EthUnstake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"_oldLiquidStakingWithdrawalCredentials\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"_liquidStakingWithdrawalCredentials\",\"type\":\"bytes\"}],\"name\":\"LiquidStakingWithdrawalCredentialsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"tokenIds\",\"type\":\"uint256[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"exitBlockNumbers\",\"type\":\"uint256[]\"}],\"name\":\"NftExitBlockNumberSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_count\",\"type\":\"uint256\"}],\"name\":\"NftStake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldNodeOperatorRegistryContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryContract\",\"type\":\"address\"}],\"name\":\"NodeOperatorRegistryContractSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"_blacklistOperatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_totalAmount\",\"type\":\"uint256\"}],\"name\":\"OperatorAssigned\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"operatorCanLoanAmounts\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newCanloadAmounts\",\"type\":\"uint256\"}],\"name\":\"OperatorCanLoanAmountsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"OperatorClaimRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"OperatorReinvestClRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"OperatorReinvestElRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"RewardsReceive\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"Transferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"_tokenIds\",\"type\":\"uint256[]\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"UserClaimRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"ValidatorRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"vaultManagerContractAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_vaultManagerContract\",\"type\":\"address\"}],\"name\":\"VaultManagerContractSet\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"addSlashFundToStakePool\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_assignOperatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"assignOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"beaconOracleContract\",\"outputs\":[{\"internalType\":\"contractIBeaconOracle\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_operatorIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_rewards\",\"type\":\"uint256[]\"}],\"name\":\"claimRewardsOfDao\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"_rewardAddresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_rewards\",\"type\":\"uint256[]\"}],\"name\":\"claimRewardsOfOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256[]\",\"name\":\"_tokenIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256\",\"name\":\"_totalNftRewards\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_gasHeight\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"claimRewardsOfUser\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"consensusVaultContract\",\"outputs\":[{\"internalType\":\"contractIConsensusVault\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dao\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"daoVaultAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"depositContract\",\"outputs\":[{\"internalType\":\"contractIDepositContract\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"depositFeeRate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"}],\"name\":\"fastUnstakeNFT\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_nethAmountIn\",\"type\":\"uint256\"}],\"name\":\"getEthOut\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getExchangeRate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_ethAmountIn\",\"type\":\"uint256\"}],\"name\":\"getNethOut\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"getOperatorNethUnstakePoolAmounts\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getTotalEthValue\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"}],\"name\":\"getUnstakeQuota\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"quota\",\"type\":\"uint256\"}],\"internalType\":\"structLiquidStaking.StakeInfo[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"_withdrawalCreds\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nETHContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nVNFTContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_beaconOracleContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_depositContractAddress\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_operatorIds\",\"type\":\"uint256[]\"},{\"internalType\":\"address[]\",\"name\":\"_users\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_nethAmounts\",\"type\":\"uint256[]\"},{\"internalType\":\"address\",\"name\":\"_consensusVaultContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_vaultManagerContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_withdrawalRequestContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_operatorSlashContractAddress\",\"type\":\"address\"}],\"name\":\"initializeV2\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"isPaused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_totalRequestNethAmount\",\"type\":\"uint256\"}],\"name\":\"largeWithdrawalBurnNeth\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"largeWithdrawalUnstake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"liquidStakingWithdrawalCredentials\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nETHContract\",\"outputs\":[{\"internalType\":\"contractINETH\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_tokenIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_exitBlockNumbers\",\"type\":\"uint256[]\"}],\"name\":\"nftExitHandle\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nodeOperatorRegistryContract\",\"outputs\":[{\"internalType\":\"contractINodeOperatorsRegistry\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"onERC721Received\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"operatorCanLoanAmounts\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorLoadBlockNumbers\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorLoanRecords\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorNftPoolBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorPoolBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"operatorSlashContract\",\"outputs\":[{\"internalType\":\"contractIOperatorSlash\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"reAssignRecords\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"receiveRewards\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes[]\",\"name\":\"_pubkeys\",\"type\":\"bytes[]\"},{\"internalType\":\"bytes[]\",\"name\":\"_signatures\",\"type\":\"bytes[]\"},{\"internalType\":\"bytes32[]\",\"name\":\"_depositDataRoots\",\"type\":\"bytes32[]\"}],\"name\":\"registerValidator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_operatorIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_amounts\",\"type\":\"uint256[]\"}],\"name\":\"reinvestClRewards\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_operatorIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_amounts\",\"type\":\"uint256[]\"}],\"name\":\"reinvestElRewards\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_beaconOracleContractAddress\",\"type\":\"address\"}],\"name\":\"setBeaconOracleContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"setDaoAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"}],\"name\":\"setDaoVaultAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_feeRate\",\"type\":\"uint256\"}],\"name\":\"setDepositFeeRate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"_liquidStakingWithdrawalCredentials\",\"type\":\"bytes\"}],\"name\":\"setLiquidStakingWithdrawalCredentials\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryContract\",\"type\":\"address\"}],\"name\":\"setNodeOperatorRegistryContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_newCanloadAmounts\",\"type\":\"uint256\"}],\"name\":\"setOperatorCanLoanAmounts\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_vaultManagerContract\",\"type\":\"address\"}],\"name\":\"setVaultManagerContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"stakeETH\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"withdrawalCredentialsAddress\",\"type\":\"address\"}],\"name\":\"stakeNFT\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amounts\",\"type\":\"uint256\"}],\"name\":\"unstakeETH\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vNFTContract\",\"outputs\":[{\"internalType\":\"contractIVNFT\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultManagerContractAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdrawalRequestContract\",\"outputs\":[{\"internalType\":\"contractIWithdrawalRequest\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // LiqABI is the input ABI used to generate the binding from.
@@ -191,68 +186,6 @@ func (_Liq *LiqTransactorRaw) Transact(opts *bind.TransactOpts, method string, p
 	return _Liq.Contract.contract.Transact(opts, method, params...)
 }
 
-// MAXNETHWITHDRAWALAMOUNT is a free data retrieval call binding the contract method 0x63823474.
-//
-// Solidity: function MAX_NETH_WITHDRAWAL_AMOUNT() view returns(uint256)
-func (_Liq *LiqCaller) MAXNETHWITHDRAWALAMOUNT(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "MAX_NETH_WITHDRAWAL_AMOUNT")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// MAXNETHWITHDRAWALAMOUNT is a free data retrieval call binding the contract method 0x63823474.
-//
-// Solidity: function MAX_NETH_WITHDRAWAL_AMOUNT() view returns(uint256)
-func (_Liq *LiqSession) MAXNETHWITHDRAWALAMOUNT() (*big.Int, error) {
-	return _Liq.Contract.MAXNETHWITHDRAWALAMOUNT(&_Liq.CallOpts)
-}
-
-// MAXNETHWITHDRAWALAMOUNT is a free data retrieval call binding the contract method 0x63823474.
-//
-// Solidity: function MAX_NETH_WITHDRAWAL_AMOUNT() view returns(uint256)
-func (_Liq *LiqCallerSession) MAXNETHWITHDRAWALAMOUNT() (*big.Int, error) {
-	return _Liq.Contract.MAXNETHWITHDRAWALAMOUNT(&_Liq.CallOpts)
-}
-
-// MINNETHWITHDRAWALAMOUNT is a free data retrieval call binding the contract method 0x24c5cba3.
-//
-// Solidity: function MIN_NETH_WITHDRAWAL_AMOUNT() view returns(uint256)
-func (_Liq *LiqCaller) MINNETHWITHDRAWALAMOUNT(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "MIN_NETH_WITHDRAWAL_AMOUNT")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// MINNETHWITHDRAWALAMOUNT is a free data retrieval call binding the contract method 0x24c5cba3.
-//
-// Solidity: function MIN_NETH_WITHDRAWAL_AMOUNT() view returns(uint256)
-func (_Liq *LiqSession) MINNETHWITHDRAWALAMOUNT() (*big.Int, error) {
-	return _Liq.Contract.MINNETHWITHDRAWALAMOUNT(&_Liq.CallOpts)
-}
-
-// MINNETHWITHDRAWALAMOUNT is a free data retrieval call binding the contract method 0x24c5cba3.
-//
-// Solidity: function MIN_NETH_WITHDRAWAL_AMOUNT() view returns(uint256)
-func (_Liq *LiqCallerSession) MINNETHWITHDRAWALAMOUNT() (*big.Int, error) {
-	return _Liq.Contract.MINNETHWITHDRAWALAMOUNT(&_Liq.CallOpts)
-}
-
 // BeaconOracleContract is a free data retrieval call binding the contract method 0xe383edb4.
 //
 // Solidity: function beaconOracleContract() view returns(address)
@@ -375,37 +308,6 @@ func (_Liq *LiqSession) DaoVaultAddress() (common.Address, error) {
 // Solidity: function daoVaultAddress() view returns(address)
 func (_Liq *LiqCallerSession) DaoVaultAddress() (common.Address, error) {
 	return _Liq.Contract.DaoVaultAddress(&_Liq.CallOpts)
-}
-
-// DelayedExitSlashStandard is a free data retrieval call binding the contract method 0xfa2d7ea5.
-//
-// Solidity: function delayedExitSlashStandard() view returns(uint256)
-func (_Liq *LiqCaller) DelayedExitSlashStandard(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "delayedExitSlashStandard")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// DelayedExitSlashStandard is a free data retrieval call binding the contract method 0xfa2d7ea5.
-//
-// Solidity: function delayedExitSlashStandard() view returns(uint256)
-func (_Liq *LiqSession) DelayedExitSlashStandard() (*big.Int, error) {
-	return _Liq.Contract.DelayedExitSlashStandard(&_Liq.CallOpts)
-}
-
-// DelayedExitSlashStandard is a free data retrieval call binding the contract method 0xfa2d7ea5.
-//
-// Solidity: function delayedExitSlashStandard() view returns(uint256)
-func (_Liq *LiqCallerSession) DelayedExitSlashStandard() (*big.Int, error) {
-	return _Liq.Contract.DelayedExitSlashStandard(&_Liq.CallOpts)
 }
 
 // DepositContract is a free data retrieval call binding the contract method 0xe94ad65b.
@@ -563,6 +465,37 @@ func (_Liq *LiqCallerSession) GetNethOut(_ethAmountIn *big.Int) (*big.Int, error
 	return _Liq.Contract.GetNethOut(&_Liq.CallOpts, _ethAmountIn)
 }
 
+// GetOperatorNethUnstakePoolAmounts is a free data retrieval call binding the contract method 0xeef02d3b.
+//
+// Solidity: function getOperatorNethUnstakePoolAmounts(uint256 _operatorId) view returns(uint256)
+func (_Liq *LiqCaller) GetOperatorNethUnstakePoolAmounts(opts *bind.CallOpts, _operatorId *big.Int) (*big.Int, error) {
+	var out []interface{}
+	err := _Liq.contract.Call(opts, &out, "getOperatorNethUnstakePoolAmounts", _operatorId)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// GetOperatorNethUnstakePoolAmounts is a free data retrieval call binding the contract method 0xeef02d3b.
+//
+// Solidity: function getOperatorNethUnstakePoolAmounts(uint256 _operatorId) view returns(uint256)
+func (_Liq *LiqSession) GetOperatorNethUnstakePoolAmounts(_operatorId *big.Int) (*big.Int, error) {
+	return _Liq.Contract.GetOperatorNethUnstakePoolAmounts(&_Liq.CallOpts, _operatorId)
+}
+
+// GetOperatorNethUnstakePoolAmounts is a free data retrieval call binding the contract method 0xeef02d3b.
+//
+// Solidity: function getOperatorNethUnstakePoolAmounts(uint256 _operatorId) view returns(uint256)
+func (_Liq *LiqCallerSession) GetOperatorNethUnstakePoolAmounts(_operatorId *big.Int) (*big.Int, error) {
+	return _Liq.Contract.GetOperatorNethUnstakePoolAmounts(&_Liq.CallOpts, _operatorId)
+}
+
 // GetTotalEthValue is a free data retrieval call binding the contract method 0x4277f693.
 //
 // Solidity: function getTotalEthValue() view returns(uint256)
@@ -594,97 +527,35 @@ func (_Liq *LiqCallerSession) GetTotalEthValue() (*big.Int, error) {
 	return _Liq.Contract.GetTotalEthValue(&_Liq.CallOpts)
 }
 
-// GetUserUnstakeButOperatorNoExitNfs is a free data retrieval call binding the contract method 0xf1c28381.
+// GetUnstakeQuota is a free data retrieval call binding the contract method 0xbc7b0d20.
 //
-// Solidity: function getUserUnstakeButOperatorNoExitNfs(uint256 _operatorId) view returns(uint256[])
-func (_Liq *LiqCaller) GetUserUnstakeButOperatorNoExitNfs(opts *bind.CallOpts, _operatorId *big.Int) ([]*big.Int, error) {
+// Solidity: function getUnstakeQuota(address _from) view returns((uint256,uint256)[])
+func (_Liq *LiqCaller) GetUnstakeQuota(opts *bind.CallOpts, _from common.Address) ([]LiquidStakingStakeInfo, error) {
 	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "getUserUnstakeButOperatorNoExitNfs", _operatorId)
+	err := _Liq.contract.Call(opts, &out, "getUnstakeQuota", _from)
 
 	if err != nil {
-		return *new([]*big.Int), err
+		return *new([]LiquidStakingStakeInfo), err
 	}
 
-	out0 := *abi.ConvertType(out[0], new([]*big.Int)).(*[]*big.Int)
+	out0 := *abi.ConvertType(out[0], new([]LiquidStakingStakeInfo)).(*[]LiquidStakingStakeInfo)
 
 	return out0, err
 
 }
 
-// GetUserUnstakeButOperatorNoExitNfs is a free data retrieval call binding the contract method 0xf1c28381.
+// GetUnstakeQuota is a free data retrieval call binding the contract method 0xbc7b0d20.
 //
-// Solidity: function getUserUnstakeButOperatorNoExitNfs(uint256 _operatorId) view returns(uint256[])
-func (_Liq *LiqSession) GetUserUnstakeButOperatorNoExitNfs(_operatorId *big.Int) ([]*big.Int, error) {
-	return _Liq.Contract.GetUserUnstakeButOperatorNoExitNfs(&_Liq.CallOpts, _operatorId)
+// Solidity: function getUnstakeQuota(address _from) view returns((uint256,uint256)[])
+func (_Liq *LiqSession) GetUnstakeQuota(_from common.Address) ([]LiquidStakingStakeInfo, error) {
+	return _Liq.Contract.GetUnstakeQuota(&_Liq.CallOpts, _from)
 }
 
-// GetUserUnstakeButOperatorNoExitNfs is a free data retrieval call binding the contract method 0xf1c28381.
+// GetUnstakeQuota is a free data retrieval call binding the contract method 0xbc7b0d20.
 //
-// Solidity: function getUserUnstakeButOperatorNoExitNfs(uint256 _operatorId) view returns(uint256[])
-func (_Liq *LiqCallerSession) GetUserUnstakeButOperatorNoExitNfs(_operatorId *big.Int) ([]*big.Int, error) {
-	return _Liq.Contract.GetUserUnstakeButOperatorNoExitNfs(&_Liq.CallOpts, _operatorId)
-}
-
-// GetWithdrawalOfOperator is a free data retrieval call binding the contract method 0x46a2ca47.
-//
-// Solidity: function getWithdrawalOfOperator(uint256 _operatorId) view returns((uint256,uint256,uint256,uint256,uint256,address,bool)[])
-func (_Liq *LiqCaller) GetWithdrawalOfOperator(opts *bind.CallOpts, _operatorId *big.Int) ([]LiquidStakingWithdrawalInfo, error) {
-	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "getWithdrawalOfOperator", _operatorId)
-
-	if err != nil {
-		return *new([]LiquidStakingWithdrawalInfo), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new([]LiquidStakingWithdrawalInfo)).(*[]LiquidStakingWithdrawalInfo)
-
-	return out0, err
-
-}
-
-// GetWithdrawalOfOperator is a free data retrieval call binding the contract method 0x46a2ca47.
-//
-// Solidity: function getWithdrawalOfOperator(uint256 _operatorId) view returns((uint256,uint256,uint256,uint256,uint256,address,bool)[])
-func (_Liq *LiqSession) GetWithdrawalOfOperator(_operatorId *big.Int) ([]LiquidStakingWithdrawalInfo, error) {
-	return _Liq.Contract.GetWithdrawalOfOperator(&_Liq.CallOpts, _operatorId)
-}
-
-// GetWithdrawalOfOperator is a free data retrieval call binding the contract method 0x46a2ca47.
-//
-// Solidity: function getWithdrawalOfOperator(uint256 _operatorId) view returns((uint256,uint256,uint256,uint256,uint256,address,bool)[])
-func (_Liq *LiqCallerSession) GetWithdrawalOfOperator(_operatorId *big.Int) ([]LiquidStakingWithdrawalInfo, error) {
-	return _Liq.Contract.GetWithdrawalOfOperator(&_Liq.CallOpts, _operatorId)
-}
-
-// GetWithdrawalRequestIdOfOwner is a free data retrieval call binding the contract method 0xcdc2b1c7.
-//
-// Solidity: function getWithdrawalRequestIdOfOwner(address _owner) view returns(uint256[])
-func (_Liq *LiqCaller) GetWithdrawalRequestIdOfOwner(opts *bind.CallOpts, _owner common.Address) ([]*big.Int, error) {
-	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "getWithdrawalRequestIdOfOwner", _owner)
-
-	if err != nil {
-		return *new([]*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new([]*big.Int)).(*[]*big.Int)
-
-	return out0, err
-
-}
-
-// GetWithdrawalRequestIdOfOwner is a free data retrieval call binding the contract method 0xcdc2b1c7.
-//
-// Solidity: function getWithdrawalRequestIdOfOwner(address _owner) view returns(uint256[])
-func (_Liq *LiqSession) GetWithdrawalRequestIdOfOwner(_owner common.Address) ([]*big.Int, error) {
-	return _Liq.Contract.GetWithdrawalRequestIdOfOwner(&_Liq.CallOpts, _owner)
-}
-
-// GetWithdrawalRequestIdOfOwner is a free data retrieval call binding the contract method 0xcdc2b1c7.
-//
-// Solidity: function getWithdrawalRequestIdOfOwner(address _owner) view returns(uint256[])
-func (_Liq *LiqCallerSession) GetWithdrawalRequestIdOfOwner(_owner common.Address) ([]*big.Int, error) {
-	return _Liq.Contract.GetWithdrawalRequestIdOfOwner(&_Liq.CallOpts, _owner)
+// Solidity: function getUnstakeQuota(address _from) view returns((uint256,uint256)[])
+func (_Liq *LiqCallerSession) GetUnstakeQuota(_from common.Address) ([]LiquidStakingStakeInfo, error) {
+	return _Liq.Contract.GetUnstakeQuota(&_Liq.CallOpts, _from)
 }
 
 // IsPaused is a free data retrieval call binding the contract method 0xb187bd26.
@@ -716,37 +587,6 @@ func (_Liq *LiqSession) IsPaused() (bool, error) {
 // Solidity: function isPaused() view returns(bool)
 func (_Liq *LiqCallerSession) IsPaused() (bool, error) {
 	return _Liq.Contract.IsPaused(&_Liq.CallOpts)
-}
-
-// LargeExitDelayedSlashRecords is a free data retrieval call binding the contract method 0x9d4b4fd5.
-//
-// Solidity: function largeExitDelayedSlashRecords(uint256 ) view returns(uint256)
-func (_Liq *LiqCaller) LargeExitDelayedSlashRecords(opts *bind.CallOpts, arg0 *big.Int) (*big.Int, error) {
-	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "largeExitDelayedSlashRecords", arg0)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// LargeExitDelayedSlashRecords is a free data retrieval call binding the contract method 0x9d4b4fd5.
-//
-// Solidity: function largeExitDelayedSlashRecords(uint256 ) view returns(uint256)
-func (_Liq *LiqSession) LargeExitDelayedSlashRecords(arg0 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.LargeExitDelayedSlashRecords(&_Liq.CallOpts, arg0)
-}
-
-// LargeExitDelayedSlashRecords is a free data retrieval call binding the contract method 0x9d4b4fd5.
-//
-// Solidity: function largeExitDelayedSlashRecords(uint256 ) view returns(uint256)
-func (_Liq *LiqCallerSession) LargeExitDelayedSlashRecords(arg0 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.LargeExitDelayedSlashRecords(&_Liq.CallOpts, arg0)
 }
 
 // LiquidStakingWithdrawalCredentials is a free data retrieval call binding the contract method 0x12ebdab4.
@@ -811,130 +651,6 @@ func (_Liq *LiqCallerSession) NETHContract() (common.Address, error) {
 	return _Liq.Contract.NETHContract(&_Liq.CallOpts)
 }
 
-// NftExitDelayedSlashRecords is a free data retrieval call binding the contract method 0x1d3fb6bd.
-//
-// Solidity: function nftExitDelayedSlashRecords(uint256 ) view returns(uint256)
-func (_Liq *LiqCaller) NftExitDelayedSlashRecords(opts *bind.CallOpts, arg0 *big.Int) (*big.Int, error) {
-	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "nftExitDelayedSlashRecords", arg0)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// NftExitDelayedSlashRecords is a free data retrieval call binding the contract method 0x1d3fb6bd.
-//
-// Solidity: function nftExitDelayedSlashRecords(uint256 ) view returns(uint256)
-func (_Liq *LiqSession) NftExitDelayedSlashRecords(arg0 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.NftExitDelayedSlashRecords(&_Liq.CallOpts, arg0)
-}
-
-// NftExitDelayedSlashRecords is a free data retrieval call binding the contract method 0x1d3fb6bd.
-//
-// Solidity: function nftExitDelayedSlashRecords(uint256 ) view returns(uint256)
-func (_Liq *LiqCallerSession) NftExitDelayedSlashRecords(arg0 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.NftExitDelayedSlashRecords(&_Liq.CallOpts, arg0)
-}
-
-// NftHasCompensated is a free data retrieval call binding the contract method 0xa122faa4.
-//
-// Solidity: function nftHasCompensated(uint256 ) view returns(uint256)
-func (_Liq *LiqCaller) NftHasCompensated(opts *bind.CallOpts, arg0 *big.Int) (*big.Int, error) {
-	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "nftHasCompensated", arg0)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// NftHasCompensated is a free data retrieval call binding the contract method 0xa122faa4.
-//
-// Solidity: function nftHasCompensated(uint256 ) view returns(uint256)
-func (_Liq *LiqSession) NftHasCompensated(arg0 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.NftHasCompensated(&_Liq.CallOpts, arg0)
-}
-
-// NftHasCompensated is a free data retrieval call binding the contract method 0xa122faa4.
-//
-// Solidity: function nftHasCompensated(uint256 ) view returns(uint256)
-func (_Liq *LiqCallerSession) NftHasCompensated(arg0 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.NftHasCompensated(&_Liq.CallOpts, arg0)
-}
-
-// NftUnstakeBlockNumbers is a free data retrieval call binding the contract method 0x5f68dbf8.
-//
-// Solidity: function nftUnstakeBlockNumbers(uint256 ) view returns(uint256)
-func (_Liq *LiqCaller) NftUnstakeBlockNumbers(opts *bind.CallOpts, arg0 *big.Int) (*big.Int, error) {
-	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "nftUnstakeBlockNumbers", arg0)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// NftUnstakeBlockNumbers is a free data retrieval call binding the contract method 0x5f68dbf8.
-//
-// Solidity: function nftUnstakeBlockNumbers(uint256 ) view returns(uint256)
-func (_Liq *LiqSession) NftUnstakeBlockNumbers(arg0 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.NftUnstakeBlockNumbers(&_Liq.CallOpts, arg0)
-}
-
-// NftUnstakeBlockNumbers is a free data retrieval call binding the contract method 0x5f68dbf8.
-//
-// Solidity: function nftUnstakeBlockNumbers(uint256 ) view returns(uint256)
-func (_Liq *LiqCallerSession) NftUnstakeBlockNumbers(arg0 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.NftUnstakeBlockNumbers(&_Liq.CallOpts, arg0)
-}
-
-// NftWillCompensated is a free data retrieval call binding the contract method 0xe0b64f27.
-//
-// Solidity: function nftWillCompensated(uint256 ) view returns(uint256)
-func (_Liq *LiqCaller) NftWillCompensated(opts *bind.CallOpts, arg0 *big.Int) (*big.Int, error) {
-	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "nftWillCompensated", arg0)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// NftWillCompensated is a free data retrieval call binding the contract method 0xe0b64f27.
-//
-// Solidity: function nftWillCompensated(uint256 ) view returns(uint256)
-func (_Liq *LiqSession) NftWillCompensated(arg0 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.NftWillCompensated(&_Liq.CallOpts, arg0)
-}
-
-// NftWillCompensated is a free data retrieval call binding the contract method 0xe0b64f27.
-//
-// Solidity: function nftWillCompensated(uint256 ) view returns(uint256)
-func (_Liq *LiqCallerSession) NftWillCompensated(arg0 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.NftWillCompensated(&_Liq.CallOpts, arg0)
-}
-
 // NodeOperatorRegistryContract is a free data retrieval call binding the contract method 0x9a42e0ba.
 //
 // Solidity: function nodeOperatorRegistryContract() view returns(address)
@@ -966,12 +682,12 @@ func (_Liq *LiqCallerSession) NodeOperatorRegistryContract() (common.Address, er
 	return _Liq.Contract.NodeOperatorRegistryContract(&_Liq.CallOpts)
 }
 
-// OperatorCompensatedIndex is a free data retrieval call binding the contract method 0x2661005e.
+// OperatorCanLoanAmounts is a free data retrieval call binding the contract method 0xd4a47d6d.
 //
-// Solidity: function operatorCompensatedIndex() view returns(uint256)
-func (_Liq *LiqCaller) OperatorCompensatedIndex(opts *bind.CallOpts) (*big.Int, error) {
+// Solidity: function operatorCanLoanAmounts() view returns(uint256)
+func (_Liq *LiqCaller) OperatorCanLoanAmounts(opts *bind.CallOpts) (*big.Int, error) {
 	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "operatorCompensatedIndex")
+	err := _Liq.contract.Call(opts, &out, "operatorCanLoanAmounts")
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -983,18 +699,18 @@ func (_Liq *LiqCaller) OperatorCompensatedIndex(opts *bind.CallOpts) (*big.Int, 
 
 }
 
-// OperatorCompensatedIndex is a free data retrieval call binding the contract method 0x2661005e.
+// OperatorCanLoanAmounts is a free data retrieval call binding the contract method 0xd4a47d6d.
 //
-// Solidity: function operatorCompensatedIndex() view returns(uint256)
-func (_Liq *LiqSession) OperatorCompensatedIndex() (*big.Int, error) {
-	return _Liq.Contract.OperatorCompensatedIndex(&_Liq.CallOpts)
+// Solidity: function operatorCanLoanAmounts() view returns(uint256)
+func (_Liq *LiqSession) OperatorCanLoanAmounts() (*big.Int, error) {
+	return _Liq.Contract.OperatorCanLoanAmounts(&_Liq.CallOpts)
 }
 
-// OperatorCompensatedIndex is a free data retrieval call binding the contract method 0x2661005e.
+// OperatorCanLoanAmounts is a free data retrieval call binding the contract method 0xd4a47d6d.
 //
-// Solidity: function operatorCompensatedIndex() view returns(uint256)
-func (_Liq *LiqCallerSession) OperatorCompensatedIndex() (*big.Int, error) {
-	return _Liq.Contract.OperatorCompensatedIndex(&_Liq.CallOpts)
+// Solidity: function operatorCanLoanAmounts() view returns(uint256)
+func (_Liq *LiqCallerSession) OperatorCanLoanAmounts() (*big.Int, error) {
+	return _Liq.Contract.OperatorCanLoanAmounts(&_Liq.CallOpts)
 }
 
 // OperatorLoadBlockNumbers is a free data retrieval call binding the contract method 0x2f7486f1.
@@ -1059,12 +775,12 @@ func (_Liq *LiqCallerSession) OperatorLoanRecords(arg0 *big.Int) (*big.Int, erro
 	return _Liq.Contract.OperatorLoanRecords(&_Liq.CallOpts, arg0)
 }
 
-// OperatorPendingEthPoolBalance is a free data retrieval call binding the contract method 0x20109b36.
+// OperatorNftPoolBalances is a free data retrieval call binding the contract method 0x39007890.
 //
-// Solidity: function operatorPendingEthPoolBalance(uint256 ) view returns(uint256)
-func (_Liq *LiqCaller) OperatorPendingEthPoolBalance(opts *bind.CallOpts, arg0 *big.Int) (*big.Int, error) {
+// Solidity: function operatorNftPoolBalances(uint256 ) view returns(uint256)
+func (_Liq *LiqCaller) OperatorNftPoolBalances(opts *bind.CallOpts, arg0 *big.Int) (*big.Int, error) {
 	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "operatorPendingEthPoolBalance", arg0)
+	err := _Liq.contract.Call(opts, &out, "operatorNftPoolBalances", arg0)
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -1076,49 +792,18 @@ func (_Liq *LiqCaller) OperatorPendingEthPoolBalance(opts *bind.CallOpts, arg0 *
 
 }
 
-// OperatorPendingEthPoolBalance is a free data retrieval call binding the contract method 0x20109b36.
+// OperatorNftPoolBalances is a free data retrieval call binding the contract method 0x39007890.
 //
-// Solidity: function operatorPendingEthPoolBalance(uint256 ) view returns(uint256)
-func (_Liq *LiqSession) OperatorPendingEthPoolBalance(arg0 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.OperatorPendingEthPoolBalance(&_Liq.CallOpts, arg0)
+// Solidity: function operatorNftPoolBalances(uint256 ) view returns(uint256)
+func (_Liq *LiqSession) OperatorNftPoolBalances(arg0 *big.Int) (*big.Int, error) {
+	return _Liq.Contract.OperatorNftPoolBalances(&_Liq.CallOpts, arg0)
 }
 
-// OperatorPendingEthPoolBalance is a free data retrieval call binding the contract method 0x20109b36.
+// OperatorNftPoolBalances is a free data retrieval call binding the contract method 0x39007890.
 //
-// Solidity: function operatorPendingEthPoolBalance(uint256 ) view returns(uint256)
-func (_Liq *LiqCallerSession) OperatorPendingEthPoolBalance(arg0 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.OperatorPendingEthPoolBalance(&_Liq.CallOpts, arg0)
-}
-
-// OperatorPendingEthRequestAmount is a free data retrieval call binding the contract method 0x67dd7ffd.
-//
-// Solidity: function operatorPendingEthRequestAmount(uint256 ) view returns(uint256)
-func (_Liq *LiqCaller) OperatorPendingEthRequestAmount(opts *bind.CallOpts, arg0 *big.Int) (*big.Int, error) {
-	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "operatorPendingEthRequestAmount", arg0)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// OperatorPendingEthRequestAmount is a free data retrieval call binding the contract method 0x67dd7ffd.
-//
-// Solidity: function operatorPendingEthRequestAmount(uint256 ) view returns(uint256)
-func (_Liq *LiqSession) OperatorPendingEthRequestAmount(arg0 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.OperatorPendingEthRequestAmount(&_Liq.CallOpts, arg0)
-}
-
-// OperatorPendingEthRequestAmount is a free data retrieval call binding the contract method 0x67dd7ffd.
-//
-// Solidity: function operatorPendingEthRequestAmount(uint256 ) view returns(uint256)
-func (_Liq *LiqCallerSession) OperatorPendingEthRequestAmount(arg0 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.OperatorPendingEthRequestAmount(&_Liq.CallOpts, arg0)
+// Solidity: function operatorNftPoolBalances(uint256 ) view returns(uint256)
+func (_Liq *LiqCallerSession) OperatorNftPoolBalances(arg0 *big.Int) (*big.Int, error) {
+	return _Liq.Contract.OperatorNftPoolBalances(&_Liq.CallOpts, arg0)
 }
 
 // OperatorPoolBalances is a free data retrieval call binding the contract method 0x74ee7f86.
@@ -1152,35 +837,35 @@ func (_Liq *LiqCallerSession) OperatorPoolBalances(arg0 *big.Int) (*big.Int, err
 	return _Liq.Contract.OperatorPoolBalances(&_Liq.CallOpts, arg0)
 }
 
-// OperatorSlashArrears is a free data retrieval call binding the contract method 0xa7d18eba.
+// OperatorSlashContract is a free data retrieval call binding the contract method 0x0c2559fd.
 //
-// Solidity: function operatorSlashArrears(uint256 , uint256 ) view returns(uint256)
-func (_Liq *LiqCaller) OperatorSlashArrears(opts *bind.CallOpts, arg0 *big.Int, arg1 *big.Int) (*big.Int, error) {
+// Solidity: function operatorSlashContract() view returns(address)
+func (_Liq *LiqCaller) OperatorSlashContract(opts *bind.CallOpts) (common.Address, error) {
 	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "operatorSlashArrears", arg0, arg1)
+	err := _Liq.contract.Call(opts, &out, "operatorSlashContract")
 
 	if err != nil {
-		return *new(*big.Int), err
+		return *new(common.Address), err
 	}
 
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
 
 	return out0, err
 
 }
 
-// OperatorSlashArrears is a free data retrieval call binding the contract method 0xa7d18eba.
+// OperatorSlashContract is a free data retrieval call binding the contract method 0x0c2559fd.
 //
-// Solidity: function operatorSlashArrears(uint256 , uint256 ) view returns(uint256)
-func (_Liq *LiqSession) OperatorSlashArrears(arg0 *big.Int, arg1 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.OperatorSlashArrears(&_Liq.CallOpts, arg0, arg1)
+// Solidity: function operatorSlashContract() view returns(address)
+func (_Liq *LiqSession) OperatorSlashContract() (common.Address, error) {
+	return _Liq.Contract.OperatorSlashContract(&_Liq.CallOpts)
 }
 
-// OperatorSlashArrears is a free data retrieval call binding the contract method 0xa7d18eba.
+// OperatorSlashContract is a free data retrieval call binding the contract method 0x0c2559fd.
 //
-// Solidity: function operatorSlashArrears(uint256 , uint256 ) view returns(uint256)
-func (_Liq *LiqCallerSession) OperatorSlashArrears(arg0 *big.Int, arg1 *big.Int) (*big.Int, error) {
-	return _Liq.Contract.OperatorSlashArrears(&_Liq.CallOpts, arg0, arg1)
+// Solidity: function operatorSlashContract() view returns(address)
+func (_Liq *LiqCallerSession) OperatorSlashContract() (common.Address, error) {
+	return _Liq.Contract.OperatorSlashContract(&_Liq.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
@@ -1307,113 +992,6 @@ func (_Liq *LiqCallerSession) ReAssignRecords(arg0 *big.Int) (*big.Int, error) {
 	return _Liq.Contract.ReAssignRecords(&_Liq.CallOpts, arg0)
 }
 
-// SlashAmountPerBlockPerValidator is a free data retrieval call binding the contract method 0xaf256032.
-//
-// Solidity: function slashAmountPerBlockPerValidator() view returns(uint256)
-func (_Liq *LiqCaller) SlashAmountPerBlockPerValidator(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "slashAmountPerBlockPerValidator")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// SlashAmountPerBlockPerValidator is a free data retrieval call binding the contract method 0xaf256032.
-//
-// Solidity: function slashAmountPerBlockPerValidator() view returns(uint256)
-func (_Liq *LiqSession) SlashAmountPerBlockPerValidator() (*big.Int, error) {
-	return _Liq.Contract.SlashAmountPerBlockPerValidator(&_Liq.CallOpts)
-}
-
-// SlashAmountPerBlockPerValidator is a free data retrieval call binding the contract method 0xaf256032.
-//
-// Solidity: function slashAmountPerBlockPerValidator() view returns(uint256)
-func (_Liq *LiqCallerSession) SlashAmountPerBlockPerValidator() (*big.Int, error) {
-	return _Liq.Contract.SlashAmountPerBlockPerValidator(&_Liq.CallOpts)
-}
-
-// StakeRecords is a free data retrieval call binding the contract method 0x84660ae6.
-//
-// Solidity: function stakeRecords(address , uint256 ) view returns(uint256 operatorId, uint256 quota)
-func (_Liq *LiqCaller) StakeRecords(opts *bind.CallOpts, arg0 common.Address, arg1 *big.Int) (struct {
-	OperatorId *big.Int
-	Quota      *big.Int
-}, error) {
-	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "stakeRecords", arg0, arg1)
-
-	outstruct := new(struct {
-		OperatorId *big.Int
-		Quota      *big.Int
-	})
-	if err != nil {
-		return *outstruct, err
-	}
-
-	outstruct.OperatorId = *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-	outstruct.Quota = *abi.ConvertType(out[1], new(*big.Int)).(**big.Int)
-
-	return *outstruct, err
-
-}
-
-// StakeRecords is a free data retrieval call binding the contract method 0x84660ae6.
-//
-// Solidity: function stakeRecords(address , uint256 ) view returns(uint256 operatorId, uint256 quota)
-func (_Liq *LiqSession) StakeRecords(arg0 common.Address, arg1 *big.Int) (struct {
-	OperatorId *big.Int
-	Quota      *big.Int
-}, error) {
-	return _Liq.Contract.StakeRecords(&_Liq.CallOpts, arg0, arg1)
-}
-
-// StakeRecords is a free data retrieval call binding the contract method 0x84660ae6.
-//
-// Solidity: function stakeRecords(address , uint256 ) view returns(uint256 operatorId, uint256 quota)
-func (_Liq *LiqCallerSession) StakeRecords(arg0 common.Address, arg1 *big.Int) (struct {
-	OperatorId *big.Int
-	Quota      *big.Int
-}, error) {
-	return _Liq.Contract.StakeRecords(&_Liq.CallOpts, arg0, arg1)
-}
-
-// TotalLockedNethBalance is a free data retrieval call binding the contract method 0xc03c381c.
-//
-// Solidity: function totalLockedNethBalance() view returns(uint256)
-func (_Liq *LiqCaller) TotalLockedNethBalance(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "totalLockedNethBalance")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// TotalLockedNethBalance is a free data retrieval call binding the contract method 0xc03c381c.
-//
-// Solidity: function totalLockedNethBalance() view returns(uint256)
-func (_Liq *LiqSession) TotalLockedNethBalance() (*big.Int, error) {
-	return _Liq.Contract.TotalLockedNethBalance(&_Liq.CallOpts)
-}
-
-// TotalLockedNethBalance is a free data retrieval call binding the contract method 0xc03c381c.
-//
-// Solidity: function totalLockedNethBalance() view returns(uint256)
-func (_Liq *LiqCallerSession) TotalLockedNethBalance() (*big.Int, error) {
-	return _Liq.Contract.TotalLockedNethBalance(&_Liq.CallOpts)
-}
-
 // VNFTContract is a free data retrieval call binding the contract method 0xfc03411f.
 //
 // Solidity: function vNFTContract() view returns(address)
@@ -1476,137 +1054,77 @@ func (_Liq *LiqCallerSession) VaultManagerContractAddress() (common.Address, err
 	return _Liq.Contract.VaultManagerContractAddress(&_Liq.CallOpts)
 }
 
-// WithdrawalQueues is a free data retrieval call binding the contract method 0x7743b6d3.
+// WithdrawalRequestContract is a free data retrieval call binding the contract method 0x45dcb639.
 //
-// Solidity: function withdrawalQueues(uint256 ) view returns(uint256 operatorId, uint256 withdrawHeight, uint256 withdrawNethAmount, uint256 withdrawExchange, uint256 claimEthAmount, address owner, bool isClaim)
-func (_Liq *LiqCaller) WithdrawalQueues(opts *bind.CallOpts, arg0 *big.Int) (struct {
-	OperatorId         *big.Int
-	WithdrawHeight     *big.Int
-	WithdrawNethAmount *big.Int
-	WithdrawExchange   *big.Int
-	ClaimEthAmount     *big.Int
-	Owner              common.Address
-	IsClaim            bool
-}, error) {
+// Solidity: function withdrawalRequestContract() view returns(address)
+func (_Liq *LiqCaller) WithdrawalRequestContract(opts *bind.CallOpts) (common.Address, error) {
 	var out []interface{}
-	err := _Liq.contract.Call(opts, &out, "withdrawalQueues", arg0)
+	err := _Liq.contract.Call(opts, &out, "withdrawalRequestContract")
 
-	outstruct := new(struct {
-		OperatorId         *big.Int
-		WithdrawHeight     *big.Int
-		WithdrawNethAmount *big.Int
-		WithdrawExchange   *big.Int
-		ClaimEthAmount     *big.Int
-		Owner              common.Address
-		IsClaim            bool
-	})
 	if err != nil {
-		return *outstruct, err
+		return *new(common.Address), err
 	}
 
-	outstruct.OperatorId = *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-	outstruct.WithdrawHeight = *abi.ConvertType(out[1], new(*big.Int)).(**big.Int)
-	outstruct.WithdrawNethAmount = *abi.ConvertType(out[2], new(*big.Int)).(**big.Int)
-	outstruct.WithdrawExchange = *abi.ConvertType(out[3], new(*big.Int)).(**big.Int)
-	outstruct.ClaimEthAmount = *abi.ConvertType(out[4], new(*big.Int)).(**big.Int)
-	outstruct.Owner = *abi.ConvertType(out[5], new(common.Address)).(*common.Address)
-	outstruct.IsClaim = *abi.ConvertType(out[6], new(bool)).(*bool)
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
 
-	return *outstruct, err
+	return out0, err
 
 }
 
-// WithdrawalQueues is a free data retrieval call binding the contract method 0x7743b6d3.
+// WithdrawalRequestContract is a free data retrieval call binding the contract method 0x45dcb639.
 //
-// Solidity: function withdrawalQueues(uint256 ) view returns(uint256 operatorId, uint256 withdrawHeight, uint256 withdrawNethAmount, uint256 withdrawExchange, uint256 claimEthAmount, address owner, bool isClaim)
-func (_Liq *LiqSession) WithdrawalQueues(arg0 *big.Int) (struct {
-	OperatorId         *big.Int
-	WithdrawHeight     *big.Int
-	WithdrawNethAmount *big.Int
-	WithdrawExchange   *big.Int
-	ClaimEthAmount     *big.Int
-	Owner              common.Address
-	IsClaim            bool
-}, error) {
-	return _Liq.Contract.WithdrawalQueues(&_Liq.CallOpts, arg0)
+// Solidity: function withdrawalRequestContract() view returns(address)
+func (_Liq *LiqSession) WithdrawalRequestContract() (common.Address, error) {
+	return _Liq.Contract.WithdrawalRequestContract(&_Liq.CallOpts)
 }
 
-// WithdrawalQueues is a free data retrieval call binding the contract method 0x7743b6d3.
+// WithdrawalRequestContract is a free data retrieval call binding the contract method 0x45dcb639.
 //
-// Solidity: function withdrawalQueues(uint256 ) view returns(uint256 operatorId, uint256 withdrawHeight, uint256 withdrawNethAmount, uint256 withdrawExchange, uint256 claimEthAmount, address owner, bool isClaim)
-func (_Liq *LiqCallerSession) WithdrawalQueues(arg0 *big.Int) (struct {
-	OperatorId         *big.Int
-	WithdrawHeight     *big.Int
-	WithdrawNethAmount *big.Int
-	WithdrawExchange   *big.Int
-	ClaimEthAmount     *big.Int
-	Owner              common.Address
-	IsClaim            bool
-}, error) {
-	return _Liq.Contract.WithdrawalQueues(&_Liq.CallOpts, arg0)
+// Solidity: function withdrawalRequestContract() view returns(address)
+func (_Liq *LiqCallerSession) WithdrawalRequestContract() (common.Address, error) {
+	return _Liq.Contract.WithdrawalRequestContract(&_Liq.CallOpts)
 }
 
-// AssignBlacklistOperator is a paid mutator transaction binding the contract method 0x31348aa8.
+// AddSlashFundToStakePool is a paid mutator transaction binding the contract method 0x76b69ca6.
 //
-// Solidity: function assignBlacklistOperator(uint256 _assignOperatorId, uint256 _operatorId) returns()
-func (_Liq *LiqTransactor) AssignBlacklistOperator(opts *bind.TransactOpts, _assignOperatorId *big.Int, _operatorId *big.Int) (*types.Transaction, error) {
-	return _Liq.contract.Transact(opts, "assignBlacklistOperator", _assignOperatorId, _operatorId)
+// Solidity: function addSlashFundToStakePool(uint256 _operatorId, uint256 _amount) payable returns()
+func (_Liq *LiqTransactor) AddSlashFundToStakePool(opts *bind.TransactOpts, _operatorId *big.Int, _amount *big.Int) (*types.Transaction, error) {
+	return _Liq.contract.Transact(opts, "addSlashFundToStakePool", _operatorId, _amount)
 }
 
-// AssignBlacklistOperator is a paid mutator transaction binding the contract method 0x31348aa8.
+// AddSlashFundToStakePool is a paid mutator transaction binding the contract method 0x76b69ca6.
 //
-// Solidity: function assignBlacklistOperator(uint256 _assignOperatorId, uint256 _operatorId) returns()
-func (_Liq *LiqSession) AssignBlacklistOperator(_assignOperatorId *big.Int, _operatorId *big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.AssignBlacklistOperator(&_Liq.TransactOpts, _assignOperatorId, _operatorId)
+// Solidity: function addSlashFundToStakePool(uint256 _operatorId, uint256 _amount) payable returns()
+func (_Liq *LiqSession) AddSlashFundToStakePool(_operatorId *big.Int, _amount *big.Int) (*types.Transaction, error) {
+	return _Liq.Contract.AddSlashFundToStakePool(&_Liq.TransactOpts, _operatorId, _amount)
 }
 
-// AssignBlacklistOperator is a paid mutator transaction binding the contract method 0x31348aa8.
+// AddSlashFundToStakePool is a paid mutator transaction binding the contract method 0x76b69ca6.
 //
-// Solidity: function assignBlacklistOperator(uint256 _assignOperatorId, uint256 _operatorId) returns()
-func (_Liq *LiqTransactorSession) AssignBlacklistOperator(_assignOperatorId *big.Int, _operatorId *big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.AssignBlacklistOperator(&_Liq.TransactOpts, _assignOperatorId, _operatorId)
+// Solidity: function addSlashFundToStakePool(uint256 _operatorId, uint256 _amount) payable returns()
+func (_Liq *LiqTransactorSession) AddSlashFundToStakePool(_operatorId *big.Int, _amount *big.Int) (*types.Transaction, error) {
+	return _Liq.Contract.AddSlashFundToStakePool(&_Liq.TransactOpts, _operatorId, _amount)
 }
 
-// AssignQuitOperator is a paid mutator transaction binding the contract method 0x04916b32.
+// AssignOperator is a paid mutator transaction binding the contract method 0xb36e2cce.
 //
-// Solidity: function assignQuitOperator(uint256 _quitOperatorId, uint256 _operatorId) returns()
-func (_Liq *LiqTransactor) AssignQuitOperator(opts *bind.TransactOpts, _quitOperatorId *big.Int, _operatorId *big.Int) (*types.Transaction, error) {
-	return _Liq.contract.Transact(opts, "assignQuitOperator", _quitOperatorId, _operatorId)
+// Solidity: function assignOperator(uint256 _assignOperatorId, uint256 _operatorId) returns()
+func (_Liq *LiqTransactor) AssignOperator(opts *bind.TransactOpts, _assignOperatorId *big.Int, _operatorId *big.Int) (*types.Transaction, error) {
+	return _Liq.contract.Transact(opts, "assignOperator", _assignOperatorId, _operatorId)
 }
 
-// AssignQuitOperator is a paid mutator transaction binding the contract method 0x04916b32.
+// AssignOperator is a paid mutator transaction binding the contract method 0xb36e2cce.
 //
-// Solidity: function assignQuitOperator(uint256 _quitOperatorId, uint256 _operatorId) returns()
-func (_Liq *LiqSession) AssignQuitOperator(_quitOperatorId *big.Int, _operatorId *big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.AssignQuitOperator(&_Liq.TransactOpts, _quitOperatorId, _operatorId)
+// Solidity: function assignOperator(uint256 _assignOperatorId, uint256 _operatorId) returns()
+func (_Liq *LiqSession) AssignOperator(_assignOperatorId *big.Int, _operatorId *big.Int) (*types.Transaction, error) {
+	return _Liq.Contract.AssignOperator(&_Liq.TransactOpts, _assignOperatorId, _operatorId)
 }
 
-// AssignQuitOperator is a paid mutator transaction binding the contract method 0x04916b32.
+// AssignOperator is a paid mutator transaction binding the contract method 0xb36e2cce.
 //
-// Solidity: function assignQuitOperator(uint256 _quitOperatorId, uint256 _operatorId) returns()
-func (_Liq *LiqTransactorSession) AssignQuitOperator(_quitOperatorId *big.Int, _operatorId *big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.AssignQuitOperator(&_Liq.TransactOpts, _quitOperatorId, _operatorId)
-}
-
-// ClaimLargeWitdrawals is a paid mutator transaction binding the contract method 0x97ca2c61.
-//
-// Solidity: function claimLargeWitdrawals(uint256[] requestIds) returns()
-func (_Liq *LiqTransactor) ClaimLargeWitdrawals(opts *bind.TransactOpts, requestIds []*big.Int) (*types.Transaction, error) {
-	return _Liq.contract.Transact(opts, "claimLargeWitdrawals", requestIds)
-}
-
-// ClaimLargeWitdrawals is a paid mutator transaction binding the contract method 0x97ca2c61.
-//
-// Solidity: function claimLargeWitdrawals(uint256[] requestIds) returns()
-func (_Liq *LiqSession) ClaimLargeWitdrawals(requestIds []*big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.ClaimLargeWitdrawals(&_Liq.TransactOpts, requestIds)
-}
-
-// ClaimLargeWitdrawals is a paid mutator transaction binding the contract method 0x97ca2c61.
-//
-// Solidity: function claimLargeWitdrawals(uint256[] requestIds) returns()
-func (_Liq *LiqTransactorSession) ClaimLargeWitdrawals(requestIds []*big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.ClaimLargeWitdrawals(&_Liq.TransactOpts, requestIds)
+// Solidity: function assignOperator(uint256 _assignOperatorId, uint256 _operatorId) returns()
+func (_Liq *LiqTransactorSession) AssignOperator(_assignOperatorId *big.Int, _operatorId *big.Int) (*types.Transaction, error) {
+	return _Liq.Contract.AssignOperator(&_Liq.TransactOpts, _assignOperatorId, _operatorId)
 }
 
 // ClaimRewardsOfDao is a paid mutator transaction binding the contract method 0x8628974b.
@@ -1630,46 +1148,67 @@ func (_Liq *LiqTransactorSession) ClaimRewardsOfDao(_operatorIds []*big.Int, _re
 	return _Liq.Contract.ClaimRewardsOfDao(&_Liq.TransactOpts, _operatorIds, _rewards)
 }
 
-// ClaimRewardsOfOperator is a paid mutator transaction binding the contract method 0x38fac833.
+// ClaimRewardsOfOperator is a paid mutator transaction binding the contract method 0x15cf1a8f.
 //
-// Solidity: function claimRewardsOfOperator(uint256 _operatorId, uint256 _reward) returns()
-func (_Liq *LiqTransactor) ClaimRewardsOfOperator(opts *bind.TransactOpts, _operatorId *big.Int, _reward *big.Int) (*types.Transaction, error) {
-	return _Liq.contract.Transact(opts, "claimRewardsOfOperator", _operatorId, _reward)
+// Solidity: function claimRewardsOfOperator(uint256 _operatorId, address[] _rewardAddresses, uint256[] _rewards) returns()
+func (_Liq *LiqTransactor) ClaimRewardsOfOperator(opts *bind.TransactOpts, _operatorId *big.Int, _rewardAddresses []common.Address, _rewards []*big.Int) (*types.Transaction, error) {
+	return _Liq.contract.Transact(opts, "claimRewardsOfOperator", _operatorId, _rewardAddresses, _rewards)
 }
 
-// ClaimRewardsOfOperator is a paid mutator transaction binding the contract method 0x38fac833.
+// ClaimRewardsOfOperator is a paid mutator transaction binding the contract method 0x15cf1a8f.
 //
-// Solidity: function claimRewardsOfOperator(uint256 _operatorId, uint256 _reward) returns()
-func (_Liq *LiqSession) ClaimRewardsOfOperator(_operatorId *big.Int, _reward *big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.ClaimRewardsOfOperator(&_Liq.TransactOpts, _operatorId, _reward)
+// Solidity: function claimRewardsOfOperator(uint256 _operatorId, address[] _rewardAddresses, uint256[] _rewards) returns()
+func (_Liq *LiqSession) ClaimRewardsOfOperator(_operatorId *big.Int, _rewardAddresses []common.Address, _rewards []*big.Int) (*types.Transaction, error) {
+	return _Liq.Contract.ClaimRewardsOfOperator(&_Liq.TransactOpts, _operatorId, _rewardAddresses, _rewards)
 }
 
-// ClaimRewardsOfOperator is a paid mutator transaction binding the contract method 0x38fac833.
+// ClaimRewardsOfOperator is a paid mutator transaction binding the contract method 0x15cf1a8f.
 //
-// Solidity: function claimRewardsOfOperator(uint256 _operatorId, uint256 _reward) returns()
-func (_Liq *LiqTransactorSession) ClaimRewardsOfOperator(_operatorId *big.Int, _reward *big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.ClaimRewardsOfOperator(&_Liq.TransactOpts, _operatorId, _reward)
+// Solidity: function claimRewardsOfOperator(uint256 _operatorId, address[] _rewardAddresses, uint256[] _rewards) returns()
+func (_Liq *LiqTransactorSession) ClaimRewardsOfOperator(_operatorId *big.Int, _rewardAddresses []common.Address, _rewards []*big.Int) (*types.Transaction, error) {
+	return _Liq.Contract.ClaimRewardsOfOperator(&_Liq.TransactOpts, _operatorId, _rewardAddresses, _rewards)
 }
 
-// ClaimRewardsOfUser is a paid mutator transaction binding the contract method 0x538823f4.
+// ClaimRewardsOfUser is a paid mutator transaction binding the contract method 0x7d75de55.
 //
-// Solidity: function claimRewardsOfUser(uint256 _operatorId, uint256[] _tokenIds, uint256[] _amounts, uint256 _gasHeight) returns()
-func (_Liq *LiqTransactor) ClaimRewardsOfUser(opts *bind.TransactOpts, _operatorId *big.Int, _tokenIds []*big.Int, _amounts []*big.Int, _gasHeight *big.Int) (*types.Transaction, error) {
-	return _Liq.contract.Transact(opts, "claimRewardsOfUser", _operatorId, _tokenIds, _amounts, _gasHeight)
+// Solidity: function claimRewardsOfUser(uint256 _operatorId, uint256[] _tokenIds, uint256 _totalNftRewards, uint256 _gasHeight, address _owner) returns()
+func (_Liq *LiqTransactor) ClaimRewardsOfUser(opts *bind.TransactOpts, _operatorId *big.Int, _tokenIds []*big.Int, _totalNftRewards *big.Int, _gasHeight *big.Int, _owner common.Address) (*types.Transaction, error) {
+	return _Liq.contract.Transact(opts, "claimRewardsOfUser", _operatorId, _tokenIds, _totalNftRewards, _gasHeight, _owner)
 }
 
-// ClaimRewardsOfUser is a paid mutator transaction binding the contract method 0x538823f4.
+// ClaimRewardsOfUser is a paid mutator transaction binding the contract method 0x7d75de55.
 //
-// Solidity: function claimRewardsOfUser(uint256 _operatorId, uint256[] _tokenIds, uint256[] _amounts, uint256 _gasHeight) returns()
-func (_Liq *LiqSession) ClaimRewardsOfUser(_operatorId *big.Int, _tokenIds []*big.Int, _amounts []*big.Int, _gasHeight *big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.ClaimRewardsOfUser(&_Liq.TransactOpts, _operatorId, _tokenIds, _amounts, _gasHeight)
+// Solidity: function claimRewardsOfUser(uint256 _operatorId, uint256[] _tokenIds, uint256 _totalNftRewards, uint256 _gasHeight, address _owner) returns()
+func (_Liq *LiqSession) ClaimRewardsOfUser(_operatorId *big.Int, _tokenIds []*big.Int, _totalNftRewards *big.Int, _gasHeight *big.Int, _owner common.Address) (*types.Transaction, error) {
+	return _Liq.Contract.ClaimRewardsOfUser(&_Liq.TransactOpts, _operatorId, _tokenIds, _totalNftRewards, _gasHeight, _owner)
 }
 
-// ClaimRewardsOfUser is a paid mutator transaction binding the contract method 0x538823f4.
+// ClaimRewardsOfUser is a paid mutator transaction binding the contract method 0x7d75de55.
 //
-// Solidity: function claimRewardsOfUser(uint256 _operatorId, uint256[] _tokenIds, uint256[] _amounts, uint256 _gasHeight) returns()
-func (_Liq *LiqTransactorSession) ClaimRewardsOfUser(_operatorId *big.Int, _tokenIds []*big.Int, _amounts []*big.Int, _gasHeight *big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.ClaimRewardsOfUser(&_Liq.TransactOpts, _operatorId, _tokenIds, _amounts, _gasHeight)
+// Solidity: function claimRewardsOfUser(uint256 _operatorId, uint256[] _tokenIds, uint256 _totalNftRewards, uint256 _gasHeight, address _owner) returns()
+func (_Liq *LiqTransactorSession) ClaimRewardsOfUser(_operatorId *big.Int, _tokenIds []*big.Int, _totalNftRewards *big.Int, _gasHeight *big.Int, _owner common.Address) (*types.Transaction, error) {
+	return _Liq.Contract.ClaimRewardsOfUser(&_Liq.TransactOpts, _operatorId, _tokenIds, _totalNftRewards, _gasHeight, _owner)
+}
+
+// FastUnstakeNFT is a paid mutator transaction binding the contract method 0x37a203c8.
+//
+// Solidity: function fastUnstakeNFT(uint256 _operatorId, uint256 _tokenId, address _to) returns()
+func (_Liq *LiqTransactor) FastUnstakeNFT(opts *bind.TransactOpts, _operatorId *big.Int, _tokenId *big.Int, _to common.Address) (*types.Transaction, error) {
+	return _Liq.contract.Transact(opts, "fastUnstakeNFT", _operatorId, _tokenId, _to)
+}
+
+// FastUnstakeNFT is a paid mutator transaction binding the contract method 0x37a203c8.
+//
+// Solidity: function fastUnstakeNFT(uint256 _operatorId, uint256 _tokenId, address _to) returns()
+func (_Liq *LiqSession) FastUnstakeNFT(_operatorId *big.Int, _tokenId *big.Int, _to common.Address) (*types.Transaction, error) {
+	return _Liq.Contract.FastUnstakeNFT(&_Liq.TransactOpts, _operatorId, _tokenId, _to)
+}
+
+// FastUnstakeNFT is a paid mutator transaction binding the contract method 0x37a203c8.
+//
+// Solidity: function fastUnstakeNFT(uint256 _operatorId, uint256 _tokenId, address _to) returns()
+func (_Liq *LiqTransactorSession) FastUnstakeNFT(_operatorId *big.Int, _tokenId *big.Int, _to common.Address) (*types.Transaction, error) {
+	return _Liq.Contract.FastUnstakeNFT(&_Liq.TransactOpts, _operatorId, _tokenId, _to)
 }
 
 // Initialize is a paid mutator transaction binding the contract method 0x0eda4cf2.
@@ -1693,25 +1232,67 @@ func (_Liq *LiqTransactorSession) Initialize(_dao common.Address, _daoVaultAddre
 	return _Liq.Contract.Initialize(&_Liq.TransactOpts, _dao, _daoVaultAddress, _withdrawalCreds, _nodeOperatorRegistryContractAddress, _nETHContractAddress, _nVNFTContractAddress, _beaconOracleContractAddress, _depositContractAddress)
 }
 
-// InitializeV2 is a paid mutator transaction binding the contract method 0x5cd8a76b.
+// InitializeV2 is a paid mutator transaction binding the contract method 0x04517e31.
 //
-// Solidity: function initializeV2() returns()
-func (_Liq *LiqTransactor) InitializeV2(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Liq.contract.Transact(opts, "initializeV2")
+// Solidity: function initializeV2(uint256[] _operatorIds, address[] _users, uint256[] _nethAmounts, address _consensusVaultContractAddress, address _vaultManagerContractAddress, address _withdrawalRequestContractAddress, address _operatorSlashContractAddress) returns()
+func (_Liq *LiqTransactor) InitializeV2(opts *bind.TransactOpts, _operatorIds []*big.Int, _users []common.Address, _nethAmounts []*big.Int, _consensusVaultContractAddress common.Address, _vaultManagerContractAddress common.Address, _withdrawalRequestContractAddress common.Address, _operatorSlashContractAddress common.Address) (*types.Transaction, error) {
+	return _Liq.contract.Transact(opts, "initializeV2", _operatorIds, _users, _nethAmounts, _consensusVaultContractAddress, _vaultManagerContractAddress, _withdrawalRequestContractAddress, _operatorSlashContractAddress)
 }
 
-// InitializeV2 is a paid mutator transaction binding the contract method 0x5cd8a76b.
+// InitializeV2 is a paid mutator transaction binding the contract method 0x04517e31.
 //
-// Solidity: function initializeV2() returns()
-func (_Liq *LiqSession) InitializeV2() (*types.Transaction, error) {
-	return _Liq.Contract.InitializeV2(&_Liq.TransactOpts)
+// Solidity: function initializeV2(uint256[] _operatorIds, address[] _users, uint256[] _nethAmounts, address _consensusVaultContractAddress, address _vaultManagerContractAddress, address _withdrawalRequestContractAddress, address _operatorSlashContractAddress) returns()
+func (_Liq *LiqSession) InitializeV2(_operatorIds []*big.Int, _users []common.Address, _nethAmounts []*big.Int, _consensusVaultContractAddress common.Address, _vaultManagerContractAddress common.Address, _withdrawalRequestContractAddress common.Address, _operatorSlashContractAddress common.Address) (*types.Transaction, error) {
+	return _Liq.Contract.InitializeV2(&_Liq.TransactOpts, _operatorIds, _users, _nethAmounts, _consensusVaultContractAddress, _vaultManagerContractAddress, _withdrawalRequestContractAddress, _operatorSlashContractAddress)
 }
 
-// InitializeV2 is a paid mutator transaction binding the contract method 0x5cd8a76b.
+// InitializeV2 is a paid mutator transaction binding the contract method 0x04517e31.
 //
-// Solidity: function initializeV2() returns()
-func (_Liq *LiqTransactorSession) InitializeV2() (*types.Transaction, error) {
-	return _Liq.Contract.InitializeV2(&_Liq.TransactOpts)
+// Solidity: function initializeV2(uint256[] _operatorIds, address[] _users, uint256[] _nethAmounts, address _consensusVaultContractAddress, address _vaultManagerContractAddress, address _withdrawalRequestContractAddress, address _operatorSlashContractAddress) returns()
+func (_Liq *LiqTransactorSession) InitializeV2(_operatorIds []*big.Int, _users []common.Address, _nethAmounts []*big.Int, _consensusVaultContractAddress common.Address, _vaultManagerContractAddress common.Address, _withdrawalRequestContractAddress common.Address, _operatorSlashContractAddress common.Address) (*types.Transaction, error) {
+	return _Liq.Contract.InitializeV2(&_Liq.TransactOpts, _operatorIds, _users, _nethAmounts, _consensusVaultContractAddress, _vaultManagerContractAddress, _withdrawalRequestContractAddress, _operatorSlashContractAddress)
+}
+
+// LargeWithdrawalBurnNeth is a paid mutator transaction binding the contract method 0x47a764d3.
+//
+// Solidity: function largeWithdrawalBurnNeth(uint256 _totalRequestNethAmount) returns()
+func (_Liq *LiqTransactor) LargeWithdrawalBurnNeth(opts *bind.TransactOpts, _totalRequestNethAmount *big.Int) (*types.Transaction, error) {
+	return _Liq.contract.Transact(opts, "largeWithdrawalBurnNeth", _totalRequestNethAmount)
+}
+
+// LargeWithdrawalBurnNeth is a paid mutator transaction binding the contract method 0x47a764d3.
+//
+// Solidity: function largeWithdrawalBurnNeth(uint256 _totalRequestNethAmount) returns()
+func (_Liq *LiqSession) LargeWithdrawalBurnNeth(_totalRequestNethAmount *big.Int) (*types.Transaction, error) {
+	return _Liq.Contract.LargeWithdrawalBurnNeth(&_Liq.TransactOpts, _totalRequestNethAmount)
+}
+
+// LargeWithdrawalBurnNeth is a paid mutator transaction binding the contract method 0x47a764d3.
+//
+// Solidity: function largeWithdrawalBurnNeth(uint256 _totalRequestNethAmount) returns()
+func (_Liq *LiqTransactorSession) LargeWithdrawalBurnNeth(_totalRequestNethAmount *big.Int) (*types.Transaction, error) {
+	return _Liq.Contract.LargeWithdrawalBurnNeth(&_Liq.TransactOpts, _totalRequestNethAmount)
+}
+
+// LargeWithdrawalUnstake is a paid mutator transaction binding the contract method 0x3a548da1.
+//
+// Solidity: function largeWithdrawalUnstake(uint256 _operatorId, address _from, uint256 _amount) returns()
+func (_Liq *LiqTransactor) LargeWithdrawalUnstake(opts *bind.TransactOpts, _operatorId *big.Int, _from common.Address, _amount *big.Int) (*types.Transaction, error) {
+	return _Liq.contract.Transact(opts, "largeWithdrawalUnstake", _operatorId, _from, _amount)
+}
+
+// LargeWithdrawalUnstake is a paid mutator transaction binding the contract method 0x3a548da1.
+//
+// Solidity: function largeWithdrawalUnstake(uint256 _operatorId, address _from, uint256 _amount) returns()
+func (_Liq *LiqSession) LargeWithdrawalUnstake(_operatorId *big.Int, _from common.Address, _amount *big.Int) (*types.Transaction, error) {
+	return _Liq.Contract.LargeWithdrawalUnstake(&_Liq.TransactOpts, _operatorId, _from, _amount)
+}
+
+// LargeWithdrawalUnstake is a paid mutator transaction binding the contract method 0x3a548da1.
+//
+// Solidity: function largeWithdrawalUnstake(uint256 _operatorId, address _from, uint256 _amount) returns()
+func (_Liq *LiqTransactorSession) LargeWithdrawalUnstake(_operatorId *big.Int, _from common.Address, _amount *big.Int) (*types.Transaction, error) {
+	return _Liq.Contract.LargeWithdrawalUnstake(&_Liq.TransactOpts, _operatorId, _from, _amount)
 }
 
 // NftExitHandle is a paid mutator transaction binding the contract method 0x5d20c6be.
@@ -1882,27 +1463,6 @@ func (_Liq *LiqTransactorSession) RenounceOwnership() (*types.Transaction, error
 	return _Liq.Contract.RenounceOwnership(&_Liq.TransactOpts)
 }
 
-// RequestLargeWithdrawals is a paid mutator transaction binding the contract method 0x976b364e.
-//
-// Solidity: function requestLargeWithdrawals(uint256 _operatorId, uint256[] _amounts) returns()
-func (_Liq *LiqTransactor) RequestLargeWithdrawals(opts *bind.TransactOpts, _operatorId *big.Int, _amounts []*big.Int) (*types.Transaction, error) {
-	return _Liq.contract.Transact(opts, "requestLargeWithdrawals", _operatorId, _amounts)
-}
-
-// RequestLargeWithdrawals is a paid mutator transaction binding the contract method 0x976b364e.
-//
-// Solidity: function requestLargeWithdrawals(uint256 _operatorId, uint256[] _amounts) returns()
-func (_Liq *LiqSession) RequestLargeWithdrawals(_operatorId *big.Int, _amounts []*big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.RequestLargeWithdrawals(&_Liq.TransactOpts, _operatorId, _amounts)
-}
-
-// RequestLargeWithdrawals is a paid mutator transaction binding the contract method 0x976b364e.
-//
-// Solidity: function requestLargeWithdrawals(uint256 _operatorId, uint256[] _amounts) returns()
-func (_Liq *LiqTransactorSession) RequestLargeWithdrawals(_operatorId *big.Int, _amounts []*big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.RequestLargeWithdrawals(&_Liq.TransactOpts, _operatorId, _amounts)
-}
-
 // SetBeaconOracleContract is a paid mutator transaction binding the contract method 0xeff71b99.
 //
 // Solidity: function setBeaconOracleContract(address _beaconOracleContractAddress) returns()
@@ -2029,88 +1589,46 @@ func (_Liq *LiqTransactorSession) SetNodeOperatorRegistryContract(_nodeOperatorR
 	return _Liq.Contract.SetNodeOperatorRegistryContract(&_Liq.TransactOpts, _nodeOperatorRegistryContract)
 }
 
-// SlashArrearsReceive is a paid mutator transaction binding the contract method 0xe72544c9.
+// SetOperatorCanLoanAmounts is a paid mutator transaction binding the contract method 0xe59546be.
 //
-// Solidity: function slashArrearsReceive(uint256 _operatorId, uint256 _amount) payable returns()
-func (_Liq *LiqTransactor) SlashArrearsReceive(opts *bind.TransactOpts, _operatorId *big.Int, _amount *big.Int) (*types.Transaction, error) {
-	return _Liq.contract.Transact(opts, "slashArrearsReceive", _operatorId, _amount)
+// Solidity: function setOperatorCanLoanAmounts(uint256 _newCanloadAmounts) returns()
+func (_Liq *LiqTransactor) SetOperatorCanLoanAmounts(opts *bind.TransactOpts, _newCanloadAmounts *big.Int) (*types.Transaction, error) {
+	return _Liq.contract.Transact(opts, "setOperatorCanLoanAmounts", _newCanloadAmounts)
 }
 
-// SlashArrearsReceive is a paid mutator transaction binding the contract method 0xe72544c9.
+// SetOperatorCanLoanAmounts is a paid mutator transaction binding the contract method 0xe59546be.
 //
-// Solidity: function slashArrearsReceive(uint256 _operatorId, uint256 _amount) payable returns()
-func (_Liq *LiqSession) SlashArrearsReceive(_operatorId *big.Int, _amount *big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.SlashArrearsReceive(&_Liq.TransactOpts, _operatorId, _amount)
+// Solidity: function setOperatorCanLoanAmounts(uint256 _newCanloadAmounts) returns()
+func (_Liq *LiqSession) SetOperatorCanLoanAmounts(_newCanloadAmounts *big.Int) (*types.Transaction, error) {
+	return _Liq.Contract.SetOperatorCanLoanAmounts(&_Liq.TransactOpts, _newCanloadAmounts)
 }
 
-// SlashArrearsReceive is a paid mutator transaction binding the contract method 0xe72544c9.
+// SetOperatorCanLoanAmounts is a paid mutator transaction binding the contract method 0xe59546be.
 //
-// Solidity: function slashArrearsReceive(uint256 _operatorId, uint256 _amount) payable returns()
-func (_Liq *LiqTransactorSession) SlashArrearsReceive(_operatorId *big.Int, _amount *big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.SlashArrearsReceive(&_Liq.TransactOpts, _operatorId, _amount)
+// Solidity: function setOperatorCanLoanAmounts(uint256 _newCanloadAmounts) returns()
+func (_Liq *LiqTransactorSession) SetOperatorCanLoanAmounts(_newCanloadAmounts *big.Int) (*types.Transaction, error) {
+	return _Liq.Contract.SetOperatorCanLoanAmounts(&_Liq.TransactOpts, _newCanloadAmounts)
 }
 
-// SlashOfExitDelayed is a paid mutator transaction binding the contract method 0xb21a6370.
+// SetVaultManagerContract is a paid mutator transaction binding the contract method 0xbe14652a.
 //
-// Solidity: function slashOfExitDelayed(uint256[] _nftExitDelayedTokenIds, uint256[] _largeExitDelayedRequestIds) returns()
-func (_Liq *LiqTransactor) SlashOfExitDelayed(opts *bind.TransactOpts, _nftExitDelayedTokenIds []*big.Int, _largeExitDelayedRequestIds []*big.Int) (*types.Transaction, error) {
-	return _Liq.contract.Transact(opts, "slashOfExitDelayed", _nftExitDelayedTokenIds, _largeExitDelayedRequestIds)
+// Solidity: function setVaultManagerContract(address _vaultManagerContract) returns()
+func (_Liq *LiqTransactor) SetVaultManagerContract(opts *bind.TransactOpts, _vaultManagerContract common.Address) (*types.Transaction, error) {
+	return _Liq.contract.Transact(opts, "setVaultManagerContract", _vaultManagerContract)
 }
 
-// SlashOfExitDelayed is a paid mutator transaction binding the contract method 0xb21a6370.
+// SetVaultManagerContract is a paid mutator transaction binding the contract method 0xbe14652a.
 //
-// Solidity: function slashOfExitDelayed(uint256[] _nftExitDelayedTokenIds, uint256[] _largeExitDelayedRequestIds) returns()
-func (_Liq *LiqSession) SlashOfExitDelayed(_nftExitDelayedTokenIds []*big.Int, _largeExitDelayedRequestIds []*big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.SlashOfExitDelayed(&_Liq.TransactOpts, _nftExitDelayedTokenIds, _largeExitDelayedRequestIds)
+// Solidity: function setVaultManagerContract(address _vaultManagerContract) returns()
+func (_Liq *LiqSession) SetVaultManagerContract(_vaultManagerContract common.Address) (*types.Transaction, error) {
+	return _Liq.Contract.SetVaultManagerContract(&_Liq.TransactOpts, _vaultManagerContract)
 }
 
-// SlashOfExitDelayed is a paid mutator transaction binding the contract method 0xb21a6370.
+// SetVaultManagerContract is a paid mutator transaction binding the contract method 0xbe14652a.
 //
-// Solidity: function slashOfExitDelayed(uint256[] _nftExitDelayedTokenIds, uint256[] _largeExitDelayedRequestIds) returns()
-func (_Liq *LiqTransactorSession) SlashOfExitDelayed(_nftExitDelayedTokenIds []*big.Int, _largeExitDelayedRequestIds []*big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.SlashOfExitDelayed(&_Liq.TransactOpts, _nftExitDelayedTokenIds, _largeExitDelayedRequestIds)
-}
-
-// SlashOperator is a paid mutator transaction binding the contract method 0x538d7ab0.
-//
-// Solidity: function slashOperator(uint256[] _exitTokenIds, uint256[] _amounts) returns()
-func (_Liq *LiqTransactor) SlashOperator(opts *bind.TransactOpts, _exitTokenIds []*big.Int, _amounts []*big.Int) (*types.Transaction, error) {
-	return _Liq.contract.Transact(opts, "slashOperator", _exitTokenIds, _amounts)
-}
-
-// SlashOperator is a paid mutator transaction binding the contract method 0x538d7ab0.
-//
-// Solidity: function slashOperator(uint256[] _exitTokenIds, uint256[] _amounts) returns()
-func (_Liq *LiqSession) SlashOperator(_exitTokenIds []*big.Int, _amounts []*big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.SlashOperator(&_Liq.TransactOpts, _exitTokenIds, _amounts)
-}
-
-// SlashOperator is a paid mutator transaction binding the contract method 0x538d7ab0.
-//
-// Solidity: function slashOperator(uint256[] _exitTokenIds, uint256[] _amounts) returns()
-func (_Liq *LiqTransactorSession) SlashOperator(_exitTokenIds []*big.Int, _amounts []*big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.SlashOperator(&_Liq.TransactOpts, _exitTokenIds, _amounts)
-}
-
-// SlashReceive is a paid mutator transaction binding the contract method 0xc0849498.
-//
-// Solidity: function slashReceive(uint256[] _exitTokenIds, uint256[] _slashAmounts, uint256[] _requireAmounts) payable returns()
-func (_Liq *LiqTransactor) SlashReceive(opts *bind.TransactOpts, _exitTokenIds []*big.Int, _slashAmounts []*big.Int, _requireAmounts []*big.Int) (*types.Transaction, error) {
-	return _Liq.contract.Transact(opts, "slashReceive", _exitTokenIds, _slashAmounts, _requireAmounts)
-}
-
-// SlashReceive is a paid mutator transaction binding the contract method 0xc0849498.
-//
-// Solidity: function slashReceive(uint256[] _exitTokenIds, uint256[] _slashAmounts, uint256[] _requireAmounts) payable returns()
-func (_Liq *LiqSession) SlashReceive(_exitTokenIds []*big.Int, _slashAmounts []*big.Int, _requireAmounts []*big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.SlashReceive(&_Liq.TransactOpts, _exitTokenIds, _slashAmounts, _requireAmounts)
-}
-
-// SlashReceive is a paid mutator transaction binding the contract method 0xc0849498.
-//
-// Solidity: function slashReceive(uint256[] _exitTokenIds, uint256[] _slashAmounts, uint256[] _requireAmounts) payable returns()
-func (_Liq *LiqTransactorSession) SlashReceive(_exitTokenIds []*big.Int, _slashAmounts []*big.Int, _requireAmounts []*big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.SlashReceive(&_Liq.TransactOpts, _exitTokenIds, _slashAmounts, _requireAmounts)
+// Solidity: function setVaultManagerContract(address _vaultManagerContract) returns()
+func (_Liq *LiqTransactorSession) SetVaultManagerContract(_vaultManagerContract common.Address) (*types.Transaction, error) {
+	return _Liq.Contract.SetVaultManagerContract(&_Liq.TransactOpts, _vaultManagerContract)
 }
 
 // StakeETH is a paid mutator transaction binding the contract method 0x6ecc20da.
@@ -2216,27 +1734,6 @@ func (_Liq *LiqSession) UnstakeETH(_operatorId *big.Int, _amounts *big.Int) (*ty
 // Solidity: function unstakeETH(uint256 _operatorId, uint256 _amounts) returns()
 func (_Liq *LiqTransactorSession) UnstakeETH(_operatorId *big.Int, _amounts *big.Int) (*types.Transaction, error) {
 	return _Liq.Contract.UnstakeETH(&_Liq.TransactOpts, _operatorId, _amounts)
-}
-
-// UnstakeNFT is a paid mutator transaction binding the contract method 0x8453734d.
-//
-// Solidity: function unstakeNFT(uint256[] _tokenIds) returns()
-func (_Liq *LiqTransactor) UnstakeNFT(opts *bind.TransactOpts, _tokenIds []*big.Int) (*types.Transaction, error) {
-	return _Liq.contract.Transact(opts, "unstakeNFT", _tokenIds)
-}
-
-// UnstakeNFT is a paid mutator transaction binding the contract method 0x8453734d.
-//
-// Solidity: function unstakeNFT(uint256[] _tokenIds) returns()
-func (_Liq *LiqSession) UnstakeNFT(_tokenIds []*big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.UnstakeNFT(&_Liq.TransactOpts, _tokenIds)
-}
-
-// UnstakeNFT is a paid mutator transaction binding the contract method 0x8453734d.
-//
-// Solidity: function unstakeNFT(uint256[] _tokenIds) returns()
-func (_Liq *LiqTransactorSession) UnstakeNFT(_tokenIds []*big.Int) (*types.Transaction, error) {
-	return _Liq.Contract.UnstakeNFT(&_Liq.TransactOpts, _tokenIds)
 }
 
 // UpgradeTo is a paid mutator transaction binding the contract method 0x3659cfe6.
@@ -2410,141 +1907,6 @@ func (_Liq *LiqFilterer) WatchAdminChanged(opts *bind.WatchOpts, sink chan<- *Li
 func (_Liq *LiqFilterer) ParseAdminChanged(log types.Log) (*LiqAdminChanged, error) {
 	event := new(LiqAdminChanged)
 	if err := _Liq.contract.UnpackLog(event, "AdminChanged", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// LiqArrearsReceiveOfSlashIterator is returned from FilterArrearsReceiveOfSlash and is used to iterate over the raw logs and unpacked data for ArrearsReceiveOfSlash events raised by the Liq contract.
-type LiqArrearsReceiveOfSlashIterator struct {
-	Event *LiqArrearsReceiveOfSlash // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *LiqArrearsReceiveOfSlashIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(LiqArrearsReceiveOfSlash)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(LiqArrearsReceiveOfSlash)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *LiqArrearsReceiveOfSlashIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *LiqArrearsReceiveOfSlashIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// LiqArrearsReceiveOfSlash represents a ArrearsReceiveOfSlash event raised by the Liq contract.
-type LiqArrearsReceiveOfSlash struct {
-	OperatorId *big.Int
-	Amount     *big.Int
-	Raw        types.Log // Blockchain specific contextual infos
-}
-
-// FilterArrearsReceiveOfSlash is a free log retrieval operation binding the contract event 0xa2478ef76ec5108b836ec0b59cc344bf613e964e82254a6c2e22a548e9d0fe75.
-//
-// Solidity: event ArrearsReceiveOfSlash(uint256 _operatorId, uint256 _amount)
-func (_Liq *LiqFilterer) FilterArrearsReceiveOfSlash(opts *bind.FilterOpts) (*LiqArrearsReceiveOfSlashIterator, error) {
-
-	logs, sub, err := _Liq.contract.FilterLogs(opts, "ArrearsReceiveOfSlash")
-	if err != nil {
-		return nil, err
-	}
-	return &LiqArrearsReceiveOfSlashIterator{contract: _Liq.contract, event: "ArrearsReceiveOfSlash", logs: logs, sub: sub}, nil
-}
-
-// WatchArrearsReceiveOfSlash is a free log subscription operation binding the contract event 0xa2478ef76ec5108b836ec0b59cc344bf613e964e82254a6c2e22a548e9d0fe75.
-//
-// Solidity: event ArrearsReceiveOfSlash(uint256 _operatorId, uint256 _amount)
-func (_Liq *LiqFilterer) WatchArrearsReceiveOfSlash(opts *bind.WatchOpts, sink chan<- *LiqArrearsReceiveOfSlash) (event.Subscription, error) {
-
-	logs, sub, err := _Liq.contract.WatchLogs(opts, "ArrearsReceiveOfSlash")
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(LiqArrearsReceiveOfSlash)
-				if err := _Liq.contract.UnpackLog(event, "ArrearsReceiveOfSlash", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseArrearsReceiveOfSlash is a log parse operation binding the contract event 0xa2478ef76ec5108b836ec0b59cc344bf613e964e82254a6c2e22a548e9d0fe75.
-//
-// Solidity: event ArrearsReceiveOfSlash(uint256 _operatorId, uint256 _amount)
-func (_Liq *LiqFilterer) ParseArrearsReceiveOfSlash(log types.Log) (*LiqArrearsReceiveOfSlash, error) {
-	event := new(LiqArrearsReceiveOfSlash)
-	if err := _Liq.contract.UnpackLog(event, "ArrearsReceiveOfSlash", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -2830,9 +2192,9 @@ func (_Liq *LiqFilterer) ParseBeaconUpgraded(log types.Log) (*LiqBeaconUpgraded,
 	return event, nil
 }
 
-// LiqBlacklistOperatorAssignedIterator is returned from FilterBlacklistOperatorAssigned and is used to iterate over the raw logs and unpacked data for BlacklistOperatorAssigned events raised by the Liq contract.
-type LiqBlacklistOperatorAssignedIterator struct {
-	Event *LiqBlacklistOperatorAssigned // Event containing the contract specifics and raw log
+// LiqConsensusVaultContractSetIterator is returned from FilterConsensusVaultContractSet and is used to iterate over the raw logs and unpacked data for ConsensusVaultContractSet events raised by the Liq contract.
+type LiqConsensusVaultContractSetIterator struct {
+	Event *LiqConsensusVaultContractSet // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -2846,7 +2208,7 @@ type LiqBlacklistOperatorAssignedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *LiqBlacklistOperatorAssignedIterator) Next() bool {
+func (it *LiqConsensusVaultContractSetIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -2855,7 +2217,7 @@ func (it *LiqBlacklistOperatorAssignedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(LiqBlacklistOperatorAssigned)
+			it.Event = new(LiqConsensusVaultContractSet)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -2870,7 +2232,7 @@ func (it *LiqBlacklistOperatorAssignedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(LiqBlacklistOperatorAssigned)
+		it.Event = new(LiqConsensusVaultContractSet)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -2886,43 +2248,42 @@ func (it *LiqBlacklistOperatorAssignedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *LiqBlacklistOperatorAssignedIterator) Error() error {
+func (it *LiqConsensusVaultContractSetIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *LiqBlacklistOperatorAssignedIterator) Close() error {
+func (it *LiqConsensusVaultContractSetIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// LiqBlacklistOperatorAssigned represents a BlacklistOperatorAssigned event raised by the Liq contract.
-type LiqBlacklistOperatorAssigned struct {
-	BlacklistOperatorId *big.Int
-	OperatorId          *big.Int
-	TotalAmount         *big.Int
-	Raw                 types.Log // Blockchain specific contextual infos
+// LiqConsensusVaultContractSet represents a ConsensusVaultContractSet event raised by the Liq contract.
+type LiqConsensusVaultContractSet struct {
+	VaultManagerContractAddress common.Address
+	ConsensusVaultContract      common.Address
+	Raw                         types.Log // Blockchain specific contextual infos
 }
 
-// FilterBlacklistOperatorAssigned is a free log retrieval operation binding the contract event 0x46e36b61e3d2c27e6dc88d3eb33962629e6989428bd68e322e1175e317e0521c.
+// FilterConsensusVaultContractSet is a free log retrieval operation binding the contract event 0x955eb996feefc76589abe69cb5c8a3dfdf8cfa4fa9cec1611c9c3e61de5f55bf.
 //
-// Solidity: event BlacklistOperatorAssigned(uint256 _blacklistOperatorId, uint256 _operatorId, uint256 _totalAmount)
-func (_Liq *LiqFilterer) FilterBlacklistOperatorAssigned(opts *bind.FilterOpts) (*LiqBlacklistOperatorAssignedIterator, error) {
+// Solidity: event ConsensusVaultContractSet(address vaultManagerContractAddress, address _consensusVaultContract)
+func (_Liq *LiqFilterer) FilterConsensusVaultContractSet(opts *bind.FilterOpts) (*LiqConsensusVaultContractSetIterator, error) {
 
-	logs, sub, err := _Liq.contract.FilterLogs(opts, "BlacklistOperatorAssigned")
+	logs, sub, err := _Liq.contract.FilterLogs(opts, "ConsensusVaultContractSet")
 	if err != nil {
 		return nil, err
 	}
-	return &LiqBlacklistOperatorAssignedIterator{contract: _Liq.contract, event: "BlacklistOperatorAssigned", logs: logs, sub: sub}, nil
+	return &LiqConsensusVaultContractSetIterator{contract: _Liq.contract, event: "ConsensusVaultContractSet", logs: logs, sub: sub}, nil
 }
 
-// WatchBlacklistOperatorAssigned is a free log subscription operation binding the contract event 0x46e36b61e3d2c27e6dc88d3eb33962629e6989428bd68e322e1175e317e0521c.
+// WatchConsensusVaultContractSet is a free log subscription operation binding the contract event 0x955eb996feefc76589abe69cb5c8a3dfdf8cfa4fa9cec1611c9c3e61de5f55bf.
 //
-// Solidity: event BlacklistOperatorAssigned(uint256 _blacklistOperatorId, uint256 _operatorId, uint256 _totalAmount)
-func (_Liq *LiqFilterer) WatchBlacklistOperatorAssigned(opts *bind.WatchOpts, sink chan<- *LiqBlacklistOperatorAssigned) (event.Subscription, error) {
+// Solidity: event ConsensusVaultContractSet(address vaultManagerContractAddress, address _consensusVaultContract)
+func (_Liq *LiqFilterer) WatchConsensusVaultContractSet(opts *bind.WatchOpts, sink chan<- *LiqConsensusVaultContractSet) (event.Subscription, error) {
 
-	logs, sub, err := _Liq.contract.WatchLogs(opts, "BlacklistOperatorAssigned")
+	logs, sub, err := _Liq.contract.WatchLogs(opts, "ConsensusVaultContractSet")
 	if err != nil {
 		return nil, err
 	}
@@ -2932,8 +2293,8 @@ func (_Liq *LiqFilterer) WatchBlacklistOperatorAssigned(opts *bind.WatchOpts, si
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(LiqBlacklistOperatorAssigned)
-				if err := _Liq.contract.UnpackLog(event, "BlacklistOperatorAssigned", log); err != nil {
+				event := new(LiqConsensusVaultContractSet)
+				if err := _Liq.contract.UnpackLog(event, "ConsensusVaultContractSet", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -2954,12 +2315,12 @@ func (_Liq *LiqFilterer) WatchBlacklistOperatorAssigned(opts *bind.WatchOpts, si
 	}), nil
 }
 
-// ParseBlacklistOperatorAssigned is a log parse operation binding the contract event 0x46e36b61e3d2c27e6dc88d3eb33962629e6989428bd68e322e1175e317e0521c.
+// ParseConsensusVaultContractSet is a log parse operation binding the contract event 0x955eb996feefc76589abe69cb5c8a3dfdf8cfa4fa9cec1611c9c3e61de5f55bf.
 //
-// Solidity: event BlacklistOperatorAssigned(uint256 _blacklistOperatorId, uint256 _operatorId, uint256 _totalAmount)
-func (_Liq *LiqFilterer) ParseBlacklistOperatorAssigned(log types.Log) (*LiqBlacklistOperatorAssigned, error) {
-	event := new(LiqBlacklistOperatorAssigned)
-	if err := _Liq.contract.UnpackLog(event, "BlacklistOperatorAssigned", log); err != nil {
+// Solidity: event ConsensusVaultContractSet(address vaultManagerContractAddress, address _consensusVaultContract)
+func (_Liq *LiqFilterer) ParseConsensusVaultContractSet(log types.Log) (*LiqConsensusVaultContractSet, error) {
+	event := new(LiqConsensusVaultContractSet)
+	if err := _Liq.contract.UnpackLog(event, "ConsensusVaultContractSet", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -3575,40 +2936,49 @@ func (it *LiqEthStakeIterator) Close() error {
 
 // LiqEthStake represents a EthStake event raised by the Liq contract.
 type LiqEthStake struct {
-	From      common.Address
-	Amount    *big.Int
-	AmountOut *big.Int
-	Raw       types.Log // Blockchain specific contextual infos
+	OperatorId *big.Int
+	From       common.Address
+	Amount     *big.Int
+	AmountOut  *big.Int
+	Raw        types.Log // Blockchain specific contextual infos
 }
 
-// FilterEthStake is a free log retrieval operation binding the contract event 0x838d17987e57e587c458220b9b38723c41fbc3f397550b506712960a73ef19f9.
+// FilterEthStake is a free log retrieval operation binding the contract event 0x1cae59a31c3c6760aa08cb9c351432553e908b8e6f53e7c9ac22715c7d496179.
 //
-// Solidity: event EthStake(address indexed _from, uint256 _amount, uint256 _amountOut)
-func (_Liq *LiqFilterer) FilterEthStake(opts *bind.FilterOpts, _from []common.Address) (*LiqEthStakeIterator, error) {
+// Solidity: event EthStake(uint256 indexed _operatorId, address indexed _from, uint256 _amount, uint256 _amountOut)
+func (_Liq *LiqFilterer) FilterEthStake(opts *bind.FilterOpts, _operatorId []*big.Int, _from []common.Address) (*LiqEthStakeIterator, error) {
 
+	var _operatorIdRule []interface{}
+	for _, _operatorIdItem := range _operatorId {
+		_operatorIdRule = append(_operatorIdRule, _operatorIdItem)
+	}
 	var _fromRule []interface{}
 	for _, _fromItem := range _from {
 		_fromRule = append(_fromRule, _fromItem)
 	}
 
-	logs, sub, err := _Liq.contract.FilterLogs(opts, "EthStake", _fromRule)
+	logs, sub, err := _Liq.contract.FilterLogs(opts, "EthStake", _operatorIdRule, _fromRule)
 	if err != nil {
 		return nil, err
 	}
 	return &LiqEthStakeIterator{contract: _Liq.contract, event: "EthStake", logs: logs, sub: sub}, nil
 }
 
-// WatchEthStake is a free log subscription operation binding the contract event 0x838d17987e57e587c458220b9b38723c41fbc3f397550b506712960a73ef19f9.
+// WatchEthStake is a free log subscription operation binding the contract event 0x1cae59a31c3c6760aa08cb9c351432553e908b8e6f53e7c9ac22715c7d496179.
 //
-// Solidity: event EthStake(address indexed _from, uint256 _amount, uint256 _amountOut)
-func (_Liq *LiqFilterer) WatchEthStake(opts *bind.WatchOpts, sink chan<- *LiqEthStake, _from []common.Address) (event.Subscription, error) {
+// Solidity: event EthStake(uint256 indexed _operatorId, address indexed _from, uint256 _amount, uint256 _amountOut)
+func (_Liq *LiqFilterer) WatchEthStake(opts *bind.WatchOpts, sink chan<- *LiqEthStake, _operatorId []*big.Int, _from []common.Address) (event.Subscription, error) {
 
+	var _operatorIdRule []interface{}
+	for _, _operatorIdItem := range _operatorId {
+		_operatorIdRule = append(_operatorIdRule, _operatorIdItem)
+	}
 	var _fromRule []interface{}
 	for _, _fromItem := range _from {
 		_fromRule = append(_fromRule, _fromItem)
 	}
 
-	logs, sub, err := _Liq.contract.WatchLogs(opts, "EthStake", _fromRule)
+	logs, sub, err := _Liq.contract.WatchLogs(opts, "EthStake", _operatorIdRule, _fromRule)
 	if err != nil {
 		return nil, err
 	}
@@ -3640,9 +3010,9 @@ func (_Liq *LiqFilterer) WatchEthStake(opts *bind.WatchOpts, sink chan<- *LiqEth
 	}), nil
 }
 
-// ParseEthStake is a log parse operation binding the contract event 0x838d17987e57e587c458220b9b38723c41fbc3f397550b506712960a73ef19f9.
+// ParseEthStake is a log parse operation binding the contract event 0x1cae59a31c3c6760aa08cb9c351432553e908b8e6f53e7c9ac22715c7d496179.
 //
-// Solidity: event EthStake(address indexed _from, uint256 _amount, uint256 _amountOut)
+// Solidity: event EthStake(uint256 indexed _operatorId, address indexed _from, uint256 _amount, uint256 _amountOut)
 func (_Liq *LiqFilterer) ParseEthStake(log types.Log) (*LiqEthStake, error) {
 	event := new(LiqEthStake)
 	if err := _Liq.contract.UnpackLog(event, "EthStake", log); err != nil {
@@ -3731,10 +3101,15 @@ type LiqEthUnstake struct {
 
 // FilterEthUnstake is a free log retrieval operation binding the contract event 0xc2d18d1ab67a48ae80c3ef1d20c2f2a97201a23db7ca49e5de1edf05610fb003.
 //
-// Solidity: event EthUnstake(uint256 _operatorId, uint256 targetOperatorId, address ender, uint256 _amounts, uint256 amountOut)
-func (_Liq *LiqFilterer) FilterEthUnstake(opts *bind.FilterOpts) (*LiqEthUnstakeIterator, error) {
+// Solidity: event EthUnstake(uint256 indexed _operatorId, uint256 targetOperatorId, address ender, uint256 _amounts, uint256 amountOut)
+func (_Liq *LiqFilterer) FilterEthUnstake(opts *bind.FilterOpts, _operatorId []*big.Int) (*LiqEthUnstakeIterator, error) {
 
-	logs, sub, err := _Liq.contract.FilterLogs(opts, "EthUnstake")
+	var _operatorIdRule []interface{}
+	for _, _operatorIdItem := range _operatorId {
+		_operatorIdRule = append(_operatorIdRule, _operatorIdItem)
+	}
+
+	logs, sub, err := _Liq.contract.FilterLogs(opts, "EthUnstake", _operatorIdRule)
 	if err != nil {
 		return nil, err
 	}
@@ -3743,10 +3118,15 @@ func (_Liq *LiqFilterer) FilterEthUnstake(opts *bind.FilterOpts) (*LiqEthUnstake
 
 // WatchEthUnstake is a free log subscription operation binding the contract event 0xc2d18d1ab67a48ae80c3ef1d20c2f2a97201a23db7ca49e5de1edf05610fb003.
 //
-// Solidity: event EthUnstake(uint256 _operatorId, uint256 targetOperatorId, address ender, uint256 _amounts, uint256 amountOut)
-func (_Liq *LiqFilterer) WatchEthUnstake(opts *bind.WatchOpts, sink chan<- *LiqEthUnstake) (event.Subscription, error) {
+// Solidity: event EthUnstake(uint256 indexed _operatorId, uint256 targetOperatorId, address ender, uint256 _amounts, uint256 amountOut)
+func (_Liq *LiqFilterer) WatchEthUnstake(opts *bind.WatchOpts, sink chan<- *LiqEthUnstake, _operatorId []*big.Int) (event.Subscription, error) {
 
-	logs, sub, err := _Liq.contract.WatchLogs(opts, "EthUnstake")
+	var _operatorIdRule []interface{}
+	for _, _operatorIdItem := range _operatorId {
+		_operatorIdRule = append(_operatorIdRule, _operatorIdItem)
+	}
+
+	logs, sub, err := _Liq.contract.WatchLogs(opts, "EthUnstake", _operatorIdRule)
 	if err != nil {
 		return nil, err
 	}
@@ -3780,7 +3160,7 @@ func (_Liq *LiqFilterer) WatchEthUnstake(opts *bind.WatchOpts, sink chan<- *LiqE
 
 // ParseEthUnstake is a log parse operation binding the contract event 0xc2d18d1ab67a48ae80c3ef1d20c2f2a97201a23db7ca49e5de1edf05610fb003.
 //
-// Solidity: event EthUnstake(uint256 _operatorId, uint256 targetOperatorId, address ender, uint256 _amounts, uint256 amountOut)
+// Solidity: event EthUnstake(uint256 indexed _operatorId, uint256 targetOperatorId, address ender, uint256 _amounts, uint256 amountOut)
 func (_Liq *LiqFilterer) ParseEthUnstake(log types.Log) (*LiqEthUnstake, error) {
 	event := new(LiqEthUnstake)
 	if err := _Liq.contract.UnpackLog(event, "EthUnstake", log); err != nil {
@@ -3918,142 +3298,6 @@ func (_Liq *LiqFilterer) WatchInitialized(opts *bind.WatchOpts, sink chan<- *Liq
 func (_Liq *LiqFilterer) ParseInitialized(log types.Log) (*LiqInitialized, error) {
 	event := new(LiqInitialized)
 	if err := _Liq.contract.UnpackLog(event, "Initialized", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// LiqLargeWithdrawalsRequestIterator is returned from FilterLargeWithdrawalsRequest and is used to iterate over the raw logs and unpacked data for LargeWithdrawalsRequest events raised by the Liq contract.
-type LiqLargeWithdrawalsRequestIterator struct {
-	Event *LiqLargeWithdrawalsRequest // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *LiqLargeWithdrawalsRequestIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(LiqLargeWithdrawalsRequest)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(LiqLargeWithdrawalsRequest)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *LiqLargeWithdrawalsRequestIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *LiqLargeWithdrawalsRequestIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// LiqLargeWithdrawalsRequest represents a LargeWithdrawalsRequest event raised by the Liq contract.
-type LiqLargeWithdrawalsRequest struct {
-	OperatorId      *big.Int
-	Sender          common.Address
-	TotalNethAmount *big.Int
-	Raw             types.Log // Blockchain specific contextual infos
-}
-
-// FilterLargeWithdrawalsRequest is a free log retrieval operation binding the contract event 0x5e24974b0e489bf247cedb3c7c52d992a262766293923a8e3eba888371495a3f.
-//
-// Solidity: event LargeWithdrawalsRequest(uint256 _operatorId, address sender, uint256 totalNethAmount)
-func (_Liq *LiqFilterer) FilterLargeWithdrawalsRequest(opts *bind.FilterOpts) (*LiqLargeWithdrawalsRequestIterator, error) {
-
-	logs, sub, err := _Liq.contract.FilterLogs(opts, "LargeWithdrawalsRequest")
-	if err != nil {
-		return nil, err
-	}
-	return &LiqLargeWithdrawalsRequestIterator{contract: _Liq.contract, event: "LargeWithdrawalsRequest", logs: logs, sub: sub}, nil
-}
-
-// WatchLargeWithdrawalsRequest is a free log subscription operation binding the contract event 0x5e24974b0e489bf247cedb3c7c52d992a262766293923a8e3eba888371495a3f.
-//
-// Solidity: event LargeWithdrawalsRequest(uint256 _operatorId, address sender, uint256 totalNethAmount)
-func (_Liq *LiqFilterer) WatchLargeWithdrawalsRequest(opts *bind.WatchOpts, sink chan<- *LiqLargeWithdrawalsRequest) (event.Subscription, error) {
-
-	logs, sub, err := _Liq.contract.WatchLogs(opts, "LargeWithdrawalsRequest")
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(LiqLargeWithdrawalsRequest)
-				if err := _Liq.contract.UnpackLog(event, "LargeWithdrawalsRequest", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseLargeWithdrawalsRequest is a log parse operation binding the contract event 0x5e24974b0e489bf247cedb3c7c52d992a262766293923a8e3eba888371495a3f.
-//
-// Solidity: event LargeWithdrawalsRequest(uint256 _operatorId, address sender, uint256 totalNethAmount)
-func (_Liq *LiqFilterer) ParseLargeWithdrawalsRequest(log types.Log) (*LiqLargeWithdrawalsRequest, error) {
-	event := new(LiqLargeWithdrawalsRequest)
-	if err := _Liq.contract.UnpackLog(event, "LargeWithdrawalsRequest", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -4399,39 +3643,48 @@ func (it *LiqNftStakeIterator) Close() error {
 
 // LiqNftStake represents a NftStake event raised by the Liq contract.
 type LiqNftStake struct {
-	From  common.Address
-	Count *big.Int
-	Raw   types.Log // Blockchain specific contextual infos
+	OperatorId *big.Int
+	From       common.Address
+	Count      *big.Int
+	Raw        types.Log // Blockchain specific contextual infos
 }
 
-// FilterNftStake is a free log retrieval operation binding the contract event 0xa763c79f5b64c651fefa444e4020953d79c1f9f4dfaf121251f97f5277ec6dd2.
+// FilterNftStake is a free log retrieval operation binding the contract event 0x7acd64380f0b80d169f87cad8295b93ee2889c7f5c8f861bee0d1e4edb657afb.
 //
-// Solidity: event NftStake(address indexed _from, uint256 _count)
-func (_Liq *LiqFilterer) FilterNftStake(opts *bind.FilterOpts, _from []common.Address) (*LiqNftStakeIterator, error) {
+// Solidity: event NftStake(uint256 indexed _operatorId, address indexed _from, uint256 _count)
+func (_Liq *LiqFilterer) FilterNftStake(opts *bind.FilterOpts, _operatorId []*big.Int, _from []common.Address) (*LiqNftStakeIterator, error) {
 
+	var _operatorIdRule []interface{}
+	for _, _operatorIdItem := range _operatorId {
+		_operatorIdRule = append(_operatorIdRule, _operatorIdItem)
+	}
 	var _fromRule []interface{}
 	for _, _fromItem := range _from {
 		_fromRule = append(_fromRule, _fromItem)
 	}
 
-	logs, sub, err := _Liq.contract.FilterLogs(opts, "NftStake", _fromRule)
+	logs, sub, err := _Liq.contract.FilterLogs(opts, "NftStake", _operatorIdRule, _fromRule)
 	if err != nil {
 		return nil, err
 	}
 	return &LiqNftStakeIterator{contract: _Liq.contract, event: "NftStake", logs: logs, sub: sub}, nil
 }
 
-// WatchNftStake is a free log subscription operation binding the contract event 0xa763c79f5b64c651fefa444e4020953d79c1f9f4dfaf121251f97f5277ec6dd2.
+// WatchNftStake is a free log subscription operation binding the contract event 0x7acd64380f0b80d169f87cad8295b93ee2889c7f5c8f861bee0d1e4edb657afb.
 //
-// Solidity: event NftStake(address indexed _from, uint256 _count)
-func (_Liq *LiqFilterer) WatchNftStake(opts *bind.WatchOpts, sink chan<- *LiqNftStake, _from []common.Address) (event.Subscription, error) {
+// Solidity: event NftStake(uint256 indexed _operatorId, address indexed _from, uint256 _count)
+func (_Liq *LiqFilterer) WatchNftStake(opts *bind.WatchOpts, sink chan<- *LiqNftStake, _operatorId []*big.Int, _from []common.Address) (event.Subscription, error) {
 
+	var _operatorIdRule []interface{}
+	for _, _operatorIdItem := range _operatorId {
+		_operatorIdRule = append(_operatorIdRule, _operatorIdItem)
+	}
 	var _fromRule []interface{}
 	for _, _fromItem := range _from {
 		_fromRule = append(_fromRule, _fromItem)
 	}
 
-	logs, sub, err := _Liq.contract.WatchLogs(opts, "NftStake", _fromRule)
+	logs, sub, err := _Liq.contract.WatchLogs(opts, "NftStake", _operatorIdRule, _fromRule)
 	if err != nil {
 		return nil, err
 	}
@@ -4463,421 +3716,12 @@ func (_Liq *LiqFilterer) WatchNftStake(opts *bind.WatchOpts, sink chan<- *LiqNft
 	}), nil
 }
 
-// ParseNftStake is a log parse operation binding the contract event 0xa763c79f5b64c651fefa444e4020953d79c1f9f4dfaf121251f97f5277ec6dd2.
+// ParseNftStake is a log parse operation binding the contract event 0x7acd64380f0b80d169f87cad8295b93ee2889c7f5c8f861bee0d1e4edb657afb.
 //
-// Solidity: event NftStake(address indexed _from, uint256 _count)
+// Solidity: event NftStake(uint256 indexed _operatorId, address indexed _from, uint256 _count)
 func (_Liq *LiqFilterer) ParseNftStake(log types.Log) (*LiqNftStake, error) {
 	event := new(LiqNftStake)
 	if err := _Liq.contract.UnpackLog(event, "NftStake", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// LiqNftUnstakeIterator is returned from FilterNftUnstake and is used to iterate over the raw logs and unpacked data for NftUnstake events raised by the Liq contract.
-type LiqNftUnstakeIterator struct {
-	Event *LiqNftUnstake // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *LiqNftUnstakeIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(LiqNftUnstake)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(LiqNftUnstake)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *LiqNftUnstakeIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *LiqNftUnstakeIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// LiqNftUnstake represents a NftUnstake event raised by the Liq contract.
-type LiqNftUnstake struct {
-	TokenId    *big.Int
-	OperatorId *big.Int
-	Raw        types.Log // Blockchain specific contextual infos
-}
-
-// FilterNftUnstake is a free log retrieval operation binding the contract event 0x9187b7a988fc2779224c0f80f4459cbb33f8c5c4be3656b4debaa4e58c19658e.
-//
-// Solidity: event NftUnstake(uint256 tokenId, uint256 operatorId)
-func (_Liq *LiqFilterer) FilterNftUnstake(opts *bind.FilterOpts) (*LiqNftUnstakeIterator, error) {
-
-	logs, sub, err := _Liq.contract.FilterLogs(opts, "NftUnstake")
-	if err != nil {
-		return nil, err
-	}
-	return &LiqNftUnstakeIterator{contract: _Liq.contract, event: "NftUnstake", logs: logs, sub: sub}, nil
-}
-
-// WatchNftUnstake is a free log subscription operation binding the contract event 0x9187b7a988fc2779224c0f80f4459cbb33f8c5c4be3656b4debaa4e58c19658e.
-//
-// Solidity: event NftUnstake(uint256 tokenId, uint256 operatorId)
-func (_Liq *LiqFilterer) WatchNftUnstake(opts *bind.WatchOpts, sink chan<- *LiqNftUnstake) (event.Subscription, error) {
-
-	logs, sub, err := _Liq.contract.WatchLogs(opts, "NftUnstake")
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(LiqNftUnstake)
-				if err := _Liq.contract.UnpackLog(event, "NftUnstake", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseNftUnstake is a log parse operation binding the contract event 0x9187b7a988fc2779224c0f80f4459cbb33f8c5c4be3656b4debaa4e58c19658e.
-//
-// Solidity: event NftUnstake(uint256 tokenId, uint256 operatorId)
-func (_Liq *LiqFilterer) ParseNftUnstake(log types.Log) (*LiqNftUnstake, error) {
-	event := new(LiqNftUnstake)
-	if err := _Liq.contract.UnpackLog(event, "NftUnstake", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// LiqNftUnwrapIterator is returned from FilterNftUnwrap and is used to iterate over the raw logs and unpacked data for NftUnwrap events raised by the Liq contract.
-type LiqNftUnwrapIterator struct {
-	Event *LiqNftUnwrap // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *LiqNftUnwrapIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(LiqNftUnwrap)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(LiqNftUnwrap)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *LiqNftUnwrapIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *LiqNftUnwrapIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// LiqNftUnwrap represents a NftUnwrap event raised by the Liq contract.
-type LiqNftUnwrap struct {
-	TokenId    *big.Int
-	OperatorId *big.Int
-	Value      *big.Int
-	AmountOut  *big.Int
-	Raw        types.Log // Blockchain specific contextual infos
-}
-
-// FilterNftUnwrap is a free log retrieval operation binding the contract event 0x30935f3959f4a31d19f4c341041713ee7ffc6ee6dd0f9117beb992facbc149d7.
-//
-// Solidity: event NftUnwrap(uint256 _tokenId, uint256 operatorId, uint256 _value, uint256 _amountOut)
-func (_Liq *LiqFilterer) FilterNftUnwrap(opts *bind.FilterOpts) (*LiqNftUnwrapIterator, error) {
-
-	logs, sub, err := _Liq.contract.FilterLogs(opts, "NftUnwrap")
-	if err != nil {
-		return nil, err
-	}
-	return &LiqNftUnwrapIterator{contract: _Liq.contract, event: "NftUnwrap", logs: logs, sub: sub}, nil
-}
-
-// WatchNftUnwrap is a free log subscription operation binding the contract event 0x30935f3959f4a31d19f4c341041713ee7ffc6ee6dd0f9117beb992facbc149d7.
-//
-// Solidity: event NftUnwrap(uint256 _tokenId, uint256 operatorId, uint256 _value, uint256 _amountOut)
-func (_Liq *LiqFilterer) WatchNftUnwrap(opts *bind.WatchOpts, sink chan<- *LiqNftUnwrap) (event.Subscription, error) {
-
-	logs, sub, err := _Liq.contract.WatchLogs(opts, "NftUnwrap")
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(LiqNftUnwrap)
-				if err := _Liq.contract.UnpackLog(event, "NftUnwrap", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseNftUnwrap is a log parse operation binding the contract event 0x30935f3959f4a31d19f4c341041713ee7ffc6ee6dd0f9117beb992facbc149d7.
-//
-// Solidity: event NftUnwrap(uint256 _tokenId, uint256 operatorId, uint256 _value, uint256 _amountOut)
-func (_Liq *LiqFilterer) ParseNftUnwrap(log types.Log) (*LiqNftUnwrap, error) {
-	event := new(LiqNftUnwrap)
-	if err := _Liq.contract.UnpackLog(event, "NftUnwrap", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// LiqNftWrapIterator is returned from FilterNftWrap and is used to iterate over the raw logs and unpacked data for NftWrap events raised by the Liq contract.
-type LiqNftWrapIterator struct {
-	Event *LiqNftWrap // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *LiqNftWrapIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(LiqNftWrap)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(LiqNftWrap)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *LiqNftWrapIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *LiqNftWrapIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// LiqNftWrap represents a NftWrap event raised by the Liq contract.
-type LiqNftWrap struct {
-	TokenId    *big.Int
-	OperatorId *big.Int
-	Value      *big.Int
-	AmountOut  *big.Int
-	Raw        types.Log // Blockchain specific contextual infos
-}
-
-// FilterNftWrap is a free log retrieval operation binding the contract event 0x8893882104b7b95694bf51d917dc99f43bad27a00effe34bb555dfe280d14df4.
-//
-// Solidity: event NftWrap(uint256 _tokenId, uint256 _operatorId, uint256 _value, uint256 _amountOut)
-func (_Liq *LiqFilterer) FilterNftWrap(opts *bind.FilterOpts) (*LiqNftWrapIterator, error) {
-
-	logs, sub, err := _Liq.contract.FilterLogs(opts, "NftWrap")
-	if err != nil {
-		return nil, err
-	}
-	return &LiqNftWrapIterator{contract: _Liq.contract, event: "NftWrap", logs: logs, sub: sub}, nil
-}
-
-// WatchNftWrap is a free log subscription operation binding the contract event 0x8893882104b7b95694bf51d917dc99f43bad27a00effe34bb555dfe280d14df4.
-//
-// Solidity: event NftWrap(uint256 _tokenId, uint256 _operatorId, uint256 _value, uint256 _amountOut)
-func (_Liq *LiqFilterer) WatchNftWrap(opts *bind.WatchOpts, sink chan<- *LiqNftWrap) (event.Subscription, error) {
-
-	logs, sub, err := _Liq.contract.WatchLogs(opts, "NftWrap")
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(LiqNftWrap)
-				if err := _Liq.contract.UnpackLog(event, "NftWrap", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseNftWrap is a log parse operation binding the contract event 0x8893882104b7b95694bf51d917dc99f43bad27a00effe34bb555dfe280d14df4.
-//
-// Solidity: event NftWrap(uint256 _tokenId, uint256 _operatorId, uint256 _value, uint256 _amountOut)
-func (_Liq *LiqFilterer) ParseNftWrap(log types.Log) (*LiqNftWrap, error) {
-	event := new(LiqNftWrap)
-	if err := _Liq.contract.UnpackLog(event, "NftWrap", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -5013,6 +3857,287 @@ func (_Liq *LiqFilterer) WatchNodeOperatorRegistryContractSet(opts *bind.WatchOp
 func (_Liq *LiqFilterer) ParseNodeOperatorRegistryContractSet(log types.Log) (*LiqNodeOperatorRegistryContractSet, error) {
 	event := new(LiqNodeOperatorRegistryContractSet)
 	if err := _Liq.contract.UnpackLog(event, "NodeOperatorRegistryContractSet", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// LiqOperatorAssignedIterator is returned from FilterOperatorAssigned and is used to iterate over the raw logs and unpacked data for OperatorAssigned events raised by the Liq contract.
+type LiqOperatorAssignedIterator struct {
+	Event *LiqOperatorAssigned // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *LiqOperatorAssignedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(LiqOperatorAssigned)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(LiqOperatorAssigned)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *LiqOperatorAssignedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *LiqOperatorAssignedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// LiqOperatorAssigned represents a OperatorAssigned event raised by the Liq contract.
+type LiqOperatorAssigned struct {
+	BlacklistOperatorId *big.Int
+	OperatorId          *big.Int
+	TotalAmount         *big.Int
+	Raw                 types.Log // Blockchain specific contextual infos
+}
+
+// FilterOperatorAssigned is a free log retrieval operation binding the contract event 0x2fb596e064755189ea64f65d467239f889fbc89a0cc5f7c4ac32cea82547919b.
+//
+// Solidity: event OperatorAssigned(uint256 indexed _blacklistOperatorId, uint256 _operatorId, uint256 _totalAmount)
+func (_Liq *LiqFilterer) FilterOperatorAssigned(opts *bind.FilterOpts, _blacklistOperatorId []*big.Int) (*LiqOperatorAssignedIterator, error) {
+
+	var _blacklistOperatorIdRule []interface{}
+	for _, _blacklistOperatorIdItem := range _blacklistOperatorId {
+		_blacklistOperatorIdRule = append(_blacklistOperatorIdRule, _blacklistOperatorIdItem)
+	}
+
+	logs, sub, err := _Liq.contract.FilterLogs(opts, "OperatorAssigned", _blacklistOperatorIdRule)
+	if err != nil {
+		return nil, err
+	}
+	return &LiqOperatorAssignedIterator{contract: _Liq.contract, event: "OperatorAssigned", logs: logs, sub: sub}, nil
+}
+
+// WatchOperatorAssigned is a free log subscription operation binding the contract event 0x2fb596e064755189ea64f65d467239f889fbc89a0cc5f7c4ac32cea82547919b.
+//
+// Solidity: event OperatorAssigned(uint256 indexed _blacklistOperatorId, uint256 _operatorId, uint256 _totalAmount)
+func (_Liq *LiqFilterer) WatchOperatorAssigned(opts *bind.WatchOpts, sink chan<- *LiqOperatorAssigned, _blacklistOperatorId []*big.Int) (event.Subscription, error) {
+
+	var _blacklistOperatorIdRule []interface{}
+	for _, _blacklistOperatorIdItem := range _blacklistOperatorId {
+		_blacklistOperatorIdRule = append(_blacklistOperatorIdRule, _blacklistOperatorIdItem)
+	}
+
+	logs, sub, err := _Liq.contract.WatchLogs(opts, "OperatorAssigned", _blacklistOperatorIdRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(LiqOperatorAssigned)
+				if err := _Liq.contract.UnpackLog(event, "OperatorAssigned", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseOperatorAssigned is a log parse operation binding the contract event 0x2fb596e064755189ea64f65d467239f889fbc89a0cc5f7c4ac32cea82547919b.
+//
+// Solidity: event OperatorAssigned(uint256 indexed _blacklistOperatorId, uint256 _operatorId, uint256 _totalAmount)
+func (_Liq *LiqFilterer) ParseOperatorAssigned(log types.Log) (*LiqOperatorAssigned, error) {
+	event := new(LiqOperatorAssigned)
+	if err := _Liq.contract.UnpackLog(event, "OperatorAssigned", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// LiqOperatorCanLoanAmountsSetIterator is returned from FilterOperatorCanLoanAmountsSet and is used to iterate over the raw logs and unpacked data for OperatorCanLoanAmountsSet events raised by the Liq contract.
+type LiqOperatorCanLoanAmountsSetIterator struct {
+	Event *LiqOperatorCanLoanAmountsSet // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *LiqOperatorCanLoanAmountsSetIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(LiqOperatorCanLoanAmountsSet)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(LiqOperatorCanLoanAmountsSet)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *LiqOperatorCanLoanAmountsSetIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *LiqOperatorCanLoanAmountsSetIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// LiqOperatorCanLoanAmountsSet represents a OperatorCanLoanAmountsSet event raised by the Liq contract.
+type LiqOperatorCanLoanAmountsSet struct {
+	OperatorCanLoanAmounts *big.Int
+	NewCanloadAmounts      *big.Int
+	Raw                    types.Log // Blockchain specific contextual infos
+}
+
+// FilterOperatorCanLoanAmountsSet is a free log retrieval operation binding the contract event 0xe4ef8288470b9f1af2ad6df80093b6a682f279693121712af0247f814f2f31a4.
+//
+// Solidity: event OperatorCanLoanAmountsSet(uint256 operatorCanLoanAmounts, uint256 _newCanloadAmounts)
+func (_Liq *LiqFilterer) FilterOperatorCanLoanAmountsSet(opts *bind.FilterOpts) (*LiqOperatorCanLoanAmountsSetIterator, error) {
+
+	logs, sub, err := _Liq.contract.FilterLogs(opts, "OperatorCanLoanAmountsSet")
+	if err != nil {
+		return nil, err
+	}
+	return &LiqOperatorCanLoanAmountsSetIterator{contract: _Liq.contract, event: "OperatorCanLoanAmountsSet", logs: logs, sub: sub}, nil
+}
+
+// WatchOperatorCanLoanAmountsSet is a free log subscription operation binding the contract event 0xe4ef8288470b9f1af2ad6df80093b6a682f279693121712af0247f814f2f31a4.
+//
+// Solidity: event OperatorCanLoanAmountsSet(uint256 operatorCanLoanAmounts, uint256 _newCanloadAmounts)
+func (_Liq *LiqFilterer) WatchOperatorCanLoanAmountsSet(opts *bind.WatchOpts, sink chan<- *LiqOperatorCanLoanAmountsSet) (event.Subscription, error) {
+
+	logs, sub, err := _Liq.contract.WatchLogs(opts, "OperatorCanLoanAmountsSet")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(LiqOperatorCanLoanAmountsSet)
+				if err := _Liq.contract.UnpackLog(event, "OperatorCanLoanAmountsSet", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseOperatorCanLoanAmountsSet is a log parse operation binding the contract event 0xe4ef8288470b9f1af2ad6df80093b6a682f279693121712af0247f814f2f31a4.
+//
+// Solidity: event OperatorCanLoanAmountsSet(uint256 operatorCanLoanAmounts, uint256 _newCanloadAmounts)
+func (_Liq *LiqFilterer) ParseOperatorCanLoanAmountsSet(log types.Log) (*LiqOperatorCanLoanAmountsSet, error) {
+	event := new(LiqOperatorCanLoanAmountsSet)
+	if err := _Liq.contract.UnpackLog(event, "OperatorCanLoanAmountsSet", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -5711,142 +4836,6 @@ func (_Liq *LiqFilterer) ParsePaused(log types.Log) (*LiqPaused, error) {
 	return event, nil
 }
 
-// LiqQuitOperatorAssignedIterator is returned from FilterQuitOperatorAssigned and is used to iterate over the raw logs and unpacked data for QuitOperatorAssigned events raised by the Liq contract.
-type LiqQuitOperatorAssignedIterator struct {
-	Event *LiqQuitOperatorAssigned // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *LiqQuitOperatorAssignedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(LiqQuitOperatorAssigned)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(LiqQuitOperatorAssigned)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *LiqQuitOperatorAssignedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *LiqQuitOperatorAssignedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// LiqQuitOperatorAssigned represents a QuitOperatorAssigned event raised by the Liq contract.
-type LiqQuitOperatorAssigned struct {
-	QuitOperatorId *big.Int
-	OperatorId     *big.Int
-	TotalAmount    *big.Int
-	Raw            types.Log // Blockchain specific contextual infos
-}
-
-// FilterQuitOperatorAssigned is a free log retrieval operation binding the contract event 0xca1faa936bb688b7adf43d587c52f47df688f934011c256ad33a8fdeb51d382e.
-//
-// Solidity: event QuitOperatorAssigned(uint256 _quitOperatorId, uint256 _operatorId, uint256 _totalAmount)
-func (_Liq *LiqFilterer) FilterQuitOperatorAssigned(opts *bind.FilterOpts) (*LiqQuitOperatorAssignedIterator, error) {
-
-	logs, sub, err := _Liq.contract.FilterLogs(opts, "QuitOperatorAssigned")
-	if err != nil {
-		return nil, err
-	}
-	return &LiqQuitOperatorAssignedIterator{contract: _Liq.contract, event: "QuitOperatorAssigned", logs: logs, sub: sub}, nil
-}
-
-// WatchQuitOperatorAssigned is a free log subscription operation binding the contract event 0xca1faa936bb688b7adf43d587c52f47df688f934011c256ad33a8fdeb51d382e.
-//
-// Solidity: event QuitOperatorAssigned(uint256 _quitOperatorId, uint256 _operatorId, uint256 _totalAmount)
-func (_Liq *LiqFilterer) WatchQuitOperatorAssigned(opts *bind.WatchOpts, sink chan<- *LiqQuitOperatorAssigned) (event.Subscription, error) {
-
-	logs, sub, err := _Liq.contract.WatchLogs(opts, "QuitOperatorAssigned")
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(LiqQuitOperatorAssigned)
-				if err := _Liq.contract.UnpackLog(event, "QuitOperatorAssigned", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseQuitOperatorAssigned is a log parse operation binding the contract event 0xca1faa936bb688b7adf43d587c52f47df688f934011c256ad33a8fdeb51d382e.
-//
-// Solidity: event QuitOperatorAssigned(uint256 _quitOperatorId, uint256 _operatorId, uint256 _totalAmount)
-func (_Liq *LiqFilterer) ParseQuitOperatorAssigned(log types.Log) (*LiqQuitOperatorAssigned, error) {
-	event := new(LiqQuitOperatorAssigned)
-	if err := _Liq.contract.UnpackLog(event, "QuitOperatorAssigned", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
 // LiqRewardsReceiveIterator is returned from FilterRewardsReceive and is used to iterate over the raw logs and unpacked data for RewardsReceive events raised by the Liq contract.
 type LiqRewardsReceiveIterator struct {
 	Event *LiqRewardsReceive // Event containing the contract specifics and raw log
@@ -5975,143 +4964,6 @@ func (_Liq *LiqFilterer) WatchRewardsReceive(opts *bind.WatchOpts, sink chan<- *
 func (_Liq *LiqFilterer) ParseRewardsReceive(log types.Log) (*LiqRewardsReceive, error) {
 	event := new(LiqRewardsReceive)
 	if err := _Liq.contract.UnpackLog(event, "RewardsReceive", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// LiqSlashReceiveIterator is returned from FilterSlashReceive and is used to iterate over the raw logs and unpacked data for SlashReceive events raised by the Liq contract.
-type LiqSlashReceiveIterator struct {
-	Event *LiqSlashReceive // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *LiqSlashReceiveIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(LiqSlashReceive)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(LiqSlashReceive)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *LiqSlashReceiveIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *LiqSlashReceiveIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// LiqSlashReceive represents a SlashReceive event raised by the Liq contract.
-type LiqSlashReceive struct {
-	OperatorId    *big.Int
-	TokenId       *big.Int
-	SlashAmount   *big.Int
-	RequirAmounts *big.Int
-	Raw           types.Log // Blockchain specific contextual infos
-}
-
-// FilterSlashReceive is a free log retrieval operation binding the contract event 0xeeba612bf8aaf11b642d483da9db251b732afe21a8035197457492c293eee3f3.
-//
-// Solidity: event SlashReceive(uint256 _operatorId, uint256 tokenId, uint256 _slashAmount, uint256 _requirAmounts)
-func (_Liq *LiqFilterer) FilterSlashReceive(opts *bind.FilterOpts) (*LiqSlashReceiveIterator, error) {
-
-	logs, sub, err := _Liq.contract.FilterLogs(opts, "SlashReceive")
-	if err != nil {
-		return nil, err
-	}
-	return &LiqSlashReceiveIterator{contract: _Liq.contract, event: "SlashReceive", logs: logs, sub: sub}, nil
-}
-
-// WatchSlashReceive is a free log subscription operation binding the contract event 0xeeba612bf8aaf11b642d483da9db251b732afe21a8035197457492c293eee3f3.
-//
-// Solidity: event SlashReceive(uint256 _operatorId, uint256 tokenId, uint256 _slashAmount, uint256 _requirAmounts)
-func (_Liq *LiqFilterer) WatchSlashReceive(opts *bind.WatchOpts, sink chan<- *LiqSlashReceive) (event.Subscription, error) {
-
-	logs, sub, err := _Liq.contract.WatchLogs(opts, "SlashReceive")
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(LiqSlashReceive)
-				if err := _Liq.contract.UnpackLog(event, "SlashReceive", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseSlashReceive is a log parse operation binding the contract event 0xeeba612bf8aaf11b642d483da9db251b732afe21a8035197457492c293eee3f3.
-//
-// Solidity: event SlashReceive(uint256 _operatorId, uint256 tokenId, uint256 _slashAmount, uint256 _requirAmounts)
-func (_Liq *LiqFilterer) ParseSlashReceive(log types.Log) (*LiqSlashReceive, error) {
-	event := new(LiqSlashReceive)
-	if err := _Liq.contract.UnpackLog(event, "SlashReceive", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -6743,10 +5595,15 @@ type LiqValidatorRegistered struct {
 
 // FilterValidatorRegistered is a free log retrieval operation binding the contract event 0x700aef92048a2622a7b2403606dfa5c7abaec58382232cdd9ec196907eb44396.
 //
-// Solidity: event ValidatorRegistered(uint256 _operatorId, uint256 _tokenId)
-func (_Liq *LiqFilterer) FilterValidatorRegistered(opts *bind.FilterOpts) (*LiqValidatorRegisteredIterator, error) {
+// Solidity: event ValidatorRegistered(uint256 indexed _operatorId, uint256 _tokenId)
+func (_Liq *LiqFilterer) FilterValidatorRegistered(opts *bind.FilterOpts, _operatorId []*big.Int) (*LiqValidatorRegisteredIterator, error) {
 
-	logs, sub, err := _Liq.contract.FilterLogs(opts, "ValidatorRegistered")
+	var _operatorIdRule []interface{}
+	for _, _operatorIdItem := range _operatorId {
+		_operatorIdRule = append(_operatorIdRule, _operatorIdItem)
+	}
+
+	logs, sub, err := _Liq.contract.FilterLogs(opts, "ValidatorRegistered", _operatorIdRule)
 	if err != nil {
 		return nil, err
 	}
@@ -6755,10 +5612,15 @@ func (_Liq *LiqFilterer) FilterValidatorRegistered(opts *bind.FilterOpts) (*LiqV
 
 // WatchValidatorRegistered is a free log subscription operation binding the contract event 0x700aef92048a2622a7b2403606dfa5c7abaec58382232cdd9ec196907eb44396.
 //
-// Solidity: event ValidatorRegistered(uint256 _operatorId, uint256 _tokenId)
-func (_Liq *LiqFilterer) WatchValidatorRegistered(opts *bind.WatchOpts, sink chan<- *LiqValidatorRegistered) (event.Subscription, error) {
+// Solidity: event ValidatorRegistered(uint256 indexed _operatorId, uint256 _tokenId)
+func (_Liq *LiqFilterer) WatchValidatorRegistered(opts *bind.WatchOpts, sink chan<- *LiqValidatorRegistered, _operatorId []*big.Int) (event.Subscription, error) {
 
-	logs, sub, err := _Liq.contract.WatchLogs(opts, "ValidatorRegistered")
+	var _operatorIdRule []interface{}
+	for _, _operatorIdItem := range _operatorId {
+		_operatorIdRule = append(_operatorIdRule, _operatorIdItem)
+	}
+
+	logs, sub, err := _Liq.contract.WatchLogs(opts, "ValidatorRegistered", _operatorIdRule)
 	if err != nil {
 		return nil, err
 	}
@@ -6792,10 +5654,145 @@ func (_Liq *LiqFilterer) WatchValidatorRegistered(opts *bind.WatchOpts, sink cha
 
 // ParseValidatorRegistered is a log parse operation binding the contract event 0x700aef92048a2622a7b2403606dfa5c7abaec58382232cdd9ec196907eb44396.
 //
-// Solidity: event ValidatorRegistered(uint256 _operatorId, uint256 _tokenId)
+// Solidity: event ValidatorRegistered(uint256 indexed _operatorId, uint256 _tokenId)
 func (_Liq *LiqFilterer) ParseValidatorRegistered(log types.Log) (*LiqValidatorRegistered, error) {
 	event := new(LiqValidatorRegistered)
 	if err := _Liq.contract.UnpackLog(event, "ValidatorRegistered", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// LiqVaultManagerContractSetIterator is returned from FilterVaultManagerContractSet and is used to iterate over the raw logs and unpacked data for VaultManagerContractSet events raised by the Liq contract.
+type LiqVaultManagerContractSetIterator struct {
+	Event *LiqVaultManagerContractSet // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *LiqVaultManagerContractSetIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(LiqVaultManagerContractSet)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(LiqVaultManagerContractSet)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *LiqVaultManagerContractSetIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *LiqVaultManagerContractSetIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// LiqVaultManagerContractSet represents a VaultManagerContractSet event raised by the Liq contract.
+type LiqVaultManagerContractSet struct {
+	VaultManagerContractAddress common.Address
+	VaultManagerContract        common.Address
+	Raw                         types.Log // Blockchain specific contextual infos
+}
+
+// FilterVaultManagerContractSet is a free log retrieval operation binding the contract event 0x136260758ef216be6f30b5244361f089faf99890f23864c0a63e2d2def24963f.
+//
+// Solidity: event VaultManagerContractSet(address vaultManagerContractAddress, address _vaultManagerContract)
+func (_Liq *LiqFilterer) FilterVaultManagerContractSet(opts *bind.FilterOpts) (*LiqVaultManagerContractSetIterator, error) {
+
+	logs, sub, err := _Liq.contract.FilterLogs(opts, "VaultManagerContractSet")
+	if err != nil {
+		return nil, err
+	}
+	return &LiqVaultManagerContractSetIterator{contract: _Liq.contract, event: "VaultManagerContractSet", logs: logs, sub: sub}, nil
+}
+
+// WatchVaultManagerContractSet is a free log subscription operation binding the contract event 0x136260758ef216be6f30b5244361f089faf99890f23864c0a63e2d2def24963f.
+//
+// Solidity: event VaultManagerContractSet(address vaultManagerContractAddress, address _vaultManagerContract)
+func (_Liq *LiqFilterer) WatchVaultManagerContractSet(opts *bind.WatchOpts, sink chan<- *LiqVaultManagerContractSet) (event.Subscription, error) {
+
+	logs, sub, err := _Liq.contract.WatchLogs(opts, "VaultManagerContractSet")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(LiqVaultManagerContractSet)
+				if err := _Liq.contract.UnpackLog(event, "VaultManagerContractSet", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseVaultManagerContractSet is a log parse operation binding the contract event 0x136260758ef216be6f30b5244361f089faf99890f23864c0a63e2d2def24963f.
+//
+// Solidity: event VaultManagerContractSet(address vaultManagerContractAddress, address _vaultManagerContract)
+func (_Liq *LiqFilterer) ParseVaultManagerContractSet(log types.Log) (*LiqVaultManagerContractSet, error) {
+	event := new(LiqVaultManagerContractSet)
+	if err := _Liq.contract.UnpackLog(event, "VaultManagerContractSet", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

@@ -52,6 +52,11 @@
   },
   {
     "inputs": [],
+    "name": "InvalidAddr",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "InvalidContractVersionIncrement",
     "type": "error"
   },
@@ -66,6 +71,27 @@
     "type": "error"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "curTotal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "minTotal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxTotal",
+        "type": "uint256"
+      }
+    ],
+    "name": "InvalidTotalBalance",
+    "type": "error"
+  },
+  {
     "inputs": [],
     "name": "NonZeroContractVersionOnInit",
     "type": "error"
@@ -73,6 +99,11 @@
   {
     "inputs": [],
     "name": "OnlyConsensusContractCanSubmitReport",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "PermissionDenied",
     "type": "error"
   },
   {
@@ -350,13 +381,13 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "_before",
+        "name": "oldLiq",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "_after",
+        "name": "newLiq",
         "type": "address"
       }
     ],
@@ -420,7 +451,7 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "_totalBalance",
+        "name": "totalBalance",
         "type": "uint256"
       }
     ],
@@ -545,6 +576,25 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "old",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "totalBalanceTolerate",
+        "type": "uint256"
+      }
+    ],
+    "name": "UpdateTotalBalanceTolerate",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "implementation",
@@ -560,13 +610,13 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "_before",
+        "name": "oldVaultManager",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "_after",
+        "name": "newVaultManager",
         "type": "address"
       }
     ],
@@ -915,11 +965,34 @@
         "internalType": "uint256",
         "name": "_clVaultMinSettleLimit",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_clBalance",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_pendingBalance",
+        "type": "uint256"
       }
     ],
     "name": "initialize",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "lastClSettleAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1082,6 +1155,19 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "_totalBalanceTolerate",
+        "type": "uint256"
+      }
+    ],
+    "name": "setTotalBalanceTolerate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "_vaultManagerContractAddress",
         "type": "address"
@@ -1137,6 +1223,11 @@
           {
             "internalType": "uint256",
             "name": "clVaultBalance",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "clSettleAmount",
             "type": "uint256"
           },
           {
@@ -1205,13 +1296,26 @@
       },
       {
         "internalType": "uint256",
-        "name": "contractVersion",
+        "name": "_contractVersion",
         "type": "uint256"
       }
     ],
     "name": "submitReportData",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalBalanceTolerate",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
