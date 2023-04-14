@@ -17,25 +17,27 @@ type WithdrawHelper struct {
 	refSlot          *big.Int
 	consensusVersion *big.Int
 
+	// initial
 	executionBlock           *beacon.ExecutionBlock
 	delayedExitSlashStandard *big.Int
 	clVaultMinSettleLimit    *big.Int
+	exitRequestLimit         *big.Int
 
-	validatorExaMap        map[string]*ValidatorExa
-	requireReportValidator map[string]*ValidatorExa
+	// compute process
+	validatorExaMap         map[string]*ValidatorExa
+	requireReportValidator  map[string]*ValidatorExa
+	totalOperatorClCapital  *big.Int
+	totalNftCount           *big.Int
+	isComputeOperatorReward bool
 
-	clBalance      *big.Int
-	clVaultBalance *big.Int
-
-	delayedExitTokenIds []*big.Int
-
+	// process res
+	clBalance                  *big.Int
+	clVaultBalance             *big.Int
+	delayedExitTokenIds        []*big.Int
 	largeExitDelayedRequestIds []*big.Int
-
-	totalOperatorClCapital *big.Int
-	totalNftCount          *big.Int
-
-	withdrawInfos      []withdrawOracle.WithdrawInfo
-	exitValidatorInfos []withdrawOracle.ExitValidatorInfo
+	clSettleAmount             *big.Int
+	withdrawInfos              []withdrawOracle.WithdrawInfo
+	exitValidatorInfos         []withdrawOracle.ExitValidatorInfo
 
 	// res
 	reportData *withdrawOracle.WithdrawOracleReportData
@@ -79,4 +81,8 @@ type Oracle struct {
 const (
 	CONSENSUS_VERSION = 1
 	CONTRACT_VERSION  = 1
+
+	SLOTS_PER_EPOCH   = 32
+	SECONDS_PER_SLOT  = 12
+	SECONDS_PER_EPOCH = SLOTS_PER_EPOCH * SECONDS_PER_SLOT
 )

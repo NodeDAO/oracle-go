@@ -17,17 +17,19 @@ import (
 	"go.uber.org/zap"
 	"math/big"
 	"sort"
+	"time"
 )
 
-// REPORT_DATA_TYPE  (uint256,uint256,uint256,uint256,uint256,(uint64,uint96,uint96)[],(uint64,uint96,uint96)[],uint256[],uint256[]) data
+// REPORT_DATA_TYPE  (uint256,uint256,uint256,uint256,uint256,uint256,(uint64,uint96,uint96)[],(uint64,uint96,uint96)[],uint256[],uint256[]) data
 var (
 	withdrawInfosArgumentMarshaling      = []abi.ArgumentMarshaling{{Type: "uint64"}, {Type: "uint96"}, {Type: "uint96"}}
 	exitValidatorInfosArgumentMarshaling = []abi.ArgumentMarshaling{{Type: "uint64"}, {Type: "uint96"}, {Type: "uint96"}}
 
-	withdrawInfosType, _      = abi.NewType("tuple", "", withdrawInfosArgumentMarshaling)
-	exitValidatorInfosType, _ = abi.NewType("tuple", "", exitValidatorInfosArgumentMarshaling)
+	//withdrawInfosType, _      = abi.NewType("tuple", "", withdrawInfosArgumentMarshaling)
+	//exitValidatorInfosType, _ = abi.NewType("tuple", "", exitValidatorInfosArgumentMarshaling)
 
 	reportDataTypeArgumentMarshaling = []abi.ArgumentMarshaling{
+		{Type: "uint256"},
 		{Type: "uint256"},
 		{Type: "uint256"},
 		{Type: "uint256"},
@@ -51,7 +53,7 @@ func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
 	}
 	if paused {
 		logger.Info("withdrawOracle is paused.")
-		// todo sleep
+		time.Sleep(time.Second * SECONDS_PER_EPOCH)
 	}
 
 	if err := v.buildReportData(ctx); err != nil {
@@ -141,9 +143,8 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 	}
 	if submitted {
 		logger.Info("Main data already submitted.")
+		time.Sleep(time.Second * SECONDS_PER_EPOCH)
 	}
-
-	// todo sleep and cal sleep time
 
 	logger.Info("Sending report data...")
 	// submit report data
@@ -171,6 +172,12 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	v.clVaultMinSettleLimit, err = contracts.WithdrawOracleContract.Contract.ClVaultMinSettleLimit(nil)
 	if err != nil {
 		return errors.Wrap(err, "Failed to get WithdrawOracleContract clVaultMinSettleLimit.")
+	}
+
+	// exitRequestLimit
+	v.exitRequestLimit, err = contracts.WithdrawOracleContract.Contract.ExitRequestLimit(nil)
+	if err != nil {
+		return errors.Wrap(err, "Failed to get WithdrawOracleContract ExitRequestLimit.")
 	}
 
 	v.totalNftCount, err = contracts.VnftContract.Contract.TotalSupply(nil)
@@ -202,7 +209,7 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 		return errors.Wrap(err, "")
 	}
 	if !canReport {
-		// todo sleep
+		time.Sleep(time.Second * SECONDS_PER_EPOCH)
 	}
 
 	return nil

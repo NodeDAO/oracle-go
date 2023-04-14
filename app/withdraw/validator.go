@@ -18,6 +18,9 @@ import (
 	"strconv"
 )
 
+// 1. Get all tokenIds
+// 2. Query information about beacon
+// 3. The pubkey not found by the beacon, balance = 32 GWEI
 func (v *WithdrawHelper) obtainValidatorConsensusInfo(ctx context.Context) error {
 	// Gets all active validators for the NodeDAO
 	validatorBytes, err := contracts.VnftContract.Contract.ActiveValidatorsOfStakingPool(nil)
@@ -26,15 +29,32 @@ func (v *WithdrawHelper) obtainValidatorConsensusInfo(ctx context.Context) error
 	}
 
 	validatorCount := len(validatorBytes)
-	v.validatorExaMap = make(map[string]*ValidatorExa, 0)
-	v.requireReportValidator = make(map[string]*ValidatorExa, 0)
+	v.validatorExaMap = make(map[string]*ValidatorExa)
+	v.requireReportValidator = make(map[string]*ValidatorExa)
 
 	pubkeys := make([]string, validatorCount)
 	for i := 0; i < validatorCount; i++ {
-		pubkeys[i] = string(validatorBytes[i])
+		pubkey := string(validatorBytes[i])
+		pubkeys[i] = pubkey
 	}
 
 	validators, err := consensus.ConsensusClient.CustomizeBeaconService.ValidatorsByPubKey(ctx, v.refSlot.String(), pubkeys)
+	for _, pubkey := range pubkeys {
+		validator, ok := validators[pubkey]
+		// Handle pubkeys that are not query by Beacon
+		// set balance = 32 GWEI
+		if !ok {
+			validator = &consensusApi.Validator{
+				Balance: 32e9,
+			}
+		}
+
+		validatorExa := &ValidatorExa{
+			Validator: validator,
+		}
+		v.validatorExaMap[pubkey] = validatorExa
+	}
+
 	for k, value := range validators {
 		validatorExa := &ValidatorExa{
 			Validator: value,
@@ -134,8 +154,12 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 						exa.ExitedAmount = eth1.GWEIToWEI(big.NewInt(int64(validator[s].Balance)))
 					}
 
-					// requireReportValidator
-					v.requireReportValidator[s] = exa
+					// requireReportValidator If the limit is reached, it is not added
+					exitLimit := int(v.exitRequestLimit.Int64())
+					if len(v.requireReportValidator) < exitLimit {
+						v.requireReportValidator[s] = exa
+					}
+
 					break
 				}
 			}
