@@ -11,6 +11,7 @@ import (
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
 	consensusApi "github.com/attestantio/go-eth2-client/api/v1"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/pkg/errors"
 	"github.com/shopspring/decimal"
@@ -34,7 +35,7 @@ func (v *WithdrawHelper) obtainValidatorConsensusInfo(ctx context.Context) error
 
 	pubkeys := make([]string, validatorCount)
 	for i := 0; i < validatorCount; i++ {
-		pubkey := string(validatorBytes[i])
+		pubkey := hexutil.Encode(validatorBytes[i])
 		pubkeys[i] = pubkey
 	}
 
@@ -72,18 +73,22 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 	for pubkey, exa := range v.validatorExaMap {
 		// sum cl balance
 		v.clBalance = new(big.Int).Add(v.clBalance, big.NewInt(int64(exa.Validator.Balance)))
+		pubkeyBytes, err := hexutil.Decode(pubkey)
+		if err != nil {
+			return errors.Wrapf(err, "failed to decode pubkey: %s", pubkey)
+		}
 
 		// get tokenId
-		tokenId, err := contracts.VnftContract.Contract.TokenOfValidator(nil, []byte(pubkey))
+		tokenId, err := contracts.VnftContract.Contract.TokenOfValidator(nil, pubkeyBytes)
 		if err != nil {
-			return errors.Wrapf(err, "Failed to get vnft'pubkey tokenId. pubkey:%pubkey", pubkey)
+			return errors.Wrapf(err, "Failed to get vnft'pubkey tokenId. pubkey:%s", pubkey)
 		}
 		exa.TokenId = tokenId
 
 		// get OperatorId
 		operatorId, err := contracts.VnftContract.Contract.OperatorOf(nil, tokenId)
 		if err != nil {
-			return errors.Wrapf(err, "Failed to get vnft'pubkey operatorId. pubkey:%pubkey tokenId:%v", pubkey, tokenId)
+			return errors.Wrapf(err, "Failed to get vnft'pubkey operatorId. pubkey:%s tokenId:%v", pubkey, tokenId)
 		}
 		exa.OperatorId = operatorId
 
@@ -110,9 +115,7 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 		if !exa.IsExited {
 			err := v.calculationIsDelayedExit(ctx, exa)
 			if err != nil {
-				if err != nil {
-					return errors.Wrapf(err, "Failed to calculationIsDelayedExit. tokenId:%s  pubkey:%s", exa.TokenId.String(), pubkey)
-				}
+				return errors.Wrapf(err, "Failed to calculationIsDelayedExit. tokenId:%s  pubkey:%s", exa.TokenId.String(), pubkey)
 			}
 		}
 

@@ -9,6 +9,7 @@ import (
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/config"
 	"github.com/NodeDAO/oracle-go/consensus"
+	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/eth1"
 	"sync"
 	"time"
@@ -35,5 +36,7 @@ func InitServer(ctx context.Context, configDir string) {
 			logger.Errorf("err:%+v", err)
 			panic(err)
 		}
+
+		contracts.InitContracts()
 	})
 }

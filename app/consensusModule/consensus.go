@@ -7,9 +7,7 @@ package consensusModule
 import (
 	"context"
 	"github.com/NodeDAO/oracle-go/common/logger"
-	"github.com/NodeDAO/oracle-go/config"
 	"github.com/NodeDAO/oracle-go/consensus"
-	"github.com/NodeDAO/oracle-go/eth1"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"math/big"
@@ -81,12 +79,7 @@ func (v *HashConsensusHelper) GetMemberInfo(ctx context.Context) (*MemberInfo, e
 		return nil, errors.Wrap(err, "Failed to get HashConsensus's GetCurrentFrame.")
 	}
 
-	memberAddress, err := eth1.PubkeyFromPrivateKey(config.Config.Eth.PrivateKey)
-	if err != nil {
-		return nil, errors.Wrap(err, "")
-	}
-
-	memberConsensusState, err := consensusContract.GetConsensusStateForMember(nil, memberAddress)
+	memberConsensusState, err := consensusContract.GetConsensusStateForMember(nil, v.KeyTransactOpts.From)
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to get HashConsensus's GetConsensusStateForMember.")
 	}
@@ -104,6 +97,11 @@ func (v *HashConsensusHelper) GetMemberInfo(ctx context.Context) (*MemberInfo, e
 }
 
 func (v *HashConsensusHelper) GetRefSlotAndIsReport(ctx context.Context) (*big.Int, bool, error) {
+	err := v.ReportContract.CheckContractVersions(ctx)
+	if err != nil {
+		return nil, false, errors.Wrap(err, "")
+	}
+
 	headSlot, err := consensus.ConsensusClient.CustomizeBeaconService.HeadSlot(ctx)
 	if err != nil {
 		return nil, false, errors.Wrap(err, "")

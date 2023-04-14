@@ -85,25 +85,25 @@ const (
 
 const (
 	LIQ_ADDRESS_MAINNET = ""
-	LIQ_ADDRESS_GOERLI  = ""
+	LIQ_ADDRESS_GOERLI  = "0xa8256fD3A31648D49D0f3551e6e45Db6f5f91d53"
 
 	VNFT_ADDRESS_MAINNET = ""
-	VNFT_ADDRESS_GOERLI  = ""
+	VNFT_ADDRESS_GOERLI  = "0xe3CE494D51Cb9806187b5Deca1B4B06c97e52EFc"
 
 	NODE_OPERATOR_ADDRESS_MAINNET = ""
-	NODE_OPERATOR_ADDRESS_GOERLI  = ""
+	NODE_OPERATOR_ADDRESS_GOERLI  = "0xD9d87abAd8651e1E69799416AEc54fCCdd1dAAcE"
 
 	WITHDRAW_ORACLE_ADDRESS_MAINNET = ""
-	WITHDRAW_ORACLE_ADDRESS_GOERLI  = ""
+	WITHDRAW_ORACLE_ADDRESS_GOERLI  = "0x6bB86fd121e43772A9607438C55b07A33CF53B17"
 
 	CL_VAULT_ADDRESS_MAINNET = ""
-	CL_VAULT_ADDRESS_GOERLi  = ""
+	CL_VAULT_ADDRESS_GOERLi  = "0x22e172cb3b7a333d73f321462EEBcadd3f0775a6"
 
 	OPERATOR_SLASH_ADDRESS_MAINNET = ""
-	OPERATOR_SLASH_ADDRESS_GOERLi  = ""
+	OPERATOR_SLASH_ADDRESS_GOERLi  = "0x41E5Ba002bCD1aA6DB46325667Ab74e93aE1C59f"
 
 	WITHDRAWAL_REQUEST_ADDRESS_MAINNET = ""
-	WITHDRAWAL_REQUEST_ADDRESS_GOERLi  = ""
+	WITHDRAWAL_REQUEST_ADDRESS_GOERLi  = "0xea1e050FA16D4A4984ce8849cCd9Cc8A1394feCb"
 )
 
 var network string
@@ -156,7 +156,6 @@ func NewWithdrawOracle() (*withdrawOracleHelper, error) {
 	}
 
 	var err error
-	fmt.Println(eth1.ElClient.Client)
 	e.Contract, err = withdrawOracle.NewWithdrawOracle(common.HexToAddress(e.Address), eth1.ElClient.Client)
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to new withdraw Oracle.")
@@ -253,9 +252,9 @@ func NewWithdrawalRequest() (*withdrawalRequestHelper, error) {
 		Network: network,
 	}
 	if strings.ToLower(network) == MAINNET {
-		e.Address = OPERATOR_SLASH_ADDRESS_MAINNET
+		e.Address = WITHDRAWAL_REQUEST_ADDRESS_MAINNET
 	} else if strings.ToLower(network) == GOERLI {
-		e.Address = OPERATOR_SLASH_ADDRESS_GOERLi
+		e.Address = WITHDRAWAL_REQUEST_ADDRESS_GOERLi
 	}
 
 	var err error

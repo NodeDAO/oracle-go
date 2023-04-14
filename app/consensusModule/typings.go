@@ -7,6 +7,7 @@ package consensusModule
 import (
 	"context"
 	"github.com/NodeDAO/oracle-go/contracts/hashConsensus"
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"math/big"
 )
@@ -25,6 +26,8 @@ type ReportContract interface {
 
 type HashConsensusHelper struct {
 	ReportContract ReportContract
+
+	KeyTransactOpts *bind.TransactOpts
 }
 
 type MemberInfo struct {

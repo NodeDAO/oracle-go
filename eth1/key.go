@@ -11,6 +11,7 @@ import (
 	"github.com/pkg/errors"
 )
 
+// PubkeyFromPrivateKey todo err need to test
 func PubkeyFromPrivateKey(pri string) (common.Address, error) {
 	privateKey, err := crypto.ToECDSA([]byte(pri))
 	if err != nil {

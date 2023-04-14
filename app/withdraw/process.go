@@ -12,38 +12,11 @@ import (
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
-	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"math/big"
 	"sort"
 	"time"
-)
-
-// REPORT_DATA_TYPE  (uint256,uint256,uint256,uint256,uint256,uint256,(uint64,uint96,uint96)[],(uint64,uint96,uint96)[],uint256[],uint256[]) data
-var (
-	withdrawInfosArgumentMarshaling      = []abi.ArgumentMarshaling{{Type: "uint64"}, {Type: "uint96"}, {Type: "uint96"}}
-	exitValidatorInfosArgumentMarshaling = []abi.ArgumentMarshaling{{Type: "uint64"}, {Type: "uint96"}, {Type: "uint96"}}
-
-	//withdrawInfosType, _      = abi.NewType("tuple", "", withdrawInfosArgumentMarshaling)
-	//exitValidatorInfosType, _ = abi.NewType("tuple", "", exitValidatorInfosArgumentMarshaling)
-
-	reportDataTypeArgumentMarshaling = []abi.ArgumentMarshaling{
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "tuple", Components: withdrawInfosArgumentMarshaling},
-		{Type: "tuple", Components: exitValidatorInfosArgumentMarshaling},
-		{Type: "uint256[]"},
-		{Type: "uint256[]"},
-	}
-
-	reportDataType, _   = abi.NewType("tuple", "", reportDataTypeArgumentMarshaling)
-	reportDataArguments = abi.Arguments{{Type: reportDataType}}
 )
 
 func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
@@ -159,8 +132,16 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 
 func (v *WithdrawHelper) setup(ctx context.Context) error {
 	var err error
-	// InitContracts
-	contracts.InitContracts()
+
+	chainID, err := eth1.ElClient.Client.ChainID(ctx)
+	if err != nil {
+		return errors.Wrap(err, "Failed to get chainID.")
+	}
+
+	v.keyTransactOpts, err = eth1.KeyTransactOpts(chainID)
+	if err != nil {
+		return errors.Wrap(err, "Failed to get KeyTransactOpts by privateKey.")
+	}
 
 	// delayedExitSlashStandard
 	v.delayedExitSlashStandard, err = contracts.OperatorSlashContract.Contract.DelayedExitSlashStandard(nil)
@@ -192,8 +173,15 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 
 	v.oracle = &Oracle{}
 	v.hashConsensusHelper = &consensusModule.HashConsensusHelper{
-		ReportContract: v.oracle,
+		ReportContract:  v.oracle,
+		KeyTransactOpts: v.keyTransactOpts,
 	}
+
+	consensusVersion, err := contracts.WithdrawOracleContract.Contract.GetConsensusVersion(nil)
+	if err != nil {
+		return errors.Wrap(err, "Failed to get WithdrawOracleContract GetConsensusVersion.")
+	}
+	v.consensusVersion = consensusVersion
 
 	refSlot, canReport, err := v.hashConsensusHelper.GetRefSlotAndIsReport(ctx)
 	v.refSlot = refSlot
@@ -211,6 +199,12 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	if !canReport {
 		time.Sleep(time.Second * SECONDS_PER_EPOCH)
 	}
+
+	//  init
+	v.clBalance = big.NewInt(0)
+	v.clSettleAmount = big.NewInt(0)
+	v.totalOperatorClCapital = big.NewInt(0)
+	v.totalNftCount = big.NewInt(0)
 
 	return nil
 }
@@ -245,6 +239,7 @@ func (v *WithdrawHelper) obtainReportData(ctx context.Context) error {
 		ExitValidatorInfos:         v.exitValidatorInfos,
 		DelayedExitTokenIds:        v.delayedExitTokenIds,
 		LargeExitDelayedRequestIds: v.largeExitDelayedRequestIds,
+		ClSettleAmount:             v.clSettleAmount,
 	}
 
 	return nil

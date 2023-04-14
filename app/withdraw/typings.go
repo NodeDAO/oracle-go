@@ -9,6 +9,7 @@ import (
 	"github.com/NodeDAO/oracle-go/consensus/beacon"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	consensusApi "github.com/attestantio/go-eth2-client/api/v1"
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"math/big"
 )
 
@@ -22,6 +23,7 @@ type WithdrawHelper struct {
 	delayedExitSlashStandard *big.Int
 	clVaultMinSettleLimit    *big.Int
 	exitRequestLimit         *big.Int
+	keyTransactOpts          *bind.TransactOpts
 
 	// compute process
 	validatorExaMap         map[string]*ValidatorExa
