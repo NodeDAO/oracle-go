@@ -160,9 +160,9 @@ func (v *WithdrawHelper) calculationClVaultBalance(ctx context.Context) error {
 
 func (v *WithdrawHelper) calculationIsDelayedExit(ctx context.Context, exa *ValidatorExa) error {
 	// View liq contract nftUnstakeBlockNumbers and query tokenId exit block height (block height is 0, exit not initiated)
-	requireBlockNumbers, err := contracts.LiqContract.Contract.NftUnstakeBlockNumbers(nil, exa.TokenId)
+	requireBlockNumbers, err := contracts.WithdrawalRequestContract.Contract.GetNftUnstakeBlockNumber(nil, exa.TokenId)
 	if err != nil {
-		return errors.Wrapf(err, "Failed to get liq contract nftUnstakeBlockNumbers. tokenId:%s", exa.TokenId.String())
+		return errors.Wrapf(err, "Failed to get WithdrawalRequestContract nftUnstakeBlockNumbers. tokenId:%s", exa.TokenId.String())
 	}
 
 	// ge 0 requested to exit. need to exit
@@ -172,7 +172,7 @@ func (v *WithdrawHelper) calculationIsDelayedExit(ctx context.Context, exa *Vali
 		//  1. If the block height is 0, the oracle does not report the token Id
 		//  2. Determine the current block height - The last reported block height > The maximum block height that can not exit in time
 		// (delayedExitSlashStandard = 21600)
-		reportDelayedNumber, err := contracts.LiqContract.Contract.NftExitDelayedSlashRecords(nil, exa.TokenId)
+		reportDelayedNumber, err := contracts.OperatorSlashContract.Contract.NftExitDelayedSlashRecords(nil, exa.TokenId)
 		if err != nil {
 			return errors.Wrapf(err, "Failed to get liq contract NftExitDelayedSlashRecords. tokenId:%s", exa.TokenId.String())
 		}
@@ -234,14 +234,9 @@ func (v *WithdrawHelper) dealLargeExitDelayedRequest(ctx context.Context) error 
 	for i := int64(1); i < operatorCount.Int64()+1; i++ {
 
 		operatorId := big.NewInt(i)
-		operatorPendingEthRequestAmount, err := contracts.LiqContract.Contract.OperatorPendingEthRequestAmount(nil, operatorId)
+		operatorPendingEthRequestAmount, operatorPendingEthPoolBalance, err := contracts.WithdrawalRequestContract.Contract.GetOperatorLargeWitdrawalPendingInfo(nil, operatorId)
 		if err != nil {
-			return errors.Wrapf(err, "Failed to get LiqContract OperatorPendingEthRequestAmount. OperatorId: %s", operatorId.String())
-		}
-
-		operatorPendingEthPoolBalance, err := contracts.LiqContract.Contract.OperatorPendingEthPoolBalance(nil, operatorId)
-		if err != nil {
-			return errors.Wrapf(err, "Failed to get LiqContract operatorPendingEthPoolBalance. OperatorId: %s", operatorId.String())
+			return errors.Wrapf(err, "Failed to get WithdrawalRequestContract GetOperatorLargeWitdrawalPendingInfo. OperatorId: %s", operatorId.String())
 		}
 
 		// operatorPendingEthRequestAmount > operatorPendingEthPoolBalance
@@ -249,9 +244,9 @@ func (v *WithdrawHelper) dealLargeExitDelayedRequest(ctx context.Context) error 
 		if operatorPendingEthRequestAmount.Cmp(operatorPendingEthPoolBalance) == 1 {
 			cha := new(big.Int).Sub(operatorPendingEthRequestAmount, operatorPendingEthPoolBalance)
 
-			withdrawalQueues, err := contracts.LiqContract.Contract.GetWithdrawalOfOperator(nil, operatorId)
+			withdrawalQueues, err := contracts.WithdrawalRequestContract.Contract.GetWithdrawalOfOperator(nil, operatorId)
 			if err != nil {
-				return errors.Wrapf(err, "Failed to get LiqContract getWithdrawalOfOperator. OperatorId: %s", operatorId.String())
+				return errors.Wrapf(err, "Failed to get WithdrawalRequestContract getWithdrawalOfOperator. OperatorId: %s", operatorId.String())
 			}
 
 			for i := len(withdrawalQueues) - 1; i >= 0; i-- {

@@ -64,9 +64,9 @@ func (v *WithdrawHelper) calculationOperatorWeight(ctx context.Context, effectiv
 
 		// effective Operator init
 		if isTrusted && !isQuit {
-			nftCount, err := contracts.VnftContract.Contract.GetNftCountsOfOperator(nil, operatorId)
+			nftCount, err := contracts.VnftContract.Contract.GetActiveNftCountsOfOperator(nil, operatorId)
 			if err != nil {
-				return errors.Wrapf(err, "Failed to get VnftContract GetNftCountsOfOperator operatorId:%v.", i)
+				return errors.Wrapf(err, "Failed to get VnftContract GetActiveNftCountsOfOperator operatorId:%v.", i)
 			}
 
 			effectiveOperators[i] = &EffectiveOperator{

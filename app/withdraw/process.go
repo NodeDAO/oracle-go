@@ -162,9 +162,9 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	contracts.InitContracts()
 
 	// delayedExitSlashStandard
-	v.delayedExitSlashStandard, err = contracts.LiqContract.Contract.DelayedExitSlashStandard(nil)
+	v.delayedExitSlashStandard, err = contracts.OperatorSlashContract.Contract.DelayedExitSlashStandard(nil)
 	if err != nil {
-		return errors.Wrap(err, "Failed to get LiqContract delayedExitSlashStandard.")
+		return errors.Wrap(err, "Failed to get OperatorSlashContract delayedExitSlashStandard.")
 	}
 
 	// clVaultMinSettleLimit

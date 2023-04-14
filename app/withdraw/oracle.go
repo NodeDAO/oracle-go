@@ -46,7 +46,7 @@ func (v *Oracle) GetConsensusContract(ctx context.Context) (*hashConsensus.HashC
 	}
 	contract, err := hashConsensus.NewHashConsensus(address, eth1.ElClient.Client)
 	if err != nil {
-		return nil, errors.Wrap(err, "Failed to get WithdrawOracle HashConsensus.")
+		return nil, errors.Wrap(err, "Failed to get withdrawOracleHelper HashConsensus.")
 	}
 
 	return contract, nil

@@ -11,8 +11,10 @@ import (
 	"github.com/NodeDAO/oracle-go/contracts/hashConsensus"
 	"github.com/NodeDAO/oracle-go/contracts/liq"
 	"github.com/NodeDAO/oracle-go/contracts/operator"
+	"github.com/NodeDAO/oracle-go/contracts/operatorSlash"
 	"github.com/NodeDAO/oracle-go/contracts/vnft"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
+	"github.com/NodeDAO/oracle-go/contracts/withdrawalRequest"
 	"github.com/NodeDAO/oracle-go/eth1"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
@@ -25,41 +27,55 @@ import (
 //	MULTICALL_GOERLI_ADDRESS  = common.HexToAddress("0x77dca2c955b15e9de4dbbcf1246b4b85b651e50e")
 //)
 
-type WithdrawOracle struct {
+type withdrawOracleHelper struct {
 	Network  string
 	Address  string
 	Contract *withdrawOracle.WithdrawOracle
 }
 
-type HashConsensus struct {
+type hashConsensusHelper struct {
 	Network  string
 	Address  string
 	Contract *hashConsensus.HashConsensus
 }
 
-type Vnft struct {
+type vnftHelper struct {
 	Network  string
 	Address  string
 	Contract *vnft.Vnft
 }
 
-type Liq struct {
+type liqHelper struct {
 	Network  string
 	Address  string
 	Contract *liq.Liq
 }
 
-type NodeOperator struct {
+type nodeOperatorHelper struct {
 	Network  string
 	Address  string
 	Contract *operator.Operator
 }
 
+type operatorSlashHelper struct {
+	Network  string
+	Address  string
+	Contract *operatorSlash.OperatorSlash
+}
+
+type withdrawalRequestHelper struct {
+	Network  string
+	Address  string
+	Contract *withdrawalRequest.WithdrawalRequest
+}
+
 var (
-	WithdrawOracleContract *WithdrawOracle
-	VnftContract           *Vnft
-	LiqContract            *Liq
-	OperatorContract       *NodeOperator
+	WithdrawOracleContract    *withdrawOracleHelper
+	VnftContract              *vnftHelper
+	LiqContract               *liqHelper
+	OperatorContract          *nodeOperatorHelper
+	OperatorSlashContract     *operatorSlashHelper
+	WithdrawalRequestContract *withdrawalRequestHelper
 )
 
 const (
@@ -82,6 +98,12 @@ const (
 
 	CL_VAULT_ADDRESS_MAINNET = ""
 	CL_VAULT_ADDRESS_GOERLi  = ""
+
+	OPERATOR_SLASH_ADDRESS_MAINNET = ""
+	OPERATOR_SLASH_ADDRESS_GOERLi  = ""
+
+	WITHDRAWAL_REQUEST_ADDRESS_MAINNET = ""
+	WITHDRAWAL_REQUEST_ADDRESS_GOERLi  = ""
 )
 
 var network string
@@ -100,6 +122,8 @@ func InitContracts() {
 	VnftContract, err = NewVnft()
 	LiqContract, err = NewLiq()
 	OperatorContract, err = NewNodeOperator()
+	OperatorSlashContract, err = NewOperatorSlash()
+	WithdrawalRequestContract, err = NewWithdrawalRequest()
 	if err != nil {
 		panic(fmt.Sprintf("New contract error: %+v", err))
 	}
@@ -117,8 +141,8 @@ func GetClVaultAddress() string {
 	return ""
 }
 
-func NewWithdrawOracle() (*WithdrawOracle, error) {
-	e := &WithdrawOracle{
+func NewWithdrawOracle() (*withdrawOracleHelper, error) {
+	e := &withdrawOracleHelper{
 		Network: network,
 	}
 	if strings.ToLower(network) == MAINNET {
@@ -128,7 +152,7 @@ func NewWithdrawOracle() (*WithdrawOracle, error) {
 	}
 
 	if e.Address == "" {
-		return nil, errors.New("WithdrawOracle contract address is empty.")
+		return nil, errors.New("withdrawOracleHelper contract address is empty.")
 	}
 
 	var err error
@@ -140,8 +164,8 @@ func NewWithdrawOracle() (*WithdrawOracle, error) {
 	return e, nil
 }
 
-func NewVnft() (*Vnft, error) {
-	e := &Vnft{
+func NewVnft() (*vnftHelper, error) {
+	e := &vnftHelper{
 		Network: network,
 	}
 	if strings.ToLower(network) == MAINNET {
@@ -151,7 +175,7 @@ func NewVnft() (*Vnft, error) {
 	}
 
 	if e.Address == "" {
-		return nil, errors.New("Vnft contract address is empty.")
+		return nil, errors.New("vnftHelper contract address is empty.")
 	}
 
 	var err error
@@ -162,8 +186,8 @@ func NewVnft() (*Vnft, error) {
 	return e, nil
 }
 
-func NewLiq() (*Liq, error) {
-	e := &Liq{
+func NewLiq() (*liqHelper, error) {
+	e := &liqHelper{
 		Network: network,
 	}
 	if strings.ToLower(network) == MAINNET {
@@ -173,19 +197,19 @@ func NewLiq() (*Liq, error) {
 	}
 
 	if e.Address == "" {
-		return nil, errors.New("Liq contract address is empty.")
+		return nil, errors.New("liqHelper contract address is empty.")
 	}
 
 	var err error
 	e.Contract, err = liq.NewLiq(common.HexToAddress(e.Address), eth1.ElClient.Client)
 	if err != nil {
-		return nil, errors.Wrap(err, "Failed to new Liq.")
+		return nil, errors.Wrap(err, "Failed to new liqHelper.")
 	}
 	return e, nil
 }
 
-func NewNodeOperator() (*NodeOperator, error) {
-	e := &NodeOperator{
+func NewNodeOperator() (*nodeOperatorHelper, error) {
+	e := &nodeOperatorHelper{
 		Network: network,
 	}
 	if strings.ToLower(network) == MAINNET {
@@ -195,13 +219,49 @@ func NewNodeOperator() (*NodeOperator, error) {
 	}
 
 	if e.Address == "" {
-		return nil, errors.New("NodeOperator contract address is empty.")
+		return nil, errors.New("nodeOperatorHelper contract address is empty.")
 	}
 
 	var err error
 	e.Contract, err = operator.NewOperator(common.HexToAddress(e.Address), eth1.ElClient.Client)
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to new withdraw Oracle.")
+	}
+	return e, nil
+}
+
+func NewOperatorSlash() (*operatorSlashHelper, error) {
+	e := &operatorSlashHelper{
+		Network: network,
+	}
+	if strings.ToLower(network) == MAINNET {
+		e.Address = OPERATOR_SLASH_ADDRESS_MAINNET
+	} else if strings.ToLower(network) == GOERLI {
+		e.Address = OPERATOR_SLASH_ADDRESS_GOERLi
+	}
+
+	var err error
+	e.Contract, err = operatorSlash.NewOperatorSlash(common.HexToAddress(e.Address), eth1.ElClient.Client)
+	if err != nil {
+		return nil, errors.Wrap(err, "Failed to new operatorSlashHelper.")
+	}
+	return e, nil
+}
+
+func NewWithdrawalRequest() (*withdrawalRequestHelper, error) {
+	e := &withdrawalRequestHelper{
+		Network: network,
+	}
+	if strings.ToLower(network) == MAINNET {
+		e.Address = OPERATOR_SLASH_ADDRESS_MAINNET
+	} else if strings.ToLower(network) == GOERLI {
+		e.Address = OPERATOR_SLASH_ADDRESS_GOERLi
+	}
+
+	var err error
+	e.Contract, err = withdrawalRequest.NewWithdrawalRequest(common.HexToAddress(e.Address), eth1.ElClient.Client)
+	if err != nil {
+		return nil, errors.Wrap(err, "Failed to new withdrawal Request.")
 	}
 	return e, nil
 }
