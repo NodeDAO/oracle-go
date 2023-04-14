@@ -10,14 +10,45 @@ import (
 	"github.com/NodeDAO/oracle-go/contracts/hashConsensus"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/pkg/errors"
+	"strings"
+)
+
+// REPORT_DATA_TYPE  (uint256,uint256,uint256,uint256,uint256,uint256,(uint64,uint96,uint96)[],(uint64,uint96,uint96)[],uint256[],uint256[]) data
+var (
+	withdrawInfosArgumentMarshaling      = []abi.ArgumentMarshaling{{Type: "uint64"}, {Type: "uint96"}, {Type: "uint96"}}
+	exitValidatorInfosArgumentMarshaling = []abi.ArgumentMarshaling{{Type: "uint64"}, {Type: "uint96"}, {Type: "uint96"}}
+
+	//withdrawInfosType, _      = abi.NewType("tuple", "", withdrawInfosArgumentMarshaling)
+	//exitValidatorInfosType, _ = abi.NewType("tuple", "", exitValidatorInfosArgumentMarshaling)
+
+	reportDataTypeArgumentMarshaling = []abi.ArgumentMarshaling{
+		{Type: "uint256"},
+		{Type: "uint256"},
+		{Type: "uint256"},
+		{Type: "uint256"},
+		{Type: "uint256"},
+		{Type: "uint256"},
+		{Type: "uint256"},
+		{Type: "tuple", Components: withdrawInfosArgumentMarshaling},
+		{Type: "tuple", Components: exitValidatorInfosArgumentMarshaling},
+		{Type: "uint256[]"},
+		{Type: "uint256[]"},
+	}
+
+	reportDataType, _   = abi.NewType("tuple", "", reportDataTypeArgumentMarshaling)
+	reportDataArguments = abi.Arguments{{Type: reportDataType}}
 )
 
 func EncodeReportData(reportData *withdrawOracle.WithdrawOracleReportData) ([32]byte, error) {
+	json, err := abi.JSON(strings.NewReader("[{\"inputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"consensusVersion\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"clBalance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"clVaultBalance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"clSettleAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"reportExitedCount\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"operatorId\",\"type\":\"uint64\"},{\"internalType\":\"uint96\",\"name\":\"clReward\",\"type\":\"uint96\"},{\"internalType\":\"uint96\",\"name\":\"clCapital\",\"type\":\"uint96\"}],\"internalType\":\"struct WithdrawInfo[]\",\"name\":\"withdrawInfos\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"exitTokenId\",\"type\":\"uint64\"},{\"internalType\":\"uint96\",\"name\":\"exitBlockNumber\",\"type\":\"uint96\"},{\"internalType\":\"uint96\",\"name\":\"slashAmount\",\"type\":\"uint96\"}],\"internalType\":\"struct ExitValidatorInfo[]\",\"name\":\"exitValidatorInfos\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256[]\",\"name\":\"delayedExitTokenIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"largeExitDelayedRequestIds\",\"type\":\"uint256[]\"}],\"internalType\":\"struct WithdrawOracle.ReportData\",\"name\":\"data\",\"type\":\"tuple\"}],\"name\":\"submitReportData\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"))
+	encodedData, err := json.Methods["submitReportData"].Inputs.Pack(reportData)
+
 	// Code the data using the Pack method of the abi.Arguments structure
-	encodedData, err := reportDataArguments.Pack(reportData)
+	//encodedData, err := reportDataArguments.Pack(reportData)
 	if err != nil {
 		return [32]byte{}, errors.Wrap(err, "encode report data err.")
 	}

@@ -14,8 +14,6 @@ import (
 	"fmt"
 	"github.com/NodeDAO/oracle-go/utils/httptool"
 	"math/big"
-	"strconv"
-
 	//"github.com/attestantio/go-eth2-client/api/v1/capella"
 	"github.com/pkg/errors"
 )
@@ -90,7 +88,7 @@ type ExecutionBlock struct {
 	FeeRecipient  string   `json:"fee_recipient"`
 	BlockNumber   *big.Int `json:"block_number"`
 	GasLimit      *big.Int `json:"gas_limit"`
-	GasUsed       bool     `json:"gas_used"`
+	GasUsed       *big.Int `json:"gas_used"`
 	Timestamp     string   `json:"timestamp"`
 	BaseFeePerGas *big.Int `json:"base_fee_per_gas"`
 	BlockHash     string   `json:"block_hash"`
@@ -136,13 +134,9 @@ func (b *BeaconService) ExecutionBlock(ctx context.Context, blockID string) (*Ex
 	blockNumber, ok := new(big.Int).SetString(executionPayload.BlockNumber, 10)
 	gasLimit, ok := new(big.Int).SetString(executionPayload.GasLimit, 10)
 	baseFeePerGas, ok := new(big.Int).SetString(executionPayload.BaseFeePerGas, 10)
+	gasUsed, ok := new(big.Int).SetString(executionPayload.GasUsed, 10)
 	if !ok {
 		return nil, errors.New("Failed string to big.Int")
-	}
-
-	gasUsed, err := strconv.ParseBool(executionPayload.GasUsed)
-	if err != nil {
-		return nil, errors.Wrap(err, "Failed string to bool")
 	}
 
 	return &ExecutionBlock{
