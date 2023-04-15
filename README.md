@@ -20,11 +20,9 @@ config-default.json
 ```yaml
 server:
   name: oracle-go
-  # 全局版本输出，eg： cli: oracle-go version
   version: 0.0.1-beta
 
 cli:
-  # cli 父命令
   name: oracle-go
 
 log:
