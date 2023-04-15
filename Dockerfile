@@ -10,4 +10,4 @@ RUN GOOS=linux go install github.com/NodeDAO/oracle-go
 FROM gcr.io/distroless/base-debian10:debug-nonroot
 WORKDIR /app
 COPY --from=builder /go/bin/oracle-go .
-ENTRYPOINT ["./oracle-go", "oracle" , "withdraw" , "--config", "./conf/config.yaml"]
+ENTRYPOINT ["./oracle-go", "oracle" , "withdraw"]
