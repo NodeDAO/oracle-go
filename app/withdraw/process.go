@@ -121,7 +121,13 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 
 	logger.Info("Sending report data...")
 	// submit report data
-	tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(nil, *v.reportData, v.consensusVersion)
+	opt := v.keyTransactOpts
+	opt.GasLimit = 8000000
+
+	tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(opt, *v.reportData, v.consensusVersion)
+	if err != nil {
+		return errors.Wrap(err, "WithdrawOracle SubmitReportData err.")
+	}
 	logger.Info("Send report data success.",
 		zap.String("tx hash", tx.Hash().String()),
 		zap.String("consensusVersion", v.consensusVersion.String()),
