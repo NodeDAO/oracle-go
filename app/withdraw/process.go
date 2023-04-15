@@ -102,6 +102,7 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 
 	if memberInfo.CurrentFrameConsensusReport == eth1.ZERO_HASH {
 		logger.Info("Quorum is not ready.")
+		time.Sleep(time.Second * SECONDS_PER_SLOT)
 		return nil
 	}
 
@@ -120,11 +121,8 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 	}
 
 	logger.Info("Sending report data...")
-	// submit report data
-	opt := v.keyTransactOpts
-	opt.GasLimit = 8000000
 
-	tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(opt, *v.reportData, v.consensusVersion)
+	tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(v.keyTransactOpts, *v.reportData, v.consensusVersion)
 	if err != nil {
 		return errors.Wrap(err, "WithdrawOracle SubmitReportData err.")
 	}

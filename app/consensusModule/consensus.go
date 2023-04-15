@@ -51,6 +51,7 @@ func (v *HashConsensusHelper) submitReport(ctx context.Context, dataHash [32]byt
 	if err != nil {
 		return errors.Wrap(err, "")
 	}
+
 	tx, err := consensusContract.SubmitReport(v.KeyTransactOpts, refSlot, dataHash, consensusVersion)
 	if err != nil {
 		return errors.Wrapf(err, "Failed to submit consensus report. refslot:%s, consensusVersion:%s", refSlot.String(), consensusVersion.String())
