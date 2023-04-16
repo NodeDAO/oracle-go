@@ -9,6 +9,7 @@ import (
 	"github.com/NodeDAO/oracle-go/app/withdraw"
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/spf13/cobra"
+	"runtime"
 )
 
 var (
@@ -23,6 +24,17 @@ var (
 )
 
 func run() {
+	defer func() {
+		if err := recover(); err != nil {
+			switch err.(type) {
+			case runtime.Error:
+				logger.Errorf("runtime error:%+v", err)
+			default:
+				logger.Errorf("error::%+v", err)
+			}
+		}
+	}()
+
 	ctx := context.Background()
 	w := new(withdraw.WithdrawHelper)
 

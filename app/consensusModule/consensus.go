@@ -8,6 +8,7 @@ import (
 	"context"
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/consensus"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"math/big"
@@ -34,7 +35,8 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 	}
 
 	if dataHash != memberInfo.CurrentFrameMemberReport {
-		logger.Infof("Send report hash. hash:%s", dataHash)
+		dataHashStr := hexutil.Encode(dataHash[:])
+		logger.Infof("Send report hash. hash:%s", dataHashStr)
 		err := v.submitReport(ctx, dataHash, refSlot, consensusVersion)
 		if err != nil {
 			return errors.Wrap(err, "")

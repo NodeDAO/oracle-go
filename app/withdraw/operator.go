@@ -10,6 +10,7 @@ import (
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 	"github.com/shopspring/decimal"
 	"math/big"
@@ -95,6 +96,15 @@ func (v *WithdrawHelper) calculationOperatorWeight(ctx context.Context, effectiv
 func (v *WithdrawHelper) calculationOperatorClCapital(ctx context.Context, effectiveOperators map[int64]*EffectiveOperator) error {
 	for _, exa := range v.requireReportValidator {
 		if exa.IsNeedOracleReportExit {
+			//  ClCapital Set only system-owned
+			owner, err := contracts.VnftContract.Contract.OwnerOf(nil, exa.TokenId)
+			if owner != common.HexToAddress(contracts.LiqContract.Address) {
+				break
+			}
+			if err != nil {
+				return errors.Wrapf(err, "Failed to get VnftContract OwnerOf tokenId:%s", exa.TokenId.String())
+			}
+
 			_cap := eth1.ETH32().BigInt()
 			// less 32 ether
 			if exa.ExitedAmount.Cmp(eth1.ETH32().BigInt()) == -1 {

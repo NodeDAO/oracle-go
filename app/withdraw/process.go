@@ -189,6 +189,7 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 
 	refSlot, canReport, err := v.hashConsensusHelper.GetRefSlotAndIsReport(ctx)
 	v.refSlot = refSlot
+	logger.Debug("Oracle start scan ...", zap.String("refSlot", refSlot.String()))
 
 	// executionBlock
 	executionBlock, err := consensus.ConsensusClient.CustomizeBeaconService.ExecutionBlock(ctx, v.refSlot.String())
