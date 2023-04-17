@@ -8,9 +8,11 @@ import (
 	"github.com/NodeDAO/oracle-go/app/consensusModule"
 	"github.com/NodeDAO/oracle-go/consensus/beacon"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
+	"github.com/NodeDAO/oracle-go/utils/timetool"
 	consensusApi "github.com/attestantio/go-eth2-client/api/v1"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"math/big"
+	"time"
 )
 
 type WithdrawHelper struct {
@@ -88,3 +90,9 @@ const (
 	SECONDS_PER_SLOT  = 12
 	SECONDS_PER_EPOCH = SLOTS_PER_EPOCH * SECONDS_PER_SLOT
 )
+
+func DefaultSleep() {
+	minSleep := time.Second * SECONDS_PER_EPOCH
+	maxSleep := time.Second * SECONDS_PER_EPOCH * 2
+	timetool.SleepWithRandom(minSleep, maxSleep)
+}

@@ -16,7 +16,6 @@ import (
 	"go.uber.org/zap"
 	"math/big"
 	"sort"
-	"time"
 )
 
 func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
@@ -26,7 +25,7 @@ func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
 	}
 	if paused {
 		logger.Info("withdrawOracle is paused.")
-		time.Sleep(time.Second * SECONDS_PER_EPOCH)
+		DefaultSleep()
 	}
 
 	if err := v.buildReportData(ctx); err != nil {
@@ -102,7 +101,7 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 
 	if memberInfo.CurrentFrameConsensusReport == eth1.ZERO_HASH {
 		logger.Info("Quorum is not ready.")
-		time.Sleep(time.Second * SECONDS_PER_SLOT)
+		DefaultSleep()
 		return nil
 	}
 
@@ -117,7 +116,7 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 	}
 	if submitted {
 		logger.Info("Main data already submitted.")
-		time.Sleep(time.Second * SECONDS_PER_EPOCH)
+		DefaultSleep()
 	}
 
 	logger.Info("Sending report data...")
@@ -202,7 +201,7 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 		return errors.Wrap(err, "")
 	}
 	if !canReport {
-		time.Sleep(time.Second * SECONDS_PER_EPOCH)
+		DefaultSleep()
 	}
 
 	//  init

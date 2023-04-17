@@ -52,7 +52,7 @@ func tip() {
 
 func init() {
 
-	RootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "conf/config-dev.yaml", "config file")
+	RootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "conf/config-dev.yaml", "config file path")
 
 	RootCmd.AddCommand(version.StartCmd)
 	RootCmd.AddCommand(oracle.OracleCmd)

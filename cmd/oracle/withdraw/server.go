@@ -18,7 +18,9 @@ var (
 		Short: "Run Withdraw Oracle Server",
 		Long:  `Run Withdraw Oracle Server`,
 		Run: func(cmd *cobra.Command, args []string) {
-			run()
+			for {
+				run()
+			}
 		},
 	}
 )
@@ -29,6 +31,7 @@ func run() {
 			switch err.(type) {
 			case runtime.Error:
 				logger.Errorf("runtime error:%+v", err)
+				withdraw.DefaultSleep()
 			default:
 				logger.Errorf("error::%+v", err)
 			}
@@ -38,10 +41,9 @@ func run() {
 	ctx := context.Background()
 	w := new(withdraw.WithdrawHelper)
 
-	for {
-		err := w.ProcessReport(ctx)
-		if err != nil {
-			logger.Errorf("err:%+v", err)
-		}
+	err := w.ProcessReport(ctx)
+	if err != nil {
+		logger.Errorf("err:%+v", err)
 	}
+
 }
