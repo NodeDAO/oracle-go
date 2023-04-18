@@ -1,10 +1,9 @@
 server:
   name: oracle-go
-  # 全局版本输出，eg： cli: oracle-go version
+  # Global version output，eg： cli: oracle-go version
   version: 0.0.2-beta
 
 cli:
-  # cli 父命令
   name: oracle-go
 
 log:
@@ -12,7 +11,7 @@ log:
     server: debug
 
 eth:
-  network: goerli
+  network: mainnet
   elAddr:
   clAddr:
   privateKey:
