@@ -1,7 +1,7 @@
 [
   {
     "inputs": [],
-    "name": "AlreadeClaimed",
+    "name": "AlreadyClaimed",
     "type": "error"
   },
   {
@@ -12,6 +12,11 @@
   {
     "inputs": [],
     "name": "InvalidParameter",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidRequestId",
     "type": "error"
   },
   {
@@ -61,12 +66,50 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "address",
+        "name": "oldDao",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_dao",
+        "type": "address"
+      }
+    ],
+    "name": "DaoAddressChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "uint8",
         "name": "version",
         "type": "uint8"
       }
     ],
     "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "totalPendingEthAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "LargeWithdrawalsClaim",
     "type": "event"
   },
   {
@@ -98,6 +141,25 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_oldLiquidStakingContract",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_liquidStakingContractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "LiquidStakingChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "uint256",
         "name": "_operatorId",
@@ -111,6 +173,25 @@
       }
     ],
     "name": "NftUnstake",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_oldNodeOperatorRegistryContract",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_nodeOperatorRegistryContract",
+        "type": "address"
+      }
+    ],
+    "name": "NodeOperatorRegistryContractSet",
     "type": "event"
   },
   {
@@ -176,6 +257,25 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "address",
+        "name": "_oldVaultManagerContractAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_vaultManagerContract",
+        "type": "address"
+      }
+    ],
+    "name": "VaultManagerContractSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "uint256",
         "name": "_operatorId",
         "type": "uint256"
@@ -220,7 +320,7 @@
     "inputs": [
       {
         "internalType": "uint256[]",
-        "name": "requestIds",
+        "name": "_requestIds",
         "type": "uint256[]"
       }
     ],
@@ -269,13 +369,26 @@
         "type": "uint256"
       }
     ],
-    "name": "getOperatorLargeWitdrawalPendingInfo",
+    "name": "getOperatorLargeWithdrawalPendingInfo",
     "outputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
       },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTotalPendingClaimedAmounts",
+    "outputs": [
       {
         "internalType": "uint256",
         "name": "",
@@ -457,11 +570,6 @@
       },
       {
         "internalType": "address",
-        "name": "_withdrawOracleContractAddress",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
         "name": "_vaultManagerContract",
         "type": "address"
       }
@@ -612,16 +720,55 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "totalLockedNethBalance",
-    "outputs": [
+    "inputs": [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "_dao",
+        "type": "address"
       }
     ],
-    "stateMutability": "view",
+    "name": "setDaoAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_liquidStakingContractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setLiquidStaking",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_nodeOperatorRegistryContract",
+        "type": "address"
+      }
+    ],
+    "name": "setNodeOperatorRegistryContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_vaultManagerContract",
+        "type": "address"
+      }
+    ],
+    "name": "setVaultManagerContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -700,19 +847,6 @@
     "outputs": [
       {
         "internalType": "contract IVaultManager",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "withdrawOracleContractAddress",
-    "outputs": [
-      {
-        "internalType": "address",
         "name": "",
         "type": "address"
       }

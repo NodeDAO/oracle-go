@@ -11,6 +11,7 @@ Oracle daemon for NodeDAO decentralized staking service. Collects and reports Be
 For oracle contracts, see: [NodeDAO/NodeDAO-Protocol](https://github.com/NodeDAO/NodeDAO-Protocol)
 
 ## Working Mechanism
+
 TODO
 
 ## Config File

@@ -12,6 +12,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/utils/httptool"
 	"math/big"
 	//"github.com/attestantio/go-eth2-client/api/v1/capella"
@@ -94,39 +95,53 @@ type ExecutionBlock struct {
 	BlockHash     string   `json:"block_hash"`
 }
 
-func (b *BeaconService) BeaconBlock(ctx context.Context, blockID string) (*BeaconBlock, error) {
+func (b *BeaconService) BeaconBlock(ctx context.Context, blockID string) (*BeaconBlock, bool, error) {
 	httpTool, err := httptool.New(ctx, b.Timeout)
 	if err != nil {
-		return nil, errors.Wrap(err, "")
+		return nil, false, errors.Wrap(err, "")
 	}
 
 	respBodyReader, err := httpTool.GetRequest(ctx, fmt.Sprintf("%s/eth/v2/beacon/blocks/%s", b.BaseUrl, blockID))
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to request beacon block header")
+		return nil, false, errors.Wrap(err, "failed to request beacon block header")
 	}
 	if respBodyReader == nil {
-		return nil, errors.New(fmt.Sprintf("failed to parse. slot missing. blockID:%s", blockID))
+		return nil, true, nil
 	}
-
-	//if err := json.NewDecoder(respBodyReader).Decode(&beaconError); err != nil {
-	//	return nil, errors.Wrap(err, "failed to parse beaconError")
-	//}
-	//if beaconError.Code > 0 && beaconError.Code != 200 {
-	//	return nil, errors.Wrapf(err, "failed to parse. slot missing. blockID:%s", blockID)
-	//}
 
 	var resp *BeaconBlock
 	if err := json.NewDecoder(respBodyReader).Decode(&resp); err != nil {
-		return nil, errors.Wrap(err, "failed to parse beacon block")
+		return nil, false, errors.Wrap(err, "failed to parse beacon block")
 	}
 
-	return resp, nil
+	return resp, false, nil
 }
 
 func (b *BeaconService) ExecutionPayload(ctx context.Context, blockID string) (*ExecutionPayload, error) {
-	beaconBlock, err := b.BeaconBlock(ctx, blockID)
-	if err != nil {
-		return nil, errors.Wrap(err, "")
+	isMiss := true
+	var beaconBlock *BeaconBlock
+	var err error
+
+	blockBig, isNumber := new(big.Int).SetString(blockID, 0)
+
+	if isNumber {
+		for i := 0; i < 10; i++ {
+
+			blockStr := new(big.Int).Add(blockBig, big.NewInt(int64(i))).String()
+
+			beaconBlock, isMiss, err = b.BeaconBlock(ctx, blockStr)
+			if err != nil {
+				return nil, errors.Wrap(err, "")
+			}
+			if !isMiss {
+				break
+			}
+		}
+		if isMiss {
+			logger.Errorf("Failed to get execute beacon block.")
+		}
+	} else {
+		beaconBlock, isMiss, err = b.BeaconBlock(ctx, blockID)
 	}
 
 	return beaconBlock.Data.Message.Body.ExecutionPayload, nil
@@ -159,7 +174,7 @@ func (b *BeaconService) ExecutionBlock(ctx context.Context, blockID string) (*Ex
 }
 
 func (b *BeaconService) HeadSlot(ctx context.Context) (*big.Int, error) {
-	headBlock, err := b.BeaconBlock(ctx, "head")
+	headBlock, _, err := b.BeaconBlock(ctx, "head")
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to get beacon head block.")
 	}

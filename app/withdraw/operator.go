@@ -60,7 +60,7 @@ func (v *WithdrawHelper) calculationOperatorClCapital(ctx context.Context, effec
 			//  ClCapital Set only system-owned
 			owner, err := contracts.VnftContract.Contract.OwnerOf(nil, exa.TokenId)
 			if owner != common.HexToAddress(contracts.LiqContract.Address) {
-				break
+				continue
 			}
 			if err != nil {
 				return errors.Wrapf(err, "Failed to get VnftContract OwnerOf tokenId:%s", exa.TokenId.String())
@@ -71,8 +71,20 @@ func (v *WithdrawHelper) calculationOperatorClCapital(ctx context.Context, effec
 			if exa.ExitedAmount.Cmp(eth1.ETH32().BigInt()) == -1 {
 				_cap = exa.ExitedAmount
 			}
-			effectiveOperators[exa.OperatorId.Int64()].OperatorReward.ClCapital = new(big.Int).Add(effectiveOperators[exa.OperatorId.Int64()].OperatorReward.ClCapital, _cap)
-			v.totalOperatorClCapital = new(big.Int).Add(v.totalOperatorClCapital, exa.ExitedAmount)
+
+			if effectiveOperators[exa.OperatorId.Int64()] == nil {
+				effectiveOperators[exa.OperatorId.Int64()] = &EffectiveOperator{
+					OperatorReward: withdrawOracle.WithdrawInfo{
+						OperatorId: exa.OperatorId.Uint64(),
+						ClReward:   big.NewInt(0),
+						ClCapital:  _cap,
+					},
+				}
+			} else {
+				effectiveOperators[exa.OperatorId.Int64()].OperatorReward.ClCapital = new(big.Int).Add(effectiveOperators[exa.OperatorId.Int64()].OperatorReward.ClCapital, _cap)
+			}
+
+			v.totalOperatorClCapital = new(big.Int).Add(v.totalOperatorClCapital, _cap)
 		}
 	}
 
@@ -128,7 +140,7 @@ func (v *WithdrawHelper) calculationOperatorWeight(ctx context.Context, effectiv
 
 func (v *WithdrawHelper) calculationOperatorClReward(ctx context.Context, effectiveOperators map[int64]*EffectiveOperator) error {
 	sumReward := new(big.Int).Sub(v.clVaultBalance, v.totalOperatorClCapital)
-	//_sumRewardMid := big.NewInt(0)
+
 	for _, op := range effectiveOperators {
 		mul := new(big.Int).Mul(sumReward, big.NewInt(int64(op.VnftCount)))
 		op.OperatorReward.ClReward = new(big.Int).Div(mul, v.totalNftCount)
@@ -136,14 +148,10 @@ func (v *WithdrawHelper) calculationOperatorClReward(ctx context.Context, effect
 
 	v.clSettleAmount = new(big.Int).Add(v.clSettleAmount, sumReward)
 
-	return nil
-}
-
-func (v *WithdrawHelper) calculationWithdrawInfos(ctx context.Context, effectiveOperators map[int64]*EffectiveOperator) error {
+	// deal accuracy
 	sumSettle := big.NewInt(0)
 
 	for _, op := range effectiveOperators {
-		v.withdrawInfos = append(v.withdrawInfos, op.OperatorReward)
 		opSettle := new(big.Int).Add(op.OperatorReward.ClReward, op.OperatorReward.ClCapital)
 		sumSettle = new(big.Int).Add(sumSettle, opSettle)
 	}
@@ -151,6 +159,23 @@ func (v *WithdrawHelper) calculationWithdrawInfos(ctx context.Context, effective
 	if v.clSettleAmount.Cmp(sumSettle) != 0 {
 		accuracy := new(big.Int).Sub(v.clSettleAmount, sumSettle)
 		effectiveOperators[1].OperatorReward.ClReward = new(big.Int).Add(effectiveOperators[1].OperatorReward.ClReward, accuracy)
+	}
+
+	return nil
+}
+
+func (v *WithdrawHelper) calculationWithdrawInfos(ctx context.Context, effectiveOperators map[int64]*EffectiveOperator) error {
+	for _, op := range effectiveOperators {
+		v.withdrawInfos = append(v.withdrawInfos, op.OperatorReward)
+	}
+
+	sumSettleCheck := big.NewInt(0)
+	for _, info := range v.withdrawInfos {
+		opSettle := new(big.Int).Add(info.ClReward, info.ClCapital)
+		sumSettleCheck = new(big.Int).Add(sumSettleCheck, opSettle)
+	}
+	if v.clSettleAmount.Cmp(sumSettleCheck) != 0 {
+		return errors.Errorf("clSettleAmount(%s) != sumSettleCheck(%s)", v.clSettleAmount, sumSettleCheck)
 	}
 
 	return nil

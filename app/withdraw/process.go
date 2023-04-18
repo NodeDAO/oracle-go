@@ -14,6 +14,7 @@ import (
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"math/big"
@@ -125,16 +126,20 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 
 	reportJson, err := json.Marshal(v.reportData)
 	if err != nil {
-		logger.Debug("report data.", zap.String("report data", fmt.Sprintf("%s", string(reportJson))))
-	} else {
 		logger.Debug("report data.", zap.String("report data", fmt.Sprintf("%+v", v.reportData)))
+	} else {
+		logger.Debug("report data.", zap.String("report data", fmt.Sprintf("%s", string(reportJson))))
 	}
 
-	opt := v.keyTransactOpts
-	opt.GasLimit = 8000000
-	tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(opt, *v.reportData, v.consensusVersion)
+	//opt := v.keyTransactOpts
+	//opt.GasLimit = 2000000
+	tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(v.keyTransactOpts, *v.reportData, v.consensusVersion)
 	if err != nil {
 		return errors.Wrap(err, "WithdrawOracle SubmitReportData err.")
+	}
+	// Wait for the transaction to complete
+	if _, err = bind.WaitMined(context.Background(), eth1.ElClient.Client, tx); err != nil {
+		return errors.Wrapf(err, "Failed to WaitMined submit report data. tx hash:%s", tx.Hash().String())
 	}
 	logger.Info("Send report data success.",
 		zap.String("tx hash", tx.Hash().String()),

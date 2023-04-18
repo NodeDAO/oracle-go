@@ -42,7 +42,7 @@ type WithdrawalRequestWithdrawalInfo struct {
 
 // WithdrawalRequestMetaData contains all meta data concerning the WithdrawalRequest contract.
 var WithdrawalRequestMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[],\"name\":\"AlreadeClaimed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AlreadyUnstake\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidParameter\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NethTransferFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PermissionDenied\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalNethAmount\",\"type\":\"uint256\"}],\"name\":\"LargeWithdrawalsRequest\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"NftUnstake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"WithdrawalsReceive\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"MAX_NETH_WITHDRAWAL_AMOUNT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MIN_NETH_WITHDRAWAL_AMOUNT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"requestIds\",\"type\":\"uint256[]\"}],\"name\":\"claimLargeWithdrawals\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dao\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"getNftUnstakeBlockNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"getOperatorLargeWitdrawalPendingInfo\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"getUserUnstakeButOperatorNoExitNfs\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"getWithdrawalOfOperator\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"withdrawHeight\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"withdrawNethAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"withdrawExchange\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"claimEthAmount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"isClaim\",\"type\":\"bool\"}],\"internalType\":\"structWithdrawalRequest.WithdrawalInfo[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_requestId\",\"type\":\"uint256\"}],\"name\":\"getWithdrawalOfRequestId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"getWithdrawalRequestIdOfOwner\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_liquidStakingAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nVNFTContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nETHContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_withdrawOracleContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_vaultManagerContract\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"liquidStakingContract\",\"outputs\":[{\"internalType\":\"contractILiquidStaking\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nETHContract\",\"outputs\":[{\"internalType\":\"contractINETH\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nodeOperatorRegistryContract\",\"outputs\":[{\"internalType\":\"contractINodeOperatorsRegistry\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorPendingEthRequestAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"receiveWithdrawals\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256[]\",\"name\":\"_amounts\",\"type\":\"uint256[]\"}],\"name\":\"requestLargeWithdrawals\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalLockedNethBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_tokenIds\",\"type\":\"uint256[]\"}],\"name\":\"unstakeNFT\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vNFTContract\",\"outputs\":[{\"internalType\":\"contractIVNFT\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultManagerContract\",\"outputs\":[{\"internalType\":\"contractIVaultManager\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdrawOracleContractAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[],\"name\":\"AlreadyClaimed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AlreadyUnstake\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidParameter\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidRequestId\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NethTransferFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PermissionDenied\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldDao\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"DaoAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalPendingEthAmount\",\"type\":\"uint256\"}],\"name\":\"LargeWithdrawalsClaim\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalNethAmount\",\"type\":\"uint256\"}],\"name\":\"LargeWithdrawalsRequest\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldLiquidStakingContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_liquidStakingContractAddress\",\"type\":\"address\"}],\"name\":\"LiquidStakingChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"NftUnstake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldNodeOperatorRegistryContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryContract\",\"type\":\"address\"}],\"name\":\"NodeOperatorRegistryContractSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldVaultManagerContractAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_vaultManagerContract\",\"type\":\"address\"}],\"name\":\"VaultManagerContractSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"WithdrawalsReceive\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"MAX_NETH_WITHDRAWAL_AMOUNT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MIN_NETH_WITHDRAWAL_AMOUNT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_requestIds\",\"type\":\"uint256[]\"}],\"name\":\"claimLargeWithdrawals\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dao\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"getNftUnstakeBlockNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"getOperatorLargeWithdrawalPendingInfo\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getTotalPendingClaimedAmounts\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"getUserUnstakeButOperatorNoExitNfs\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"getWithdrawalOfOperator\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"withdrawHeight\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"withdrawNethAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"withdrawExchange\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"claimEthAmount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"isClaim\",\"type\":\"bool\"}],\"internalType\":\"structWithdrawalRequest.WithdrawalInfo[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_requestId\",\"type\":\"uint256\"}],\"name\":\"getWithdrawalOfRequestId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"getWithdrawalRequestIdOfOwner\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_liquidStakingAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nVNFTContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nETHContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_vaultManagerContract\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"liquidStakingContract\",\"outputs\":[{\"internalType\":\"contractILiquidStaking\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nETHContract\",\"outputs\":[{\"internalType\":\"contractINETH\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nodeOperatorRegistryContract\",\"outputs\":[{\"internalType\":\"contractINodeOperatorsRegistry\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorPendingEthRequestAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"receiveWithdrawals\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256[]\",\"name\":\"_amounts\",\"type\":\"uint256[]\"}],\"name\":\"requestLargeWithdrawals\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"setDaoAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_liquidStakingContractAddress\",\"type\":\"address\"}],\"name\":\"setLiquidStaking\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryContract\",\"type\":\"address\"}],\"name\":\"setNodeOperatorRegistryContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_vaultManagerContract\",\"type\":\"address\"}],\"name\":\"setVaultManagerContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_tokenIds\",\"type\":\"uint256[]\"}],\"name\":\"unstakeNFT\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vNFTContract\",\"outputs\":[{\"internalType\":\"contractIVNFT\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultManagerContract\",\"outputs\":[{\"internalType\":\"contractIVaultManager\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // WithdrawalRequestABI is the input ABI used to generate the binding from.
@@ -315,12 +315,12 @@ func (_WithdrawalRequest *WithdrawalRequestCallerSession) GetNftUnstakeBlockNumb
 	return _WithdrawalRequest.Contract.GetNftUnstakeBlockNumber(&_WithdrawalRequest.CallOpts, _tokenId)
 }
 
-// GetOperatorLargeWitdrawalPendingInfo is a free data retrieval call binding the contract method 0x058394dc.
+// GetOperatorLargeWithdrawalPendingInfo is a free data retrieval call binding the contract method 0x99405f33.
 //
-// Solidity: function getOperatorLargeWitdrawalPendingInfo(uint256 _operatorId) view returns(uint256, uint256)
-func (_WithdrawalRequest *WithdrawalRequestCaller) GetOperatorLargeWitdrawalPendingInfo(opts *bind.CallOpts, _operatorId *big.Int) (*big.Int, *big.Int, error) {
+// Solidity: function getOperatorLargeWithdrawalPendingInfo(uint256 _operatorId) view returns(uint256, uint256)
+func (_WithdrawalRequest *WithdrawalRequestCaller) GetOperatorLargeWithdrawalPendingInfo(opts *bind.CallOpts, _operatorId *big.Int) (*big.Int, *big.Int, error) {
 	var out []interface{}
-	err := _WithdrawalRequest.contract.Call(opts, &out, "getOperatorLargeWitdrawalPendingInfo", _operatorId)
+	err := _WithdrawalRequest.contract.Call(opts, &out, "getOperatorLargeWithdrawalPendingInfo", _operatorId)
 
 	if err != nil {
 		return *new(*big.Int), *new(*big.Int), err
@@ -333,18 +333,49 @@ func (_WithdrawalRequest *WithdrawalRequestCaller) GetOperatorLargeWitdrawalPend
 
 }
 
-// GetOperatorLargeWitdrawalPendingInfo is a free data retrieval call binding the contract method 0x058394dc.
+// GetOperatorLargeWithdrawalPendingInfo is a free data retrieval call binding the contract method 0x99405f33.
 //
-// Solidity: function getOperatorLargeWitdrawalPendingInfo(uint256 _operatorId) view returns(uint256, uint256)
-func (_WithdrawalRequest *WithdrawalRequestSession) GetOperatorLargeWitdrawalPendingInfo(_operatorId *big.Int) (*big.Int, *big.Int, error) {
-	return _WithdrawalRequest.Contract.GetOperatorLargeWitdrawalPendingInfo(&_WithdrawalRequest.CallOpts, _operatorId)
+// Solidity: function getOperatorLargeWithdrawalPendingInfo(uint256 _operatorId) view returns(uint256, uint256)
+func (_WithdrawalRequest *WithdrawalRequestSession) GetOperatorLargeWithdrawalPendingInfo(_operatorId *big.Int) (*big.Int, *big.Int, error) {
+	return _WithdrawalRequest.Contract.GetOperatorLargeWithdrawalPendingInfo(&_WithdrawalRequest.CallOpts, _operatorId)
 }
 
-// GetOperatorLargeWitdrawalPendingInfo is a free data retrieval call binding the contract method 0x058394dc.
+// GetOperatorLargeWithdrawalPendingInfo is a free data retrieval call binding the contract method 0x99405f33.
 //
-// Solidity: function getOperatorLargeWitdrawalPendingInfo(uint256 _operatorId) view returns(uint256, uint256)
-func (_WithdrawalRequest *WithdrawalRequestCallerSession) GetOperatorLargeWitdrawalPendingInfo(_operatorId *big.Int) (*big.Int, *big.Int, error) {
-	return _WithdrawalRequest.Contract.GetOperatorLargeWitdrawalPendingInfo(&_WithdrawalRequest.CallOpts, _operatorId)
+// Solidity: function getOperatorLargeWithdrawalPendingInfo(uint256 _operatorId) view returns(uint256, uint256)
+func (_WithdrawalRequest *WithdrawalRequestCallerSession) GetOperatorLargeWithdrawalPendingInfo(_operatorId *big.Int) (*big.Int, *big.Int, error) {
+	return _WithdrawalRequest.Contract.GetOperatorLargeWithdrawalPendingInfo(&_WithdrawalRequest.CallOpts, _operatorId)
+}
+
+// GetTotalPendingClaimedAmounts is a free data retrieval call binding the contract method 0xfdc88efd.
+//
+// Solidity: function getTotalPendingClaimedAmounts() view returns(uint256)
+func (_WithdrawalRequest *WithdrawalRequestCaller) GetTotalPendingClaimedAmounts(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _WithdrawalRequest.contract.Call(opts, &out, "getTotalPendingClaimedAmounts")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// GetTotalPendingClaimedAmounts is a free data retrieval call binding the contract method 0xfdc88efd.
+//
+// Solidity: function getTotalPendingClaimedAmounts() view returns(uint256)
+func (_WithdrawalRequest *WithdrawalRequestSession) GetTotalPendingClaimedAmounts() (*big.Int, error) {
+	return _WithdrawalRequest.Contract.GetTotalPendingClaimedAmounts(&_WithdrawalRequest.CallOpts)
+}
+
+// GetTotalPendingClaimedAmounts is a free data retrieval call binding the contract method 0xfdc88efd.
+//
+// Solidity: function getTotalPendingClaimedAmounts() view returns(uint256)
+func (_WithdrawalRequest *WithdrawalRequestCallerSession) GetTotalPendingClaimedAmounts() (*big.Int, error) {
+	return _WithdrawalRequest.Contract.GetTotalPendingClaimedAmounts(&_WithdrawalRequest.CallOpts)
 }
 
 // GetUserUnstakeButOperatorNoExitNfs is a free data retrieval call binding the contract method 0xf1c28381.
@@ -694,37 +725,6 @@ func (_WithdrawalRequest *WithdrawalRequestCallerSession) ProxiableUUID() ([32]b
 	return _WithdrawalRequest.Contract.ProxiableUUID(&_WithdrawalRequest.CallOpts)
 }
 
-// TotalLockedNethBalance is a free data retrieval call binding the contract method 0xc03c381c.
-//
-// Solidity: function totalLockedNethBalance() view returns(uint256)
-func (_WithdrawalRequest *WithdrawalRequestCaller) TotalLockedNethBalance(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _WithdrawalRequest.contract.Call(opts, &out, "totalLockedNethBalance")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// TotalLockedNethBalance is a free data retrieval call binding the contract method 0xc03c381c.
-//
-// Solidity: function totalLockedNethBalance() view returns(uint256)
-func (_WithdrawalRequest *WithdrawalRequestSession) TotalLockedNethBalance() (*big.Int, error) {
-	return _WithdrawalRequest.Contract.TotalLockedNethBalance(&_WithdrawalRequest.CallOpts)
-}
-
-// TotalLockedNethBalance is a free data retrieval call binding the contract method 0xc03c381c.
-//
-// Solidity: function totalLockedNethBalance() view returns(uint256)
-func (_WithdrawalRequest *WithdrawalRequestCallerSession) TotalLockedNethBalance() (*big.Int, error) {
-	return _WithdrawalRequest.Contract.TotalLockedNethBalance(&_WithdrawalRequest.CallOpts)
-}
-
 // VNFTContract is a free data retrieval call binding the contract method 0xfc03411f.
 //
 // Solidity: function vNFTContract() view returns(address)
@@ -787,77 +787,46 @@ func (_WithdrawalRequest *WithdrawalRequestCallerSession) VaultManagerContract()
 	return _WithdrawalRequest.Contract.VaultManagerContract(&_WithdrawalRequest.CallOpts)
 }
 
-// WithdrawOracleContractAddress is a free data retrieval call binding the contract method 0x63a5af75.
+// ClaimLargeWithdrawals is a paid mutator transaction binding the contract method 0x1231797a.
 //
-// Solidity: function withdrawOracleContractAddress() view returns(address)
-func (_WithdrawalRequest *WithdrawalRequestCaller) WithdrawOracleContractAddress(opts *bind.CallOpts) (common.Address, error) {
-	var out []interface{}
-	err := _WithdrawalRequest.contract.Call(opts, &out, "withdrawOracleContractAddress")
-
-	if err != nil {
-		return *new(common.Address), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
-
-	return out0, err
-
-}
-
-// WithdrawOracleContractAddress is a free data retrieval call binding the contract method 0x63a5af75.
-//
-// Solidity: function withdrawOracleContractAddress() view returns(address)
-func (_WithdrawalRequest *WithdrawalRequestSession) WithdrawOracleContractAddress() (common.Address, error) {
-	return _WithdrawalRequest.Contract.WithdrawOracleContractAddress(&_WithdrawalRequest.CallOpts)
-}
-
-// WithdrawOracleContractAddress is a free data retrieval call binding the contract method 0x63a5af75.
-//
-// Solidity: function withdrawOracleContractAddress() view returns(address)
-func (_WithdrawalRequest *WithdrawalRequestCallerSession) WithdrawOracleContractAddress() (common.Address, error) {
-	return _WithdrawalRequest.Contract.WithdrawOracleContractAddress(&_WithdrawalRequest.CallOpts)
+// Solidity: function claimLargeWithdrawals(uint256[] _requestIds) returns()
+func (_WithdrawalRequest *WithdrawalRequestTransactor) ClaimLargeWithdrawals(opts *bind.TransactOpts, _requestIds []*big.Int) (*types.Transaction, error) {
+	return _WithdrawalRequest.contract.Transact(opts, "claimLargeWithdrawals", _requestIds)
 }
 
 // ClaimLargeWithdrawals is a paid mutator transaction binding the contract method 0x1231797a.
 //
-// Solidity: function claimLargeWithdrawals(uint256[] requestIds) returns()
-func (_WithdrawalRequest *WithdrawalRequestTransactor) ClaimLargeWithdrawals(opts *bind.TransactOpts, requestIds []*big.Int) (*types.Transaction, error) {
-	return _WithdrawalRequest.contract.Transact(opts, "claimLargeWithdrawals", requestIds)
+// Solidity: function claimLargeWithdrawals(uint256[] _requestIds) returns()
+func (_WithdrawalRequest *WithdrawalRequestSession) ClaimLargeWithdrawals(_requestIds []*big.Int) (*types.Transaction, error) {
+	return _WithdrawalRequest.Contract.ClaimLargeWithdrawals(&_WithdrawalRequest.TransactOpts, _requestIds)
 }
 
 // ClaimLargeWithdrawals is a paid mutator transaction binding the contract method 0x1231797a.
 //
-// Solidity: function claimLargeWithdrawals(uint256[] requestIds) returns()
-func (_WithdrawalRequest *WithdrawalRequestSession) ClaimLargeWithdrawals(requestIds []*big.Int) (*types.Transaction, error) {
-	return _WithdrawalRequest.Contract.ClaimLargeWithdrawals(&_WithdrawalRequest.TransactOpts, requestIds)
+// Solidity: function claimLargeWithdrawals(uint256[] _requestIds) returns()
+func (_WithdrawalRequest *WithdrawalRequestTransactorSession) ClaimLargeWithdrawals(_requestIds []*big.Int) (*types.Transaction, error) {
+	return _WithdrawalRequest.Contract.ClaimLargeWithdrawals(&_WithdrawalRequest.TransactOpts, _requestIds)
 }
 
-// ClaimLargeWithdrawals is a paid mutator transaction binding the contract method 0x1231797a.
+// Initialize is a paid mutator transaction binding the contract method 0xcc2a9a5b.
 //
-// Solidity: function claimLargeWithdrawals(uint256[] requestIds) returns()
-func (_WithdrawalRequest *WithdrawalRequestTransactorSession) ClaimLargeWithdrawals(requestIds []*big.Int) (*types.Transaction, error) {
-	return _WithdrawalRequest.Contract.ClaimLargeWithdrawals(&_WithdrawalRequest.TransactOpts, requestIds)
+// Solidity: function initialize(address _dao, address _liquidStakingAddress, address _nVNFTContractAddress, address _nETHContractAddress, address _nodeOperatorRegistryAddress, address _vaultManagerContract) returns()
+func (_WithdrawalRequest *WithdrawalRequestTransactor) Initialize(opts *bind.TransactOpts, _dao common.Address, _liquidStakingAddress common.Address, _nVNFTContractAddress common.Address, _nETHContractAddress common.Address, _nodeOperatorRegistryAddress common.Address, _vaultManagerContract common.Address) (*types.Transaction, error) {
+	return _WithdrawalRequest.contract.Transact(opts, "initialize", _dao, _liquidStakingAddress, _nVNFTContractAddress, _nETHContractAddress, _nodeOperatorRegistryAddress, _vaultManagerContract)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x35876476.
+// Initialize is a paid mutator transaction binding the contract method 0xcc2a9a5b.
 //
-// Solidity: function initialize(address _dao, address _liquidStakingAddress, address _nVNFTContractAddress, address _nETHContractAddress, address _nodeOperatorRegistryAddress, address _withdrawOracleContractAddress, address _vaultManagerContract) returns()
-func (_WithdrawalRequest *WithdrawalRequestTransactor) Initialize(opts *bind.TransactOpts, _dao common.Address, _liquidStakingAddress common.Address, _nVNFTContractAddress common.Address, _nETHContractAddress common.Address, _nodeOperatorRegistryAddress common.Address, _withdrawOracleContractAddress common.Address, _vaultManagerContract common.Address) (*types.Transaction, error) {
-	return _WithdrawalRequest.contract.Transact(opts, "initialize", _dao, _liquidStakingAddress, _nVNFTContractAddress, _nETHContractAddress, _nodeOperatorRegistryAddress, _withdrawOracleContractAddress, _vaultManagerContract)
+// Solidity: function initialize(address _dao, address _liquidStakingAddress, address _nVNFTContractAddress, address _nETHContractAddress, address _nodeOperatorRegistryAddress, address _vaultManagerContract) returns()
+func (_WithdrawalRequest *WithdrawalRequestSession) Initialize(_dao common.Address, _liquidStakingAddress common.Address, _nVNFTContractAddress common.Address, _nETHContractAddress common.Address, _nodeOperatorRegistryAddress common.Address, _vaultManagerContract common.Address) (*types.Transaction, error) {
+	return _WithdrawalRequest.Contract.Initialize(&_WithdrawalRequest.TransactOpts, _dao, _liquidStakingAddress, _nVNFTContractAddress, _nETHContractAddress, _nodeOperatorRegistryAddress, _vaultManagerContract)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x35876476.
+// Initialize is a paid mutator transaction binding the contract method 0xcc2a9a5b.
 //
-// Solidity: function initialize(address _dao, address _liquidStakingAddress, address _nVNFTContractAddress, address _nETHContractAddress, address _nodeOperatorRegistryAddress, address _withdrawOracleContractAddress, address _vaultManagerContract) returns()
-func (_WithdrawalRequest *WithdrawalRequestSession) Initialize(_dao common.Address, _liquidStakingAddress common.Address, _nVNFTContractAddress common.Address, _nETHContractAddress common.Address, _nodeOperatorRegistryAddress common.Address, _withdrawOracleContractAddress common.Address, _vaultManagerContract common.Address) (*types.Transaction, error) {
-	return _WithdrawalRequest.Contract.Initialize(&_WithdrawalRequest.TransactOpts, _dao, _liquidStakingAddress, _nVNFTContractAddress, _nETHContractAddress, _nodeOperatorRegistryAddress, _withdrawOracleContractAddress, _vaultManagerContract)
-}
-
-// Initialize is a paid mutator transaction binding the contract method 0x35876476.
-//
-// Solidity: function initialize(address _dao, address _liquidStakingAddress, address _nVNFTContractAddress, address _nETHContractAddress, address _nodeOperatorRegistryAddress, address _withdrawOracleContractAddress, address _vaultManagerContract) returns()
-func (_WithdrawalRequest *WithdrawalRequestTransactorSession) Initialize(_dao common.Address, _liquidStakingAddress common.Address, _nVNFTContractAddress common.Address, _nETHContractAddress common.Address, _nodeOperatorRegistryAddress common.Address, _withdrawOracleContractAddress common.Address, _vaultManagerContract common.Address) (*types.Transaction, error) {
-	return _WithdrawalRequest.Contract.Initialize(&_WithdrawalRequest.TransactOpts, _dao, _liquidStakingAddress, _nVNFTContractAddress, _nETHContractAddress, _nodeOperatorRegistryAddress, _withdrawOracleContractAddress, _vaultManagerContract)
+// Solidity: function initialize(address _dao, address _liquidStakingAddress, address _nVNFTContractAddress, address _nETHContractAddress, address _nodeOperatorRegistryAddress, address _vaultManagerContract) returns()
+func (_WithdrawalRequest *WithdrawalRequestTransactorSession) Initialize(_dao common.Address, _liquidStakingAddress common.Address, _nVNFTContractAddress common.Address, _nETHContractAddress common.Address, _nodeOperatorRegistryAddress common.Address, _vaultManagerContract common.Address) (*types.Transaction, error) {
+	return _WithdrawalRequest.Contract.Initialize(&_WithdrawalRequest.TransactOpts, _dao, _liquidStakingAddress, _nVNFTContractAddress, _nETHContractAddress, _nodeOperatorRegistryAddress, _vaultManagerContract)
 }
 
 // ReceiveWithdrawals is a paid mutator transaction binding the contract method 0xd3d2b2cb.
@@ -921,6 +890,90 @@ func (_WithdrawalRequest *WithdrawalRequestSession) RequestLargeWithdrawals(_ope
 // Solidity: function requestLargeWithdrawals(uint256 _operatorId, uint256[] _amounts) returns()
 func (_WithdrawalRequest *WithdrawalRequestTransactorSession) RequestLargeWithdrawals(_operatorId *big.Int, _amounts []*big.Int) (*types.Transaction, error) {
 	return _WithdrawalRequest.Contract.RequestLargeWithdrawals(&_WithdrawalRequest.TransactOpts, _operatorId, _amounts)
+}
+
+// SetDaoAddress is a paid mutator transaction binding the contract method 0x9a3cac6a.
+//
+// Solidity: function setDaoAddress(address _dao) returns()
+func (_WithdrawalRequest *WithdrawalRequestTransactor) SetDaoAddress(opts *bind.TransactOpts, _dao common.Address) (*types.Transaction, error) {
+	return _WithdrawalRequest.contract.Transact(opts, "setDaoAddress", _dao)
+}
+
+// SetDaoAddress is a paid mutator transaction binding the contract method 0x9a3cac6a.
+//
+// Solidity: function setDaoAddress(address _dao) returns()
+func (_WithdrawalRequest *WithdrawalRequestSession) SetDaoAddress(_dao common.Address) (*types.Transaction, error) {
+	return _WithdrawalRequest.Contract.SetDaoAddress(&_WithdrawalRequest.TransactOpts, _dao)
+}
+
+// SetDaoAddress is a paid mutator transaction binding the contract method 0x9a3cac6a.
+//
+// Solidity: function setDaoAddress(address _dao) returns()
+func (_WithdrawalRequest *WithdrawalRequestTransactorSession) SetDaoAddress(_dao common.Address) (*types.Transaction, error) {
+	return _WithdrawalRequest.Contract.SetDaoAddress(&_WithdrawalRequest.TransactOpts, _dao)
+}
+
+// SetLiquidStaking is a paid mutator transaction binding the contract method 0x08211be5.
+//
+// Solidity: function setLiquidStaking(address _liquidStakingContractAddress) returns()
+func (_WithdrawalRequest *WithdrawalRequestTransactor) SetLiquidStaking(opts *bind.TransactOpts, _liquidStakingContractAddress common.Address) (*types.Transaction, error) {
+	return _WithdrawalRequest.contract.Transact(opts, "setLiquidStaking", _liquidStakingContractAddress)
+}
+
+// SetLiquidStaking is a paid mutator transaction binding the contract method 0x08211be5.
+//
+// Solidity: function setLiquidStaking(address _liquidStakingContractAddress) returns()
+func (_WithdrawalRequest *WithdrawalRequestSession) SetLiquidStaking(_liquidStakingContractAddress common.Address) (*types.Transaction, error) {
+	return _WithdrawalRequest.Contract.SetLiquidStaking(&_WithdrawalRequest.TransactOpts, _liquidStakingContractAddress)
+}
+
+// SetLiquidStaking is a paid mutator transaction binding the contract method 0x08211be5.
+//
+// Solidity: function setLiquidStaking(address _liquidStakingContractAddress) returns()
+func (_WithdrawalRequest *WithdrawalRequestTransactorSession) SetLiquidStaking(_liquidStakingContractAddress common.Address) (*types.Transaction, error) {
+	return _WithdrawalRequest.Contract.SetLiquidStaking(&_WithdrawalRequest.TransactOpts, _liquidStakingContractAddress)
+}
+
+// SetNodeOperatorRegistryContract is a paid mutator transaction binding the contract method 0xcb23473e.
+//
+// Solidity: function setNodeOperatorRegistryContract(address _nodeOperatorRegistryContract) returns()
+func (_WithdrawalRequest *WithdrawalRequestTransactor) SetNodeOperatorRegistryContract(opts *bind.TransactOpts, _nodeOperatorRegistryContract common.Address) (*types.Transaction, error) {
+	return _WithdrawalRequest.contract.Transact(opts, "setNodeOperatorRegistryContract", _nodeOperatorRegistryContract)
+}
+
+// SetNodeOperatorRegistryContract is a paid mutator transaction binding the contract method 0xcb23473e.
+//
+// Solidity: function setNodeOperatorRegistryContract(address _nodeOperatorRegistryContract) returns()
+func (_WithdrawalRequest *WithdrawalRequestSession) SetNodeOperatorRegistryContract(_nodeOperatorRegistryContract common.Address) (*types.Transaction, error) {
+	return _WithdrawalRequest.Contract.SetNodeOperatorRegistryContract(&_WithdrawalRequest.TransactOpts, _nodeOperatorRegistryContract)
+}
+
+// SetNodeOperatorRegistryContract is a paid mutator transaction binding the contract method 0xcb23473e.
+//
+// Solidity: function setNodeOperatorRegistryContract(address _nodeOperatorRegistryContract) returns()
+func (_WithdrawalRequest *WithdrawalRequestTransactorSession) SetNodeOperatorRegistryContract(_nodeOperatorRegistryContract common.Address) (*types.Transaction, error) {
+	return _WithdrawalRequest.Contract.SetNodeOperatorRegistryContract(&_WithdrawalRequest.TransactOpts, _nodeOperatorRegistryContract)
+}
+
+// SetVaultManagerContract is a paid mutator transaction binding the contract method 0xbe14652a.
+//
+// Solidity: function setVaultManagerContract(address _vaultManagerContract) returns()
+func (_WithdrawalRequest *WithdrawalRequestTransactor) SetVaultManagerContract(opts *bind.TransactOpts, _vaultManagerContract common.Address) (*types.Transaction, error) {
+	return _WithdrawalRequest.contract.Transact(opts, "setVaultManagerContract", _vaultManagerContract)
+}
+
+// SetVaultManagerContract is a paid mutator transaction binding the contract method 0xbe14652a.
+//
+// Solidity: function setVaultManagerContract(address _vaultManagerContract) returns()
+func (_WithdrawalRequest *WithdrawalRequestSession) SetVaultManagerContract(_vaultManagerContract common.Address) (*types.Transaction, error) {
+	return _WithdrawalRequest.Contract.SetVaultManagerContract(&_WithdrawalRequest.TransactOpts, _vaultManagerContract)
+}
+
+// SetVaultManagerContract is a paid mutator transaction binding the contract method 0xbe14652a.
+//
+// Solidity: function setVaultManagerContract(address _vaultManagerContract) returns()
+func (_WithdrawalRequest *WithdrawalRequestTransactorSession) SetVaultManagerContract(_vaultManagerContract common.Address) (*types.Transaction, error) {
+	return _WithdrawalRequest.Contract.SetVaultManagerContract(&_WithdrawalRequest.TransactOpts, _vaultManagerContract)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
@@ -1286,6 +1339,141 @@ func (_WithdrawalRequest *WithdrawalRequestFilterer) ParseBeaconUpgraded(log typ
 	return event, nil
 }
 
+// WithdrawalRequestDaoAddressChangedIterator is returned from FilterDaoAddressChanged and is used to iterate over the raw logs and unpacked data for DaoAddressChanged events raised by the WithdrawalRequest contract.
+type WithdrawalRequestDaoAddressChangedIterator struct {
+	Event *WithdrawalRequestDaoAddressChanged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *WithdrawalRequestDaoAddressChangedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(WithdrawalRequestDaoAddressChanged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(WithdrawalRequestDaoAddressChanged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *WithdrawalRequestDaoAddressChangedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *WithdrawalRequestDaoAddressChangedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// WithdrawalRequestDaoAddressChanged represents a DaoAddressChanged event raised by the WithdrawalRequest contract.
+type WithdrawalRequestDaoAddressChanged struct {
+	OldDao common.Address
+	Dao    common.Address
+	Raw    types.Log // Blockchain specific contextual infos
+}
+
+// FilterDaoAddressChanged is a free log retrieval operation binding the contract event 0xd5b3b0e6e0098a82fa04cf04faff9109f98389a10c80f20eb7186b9274168946.
+//
+// Solidity: event DaoAddressChanged(address oldDao, address _dao)
+func (_WithdrawalRequest *WithdrawalRequestFilterer) FilterDaoAddressChanged(opts *bind.FilterOpts) (*WithdrawalRequestDaoAddressChangedIterator, error) {
+
+	logs, sub, err := _WithdrawalRequest.contract.FilterLogs(opts, "DaoAddressChanged")
+	if err != nil {
+		return nil, err
+	}
+	return &WithdrawalRequestDaoAddressChangedIterator{contract: _WithdrawalRequest.contract, event: "DaoAddressChanged", logs: logs, sub: sub}, nil
+}
+
+// WatchDaoAddressChanged is a free log subscription operation binding the contract event 0xd5b3b0e6e0098a82fa04cf04faff9109f98389a10c80f20eb7186b9274168946.
+//
+// Solidity: event DaoAddressChanged(address oldDao, address _dao)
+func (_WithdrawalRequest *WithdrawalRequestFilterer) WatchDaoAddressChanged(opts *bind.WatchOpts, sink chan<- *WithdrawalRequestDaoAddressChanged) (event.Subscription, error) {
+
+	logs, sub, err := _WithdrawalRequest.contract.WatchLogs(opts, "DaoAddressChanged")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(WithdrawalRequestDaoAddressChanged)
+				if err := _WithdrawalRequest.contract.UnpackLog(event, "DaoAddressChanged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseDaoAddressChanged is a log parse operation binding the contract event 0xd5b3b0e6e0098a82fa04cf04faff9109f98389a10c80f20eb7186b9274168946.
+//
+// Solidity: event DaoAddressChanged(address oldDao, address _dao)
+func (_WithdrawalRequest *WithdrawalRequestFilterer) ParseDaoAddressChanged(log types.Log) (*WithdrawalRequestDaoAddressChanged, error) {
+	event := new(WithdrawalRequestDaoAddressChanged)
+	if err := _WithdrawalRequest.contract.UnpackLog(event, "DaoAddressChanged", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
 // WithdrawalRequestInitializedIterator is returned from FilterInitialized and is used to iterate over the raw logs and unpacked data for Initialized events raised by the WithdrawalRequest contract.
 type WithdrawalRequestInitializedIterator struct {
 	Event *WithdrawalRequestInitialized // Event containing the contract specifics and raw log
@@ -1414,6 +1602,141 @@ func (_WithdrawalRequest *WithdrawalRequestFilterer) WatchInitialized(opts *bind
 func (_WithdrawalRequest *WithdrawalRequestFilterer) ParseInitialized(log types.Log) (*WithdrawalRequestInitialized, error) {
 	event := new(WithdrawalRequestInitialized)
 	if err := _WithdrawalRequest.contract.UnpackLog(event, "Initialized", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// WithdrawalRequestLargeWithdrawalsClaimIterator is returned from FilterLargeWithdrawalsClaim and is used to iterate over the raw logs and unpacked data for LargeWithdrawalsClaim events raised by the WithdrawalRequest contract.
+type WithdrawalRequestLargeWithdrawalsClaimIterator struct {
+	Event *WithdrawalRequestLargeWithdrawalsClaim // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *WithdrawalRequestLargeWithdrawalsClaimIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(WithdrawalRequestLargeWithdrawalsClaim)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(WithdrawalRequestLargeWithdrawalsClaim)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *WithdrawalRequestLargeWithdrawalsClaimIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *WithdrawalRequestLargeWithdrawalsClaimIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// WithdrawalRequestLargeWithdrawalsClaim represents a LargeWithdrawalsClaim event raised by the WithdrawalRequest contract.
+type WithdrawalRequestLargeWithdrawalsClaim struct {
+	Sender                common.Address
+	TotalPendingEthAmount *big.Int
+	Raw                   types.Log // Blockchain specific contextual infos
+}
+
+// FilterLargeWithdrawalsClaim is a free log retrieval operation binding the contract event 0xd3612323e05886ab09a8d484fe950e624084dc8836fcb83402517e9f473a1e53.
+//
+// Solidity: event LargeWithdrawalsClaim(address sender, uint256 totalPendingEthAmount)
+func (_WithdrawalRequest *WithdrawalRequestFilterer) FilterLargeWithdrawalsClaim(opts *bind.FilterOpts) (*WithdrawalRequestLargeWithdrawalsClaimIterator, error) {
+
+	logs, sub, err := _WithdrawalRequest.contract.FilterLogs(opts, "LargeWithdrawalsClaim")
+	if err != nil {
+		return nil, err
+	}
+	return &WithdrawalRequestLargeWithdrawalsClaimIterator{contract: _WithdrawalRequest.contract, event: "LargeWithdrawalsClaim", logs: logs, sub: sub}, nil
+}
+
+// WatchLargeWithdrawalsClaim is a free log subscription operation binding the contract event 0xd3612323e05886ab09a8d484fe950e624084dc8836fcb83402517e9f473a1e53.
+//
+// Solidity: event LargeWithdrawalsClaim(address sender, uint256 totalPendingEthAmount)
+func (_WithdrawalRequest *WithdrawalRequestFilterer) WatchLargeWithdrawalsClaim(opts *bind.WatchOpts, sink chan<- *WithdrawalRequestLargeWithdrawalsClaim) (event.Subscription, error) {
+
+	logs, sub, err := _WithdrawalRequest.contract.WatchLogs(opts, "LargeWithdrawalsClaim")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(WithdrawalRequestLargeWithdrawalsClaim)
+				if err := _WithdrawalRequest.contract.UnpackLog(event, "LargeWithdrawalsClaim", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseLargeWithdrawalsClaim is a log parse operation binding the contract event 0xd3612323e05886ab09a8d484fe950e624084dc8836fcb83402517e9f473a1e53.
+//
+// Solidity: event LargeWithdrawalsClaim(address sender, uint256 totalPendingEthAmount)
+func (_WithdrawalRequest *WithdrawalRequestFilterer) ParseLargeWithdrawalsClaim(log types.Log) (*WithdrawalRequestLargeWithdrawalsClaim, error) {
+	event := new(WithdrawalRequestLargeWithdrawalsClaim)
+	if err := _WithdrawalRequest.contract.UnpackLog(event, "LargeWithdrawalsClaim", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -1550,6 +1873,141 @@ func (_WithdrawalRequest *WithdrawalRequestFilterer) WatchLargeWithdrawalsReques
 func (_WithdrawalRequest *WithdrawalRequestFilterer) ParseLargeWithdrawalsRequest(log types.Log) (*WithdrawalRequestLargeWithdrawalsRequest, error) {
 	event := new(WithdrawalRequestLargeWithdrawalsRequest)
 	if err := _WithdrawalRequest.contract.UnpackLog(event, "LargeWithdrawalsRequest", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// WithdrawalRequestLiquidStakingChangedIterator is returned from FilterLiquidStakingChanged and is used to iterate over the raw logs and unpacked data for LiquidStakingChanged events raised by the WithdrawalRequest contract.
+type WithdrawalRequestLiquidStakingChangedIterator struct {
+	Event *WithdrawalRequestLiquidStakingChanged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *WithdrawalRequestLiquidStakingChangedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(WithdrawalRequestLiquidStakingChanged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(WithdrawalRequestLiquidStakingChanged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *WithdrawalRequestLiquidStakingChangedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *WithdrawalRequestLiquidStakingChangedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// WithdrawalRequestLiquidStakingChanged represents a LiquidStakingChanged event raised by the WithdrawalRequest contract.
+type WithdrawalRequestLiquidStakingChanged struct {
+	OldLiquidStakingContract     common.Address
+	LiquidStakingContractAddress common.Address
+	Raw                          types.Log // Blockchain specific contextual infos
+}
+
+// FilterLiquidStakingChanged is a free log retrieval operation binding the contract event 0x516e369f70685d2905d214a9e8567098c02a0e00f5a55bd30baca6b51d446cef.
+//
+// Solidity: event LiquidStakingChanged(address _oldLiquidStakingContract, address _liquidStakingContractAddress)
+func (_WithdrawalRequest *WithdrawalRequestFilterer) FilterLiquidStakingChanged(opts *bind.FilterOpts) (*WithdrawalRequestLiquidStakingChangedIterator, error) {
+
+	logs, sub, err := _WithdrawalRequest.contract.FilterLogs(opts, "LiquidStakingChanged")
+	if err != nil {
+		return nil, err
+	}
+	return &WithdrawalRequestLiquidStakingChangedIterator{contract: _WithdrawalRequest.contract, event: "LiquidStakingChanged", logs: logs, sub: sub}, nil
+}
+
+// WatchLiquidStakingChanged is a free log subscription operation binding the contract event 0x516e369f70685d2905d214a9e8567098c02a0e00f5a55bd30baca6b51d446cef.
+//
+// Solidity: event LiquidStakingChanged(address _oldLiquidStakingContract, address _liquidStakingContractAddress)
+func (_WithdrawalRequest *WithdrawalRequestFilterer) WatchLiquidStakingChanged(opts *bind.WatchOpts, sink chan<- *WithdrawalRequestLiquidStakingChanged) (event.Subscription, error) {
+
+	logs, sub, err := _WithdrawalRequest.contract.WatchLogs(opts, "LiquidStakingChanged")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(WithdrawalRequestLiquidStakingChanged)
+				if err := _WithdrawalRequest.contract.UnpackLog(event, "LiquidStakingChanged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseLiquidStakingChanged is a log parse operation binding the contract event 0x516e369f70685d2905d214a9e8567098c02a0e00f5a55bd30baca6b51d446cef.
+//
+// Solidity: event LiquidStakingChanged(address _oldLiquidStakingContract, address _liquidStakingContractAddress)
+func (_WithdrawalRequest *WithdrawalRequestFilterer) ParseLiquidStakingChanged(log types.Log) (*WithdrawalRequestLiquidStakingChanged, error) {
+	event := new(WithdrawalRequestLiquidStakingChanged)
+	if err := _WithdrawalRequest.contract.UnpackLog(event, "LiquidStakingChanged", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -1695,6 +2153,141 @@ func (_WithdrawalRequest *WithdrawalRequestFilterer) WatchNftUnstake(opts *bind.
 func (_WithdrawalRequest *WithdrawalRequestFilterer) ParseNftUnstake(log types.Log) (*WithdrawalRequestNftUnstake, error) {
 	event := new(WithdrawalRequestNftUnstake)
 	if err := _WithdrawalRequest.contract.UnpackLog(event, "NftUnstake", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// WithdrawalRequestNodeOperatorRegistryContractSetIterator is returned from FilterNodeOperatorRegistryContractSet and is used to iterate over the raw logs and unpacked data for NodeOperatorRegistryContractSet events raised by the WithdrawalRequest contract.
+type WithdrawalRequestNodeOperatorRegistryContractSetIterator struct {
+	Event *WithdrawalRequestNodeOperatorRegistryContractSet // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *WithdrawalRequestNodeOperatorRegistryContractSetIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(WithdrawalRequestNodeOperatorRegistryContractSet)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(WithdrawalRequestNodeOperatorRegistryContractSet)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *WithdrawalRequestNodeOperatorRegistryContractSetIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *WithdrawalRequestNodeOperatorRegistryContractSetIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// WithdrawalRequestNodeOperatorRegistryContractSet represents a NodeOperatorRegistryContractSet event raised by the WithdrawalRequest contract.
+type WithdrawalRequestNodeOperatorRegistryContractSet struct {
+	OldNodeOperatorRegistryContract common.Address
+	NodeOperatorRegistryContract    common.Address
+	Raw                             types.Log // Blockchain specific contextual infos
+}
+
+// FilterNodeOperatorRegistryContractSet is a free log retrieval operation binding the contract event 0x2aa578b9d95064e7e90ca0af5e42ca5499f5e90bd32c4e401df52a686ac6993d.
+//
+// Solidity: event NodeOperatorRegistryContractSet(address _oldNodeOperatorRegistryContract, address _nodeOperatorRegistryContract)
+func (_WithdrawalRequest *WithdrawalRequestFilterer) FilterNodeOperatorRegistryContractSet(opts *bind.FilterOpts) (*WithdrawalRequestNodeOperatorRegistryContractSetIterator, error) {
+
+	logs, sub, err := _WithdrawalRequest.contract.FilterLogs(opts, "NodeOperatorRegistryContractSet")
+	if err != nil {
+		return nil, err
+	}
+	return &WithdrawalRequestNodeOperatorRegistryContractSetIterator{contract: _WithdrawalRequest.contract, event: "NodeOperatorRegistryContractSet", logs: logs, sub: sub}, nil
+}
+
+// WatchNodeOperatorRegistryContractSet is a free log subscription operation binding the contract event 0x2aa578b9d95064e7e90ca0af5e42ca5499f5e90bd32c4e401df52a686ac6993d.
+//
+// Solidity: event NodeOperatorRegistryContractSet(address _oldNodeOperatorRegistryContract, address _nodeOperatorRegistryContract)
+func (_WithdrawalRequest *WithdrawalRequestFilterer) WatchNodeOperatorRegistryContractSet(opts *bind.WatchOpts, sink chan<- *WithdrawalRequestNodeOperatorRegistryContractSet) (event.Subscription, error) {
+
+	logs, sub, err := _WithdrawalRequest.contract.WatchLogs(opts, "NodeOperatorRegistryContractSet")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(WithdrawalRequestNodeOperatorRegistryContractSet)
+				if err := _WithdrawalRequest.contract.UnpackLog(event, "NodeOperatorRegistryContractSet", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseNodeOperatorRegistryContractSet is a log parse operation binding the contract event 0x2aa578b9d95064e7e90ca0af5e42ca5499f5e90bd32c4e401df52a686ac6993d.
+//
+// Solidity: event NodeOperatorRegistryContractSet(address _oldNodeOperatorRegistryContract, address _nodeOperatorRegistryContract)
+func (_WithdrawalRequest *WithdrawalRequestFilterer) ParseNodeOperatorRegistryContractSet(log types.Log) (*WithdrawalRequestNodeOperatorRegistryContractSet, error) {
+	event := new(WithdrawalRequestNodeOperatorRegistryContractSet)
+	if err := _WithdrawalRequest.contract.UnpackLog(event, "NodeOperatorRegistryContractSet", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -2260,6 +2853,141 @@ func (_WithdrawalRequest *WithdrawalRequestFilterer) WatchUpgraded(opts *bind.Wa
 func (_WithdrawalRequest *WithdrawalRequestFilterer) ParseUpgraded(log types.Log) (*WithdrawalRequestUpgraded, error) {
 	event := new(WithdrawalRequestUpgraded)
 	if err := _WithdrawalRequest.contract.UnpackLog(event, "Upgraded", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// WithdrawalRequestVaultManagerContractSetIterator is returned from FilterVaultManagerContractSet and is used to iterate over the raw logs and unpacked data for VaultManagerContractSet events raised by the WithdrawalRequest contract.
+type WithdrawalRequestVaultManagerContractSetIterator struct {
+	Event *WithdrawalRequestVaultManagerContractSet // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *WithdrawalRequestVaultManagerContractSetIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(WithdrawalRequestVaultManagerContractSet)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(WithdrawalRequestVaultManagerContractSet)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *WithdrawalRequestVaultManagerContractSetIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *WithdrawalRequestVaultManagerContractSetIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// WithdrawalRequestVaultManagerContractSet represents a VaultManagerContractSet event raised by the WithdrawalRequest contract.
+type WithdrawalRequestVaultManagerContractSet struct {
+	OldVaultManagerContractAddress common.Address
+	VaultManagerContract           common.Address
+	Raw                            types.Log // Blockchain specific contextual infos
+}
+
+// FilterVaultManagerContractSet is a free log retrieval operation binding the contract event 0x136260758ef216be6f30b5244361f089faf99890f23864c0a63e2d2def24963f.
+//
+// Solidity: event VaultManagerContractSet(address _oldVaultManagerContractAddress, address _vaultManagerContract)
+func (_WithdrawalRequest *WithdrawalRequestFilterer) FilterVaultManagerContractSet(opts *bind.FilterOpts) (*WithdrawalRequestVaultManagerContractSetIterator, error) {
+
+	logs, sub, err := _WithdrawalRequest.contract.FilterLogs(opts, "VaultManagerContractSet")
+	if err != nil {
+		return nil, err
+	}
+	return &WithdrawalRequestVaultManagerContractSetIterator{contract: _WithdrawalRequest.contract, event: "VaultManagerContractSet", logs: logs, sub: sub}, nil
+}
+
+// WatchVaultManagerContractSet is a free log subscription operation binding the contract event 0x136260758ef216be6f30b5244361f089faf99890f23864c0a63e2d2def24963f.
+//
+// Solidity: event VaultManagerContractSet(address _oldVaultManagerContractAddress, address _vaultManagerContract)
+func (_WithdrawalRequest *WithdrawalRequestFilterer) WatchVaultManagerContractSet(opts *bind.WatchOpts, sink chan<- *WithdrawalRequestVaultManagerContractSet) (event.Subscription, error) {
+
+	logs, sub, err := _WithdrawalRequest.contract.WatchLogs(opts, "VaultManagerContractSet")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(WithdrawalRequestVaultManagerContractSet)
+				if err := _WithdrawalRequest.contract.UnpackLog(event, "VaultManagerContractSet", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseVaultManagerContractSet is a log parse operation binding the contract event 0x136260758ef216be6f30b5244361f089faf99890f23864c0a63e2d2def24963f.
+//
+// Solidity: event VaultManagerContractSet(address _oldVaultManagerContractAddress, address _vaultManagerContract)
+func (_WithdrawalRequest *WithdrawalRequestFilterer) ParseVaultManagerContractSet(log types.Log) (*WithdrawalRequestVaultManagerContractSet, error) {
+	event := new(WithdrawalRequestVaultManagerContractSet)
+	if err := _WithdrawalRequest.contract.UnpackLog(event, "VaultManagerContractSet", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

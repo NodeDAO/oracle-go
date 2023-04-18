@@ -8,6 +8,8 @@ import (
 	"context"
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/consensus"
+	"github.com/NodeDAO/oracle-go/eth1"
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
@@ -58,11 +60,16 @@ func (v *HashConsensusHelper) submitReport(ctx context.Context, dataHash [32]byt
 	if err != nil {
 		return errors.Wrapf(err, "Failed to submit consensus report. refslot:%s, consensusVersion:%s", refSlot.String(), consensusVersion.String())
 	}
+	// Wait for the transaction to complete
+	if _, err = bind.WaitMined(context.Background(), eth1.ElClient.Client, tx); err != nil {
+		return errors.Wrapf(err, "Failed to WaitMined submit consensus report. refslot:%s, consensusVersion:%s", refSlot.String(), consensusVersion.String())
+	}
 	logger.Info("submit consensus Report success.",
 		zap.String("tx hash", tx.Hash().String()),
 		zap.String("refSlot", refSlot.String()),
 		zap.String("consensusVersion", consensusVersion.String()),
 	)
+
 	return nil
 }
 

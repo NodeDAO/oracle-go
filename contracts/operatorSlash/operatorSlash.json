@@ -75,12 +75,88 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_totalCompensated",
+        "type": "uint256"
+      }
+    ],
+    "name": "CompensatedClaimed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "oldDao",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_dao",
+        "type": "address"
+      }
+    ],
+    "name": "DaoAddressChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "uint8",
         "name": "version",
         "type": "uint8"
       }
     ],
     "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_oldLiquidStakingContract",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_liquidStakingContractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "LiquidStakingChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_oldNodeOperatorRegistryContract",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_nodeOperatorRegistryContract",
+        "type": "address"
+      }
+    ],
+    "name": "NodeOperatorRegistryContractSet",
     "type": "event"
   },
   {
@@ -163,6 +239,44 @@
       }
     ],
     "name": "Upgraded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_oldVaultManagerContractAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_vaultManagerContract",
+        "type": "address"
+      }
+    ],
+    "name": "VaultManagerContractSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_oldWithdrawalRequestContract",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_withdrawalRequestContractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "WithdrawalRequestContractSet",
     "type": "event"
   },
   {
@@ -433,12 +547,77 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_dao",
+        "type": "address"
+      }
+    ],
+    "name": "setDaoAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_liquidStakingContractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setLiquidStaking",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_nodeOperatorRegistryContract",
+        "type": "address"
+      }
+    ],
+    "name": "setNodeOperatorRegistryContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "_slashAmountPerBlockPerValidator",
         "type": "uint256"
       }
     ],
     "name": "setSlashAmountPerBlockPerValidator",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_vaultManagerContract",
+        "type": "address"
+      }
+    ],
+    "name": "setVaultManagerContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_withdrawalRequestContractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setWithdrawalRequestContract",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

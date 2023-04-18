@@ -110,13 +110,10 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 			exitTokenIds = append(exitTokenIds, tokenId)
 		}
 
-		// not exited
 		// delayedExitSlashStandard
-		if !exa.IsExited {
-			err := v.calculationIsDelayedExit(ctx, exa)
-			if err != nil {
-				return errors.Wrapf(err, "Failed to calculationIsDelayedExit. tokenId:%s  pubkey:%s", exa.TokenId.String(), pubkey)
-			}
+		err = v.calculationIsDelayedExit(ctx, exa)
+		if err != nil {
+			return errors.Wrapf(err, "Failed to calculationIsDelayedExit. tokenId:%s  pubkey:%s", exa.TokenId.String(), pubkey)
 		}
 
 	}
@@ -140,6 +137,8 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 					// slashed
 					if exa.Validator.Validator.Slashed {
 						exa.SlashAmount = eth1.ETH32().Sub(decimal.NewFromInt(int64(exa.Validator.Balance)).Mul(decimal.NewFromInt(params.GWei))).BigInt()
+					} else {
+						exa.SlashAmount = big.NewInt(0)
 					}
 
 					// ExitedAmount
@@ -204,16 +203,20 @@ func (v *WithdrawHelper) calculationIsDelayedExit(ctx context.Context, exa *Vali
 			return errors.Wrapf(err, "Failed to get liq contract NftExitDelayedSlashRecords. tokenId:%s", exa.TokenId.String())
 		}
 
-		// If reportDelayedNumber == 0, the report is not reported. curNumber - requireBlockNumbers > (delayedExitSlashStandard = 21600)
-		// If reportDelayedNumber is greater than 0, it has been reported and has not logged out in time. curNumber-reportDelayedNumber > (delayedExitSlashStandard = 21600)
+		// If reportDelayedNumber == 0, the report is not reported. cmpNumber - requireBlockNumbers > (delayedExitSlashStandard = 21600)
+		// If reportDelayedNumber is greater than 0, it has been reported and has not logged out in time. cmpNumber-reportDelayedNumber > (delayedExitSlashStandard = 21600)
 		isReportDelayed := false
-		curNumber := v.executionBlock.BlockNumber
+		cmpNumber := v.executionBlock.BlockNumber
+		if exa.IsExited {
+			cmpNumber = exa.ExitedBlockHeight
+		}
+
 		if reportDelayedNumber.Cmp(decimal.Zero.BigInt()) == 0 {
-			if new(big.Int).Sub(curNumber, requireBlockNumbers).Cmp(v.delayedExitSlashStandard) == 1 {
+			if new(big.Int).Sub(cmpNumber, requireBlockNumbers).Cmp(v.delayedExitSlashStandard) == 1 {
 				isReportDelayed = true
 			}
 		} else if reportDelayedNumber.Cmp(decimal.Zero.BigInt()) == 1 {
-			if new(big.Int).Sub(curNumber, reportDelayedNumber).Cmp(v.delayedExitSlashStandard) == 1 {
+			if new(big.Int).Sub(cmpNumber, reportDelayedNumber).Cmp(v.delayedExitSlashStandard) == 1 {
 				isReportDelayed = true
 			}
 		}
@@ -261,7 +264,7 @@ func (v *WithdrawHelper) dealLargeExitDelayedRequest(ctx context.Context) error 
 	for i := int64(1); i < operatorCount.Int64()+1; i++ {
 
 		operatorId := big.NewInt(i)
-		operatorPendingEthRequestAmount, operatorPendingEthPoolBalance, err := contracts.WithdrawalRequestContract.Contract.GetOperatorLargeWitdrawalPendingInfo(nil, operatorId)
+		operatorPendingEthRequestAmount, operatorPendingEthPoolBalance, err := contracts.WithdrawalRequestContract.Contract.GetOperatorLargeWithdrawalPendingInfo(nil, operatorId)
 		if err != nil {
 			return errors.Wrapf(err, "Failed to get WithdrawalRequestContract GetOperatorLargeWitdrawalPendingInfo. OperatorId: %s", operatorId.String())
 		}
