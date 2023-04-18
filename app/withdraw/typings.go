@@ -33,6 +33,7 @@ type WithdrawHelper struct {
 	totalOperatorClCapital  *big.Int
 	totalNftCount           *big.Int
 	isComputeOperatorReward bool
+	operatorComputeAccuracy *big.Int
 
 	// process res
 	clBalance                  *big.Int
@@ -91,7 +92,7 @@ const (
 	SECONDS_PER_EPOCH = SLOTS_PER_EPOCH * SECONDS_PER_SLOT
 )
 
-func DefaultSleep() {
+func DefaultRandomSleep() {
 	minSleep := time.Second * SECONDS_PER_EPOCH
 	maxSleep := time.Second * SECONDS_PER_EPOCH * 2
 	timetool.SleepWithRandom(minSleep, maxSleep)

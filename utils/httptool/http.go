@@ -78,6 +78,9 @@ func (h *HttpTool) GetRequest(ctx context.Context, endpoint string) (io.Reader, 
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
 
+	// golang http post EOF 错误
+	//req.Close = true
+
 	resp, err := h.client.Do(req)
 	if err != nil {
 		cancel()
@@ -88,7 +91,7 @@ func (h *HttpTool) GetRequest(ctx context.Context, endpoint string) (io.Reader, 
 	if resp.StatusCode == http.StatusNotFound {
 		// Nothing found.  This is not an error, so we return nil on both counts.
 		cancel()
-		return nil, nil
+		return nil, errors.Wrapf(err, "Failed to request. status: %d", http.StatusNotFound)
 	}
 
 	data, err := io.ReadAll(resp.Body)

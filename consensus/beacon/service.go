@@ -10,6 +10,13 @@ import (
 	"time"
 )
 
+type BeaconError struct {
+	Message string `json:"message"`
+	Code    int    `json:"code"`
+}
+
+var beaconError *BeaconError
+
 // BeaconBlocksProvider is the interface for providing beacon blocks.
 type BeaconBlocksProvider interface {
 	// BeaconBlock provides the block header of a given block ID.

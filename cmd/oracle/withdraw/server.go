@@ -31,7 +31,7 @@ func run() {
 			switch err.(type) {
 			case runtime.Error:
 				logger.Errorf("runtime error:%+v", err)
-				withdraw.DefaultSleep()
+				withdraw.DefaultRandomSleep()
 			default:
 				logger.Errorf("error::%+v", err)
 			}

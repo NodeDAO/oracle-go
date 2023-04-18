@@ -105,8 +105,15 @@ func (b *BeaconService) BeaconBlock(ctx context.Context, blockID string) (*Beaco
 		return nil, errors.Wrap(err, "failed to request beacon block header")
 	}
 	if respBodyReader == nil {
-		return nil, nil
+		return nil, errors.New(fmt.Sprintf("failed to parse. slot missing. blockID:%s", blockID))
 	}
+
+	//if err := json.NewDecoder(respBodyReader).Decode(&beaconError); err != nil {
+	//	return nil, errors.Wrap(err, "failed to parse beaconError")
+	//}
+	//if beaconError.Code > 0 && beaconError.Code != 200 {
+	//	return nil, errors.Wrapf(err, "failed to parse. slot missing. blockID:%s", blockID)
+	//}
 
 	var resp *BeaconBlock
 	if err := json.NewDecoder(respBodyReader).Decode(&resp); err != nil {

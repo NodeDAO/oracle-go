@@ -6,6 +6,7 @@ package withdraw
 
 import (
 	"context"
+	"fmt"
 	"github.com/NodeDAO/oracle-go/app/consensusModule"
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/consensus"
@@ -25,7 +26,7 @@ func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
 	}
 	if paused {
 		logger.Info("withdrawOracle is paused.")
-		DefaultSleep()
+		DefaultRandomSleep()
 	}
 
 	if err := v.buildReportData(ctx); err != nil {
@@ -101,7 +102,7 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 
 	if memberInfo.CurrentFrameConsensusReport == eth1.ZERO_HASH {
 		logger.Info("Quorum is not ready.")
-		DefaultSleep()
+		DefaultRandomSleep()
 		return nil
 	}
 
@@ -116,12 +117,15 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 	}
 	if submitted {
 		logger.Info("Main data already submitted.")
-		DefaultSleep()
+		DefaultRandomSleep()
 	}
 
 	logger.Info("Sending report data...")
+	logger.Debug("report data.", zap.String("report data", fmt.Sprintf("%+v", v.reportData)))
 
-	tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(v.keyTransactOpts, *v.reportData, v.consensusVersion)
+	opt := v.keyTransactOpts
+	opt.GasLimit = 8000000
+	tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(opt, *v.reportData, v.consensusVersion)
 	if err != nil {
 		return errors.Wrap(err, "WithdrawOracle SubmitReportData err.")
 	}
@@ -134,6 +138,12 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 }
 
 func (v *WithdrawHelper) setup(ctx context.Context) error {
+	//  init
+	v.clBalance = big.NewInt(0)
+	v.clSettleAmount = big.NewInt(0)
+	v.totalOperatorClCapital = big.NewInt(0)
+	v.totalNftCount = big.NewInt(0)
+
 	var err error
 
 	chainID, err := eth1.ElClient.Client.ChainID(ctx)
@@ -187,6 +197,10 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	v.consensusVersion = consensusVersion
 
 	refSlot, canReport, err := v.hashConsensusHelper.GetRefSlotAndIsReport(ctx)
+	if err != nil {
+		return errors.Wrap(err, "Failed to GetRefSlotAndIsReport. slot:head")
+	}
+
 	v.refSlot = refSlot
 	logger.Debug("Oracle start scan ...", zap.String("refSlot", refSlot.String()))
 
@@ -201,14 +215,8 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 		return errors.Wrap(err, "")
 	}
 	if !canReport {
-		DefaultSleep()
+		DefaultRandomSleep()
 	}
-
-	//  init
-	v.clBalance = big.NewInt(0)
-	v.clSettleAmount = big.NewInt(0)
-	v.totalOperatorClCapital = big.NewInt(0)
-	v.totalNftCount = big.NewInt(0)
 
 	return nil
 }
@@ -233,12 +241,17 @@ func (v *WithdrawHelper) obtainReportData(ctx context.Context) error {
 		return v.largeExitDelayedRequestIds[i].Cmp(v.largeExitDelayedRequestIds[j]) < 0
 	})
 
+	reportExitedCount := big.NewInt(0)
+	if len(v.exitValidatorInfos) > 0 {
+		reportExitedCount = big.NewInt(int64(len(v.exitValidatorInfos)))
+	}
+
 	v.reportData = &withdrawOracle.WithdrawOracleReportData{
 		ConsensusVersion:           v.consensusVersion,
 		RefSlot:                    v.refSlot,
 		ClBalance:                  v.clBalance,
 		ClVaultBalance:             v.clVaultBalance,
-		ReportExitedCount:          big.NewInt(int64(len(v.exitValidatorInfos))),
+		ReportExitedCount:          reportExitedCount,
 		WithdrawInfos:              v.withdrawInfos,
 		ExitValidatorInfos:         v.exitValidatorInfos,
 		DelayedExitTokenIds:        v.delayedExitTokenIds,
