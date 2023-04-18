@@ -35,8 +35,8 @@ var RootCmd = &cobra.Command{
 	},
 	PersistentPreRun: func(*cobra.Command, []string) {
 		ctx := context.Background()
-		// init config file ...
-		app.InitServer(ctx, cfgFile)
+		// init
+		app.InitServer(ctx)
 	},
 	Run: func(cmd *cobra.Command, args []string) {
 		tip()
@@ -51,8 +51,9 @@ func tip() {
 }
 
 func init() {
+	cobra.OnInitialize(initConfig)
 
-	RootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "conf/config-dev.yaml", "config file path")
+	RootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "config file path")
 
 	RootCmd.AddCommand(version.StartCmd)
 	RootCmd.AddCommand(oracle.OracleCmd)
@@ -63,4 +64,8 @@ func Execute() {
 	if err := RootCmd.Execute(); err != nil {
 		os.Exit(-1)
 	}
+}
+
+func initConfig() {
+	config.InitConfig("../conf/config.yaml", cfgFile)
 }

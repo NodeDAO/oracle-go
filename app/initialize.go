@@ -17,12 +17,11 @@ import (
 
 var once sync.Once
 
-func InitServer(ctx context.Context, configDir string) {
+func InitServer(ctx context.Context) {
 	timeout := 1 * time.Minute
 	var err error
 
 	once.Do(func() {
-		config.InitConfig(configDir)
 		logger.InitLog()
 
 		consensus.ConsensusClient, err = consensus.New(ctx, config.Config.Eth.ClAddr, timeout)

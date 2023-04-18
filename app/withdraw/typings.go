@@ -33,7 +33,6 @@ type WithdrawHelper struct {
 	totalOperatorClCapital  *big.Int
 	totalNftCount           *big.Int
 	isComputeOperatorReward bool
-	operatorComputeAccuracy *big.Int
 
 	// process res
 	clBalance                  *big.Int

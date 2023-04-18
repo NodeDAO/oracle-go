@@ -16,7 +16,6 @@ import (
 )
 
 func (v *WithdrawHelper) calculationForOperator(ctx context.Context) error {
-	v.operatorComputeAccuracy = big.NewInt(0)
 
 	// Whether an operator is required to distribute rewards
 	if v.clVaultBalance.Cmp(v.clVaultMinSettleLimit) == -1 {
@@ -88,7 +87,7 @@ func (v *WithdrawHelper) calculationOperatorWeight(ctx context.Context, effectiv
 		return errors.Wrap(err, "Failed to get OperatorContract GetNodeOperatorsCount.")
 	}
 
-	// operator id start 0.
+	// operator id start 1.
 	for i := int64(1); i < operatorCount.Int64()+1; i++ {
 		operatorId := big.NewInt(i)
 		isTrusted, err := contracts.OperatorContract.Contract.IsTrustedOperator(nil, operatorId)
@@ -129,17 +128,13 @@ func (v *WithdrawHelper) calculationOperatorWeight(ctx context.Context, effectiv
 
 func (v *WithdrawHelper) calculationOperatorClReward(ctx context.Context, effectiveOperators map[int64]*EffectiveOperator) error {
 	sumReward := new(big.Int).Sub(v.clVaultBalance, v.totalOperatorClCapital)
-	modSumRes := big.NewInt(0)
-	var mod *big.Int
-
+	//_sumRewardMid := big.NewInt(0)
 	for _, op := range effectiveOperators {
 		mul := new(big.Int).Mul(sumReward, big.NewInt(int64(op.VnftCount)))
-		op.OperatorReward.ClReward, mod = new(big.Int).DivMod(mul, v.totalNftCount, big.NewInt(0))
-		modSumRes = new(big.Int).Add(modSumRes, mod)
+		op.OperatorReward.ClReward = new(big.Int).Div(mul, v.totalNftCount)
 	}
 
 	v.clSettleAmount = new(big.Int).Add(v.clSettleAmount, sumReward)
-	v.operatorComputeAccuracy = modSumRes
 
 	return nil
 }
@@ -154,13 +149,8 @@ func (v *WithdrawHelper) calculationWithdrawInfos(ctx context.Context, effective
 	}
 
 	if v.clSettleAmount.Cmp(sumSettle) != 0 {
-		// Handle accuracy loss
-		_sumSettle := new(big.Int).Add(sumSettle, v.operatorComputeAccuracy)
-		if v.clSettleAmount.Cmp(_sumSettle) == 0 {
-			effectiveOperators[0].OperatorReward.ClReward = new(big.Int).Add(effectiveOperators[0].OperatorReward.ClReward, v.operatorComputeAccuracy)
-		} else {
-			return errors.Errorf("clSettleAmount(%s) != opSumSettle(%s).", v.clSettleAmount.String(), _sumSettle.String())
-		}
+		accuracy := new(big.Int).Sub(v.clSettleAmount, sumSettle)
+		effectiveOperators[1].OperatorReward.ClReward = new(big.Int).Add(effectiveOperators[1].OperatorReward.ClReward, accuracy)
 	}
 
 	return nil
