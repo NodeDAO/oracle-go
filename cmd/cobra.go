@@ -67,5 +67,5 @@ func Execute() {
 }
 
 func initConfig() {
-	config.InitConfig("../conf/config.yaml", cfgFile)
+	config.InitConfig("conf/config.yaml", cfgFile)
 }

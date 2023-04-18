@@ -8,7 +8,7 @@ cli:
 
 log:
   level:
-    server: debug
+    server: info
 
 eth:
   network: mainnet

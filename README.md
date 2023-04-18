@@ -19,19 +19,12 @@ TODO
 config-default.json
 
 ```yaml
-server:
-  name: oracle-go
-  version: 0.0.1-beta
-
-cli:
-  name: oracle-go
-
 log:
   level:
     server: debug
 
 eth:
-  network: goerli
+  network: mainnet
   elAddr:
   clAddr:
   privateKey:
