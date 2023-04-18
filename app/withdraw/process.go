@@ -6,6 +6,7 @@ package withdraw
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/NodeDAO/oracle-go/app/consensusModule"
 	"github.com/NodeDAO/oracle-go/common/logger"
@@ -121,7 +122,13 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 	}
 
 	logger.Info("Sending report data...")
-	logger.Debug("report data.", zap.String("report data", fmt.Sprintf("%+v", v.reportData)))
+
+	reportJson, err := json.Marshal(v.reportData)
+	if err != nil {
+		logger.Debug("report data.", zap.String("report data", fmt.Sprintf("%s", string(reportJson))))
+	} else {
+		logger.Debug("report data.", zap.String("report data", fmt.Sprintf("%+v", v.reportData)))
+	}
 
 	opt := v.keyTransactOpts
 	opt.GasLimit = 8000000
