@@ -60,7 +60,7 @@ eth:
 
 ```sh
 docker pull nodedao/oracle-go:latest
-docker run -v `pwd`/config-dev.yaml:/config/config-dev.yaml -d  nodedao/oracle-go:latest --config /config/config-dev.yaml
+docker run --name nodedao-oracle -v `pwd`/config-dev.yaml:/config/config-dev.yaml -d --restart=always nodedao/oracle-go:latest --config /config/config-dev.yaml
 ```
 
 
