@@ -1,39 +1,16 @@
-// Code generated for package conf by go-bindata DO NOT EDIT. (@generated)
+// Code generated for package config by go-bindata DO NOT EDIT. (@generated)
 // sources:
 // conf/config-default.yaml
-package conf
+package config
 
 import (
-	"bytes"
-	"compress/gzip"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
 )
-
-func bindataRead(data []byte, name string) ([]byte, error) {
-	gz, err := gzip.NewReader(bytes.NewBuffer(data))
-	if err != nil {
-		return nil, fmt.Errorf("Read %q: %v", name, err)
-	}
-
-	var buf bytes.Buffer
-	_, err = io.Copy(&buf, gz)
-	clErr := gz.Close()
-
-	if err != nil {
-		return nil, fmt.Errorf("Read %q: %v", name, err)
-	}
-	if clErr != nil {
-		return nil, err
-	}
-
-	return buf.Bytes(), nil
-}
 
 type asset struct {
 	bytes []byte
@@ -77,13 +54,26 @@ func (fi bindataFileInfo) Sys() interface{} {
 	return nil
 }
 
-var _confConfigDefaultYaml = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\x6c\x8e\xb1\x6d\x84\x40\x10\x45\xf3\xa9\xe2\x4b\x8e\x41\xc8\xe1\x66\x8e\x1c\xb8\x8a\x05\xbe\xf1\xca\xc3\x0e\x5a\x96\xb5\xdc\xc3\x55\x70\xb5\xd0\x13\x2d\x9c\x40\xc7\xe9\x82\xcb\x9e\x46\xff\x69\xde\xcc\x54\x98\x9c\x00\xd1\x8f\x74\xb0\xe4\x3b\x65\x35\x98\x00\x6f\xf8\x54\x6b\xbd\xa2\x30\xcd\xc1\x22\x6c\xc9\xd3\x92\xb7\xf5\xc2\x61\x5b\xaf\xe8\x34\x3c\x09\xe7\x4a\x70\x92\x43\x53\x37\xf5\x7b\xd5\x32\x7b\x91\x7d\xfd\xe2\x8d\xa8\x0d\xfb\x5d\x59\xa8\x3b\x00\xf7\x26\x84\xf8\x6d\x22\xcc\x3f\x87\xc7\xfc\x67\xe9\xd7\x61\xf4\x21\x46\x66\x01\xa8\x1f\x7d\x7f\xb4\x77\x0f\x9a\x52\x28\x3e\xf3\x8b\xff\x4e\xe4\x16\x00\x00\xff\xff\x1a\x4c\x75\xd8\xdd\x00\x00\x00")
+var _confConfigDefaultYaml = []byte(`server:
+  name: oracle-go
+  # Global version output，eg： cli: oracle-go version
+  version: 0.0.2-beta
+
+cli:
+  name: oracle-go
+
+log:
+  level:
+    server: info
+
+eth:
+  network: mainnet
+  elAddr:
+  clAddr:
+  privateKey:`)
 
 func confConfigDefaultYamlBytes() ([]byte, error) {
-	return bindataRead(
-		_confConfigDefaultYaml,
-		"conf/config-default.yaml",
-	)
+	return _confConfigDefaultYaml, nil
 }
 
 func confConfigDefaultYaml() (*asset, error) {
@@ -92,7 +82,7 @@ func confConfigDefaultYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "conf/config-default.yaml", size: 221, mode: os.FileMode(420), modTime: time.Unix(1681827726, 0)}
+	info := bindataFileInfo{name: "conf/config-default.yaml", size: 219, mode: os.FileMode(420), modTime: time.Unix(1681887744, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }

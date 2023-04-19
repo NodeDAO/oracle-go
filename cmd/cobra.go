@@ -53,7 +53,7 @@ func tip() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	RootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "config file path")
+	RootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "conf/config-default.yaml", "config file path")
 
 	RootCmd.AddCommand(version.StartCmd)
 	RootCmd.AddCommand(oracle.OracleCmd)
