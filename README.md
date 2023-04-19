@@ -41,7 +41,7 @@ eth:
 
 ### Note:
 
-- Ensure connectivity between the ETH execution layer and the ETH consensus layer nodes for which the `executionLayerAddr` and `beaconNodeAddr` parameters are set.
+- Ensure connectivity between the ETH execution layer and the ETH consensus layer nodes for which the `elAddr` and `clAddr` parameters are set.
 - Ensure that privateKey's private key is authorized by Oracle member.
 
 
