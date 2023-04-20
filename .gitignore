@@ -62,4 +62,4 @@ go.sum
 report.*.json
 oracle-go
 oracle-go.*
-conf/config-dev.yaml
+*.dev.yaml
