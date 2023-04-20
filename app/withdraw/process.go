@@ -131,10 +131,9 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 		logger.Debug("report data.", zap.String("report data", fmt.Sprintf("%s", string(reportJson))))
 	}
 
-	// todo
-	opt := v.keyTransactOpts
-	opt.GasLimit = 2000000
-	tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(opt, *v.reportData, v.consensusVersion)
+	//opt := v.keyTransactOpts
+	//opt.GasLimit = 2000000
+	tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(v.keyTransactOpts, *v.reportData, v.consensusVersion)
 	if err != nil {
 		return errors.Wrap(err, "WithdrawOracle SubmitReportData err.")
 	}
