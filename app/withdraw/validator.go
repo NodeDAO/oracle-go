@@ -104,6 +104,9 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 			if err != nil {
 				return errors.Wrapf(err, "Failed to get execution block. slot:%v", exitedSlot)
 			}
+			if executionBlock.BlockNumber.Cmp(big.NewInt(0)) == 0 {
+				return errors.Errorf("Execution block is zero err.tokenId:%s pubkey:%s", exa.TokenId, pubkey)
+			}
 			exa.ExitedBlockHeight = executionBlock.BlockNumber
 
 			// IsNeedOracleReportExit
@@ -233,6 +236,9 @@ func (v *WithdrawHelper) calculationIsDelayedExit(ctx context.Context, exa *Vali
 
 func (v *WithdrawHelper) calculationExitValidatorInfo(ctx context.Context) error {
 	for _, exa := range v.requireReportValidator {
+		if exa.ExitedBlockHeight.Cmp(big.NewInt(0)) == 0 {
+			continue
+		}
 		w := withdrawOracle.ExitValidatorInfo{
 			ExitTokenId:     exa.TokenId.Uint64(),
 			ExitBlockNumber: exa.ExitedBlockHeight,
