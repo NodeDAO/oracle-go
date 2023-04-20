@@ -286,12 +286,26 @@ func (v *WithdrawHelper) dealLargeExitDelayedRequest(ctx context.Context) error 
 			}
 
 			for i := len(withdrawalQueues) - 1; i >= 0; i-- {
+				requestId := big.NewInt(int64(i))
+				delayedSlashRecords, err := contracts.OperatorSlashContract.Contract.LargeExitDelayedSlashRecords(nil, requestId)
+				if err != nil {
+					return errors.Wrapf(err, "Failed to get OperatorSlashContract LargeExitDelayedSlashRecords. requestId: %s", requestId)
+				}
 				q := withdrawalQueues[i]
-				// block height
-				isDelayed := new(big.Int).Sub(v.executionBlock.BlockNumber, q.WithdrawHeight).Cmp(v.delayedExitSlashStandard) == 1
+
+				lastReportBlock := big.NewInt(0)
+				if delayedSlashRecords.Cmp(big.NewInt(0)) == 0 {
+					lastReportBlock = q.WithdrawHeight
+				} else {
+					lastReportBlock = delayedSlashRecords
+				}
+
+				isDelayed := new(big.Int).Sub(v.executionBlock.BlockNumber, lastReportBlock).Cmp(v.delayedExitSlashStandard) == 1
 
 				if isDelayed {
-					v.largeExitDelayedRequestIds = append(v.largeExitDelayedRequestIds, big.NewInt(int64(i)))
+					v.largeExitDelayedRequestIds = append(v.largeExitDelayedRequestIds, requestId)
+				} else {
+					continue
 				}
 
 				if q.ClaimEthAmount.Cmp(cha) == 1 {
