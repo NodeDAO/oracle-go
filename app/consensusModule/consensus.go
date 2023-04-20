@@ -89,6 +89,9 @@ func (v *HashConsensusHelper) GetMemberInfo(ctx context.Context) (*MemberInfo, e
 		return nil, errors.Wrap(err, "Failed to get HashConsensus's GetCurrentFrame.")
 	}
 
+	// v.KeyTransactOpts.From
+	// mainnet address
+	//mainnetAddress := common.HexToAddress("0x080C185D164446746068Db1650850F453ffdB92c")
 	memberConsensusState, err := consensusContract.GetConsensusStateForMember(nil, v.KeyTransactOpts.From)
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to get HashConsensus's GetConsensusStateForMember.")
