@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"github.com/NodeDAO/oracle-go/app/consensusModule"
 	"github.com/NodeDAO/oracle-go/common/logger"
+	"github.com/NodeDAO/oracle-go/config"
 	"github.com/NodeDAO/oracle-go/consensus"
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
@@ -97,6 +98,11 @@ func (v *WithdrawHelper) buildReportData(ctx context.Context) error {
 }
 
 func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]byte) error {
+	// If the configuration does not report real data, return it directly
+	if !config.Config.Oracle.IsReportData {
+		return nil
+	}
+
 	_, memberInfo, err := v.hashConsensusHelper.GetLastData(ctx)
 	if err != nil {
 		return errors.Wrap(err, "")
@@ -129,6 +135,12 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 		logger.Debug("report data.", zap.String("report data", fmt.Sprintf("%+v", v.reportData)))
 	} else {
 		logger.Debug("report data.", zap.String("report data", fmt.Sprintf("%s", string(reportJson))))
+	}
+
+	// If configured to only simulate transactions
+	// todo
+	if config.Config.Oracle.IsSimulatedReportData {
+
 	}
 
 	//opt := v.keyTransactOpts

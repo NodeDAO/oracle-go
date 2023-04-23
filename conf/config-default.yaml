@@ -1,7 +1,7 @@
 server:
   name: oracle-go
   # Global version output，eg： cli: oracle-go version
-  version: 0.0.2-beta
+  version: 0.0.5
 
 cli:
   name: oracle-go
@@ -15,3 +15,10 @@ eth:
   elAddr:
   clAddr:
   privateKey:
+
+# oracle config
+oracle:
+  # Whether Oracle sends real data to the chain
+  isReportData: true
+  # Whether to turn on a transaction that only simulates reportData
+  isSimulatedReportData: false
