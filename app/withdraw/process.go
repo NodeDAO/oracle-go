@@ -128,8 +128,6 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 		DefaultRandomSleep()
 	}
 
-	logger.Info("Sending report data...")
-
 	reportJson, err := json.Marshal(v.reportData)
 	if err != nil {
 		logger.Debug("report data.", zap.String("report data", fmt.Sprintf("%+v", v.reportData)))
@@ -139,13 +137,16 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 
 	// If configured to only simulate transactions
 	if config.Config.Oracle.IsSimulatedReportData {
-		err := v.oracle.simulatedSubmitReportData(ctx, *v.reportData, v.consensusVersion)
+		logger.Info("simulated report data...")
+		err := v.oracle.simulatedSubmitReportData(ctx, v.keyTransactOpts, *v.reportData, v.consensusVersion)
 		if err != nil {
 			return errors.Wrap(err, "")
 		}
 
 		return nil
 	}
+
+	logger.Info("Sending report data...")
 
 	//opt := v.keyTransactOpts
 	//opt.GasLimit = 2000000
@@ -154,7 +155,7 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 		return errors.Wrap(err, "WithdrawOracle SubmitReportData err.")
 	}
 	// Wait for the transaction to complete
-	if _, err = bind.WaitMined(context.Background(), eth1.ElClient.Client, tx); err != nil {
+	if _, err = bind.WaitMined(ctx, eth1.ElClient.Client, tx); err != nil {
 		return errors.Wrapf(err, "Failed to WaitMined submit report data. tx hash:%s", tx.Hash().String())
 	}
 	logger.Info("Send report data success.",

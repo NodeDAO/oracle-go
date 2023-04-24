@@ -11,40 +11,14 @@ import (
 	"github.com/NodeDAO/oracle-go/contracts/hashConsensus"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
+	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/pkg/errors"
-	"go.uber.org/zap"
 	"math/big"
 	"strings"
-)
-
-// REPORT_DATA_TYPE  (uint256,uint256,uint256,uint256,uint256,uint256,(uint64,uint96,uint96)[],(uint64,uint96,uint96)[],uint256[],uint256[]) data
-var (
-	withdrawInfosArgumentMarshaling      = []abi.ArgumentMarshaling{{Type: "uint64"}, {Type: "uint96"}, {Type: "uint96"}}
-	exitValidatorInfosArgumentMarshaling = []abi.ArgumentMarshaling{{Type: "uint64"}, {Type: "uint96"}, {Type: "uint96"}}
-
-	//withdrawInfosType, _      = abi.NewType("tuple", "", withdrawInfosArgumentMarshaling)
-	//exitValidatorInfosType, _ = abi.NewType("tuple", "", exitValidatorInfosArgumentMarshaling)
-
-	reportDataTypeArgumentMarshaling = []abi.ArgumentMarshaling{
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "tuple", Components: withdrawInfosArgumentMarshaling},
-		{Type: "tuple", Components: exitValidatorInfosArgumentMarshaling},
-		{Type: "uint256[]"},
-		{Type: "uint256[]"},
-	}
-
-	reportDataType, _   = abi.NewType("tuple", "", reportDataTypeArgumentMarshaling)
-	reportDataArguments = abi.Arguments{{Type: reportDataType}}
 )
 
 func EncodeReportData(reportData *withdrawOracle.WithdrawOracleReportData) ([32]byte, error) {
@@ -140,44 +114,31 @@ func (v *Oracle) GetProcessingState(ctx context.Context) (*withdrawOracle.Withdr
 	return &processingState, nil
 }
 
-func (v *Oracle) simulatedSubmitReportData(ctx context.Context, reportData withdrawOracle.WithdrawOracleReportData, consensusVersion *big.Int) error {
-	chainID, err := eth1.ElClient.Client.ChainID(ctx)
+func (v *Oracle) simulatedSubmitReportData(ctx context.Context, opts *bind.TransactOpts, reportData withdrawOracle.WithdrawOracleReportData, consensusVersion *big.Int) error {
+
+	toAddress := common.HexToAddress(contracts.WithdrawOracleContract.Address)
+
+	abiJson, err := abi.JSON(strings.NewReader(withdrawOracle.WithdrawOracleMetaData.ABI))
 	if err != nil {
-		return errors.Wrap(err, "Failed to get chainID.")
+		return errors.Wrap(err, "Failed to abi json submitReportData")
 	}
-
-	balance := big.NewInt(5e18)
-
-	simulatedClient, err := eth1.NewSimulatedClient(chainID, balance, 2000000)
+	encodedData, err := abiJson.Pack("submitReportData", reportData, consensusVersion)
 	if err != nil {
-		return errors.Wrap(err, "Failed to get simulatedClient.")
+		return errors.Wrap(err, "Failed to Pack submitReportData")
 	}
 
-	opts, err := eth1.KeyTransactOpts(chainID)
+	msg := ethereum.CallMsg{
+		From: opts.From,
+		To:   &toAddress,
+		Data: encodedData,
+	}
+
+	gasLimit, err := eth1.ElClient.Client.EstimateGas(ctx, msg)
 	if err != nil {
-		return errors.Wrapf(err, "")
+		return errors.Wrap(err, "Failed to EstimateGas submitReportData")
 	}
 
-	address := opts.From
-
-	withdrawOracleTransactor, err := withdrawOracle.NewWithdrawOracleTransactor(address, simulatedClient)
-	if err != nil {
-		return errors.Wrapf(err, "Failed to get withdrawOracleTransactor.")
-	}
-
-	tx, err := withdrawOracleTransactor.SubmitReportData(opts, reportData, consensusVersion)
-	if err != nil {
-		return errors.Wrap(err, "simulated WithdrawOracle SubmitReportData err.")
-	}
-
-	// Wait for the transaction to complete
-	if _, err = bind.WaitMined(context.Background(), simulatedClient, tx); err != nil {
-		return errors.Wrapf(err, "Failed to simulated WaitMined submit report data. tx hash:%s", tx.Hash().String())
-	}
-	logger.Info("simulated tx Send report data success.",
-		zap.String("tx hash", tx.Hash().String()),
-		zap.String("consensusVersion", consensusVersion.String()),
-	)
+	logger.Infof("submitReportData EstimateGas:%v", gasLimit)
 
 	return nil
 }

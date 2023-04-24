@@ -57,7 +57,7 @@ func (fi bindataFileInfo) Sys() interface{} {
 var _confConfigDefaultYaml = []byte(`server:
   name: oracle-go
   # Global version output，eg： cli: oracle-go version
-  version: 0.0.2-beta
+  version: 0.0.5
 
 cli:
   name: oracle-go
@@ -70,7 +70,14 @@ eth:
   network: mainnet
   elAddr:
   clAddr:
-  privateKey:`)
+  privateKey:
+
+# oracle config
+oracle:
+  # Whether Oracle sends real data to the chain
+  isReportData: true
+  # Whether to turn on a transaction that only simulates reportData
+  isSimulatedReportData: false`)
 
 func confConfigDefaultYamlBytes() ([]byte, error) {
 	return _confConfigDefaultYaml, nil
@@ -82,7 +89,7 @@ func confConfigDefaultYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "conf/config-default.yaml", size: 219, mode: os.FileMode(420), modTime: time.Unix(1681887744, 0)}
+	info := bindataFileInfo{name: "conf/config-default.yaml", size: 407, mode: os.FileMode(420), modTime: time.Unix(1682303074, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }

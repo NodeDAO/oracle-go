@@ -9,7 +9,8 @@ import (
 )
 
 // NewSimulatedClient ETH client of constructing simulation transactions
-func NewSimulatedClient(chainID *big.Int, walletBalance *big.Int, gasLimit uint64) (*backends.SimulatedBackend, error) {
+func NewSimulatedClient(walletBalance *big.Int, gasLimit uint64) (*backends.SimulatedBackend, error) {
+	chainID := big.NewInt(1337)
 	opts, err := KeyTransactOpts(chainID)
 	if err != nil {
 		return nil, errors.Wrapf(err, "")
