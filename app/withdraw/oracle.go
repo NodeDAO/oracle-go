@@ -6,41 +6,19 @@ package withdraw
 
 import (
 	"context"
+	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/hashConsensus"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
+	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/pkg/errors"
+	"math/big"
 	"strings"
-)
-
-// REPORT_DATA_TYPE  (uint256,uint256,uint256,uint256,uint256,uint256,(uint64,uint96,uint96)[],(uint64,uint96,uint96)[],uint256[],uint256[]) data
-var (
-	withdrawInfosArgumentMarshaling      = []abi.ArgumentMarshaling{{Type: "uint64"}, {Type: "uint96"}, {Type: "uint96"}}
-	exitValidatorInfosArgumentMarshaling = []abi.ArgumentMarshaling{{Type: "uint64"}, {Type: "uint96"}, {Type: "uint96"}}
-
-	//withdrawInfosType, _      = abi.NewType("tuple", "", withdrawInfosArgumentMarshaling)
-	//exitValidatorInfosType, _ = abi.NewType("tuple", "", exitValidatorInfosArgumentMarshaling)
-
-	reportDataTypeArgumentMarshaling = []abi.ArgumentMarshaling{
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "uint256"},
-		{Type: "tuple", Components: withdrawInfosArgumentMarshaling},
-		{Type: "tuple", Components: exitValidatorInfosArgumentMarshaling},
-		{Type: "uint256[]"},
-		{Type: "uint256[]"},
-	}
-
-	reportDataType, _   = abi.NewType("tuple", "", reportDataTypeArgumentMarshaling)
-	reportDataArguments = abi.Arguments{{Type: reportDataType}}
 )
 
 func EncodeReportData(reportData *withdrawOracle.WithdrawOracleReportData) ([32]byte, error) {
@@ -134,4 +112,33 @@ func (v *Oracle) GetProcessingState(ctx context.Context) (*withdrawOracle.Withdr
 		return nil, errors.Wrap(err, "Failed to get WithdrawOracleContract GetProcessingState.")
 	}
 	return &processingState, nil
+}
+
+func (v *Oracle) simulatedSubmitReportData(ctx context.Context, opts *bind.TransactOpts, reportData withdrawOracle.WithdrawOracleReportData, consensusVersion *big.Int) error {
+
+	toAddress := common.HexToAddress(contracts.WithdrawOracleContract.Address)
+
+	abiJson, err := abi.JSON(strings.NewReader(withdrawOracle.WithdrawOracleMetaData.ABI))
+	if err != nil {
+		return errors.Wrap(err, "Failed to abi json submitReportData")
+	}
+	encodedData, err := abiJson.Pack("submitReportData", reportData, consensusVersion)
+	if err != nil {
+		return errors.Wrap(err, "Failed to Pack submitReportData")
+	}
+
+	msg := ethereum.CallMsg{
+		From: opts.From,
+		To:   &toAddress,
+		Data: encodedData,
+	}
+
+	gasLimit, err := eth1.ElClient.Client.EstimateGas(ctx, msg)
+	if err != nil {
+		return errors.Wrap(err, "Failed to EstimateGas submitReportData")
+	}
+
+	logger.Infof("submitReportData EstimateGas:%v", gasLimit)
+
+	return nil
 }

@@ -34,4 +34,9 @@ type ConfigYaml struct {
 		ClAddr     string
 		PrivateKey string
 	}
+
+	Oracle struct {
+		IsReportData          bool
+		IsSimulatedReportData bool
+	}
 }

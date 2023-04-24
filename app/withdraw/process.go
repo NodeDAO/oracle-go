@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"github.com/NodeDAO/oracle-go/app/consensusModule"
 	"github.com/NodeDAO/oracle-go/common/logger"
+	"github.com/NodeDAO/oracle-go/config"
 	"github.com/NodeDAO/oracle-go/consensus"
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
@@ -97,6 +98,11 @@ func (v *WithdrawHelper) buildReportData(ctx context.Context) error {
 }
 
 func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]byte) error {
+	// If the configuration does not report real data, return it directly
+	if !config.Config.Oracle.IsReportData {
+		return nil
+	}
+
 	_, memberInfo, err := v.hashConsensusHelper.GetLastData(ctx)
 	if err != nil {
 		return errors.Wrap(err, "")
@@ -122,14 +128,25 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 		DefaultRandomSleep()
 	}
 
-	logger.Info("Sending report data...")
-
 	reportJson, err := json.Marshal(v.reportData)
 	if err != nil {
 		logger.Debug("report data.", zap.String("report data", fmt.Sprintf("%+v", v.reportData)))
 	} else {
 		logger.Debug("report data.", zap.String("report data", fmt.Sprintf("%s", string(reportJson))))
 	}
+
+	// If configured to only simulate transactions
+	if config.Config.Oracle.IsSimulatedReportData {
+		logger.Info("simulated report data...")
+		err := v.oracle.simulatedSubmitReportData(ctx, v.keyTransactOpts, *v.reportData, v.consensusVersion)
+		if err != nil {
+			return errors.Wrap(err, "")
+		}
+
+		return nil
+	}
+
+	logger.Info("Sending report data...")
 
 	//opt := v.keyTransactOpts
 	//opt.GasLimit = 2000000
@@ -138,7 +155,7 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 		return errors.Wrap(err, "WithdrawOracle SubmitReportData err.")
 	}
 	// Wait for the transaction to complete
-	if _, err = bind.WaitMined(context.Background(), eth1.ElClient.Client, tx); err != nil {
+	if _, err = bind.WaitMined(ctx, eth1.ElClient.Client, tx); err != nil {
 		return errors.Wrapf(err, "Failed to WaitMined submit report data. tx hash:%s", tx.Hash().String())
 	}
 	logger.Info("Send report data success.",

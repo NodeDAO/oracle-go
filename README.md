@@ -31,18 +31,18 @@ eth:
 
 ### Configuration details
 
-| Attribute        | Required | Default | Description                                                  |
-| ---------------- | -------- | ------- | ------------------------------------------------------------ |
-| log.level.server | false    | info    | log level                                                    |
-| network          | false    | mainnet | network                                                      |
-| clAddr           | true     |         | ETH consensus layer connection address                       |
-| elAddr           | true     |         | ETH execution layer connection address                       |
-| privateKey       | true     |         | Oracle member's private key（Make enough ETH to support the GAS of transactions） |
+| Attribute           | Required | Default | Description                                                                                          |
+|:--------------------| -------- | ------- |------------------------------------------------------------------------------------------------------|
+| log.level.server    | false    | info    | log level                                                                                            |
+| eth.network         | false    | mainnet | network                                                                                              |
+| eth.clAddr          | true     |         | ETH consensus layer connection address                                                               |
+| eth.elAddr          | true     |         | ETH execution layer connection address                                                               |
+| eth.privateKey      | true     |         | Oracle member's private key（Make enough ETH to support the GAS of transactions; without ‘0x’ prefix） |
 
 ### Note:
 
 - Ensure connectivity between the ETH execution layer and the ETH consensus layer nodes for which the `elAddr` and `clAddr` parameters are set.
-- Ensure that privateKey's private key is authorized by Oracle member.
+- Ensure that privateKey's private key is authorized by Oracle member(privateKey without ‘0x’ prefix).
 
 
 
