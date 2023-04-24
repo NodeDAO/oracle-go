@@ -17,6 +17,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/pkg/errors"
+	"go.uber.org/zap"
 	"math/big"
 	"strings"
 )
@@ -138,7 +139,11 @@ func (v *Oracle) simulatedSubmitReportData(ctx context.Context, opts *bind.Trans
 		return errors.Wrap(err, "Failed to EstimateGas submitReportData")
 	}
 
-	logger.Infof("submitReportData EstimateGas:%v", gasLimit)
+	logger.Info("submitReportData EstimateGas",
+		zap.Uint64("gasLimit", gasLimit),
+		zap.String("from", msg.From.String()),
+		zap.String("to", msg.To.String()),
+	)
 
 	return nil
 }
