@@ -6,14 +6,18 @@ package withdraw
 
 import (
 	"context"
+	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/hashConsensus"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
 	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/pkg/errors"
+	"go.uber.org/zap"
+	"math/big"
 	"strings"
 )
 
@@ -134,4 +138,46 @@ func (v *Oracle) GetProcessingState(ctx context.Context) (*withdrawOracle.Withdr
 		return nil, errors.Wrap(err, "Failed to get WithdrawOracleContract GetProcessingState.")
 	}
 	return &processingState, nil
+}
+
+func (v *Oracle) simulatedSubmitReportData(ctx context.Context, reportData withdrawOracle.WithdrawOracleReportData, consensusVersion *big.Int) error {
+	chainID, err := eth1.ElClient.Client.ChainID(ctx)
+	if err != nil {
+		return errors.Wrap(err, "Failed to get chainID.")
+	}
+
+	balance := big.NewInt(5e18)
+
+	simulatedClient, err := eth1.NewSimulatedClient(chainID, balance, 2000000)
+	if err != nil {
+		return errors.Wrap(err, "Failed to get simulatedClient.")
+	}
+
+	opts, err := eth1.KeyTransactOpts(chainID)
+	if err != nil {
+		return errors.Wrapf(err, "")
+	}
+
+	address := opts.From
+
+	withdrawOracleTransactor, err := withdrawOracle.NewWithdrawOracleTransactor(address, simulatedClient)
+	if err != nil {
+		return errors.Wrapf(err, "Failed to get withdrawOracleTransactor.")
+	}
+
+	tx, err := withdrawOracleTransactor.SubmitReportData(opts, reportData, consensusVersion)
+	if err != nil {
+		return errors.Wrap(err, "simulated WithdrawOracle SubmitReportData err.")
+	}
+
+	// Wait for the transaction to complete
+	if _, err = bind.WaitMined(context.Background(), simulatedClient, tx); err != nil {
+		return errors.Wrapf(err, "Failed to simulated WaitMined submit report data. tx hash:%s", tx.Hash().String())
+	}
+	logger.Info("simulated tx Send report data success.",
+		zap.String("tx hash", tx.Hash().String()),
+		zap.String("consensusVersion", consensusVersion.String()),
+	)
+
+	return nil
 }

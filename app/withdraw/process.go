@@ -138,9 +138,13 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 	}
 
 	// If configured to only simulate transactions
-	// todo
 	if config.Config.Oracle.IsSimulatedReportData {
+		err := v.oracle.simulatedSubmitReportData(ctx, *v.reportData, v.consensusVersion)
+		if err != nil {
+			return errors.Wrap(err, "")
+		}
 
+		return nil
 	}
 
 	//opt := v.keyTransactOpts
