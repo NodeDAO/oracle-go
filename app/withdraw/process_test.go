@@ -18,13 +18,39 @@ import (
 )
 
 func TestProcessReport(t *testing.T) {
+	var err error
 	ctx := context.Background()
 	//config.InitConfig("../../conf/config-mainnet.dev.yaml")
 	config.InitConfig("../../conf/config-goerli.dev.yaml")
 	logger.InitLog()
 	app.InitServer(ctx)
 	w := new(WithdrawHelper)
-	err := w.ProcessReport(ctx)
+
+	err = w.ProcessReport(ctx)
+
+	if sleepErr, ok := errors.Cause(err).(*errs.SleepError); ok {
+		logger.Debug("withdraw oracle sleep",
+			zap.String("msg", sleepErr.Msg),
+			zap.String("sleep time", sleepErr.Sleep.String()),
+		)
+		err = nil
+	}
+
+	require.NoError(t, err)
+}
+
+func TestProcessReportLoop(t *testing.T) {
+	var err error
+	ctx := context.Background()
+	//config.InitConfig("../../conf/config-mainnet.dev.yaml")
+	config.InitConfig("../../conf/config-goerli.dev.yaml")
+	logger.InitLog()
+	app.InitServer(ctx)
+	w := new(WithdrawHelper)
+
+	for i := 0; i < 50; i++ {
+		err = w.ProcessReport(ctx)
+	}
 
 	if sleepErr, ok := errors.Cause(err).(*errs.SleepError); ok {
 		logger.Debug("withdraw oracle sleep",
