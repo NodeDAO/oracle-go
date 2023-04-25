@@ -6,6 +6,7 @@ package withdraw
 
 import (
 	"context"
+	"github.com/NodeDAO/oracle-go/app"
 	"github.com/NodeDAO/oracle-go/app/withdraw"
 	"github.com/NodeDAO/oracle-go/common/errs"
 	"github.com/NodeDAO/oracle-go/common/logger"
@@ -21,6 +22,10 @@ var (
 		Use:   "withdraw",
 		Short: "Run Withdraw Oracle Server",
 		Long:  `Run Withdraw Oracle Server`,
+		PreRun: func(*cobra.Command, []string) {
+			ctx := context.Background()
+			app.InitServer(ctx)
+		},
 		Run: func(cmd *cobra.Command, args []string) {
 			for {
 				run()

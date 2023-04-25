@@ -21,6 +21,7 @@ func TestProcessReport(t *testing.T) {
 	ctx := context.Background()
 	//config.InitConfig("../../conf/config-mainnet.dev.yaml")
 	config.InitConfig("../../conf/config-goerli.dev.yaml")
+	logger.InitLog()
 	app.InitServer(ctx)
 	w := new(WithdrawHelper)
 	err := w.ProcessReport(ctx)

@@ -5,11 +5,10 @@
 package cmd
 
 import (
-	"context"
 	"fmt"
-	"github.com/NodeDAO/oracle-go/app"
 	"github.com/NodeDAO/oracle-go/cmd/oracle"
 	"github.com/NodeDAO/oracle-go/cmd/version"
+	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/config"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
@@ -34,9 +33,7 @@ var RootCmd = &cobra.Command{
 		return nil
 	},
 	PersistentPreRun: func(*cobra.Command, []string) {
-		ctx := context.Background()
-		// init
-		app.InitServer(ctx)
+		logger.InitLog()
 	},
 	Run: func(cmd *cobra.Command, args []string) {
 		tip()

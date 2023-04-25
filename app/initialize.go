@@ -22,7 +22,6 @@ func InitServer(ctx context.Context) {
 	var err error
 
 	once.Do(func() {
-		logger.InitLog()
 
 		consensus.ConsensusClient, err = consensus.New(ctx, config.Config.Eth.ClAddr, timeout)
 		if err != nil {
