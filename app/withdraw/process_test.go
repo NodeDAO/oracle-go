@@ -5,10 +5,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/NodeDAO/oracle-go/app"
+	"github.com/NodeDAO/oracle-go/common/errs"
+	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/config"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
+	"github.com/pkg/errors"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/zap"
 	"math/big"
 	"testing"
 )
@@ -20,6 +24,15 @@ func TestProcessReport(t *testing.T) {
 	app.InitServer(ctx)
 	w := new(WithdrawHelper)
 	err := w.ProcessReport(ctx)
+
+	if sleepErr, ok := errors.Cause(err).(*errs.SleepError); ok {
+		logger.Debug("withdraw oracle sleep",
+			zap.String("msg", sleepErr.Msg),
+			zap.String("sleep time", sleepErr.Sleep.String()),
+		)
+		err = nil
+	}
+
 	require.NoError(t, err)
 }
 
