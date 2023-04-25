@@ -21,7 +21,7 @@ func (v *WithdrawHelper) calculationForOperator(ctx context.Context) error {
 	if v.clVaultBalance.Cmp(v.clVaultMinSettleLimit) == -1 {
 		logger.Debugf("clVaultBalance less than clVaultMinSettleLimit, There is no need to distribute Operator rewards."+
 			" clVaultBalance:%s clVaultMinSettleLimit:%s",
-			v.clBalance.String(),
+			v.clVaultBalance.String(),
 			v.clVaultMinSettleLimit.String())
 	} else {
 		v.isComputeOperatorReward = true
