@@ -1,6 +1,7 @@
 FROM golang:1.20-buster as builder
 ENV GO111MODULE=on
 ENV GOPATH=/go
+#ENV GOPROXY=https://goproxy.cn
 RUN echo $GOPATH
 WORKDIR /app
 ADD . .
