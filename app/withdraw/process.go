@@ -42,7 +42,7 @@ func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
 		return errors.Wrap(err, "")
 	}
 
-	if err := v.hashConsensusHelper.ProcessReportHash(ctx, reportDataHash, v.refSlot, v.consensusVersion); err != nil {
+	if err := v.hashConsensusHelper.ProcessReportHash(ctx, reportDataHash, v.refSlot, v.consensusVersion, v.reportData); err != nil {
 		return errors.Wrap(err, "")
 	}
 

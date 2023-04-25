@@ -6,9 +6,11 @@ package consensusModule
 
 import (
 	"context"
+	"encoding/json"
 	"github.com/NodeDAO/oracle-go/common/errs"
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/consensus"
+	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
 	"github.com/NodeDAO/oracle-go/utils/timetool"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -19,7 +21,7 @@ import (
 	"time"
 )
 
-func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [32]byte, refSlot, consensusVersion *big.Int) error {
+func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [32]byte, refSlot, consensusVersion *big.Int, reportData *withdrawOracle.WithdrawOracleReportData) error {
 	headSlot, err := consensus.ConsensusClient.CustomizeBeaconService.HeadSlot(ctx)
 	if err != nil {
 		return errors.Wrap(err, "")
@@ -42,7 +44,7 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 	// If Oracle has already submitted real data, it is not submitting consensus
 	isConsensusReportAlreadyProcessing, err := v.isConsensusReportAlreadyProcessing(ctx, memberInfo)
 	if err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "get isConsensusReportAlreadyProcessing err.")
 	}
 	if isConsensusReportAlreadyProcessing {
 		minSleep := time.Second * 12 * 32
@@ -52,11 +54,13 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 
 	if dataHash != memberInfo.CurrentFrameMemberReport {
 		dataHashStr := hexutil.Encode(dataHash[:])
-		logger.Infof("Send report hash. hash:%s", dataHashStr)
+
 		err := v.submitReport(ctx, dataHash, refSlot, consensusVersion)
 		if err != nil {
 			return errors.Wrap(err, "")
 		}
+		reportJson, _ := json.Marshal(reportData)
+		logger.Info("Send reportData's hash.", zap.String("hash", dataHashStr), zap.String("ReportData", string(reportJson)))
 	} else {
 		logger.Info("Provided hash already submitted.")
 	}
