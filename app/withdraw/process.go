@@ -124,7 +124,7 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 		return errors.Wrap(err, "")
 	}
 	if submitted {
-		logger.Info("Main data already submitted.")
+		logger.Debug("Main data already submitted.")
 		return errs.NewSleepError("Main data already submitted.", RandomSleepTime())
 	}
 

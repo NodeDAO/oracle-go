@@ -62,7 +62,7 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 		reportJson, _ := json.Marshal(reportData)
 		logger.Info("Send reportData's hash.", zap.String("hash", dataHashStr), zap.String("ReportData", string(reportJson)))
 	} else {
-		logger.Info("Provided hash already submitted.")
+		logger.Debug("Provided hash already submitted.")
 	}
 
 	return nil
