@@ -96,3 +96,9 @@ func DefaultRandomSleep() {
 	maxSleep := time.Second * SECONDS_PER_EPOCH * 2
 	timetool.SleepWithRandom(minSleep, maxSleep)
 }
+
+func RandomSleepTime() time.Duration {
+	minSleep := time.Second * SECONDS_PER_EPOCH
+	maxSleep := time.Second * SECONDS_PER_EPOCH * 2
+	return timetool.RandomTime(minSleep, maxSleep)
+}

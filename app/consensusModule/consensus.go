@@ -6,6 +6,7 @@ package consensusModule
 
 import (
 	"context"
+	"github.com/NodeDAO/oracle-go/common/errs"
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/consensus"
 	"github.com/NodeDAO/oracle-go/eth1"
@@ -44,11 +45,9 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 		return errors.Wrap(err, "")
 	}
 	if isConsensusReportAlreadyProcessing {
-		// todo sleep => custom error
 		minSleep := time.Second * 12 * 32
 		maxSleep := time.Second * 12 * 32 * 2
-		timetool.SleepWithRandom(minSleep, maxSleep)
-		logger.Info("Consensus Report Already Processing (Main data already submitted)")
+		return errs.NewSleepError("Consensus Report Already Processing (Main data already submitted)", timetool.RandomTime(minSleep, maxSleep))
 	}
 
 	if dataHash != memberInfo.CurrentFrameMemberReport {

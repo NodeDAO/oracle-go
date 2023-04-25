@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/NodeDAO/oracle-go/app/consensusModule"
+	"github.com/NodeDAO/oracle-go/common/errs"
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/config"
 	"github.com/NodeDAO/oracle-go/consensus"
@@ -29,7 +30,7 @@ func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
 	}
 	if paused {
 		logger.Info("withdrawOracle is paused.")
-		DefaultRandomSleep()
+		return errs.NewSleepError("withdrawOracle is paused.", RandomSleepTime())
 	}
 
 	if err := v.buildReportData(ctx); err != nil {
@@ -109,9 +110,8 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 	}
 
 	if memberInfo.CurrentFrameConsensusReport == eth1.ZERO_HASH {
-		logger.Info("Quorum is not ready.")
-		DefaultRandomSleep()
-		return nil
+		logger.Debug("Quorum is not ready.")
+		return errs.NewSleepError("Quorum is not ready.", RandomSleepTime())
 	}
 
 	if memberInfo.CurrentFrameConsensusReport != reportHash {
@@ -125,7 +125,7 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 	}
 	if submitted {
 		logger.Info("Main data already submitted.")
-		DefaultRandomSleep()
+		return errs.NewSleepError("Main data already submitted.", RandomSleepTime())
 	}
 
 	reportJson, err := json.Marshal(v.reportData)
@@ -234,7 +234,7 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	logger.Debug("Oracle start scan ...", zap.String("refSlot", refSlot.String()))
 
 	if !canReport {
-		DefaultRandomSleep()
+		return errs.NewSleepError("Member not canReport.", RandomSleepTime())
 	}
 
 	// executionBlock
