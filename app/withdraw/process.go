@@ -229,12 +229,13 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	if err != nil {
 		return errors.Wrap(err, "Failed to GetRefSlotAndIsReport. slot:head")
 	}
-	if !canReport {
-		DefaultRandomSleep()
-	}
 
 	v.refSlot = refSlot
 	logger.Debug("Oracle start scan ...", zap.String("refSlot", refSlot.String()))
+
+	if !canReport {
+		DefaultRandomSleep()
+	}
 
 	// executionBlock
 	executionBlock, err := consensus.ConsensusClient.CustomizeBeaconService.ExecutionBlock(ctx, v.refSlot.String())
