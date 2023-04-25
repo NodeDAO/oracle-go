@@ -22,6 +22,8 @@ type ReportContract interface {
 	IsContractReportable(ctx context.Context) (bool, error)
 
 	IsMainDataSubmitted(ctx context.Context) (bool, error)
+
+	GetLastProcessingRefSlot(ctx context.Context) (*big.Int, error)
 }
 
 type HashConsensusHelper struct {
@@ -33,6 +35,7 @@ type HashConsensusHelper struct {
 type MemberInfo struct {
 	IsReportMember              bool
 	IsFastLane                  bool
+	CanReport                   bool
 	LastReportRefSlot           *big.Int
 	FastLaneLengthSlot          *big.Int
 	CurrentFrameRefSlot         *big.Int

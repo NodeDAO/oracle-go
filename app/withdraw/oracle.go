@@ -107,6 +107,14 @@ func (v *Oracle) IsMainDataSubmitted(ctx context.Context) (bool, error) {
 	return processingState.DataSubmitted, nil
 }
 
+func (v *Oracle) GetLastProcessingRefSlot(ctx context.Context) (*big.Int, error) {
+	lastProcessingRefSlot, err := contracts.WithdrawOracleContract.Contract.GetLastProcessingRefSlot(nil)
+	if err != nil {
+		return nil, errors.Wrap(err, "Failed to get WithdrawOracleContract GetLastProcessingRefSlot.")
+	}
+	return lastProcessingRefSlot, nil
+}
+
 func (v *Oracle) GetProcessingState(ctx context.Context) (*withdrawOracle.WithdrawOracleProcessingState, error) {
 	processingState, err := contracts.WithdrawOracleContract.Contract.GetProcessingState(nil)
 	if err != nil {

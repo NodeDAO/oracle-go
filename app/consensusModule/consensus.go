@@ -9,11 +9,13 @@ import (
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/consensus"
 	"github.com/NodeDAO/oracle-go/eth1"
+	"github.com/NodeDAO/oracle-go/utils/timetool"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"math/big"
+	"time"
 )
 
 func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [32]byte, refSlot, consensusVersion *big.Int) error {
@@ -34,6 +36,19 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 
 	if !memberInfo.IsReportMember {
 		logger.Warn("Account can`t submit report hash.")
+	}
+
+	// If Oracle has already submitted real data, it is not submitting consensus
+	isConsensusReportAlreadyProcessing, err := v.isConsensusReportAlreadyProcessing(ctx, memberInfo)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
+	if isConsensusReportAlreadyProcessing {
+		// todo sleep => custom error
+		minSleep := time.Second * 12 * 32
+		maxSleep := time.Second * 12 * 32 * 2
+		timetool.SleepWithRandom(minSleep, maxSleep)
+		logger.Info("Consensus Report Already Processing (Main data already submitted)")
 	}
 
 	if dataHash != memberInfo.CurrentFrameMemberReport {
@@ -102,6 +117,7 @@ func (v *HashConsensusHelper) GetMemberInfo(ctx context.Context) (*MemberInfo, e
 	return &MemberInfo{
 		IsReportMember:              memberConsensusState.IsMember,
 		IsFastLane:                  memberConsensusState.IsFastLane,
+		CanReport:                   memberConsensusState.CanReport,
 		LastReportRefSlot:           memberConsensusState.LastMemberReportRefSlot,
 		FastLaneLengthSlot:          frameConfig.FastLaneLengthSlots,
 		CurrentFrameRefSlot:         currentFrame.RefSlot,
@@ -125,6 +141,11 @@ func (v *HashConsensusHelper) GetRefSlotAndIsReport(ctx context.Context) (*big.I
 	memberInfo, err := v.GetMemberInfo(ctx)
 	if err != nil {
 		return nil, false, errors.Wrap(err, "")
+	}
+
+	if !memberInfo.CanReport {
+		logger.Debug("Member's ConsensusState is not CanReport.")
+		return memberInfo.CurrentFrameRefSlot, false, nil
 	}
 
 	// Slot < CurrentFrameRefSlot
@@ -158,4 +179,19 @@ func (v *HashConsensusHelper) GetLastData(ctx context.Context) (*big.Int, *Membe
 	}
 
 	return headSlot, memberInfo, nil
+}
+
+func (v *HashConsensusHelper) isConsensusReportAlreadyProcessing(ctx context.Context, memberInfo *MemberInfo) (bool, error) {
+	lastProcessingRefSlot, err := v.ReportContract.GetLastProcessingRefSlot(ctx)
+	if err != nil {
+		return false, errors.Wrap(err, "")
+	}
+
+	if memberInfo.CurrentFrameRefSlot.Cmp(lastProcessingRefSlot) != 1 {
+		if memberInfo.CurrentFrameRefSlot.Cmp(memberInfo.LastReportRefSlot) == 0 {
+			return true, nil
+		}
+	}
+
+	return false, nil
 }
