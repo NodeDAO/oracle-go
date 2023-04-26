@@ -22,7 +22,7 @@ func TestProcessReport(t *testing.T) {
 	ctx := context.Background()
 	//config.InitConfig("../../conf/config-mainnet.dev.yaml")
 	config.InitConfig("../../conf/config-goerli.dev.yaml")
-	logger.InitLog()
+	logger.InitLog("debug", "console")
 	app.InitServer(ctx)
 	w := new(WithdrawHelper)
 
@@ -44,7 +44,7 @@ func TestProcessReportLoop(t *testing.T) {
 	ctx := context.Background()
 	//config.InitConfig("../../conf/config-mainnet.dev.yaml")
 	config.InitConfig("../../conf/config-goerli.dev.yaml")
-	logger.InitLog()
+	logger.InitLog("debug", "console")
 	app.InitServer(ctx)
 	w := new(WithdrawHelper)
 

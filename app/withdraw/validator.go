@@ -133,6 +133,7 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 	for i, number := range oracleReportExitNumbers {
 		// Ge 0
 		if number.Cmp(decimal.Zero.BigInt()) == 0 {
+			// todo 遍历map 改为数组
 			for s, exa := range v.validatorExaMap {
 				if exitTokenIds[i] == exa.TokenId {
 					exa.IsNeedOracleReportExit = true

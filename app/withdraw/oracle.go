@@ -49,6 +49,14 @@ func (v *Oracle) Paused(ctx context.Context) (bool, error) {
 	return paused, nil
 }
 
+func (v *Oracle) GetReportAsyncProcessorAddress() (common.Address, error) {
+	if contracts.WithdrawOracleContract.Address == "" {
+		return common.BigToAddress(big.NewInt(0)), errors.New("WithdrawOracleContract address is Empty.")
+	}
+
+	return common.HexToAddress(contracts.WithdrawOracleContract.Address), nil
+}
+
 func (v *Oracle) GetConsensusContract(ctx context.Context) (*hashConsensus.HashConsensus, error) {
 	address, err := v.GetConsensusContractAddress(ctx)
 	if err != nil {

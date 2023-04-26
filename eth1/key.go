@@ -6,14 +6,21 @@ package eth1
 
 import (
 	"crypto/ecdsa"
+	"fmt"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/pkg/errors"
+	"strings"
 )
 
-// PubkeyFromPrivateKey todo err need to test
-func PubkeyFromPrivateKey(pri string) (common.Address, error) {
-	privateKey, err := crypto.ToECDSA([]byte(pri))
+// AddressFromPrivateKey Push out the address from the private key
+func AddressFromPrivateKey(pri string) (common.Address, error) {
+	if !strings.HasPrefix(pri, "0x") {
+		pri = fmt.Sprintf("0x%s", pri)
+	}
+	priHex, err := hexutil.Decode(pri)
+	privateKey, err := crypto.ToECDSA(priHex)
 	if err != nil {
 		return common.Address{}, errors.Wrap(err, "Failed to ToECDSA")
 	}

@@ -33,7 +33,7 @@ var RootCmd = &cobra.Command{
 		return nil
 	},
 	PersistentPreRun: func(*cobra.Command, []string) {
-		logger.InitLog()
+		logger.InitLog(config.Config.Log.Level.Server, config.Config.Log.Format)
 	},
 	Run: func(cmd *cobra.Command, args []string) {
 		tip()

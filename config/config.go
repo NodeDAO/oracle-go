@@ -17,7 +17,7 @@ func InitConfig(configFile ...string) {
 	viper.AutomaticEnv() // read in environment variables that match
 	viper.SetConfigType("yaml")
 
-	assetStr := "conf/config-default.yaml"
+	assetStr := "../conf/config-default.yaml"
 	defaultConfig, err := Asset(assetStr)
 	if err != nil {
 		panic(fmt.Errorf("conf.Asset default config file: %s err:%+v\n", assetStr, err))

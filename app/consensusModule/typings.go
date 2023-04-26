@@ -7,12 +7,16 @@ package consensusModule
 import (
 	"context"
 	"github.com/NodeDAO/oracle-go/contracts/hashConsensus"
+	"github.com/NodeDAO/oracle-go/utils/timetool"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"math/big"
+	"time"
 )
 
 type ReportContract interface {
+	GetReportAsyncProcessorAddress() (common.Address, error)
+
 	GetConsensusContractAddress(ctx context.Context) (common.Address, error)
 
 	GetConsensusContract(ctx context.Context) (*hashConsensus.HashConsensus, error)
@@ -42,4 +46,10 @@ type MemberInfo struct {
 	DeadlineSlot                *big.Int
 	CurrentFrameMemberReport    [32]byte
 	CurrentFrameConsensusReport [32]byte
+}
+
+func RandomSleepTime() time.Duration {
+	minSleep := time.Second * 12 * 32
+	maxSleep := time.Second * 12 * 32 * 2
+	return timetool.RandomTime(minSleep, maxSleep)
 }

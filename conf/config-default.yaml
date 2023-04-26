@@ -9,6 +9,8 @@ cli:
 log:
   level:
     server: info
+  # console or json
+  format: console
 
 eth:
   network: mainnet
