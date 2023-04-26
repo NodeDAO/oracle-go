@@ -6,7 +6,6 @@ package logger
 
 import (
 	"fmt"
-	"github.com/NodeDAO/oracle-go/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"strings"
@@ -28,7 +27,7 @@ func parseConfigLevelEncoder(levelEncoderName string) zapcore.LevelEncoder {
 	}
 }
 
-func InitLog() {
+func InitLog(level, logFormat string) {
 	encoderConfig := zapcore.EncoderConfig{
 		TimeKey:        "time",
 		LevelKey:       "level",
@@ -44,25 +43,27 @@ func InitLog() {
 	}
 
 	// 设置日志级别
-	atomLevel := zap.NewAtomicLevelAt(switchLogLevel(config.Config.Log.Level.Server))
+	atomLevel := zap.NewAtomicLevelAt(switchLogLevel(level))
 
-	config := zap.Config{
+	zapConfig := zap.Config{
 		Level:         atomLevel, // 日志级别
 		Development:   false,     // 开发模式，堆栈跟踪
 		DisableCaller: true,
-		Encoding:      "console",     // 输出格式 console 或 json
-		EncoderConfig: encoderConfig, // 编码器配置
+		Encoding:      switchLogFormat(logFormat), // 输出格式 console 或 json
+		EncoderConfig: encoderConfig,              // 编码器配置
 		//InitialFields: map[string]interface{}{"serviceName": "spikeProxy"}, // 初始化字段，如：添加一个服务器名称
 		OutputPaths:      []string{"stdout"}, // 输出到指定文件 stdout（标准输出，正常颜色） stderr（错误输出，红色）
 		ErrorOutputPaths: []string{"stderr"},
 	}
 
 	var err error
-	zapLog, err = config.Build()
+	zapLog, err = zapConfig.Build()
 	if err != nil {
-		panic(fmt.Sprintf("log 初始化失败: %+v", err))
+		panic(fmt.Sprintf("log init err: %+v", err))
 	}
 	sugarLog = zapLog.Sugar()
+
+	zap.ReplaceGlobals(zapLog)
 }
 
 func switchLogLevel(level string) zapcore.Level {
@@ -77,5 +78,16 @@ func switchLogLevel(level string) zapcore.Level {
 		return zap.DebugLevel
 	default:
 		return zap.InfoLevel
+	}
+}
+
+func switchLogFormat(logFormat string) string {
+	switch strings.ToLower(logFormat) {
+	case "console":
+		return "console"
+	case "json":
+		return "json"
+	default:
+		return "console"
 	}
 }

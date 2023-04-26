@@ -2,9 +2,9 @@
 // @author renshiwei
 // Date: 2022/10/5 17:06
 
-package config
-
 //go:generate go-bindata -pkg=config -nocompress -o=default_conf.go ../conf/config-default.yaml
+
+package config
 
 var (
 	Config ConfigYaml
@@ -28,6 +28,7 @@ type ConfigYaml struct {
 		Level struct {
 			Server string
 		}
+		Format string
 	}
 
 	Eth struct {
