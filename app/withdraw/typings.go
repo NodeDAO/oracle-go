@@ -18,6 +18,7 @@ import (
 type WithdrawHelper struct {
 	// param
 	refSlot          *big.Int
+	deadlineSlot     *big.Int
 	consensusVersion *big.Int
 
 	// initial

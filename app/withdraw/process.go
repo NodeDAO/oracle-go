@@ -34,20 +34,20 @@ func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
 	}
 
 	if err := v.buildReportData(ctx); err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "buildReportData err.")
 	}
 
 	reportDataHash, err := EncodeReportData(v.reportData)
 	if err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "EncodeReportData err.")
 	}
 
 	if err := v.hashConsensusHelper.ProcessReportHash(ctx, reportDataHash, v.refSlot, v.consensusVersion, v.reportData); err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "ProcessReportHash err.")
 	}
 
 	if err := v.processReportData(ctx, reportDataHash); err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "processReportData err.")
 	}
 
 	return nil
@@ -64,35 +64,35 @@ func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
 // 8. obtainReportData
 func (v *WithdrawHelper) buildReportData(ctx context.Context) error {
 	if err := v.setup(ctx); err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "buildReportData err.")
 	}
 
 	if err := v.obtainValidatorConsensusInfo(ctx); err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "buildReportData err.")
 	}
 
 	if err := v.calculationValidatorExa(ctx); err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "buildReportData err.")
 	}
 
 	if err := v.calculationClVaultBalance(ctx); err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "buildReportData err.")
 	}
 
 	if err := v.calculationExitValidatorInfo(ctx); err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "buildReportData err.")
 	}
 
 	if err := v.calculationForOperator(ctx); err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "buildReportData err.")
 	}
 
 	if err := v.dealLargeExitDelayedRequest(ctx); err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "buildReportData err.")
 	}
 
 	if err := v.obtainReportData(ctx); err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "buildReportData err.")
 	}
 
 	return nil
@@ -106,7 +106,7 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 
 	_, memberInfo, err := v.hashConsensusHelper.GetLastData(ctx)
 	if err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "hashConsensus GetLastData err.")
 	}
 
 	if memberInfo.CurrentFrameConsensusReport == eth1.ZERO_HASH {
@@ -137,7 +137,7 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 
 	// If configured to only simulate transactions
 	if config.Config.Oracle.IsSimulatedReportData {
-		logger.Info("simulated report data...")
+		logger.Debug("simulated report data...")
 		err := v.oracle.simulatedSubmitReportData(ctx, v.keyTransactOpts, *v.reportData, v.consensusVersion)
 		if err != nil {
 			return errors.Wrap(err, "simulatedSubmitReportData err.")
@@ -146,7 +146,7 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 		return errs.NewSleepError("simulated report data success.", RandomSleepTime())
 	}
 
-	logger.Info("Sending report data...")
+	logger.Debug("Sending report data...")
 
 	//opt := v.keyTransactOpts
 	//opt.GasLimit = 2000000
@@ -159,7 +159,11 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 		return errors.Wrapf(err, "Failed to WaitMined submit report data. tx hash:%s", tx.Hash().String())
 	}
 	logger.Info("Send report data success.",
+		zap.String("refSlot", v.refSlot.String()),
 		zap.String("tx hash", tx.Hash().String()),
+		zap.String("from", v.keyTransactOpts.From.String()),
+		zap.String("to", contracts.WithdrawOracleContract.Address),
+		zap.Uint64("gas", tx.Gas()),
 		zap.String("consensusVersion", v.consensusVersion.String()),
 	)
 
@@ -225,13 +229,14 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	}
 	v.consensusVersion = consensusVersion
 
-	refSlot, canReport, err := v.hashConsensusHelper.GetRefSlotAndIsReport(ctx)
+	refSlot, deadlineSlot, canReport, err := v.hashConsensusHelper.GetRefSlotAndIsReport(ctx)
 	if err != nil {
 		return errors.Wrap(err, "Failed to GetRefSlotAndIsReport. slot:head")
 	}
 
 	v.refSlot = refSlot
-	logger.Debug("Oracle start scan ...", zap.String("refSlot", refSlot.String()))
+	v.deadlineSlot = deadlineSlot
+	logger.Debug("withdrawOracle start scan ...", zap.String("refSlot", refSlot.String()), zap.String("deadlineSlot", deadlineSlot.String()))
 
 	if !canReport {
 		return errs.NewSleepError("Member not canReport.", RandomSleepTime())
@@ -243,9 +248,14 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 		return errors.Wrapf(err, "Failed to get execution block. slot:%s", v.refSlot.String())
 	}
 	v.executionBlock = executionBlock
+	logger.Debug("execution block",
+		zap.String("BlockNumber", executionBlock.BlockNumber.String()),
+		zap.String("BlockHash", executionBlock.BlockHash),
+		zap.String("Timestamp", executionBlock.Timestamp),
+	)
 
 	if err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "setup err.")
 	}
 
 	return nil

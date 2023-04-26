@@ -54,6 +54,7 @@ func run() {
 	if err != nil {
 		switch errors.Cause(err).(type) {
 		case *errs.SleepError:
+			// If err is of type Sleep Error, the oracle program has reached the condition that needs to be slept and re-executed
 			if sleepErr, ok := errors.Cause(err).(*errs.SleepError); ok {
 				logger.Debug("withdraw oracle sleep",
 					zap.String("msg", sleepErr.Msg),
@@ -66,5 +67,12 @@ func run() {
 			withdraw.DefaultRandomSleep()
 		}
 		return
+	} else {
+		sleepTime := withdraw.RandomSleepTime()
+
+		logger.Debug("withdraw oracle sleep success run once for sleep.",
+			zap.String("sleep time", sleepTime.String()),
+		)
+		time.Sleep(sleepTime)
 	}
 }
