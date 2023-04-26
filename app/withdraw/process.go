@@ -140,10 +140,10 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 		logger.Info("simulated report data...")
 		err := v.oracle.simulatedSubmitReportData(ctx, v.keyTransactOpts, *v.reportData, v.consensusVersion)
 		if err != nil {
-			return errors.Wrap(err, "")
+			return errors.Wrap(err, "simulatedSubmitReportData err.")
 		}
 
-		return nil
+		return errs.NewSleepError("simulated report data success.", RandomSleepTime())
 	}
 
 	logger.Info("Sending report data...")
