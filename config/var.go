@@ -4,6 +4,8 @@
 
 package config
 
+//go:generate go-bindata -pkg=config -nocompress -o=default_conf.go ../conf/config-default.yaml
+
 var (
 	Config ConfigYaml
 )
