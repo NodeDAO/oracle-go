@@ -14,8 +14,11 @@ log:
 
 eth:
   network: mainnet
+  # ETH execution layer connection address
   elAddr:
+  # ETH consensus layer connection address
   clAddr:
+  # Oracle member's private key（Make enough ETH to support the GAS of transactions; without ‘0x’ prefix）
   privateKey:
 
 # oracle config
