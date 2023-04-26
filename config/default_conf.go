@@ -91,7 +91,7 @@ func ConfConfigDefaultYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "../conf/config-default.yaml", size: 445, mode: os.FileMode(420), modTime: time.Unix(1682501137, 0)}
+	info := bindataFileInfo{name: "../conf/config-default.yaml", size: 445, mode: os.FileMode(420), modTime: time.Unix(1682502540, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
