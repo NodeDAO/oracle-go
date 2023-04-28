@@ -53,17 +53,22 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 
 	dataHashStr := hexutil.Encode(dataHash[:])
 	if dataHash != memberInfo.CurrentFrameMemberReport {
+		oldDataHashStr := hexutil.Encode(memberInfo.CurrentFrameMemberReport[:])
+		reportJson, _ := json.Marshal(reportData)
+
 		if memberInfo.IsCurrentReportConsensus {
+			logger.Warn("Consensus hash is different.",
+				zap.String("new hash", dataHashStr),
+				zap.String("old hash", oldDataHashStr),
+				zap.String("ReportData", string(reportJson)),
+			)
 			return errs.NewSleepError("CurrentFrameMemberReport Consensus hash is different. Member has report consensus.", RandomSleepTime())
 		}
-
-		oldDataHashStr := hexutil.Encode(memberInfo.CurrentFrameMemberReport[:])
 
 		err := v.submitReport(ctx, dataHash, refSlot, consensusVersion)
 		if err != nil {
 			return errors.Wrap(err, "")
 		}
-		reportJson, _ := json.Marshal(reportData)
 
 		if oldDataHashStr == eth1.ZERO_HASH_STR {
 			logger.Debug("Send reportData's hash.", zap.String("hash", dataHashStr), zap.String("ReportData", string(reportJson)))
