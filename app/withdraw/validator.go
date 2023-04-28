@@ -6,6 +6,7 @@ package withdraw
 
 import (
 	"context"
+	"github.com/NodeDAO/oracle-go/common/errs"
 	"github.com/NodeDAO/oracle-go/consensus"
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
@@ -183,6 +184,11 @@ func (v *WithdrawHelper) calculationClVaultBalance(ctx context.Context) error {
 	if err != nil {
 		return errors.Wrapf(err, "Failed to get ClVault BalanceAt. executionBlock:%s address:%s", executionBlock.BlockNumber.String(), contracts.GetClVaultAddress())
 	}
+
+	if balance.Cmp(big.NewInt(0)) == 0 {
+		return errs.NewSleepError("ClVaultBalance is zero. Cancel report.", RandomSleepTime())
+	}
+
 	v.clVaultBalance = balance
 
 	return nil

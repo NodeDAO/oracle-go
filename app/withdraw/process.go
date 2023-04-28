@@ -229,18 +229,13 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	}
 	v.consensusVersion = consensusVersion
 
-	refSlot, deadlineSlot, canReport, err := v.hashConsensusHelper.GetRefSlotAndIsReport(ctx)
+	refSlot, deadlineSlot, err := v.hashConsensusHelper.GetRefSlotAndIsReport(ctx)
 	if err != nil {
 		return errors.Wrap(err, "Failed to GetRefSlotAndIsReport. slot:head")
 	}
 
 	v.refSlot = refSlot
 	v.deadlineSlot = deadlineSlot
-	logger.Debug("withdrawOracle start scan ...", zap.String("refSlot", refSlot.String()), zap.String("deadlineSlot", deadlineSlot.String()))
-
-	if !canReport {
-		return errs.NewSleepError("Member not canReport.", RandomSleepTime())
-	}
 
 	// executionBlock
 	executionBlock, err := consensus.ConsensusClient.CustomizeBeaconService.ExecutionBlock(ctx, v.refSlot.String())

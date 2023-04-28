@@ -40,6 +40,7 @@ type MemberInfo struct {
 	IsReportMember              bool
 	IsFastLane                  bool
 	CanReport                   bool
+	IsCurrentReportConsensus    bool
 	LastReportRefSlot           *big.Int
 	FastLaneLengthSlot          *big.Int
 	CurrentFrameRefSlot         *big.Int
