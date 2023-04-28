@@ -12,6 +12,8 @@ import (
 
 var ZERO_HASH = [32]byte{}
 
+const ZERO_HASH_STR = "0x0000000000000000000000000000000000000000000000000000000000000000"
+
 func GWEIToWEI(value *big.Int) *big.Int {
 	return new(big.Int).Mul(value, big.NewInt(params.GWei))
 }

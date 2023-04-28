@@ -65,7 +65,7 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 		}
 		reportJson, _ := json.Marshal(reportData)
 
-		if dataHash == eth1.ZERO_HASH {
+		if oldDataHashStr == eth1.ZERO_HASH_STR {
 			logger.Debug("Send reportData's hash.", zap.String("hash", dataHashStr), zap.String("ReportData", string(reportJson)))
 		} else {
 			logger.Debug("Send reportData's hash.",
