@@ -53,6 +53,10 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 
 	dataHashStr := hexutil.Encode(dataHash[:])
 	if dataHash != memberInfo.CurrentFrameMemberReport {
+		if memberInfo.IsCurrentReportConsensus {
+			return errs.NewSleepError("CurrentFrameMemberReport Consensus hash is different. Member has report consensus.", RandomSleepTime())
+		}
+
 		oldDataHashStr := hexutil.Encode(memberInfo.CurrentFrameMemberReport[:])
 
 		err := v.submitReport(ctx, dataHash, refSlot, consensusVersion)
@@ -60,11 +64,16 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 			return errors.Wrap(err, "")
 		}
 		reportJson, _ := json.Marshal(reportData)
-		logger.Debug("Send reportData's hash.",
-			zap.String("new hash", dataHashStr),
-			zap.String("old hash", oldDataHashStr),
-			zap.String("ReportData", string(reportJson)),
-		)
+
+		if dataHash == eth1.ZERO_HASH {
+			logger.Debug("Send reportData's hash.", zap.String("hash", dataHashStr), zap.String("ReportData", string(reportJson)))
+		} else {
+			logger.Debug("Send reportData's hash.",
+				zap.String("new hash", dataHashStr),
+				zap.String("old hash", oldDataHashStr),
+				zap.String("ReportData", string(reportJson)),
+			)
+		}
 	} else {
 		logger.Debug("Provided hash already submitted.", zap.String("hash", dataHashStr))
 	}
@@ -131,10 +140,16 @@ func (v *HashConsensusHelper) GetMemberInfo(ctx context.Context) (*MemberInfo, e
 		return nil, errors.Wrap(err, "Failed to get HashConsensus's GetConsensusStateForMember.")
 	}
 
+	isCurrentReportConsensus := false
+	if memberConsensusState.CurrentFrameRefSlot.Cmp(memberConsensusState.LastMemberReportRefSlot) == 0 {
+		isCurrentReportConsensus = true
+	}
+
 	return &MemberInfo{
 		IsReportMember:              memberConsensusState.IsMember,
 		IsFastLane:                  memberConsensusState.IsFastLane,
 		CanReport:                   memberConsensusState.CanReport,
+		IsCurrentReportConsensus:    isCurrentReportConsensus,
 		LastReportRefSlot:           memberConsensusState.LastMemberReportRefSlot,
 		FastLaneLengthSlot:          frameConfig.FastLaneLengthSlots,
 		CurrentFrameRefSlot:         currentFrame.RefSlot,
@@ -144,44 +159,45 @@ func (v *HashConsensusHelper) GetMemberInfo(ctx context.Context) (*MemberInfo, e
 	}, nil
 }
 
-func (v *HashConsensusHelper) GetRefSlotAndIsReport(ctx context.Context) (*big.Int, *big.Int, bool, error) {
+func (v *HashConsensusHelper) GetRefSlotAndIsReport(ctx context.Context) (*big.Int, *big.Int, error) {
 	err := v.ReportContract.CheckContractVersions(ctx)
 	if err != nil {
-		return nil, nil, false, errors.Wrap(err, "")
+		return nil, nil, errors.Wrap(err, "")
 	}
 
 	headSlot, err := consensus.ConsensusClient.CustomizeBeaconService.HeadSlot(ctx)
 	if err != nil {
-		return nil, nil, false, errors.Wrap(err, "")
+		return nil, nil, errors.Wrap(err, "")
 	}
 
 	memberInfo, err := v.GetMemberInfo(ctx)
 	if err != nil {
-		return nil, nil, false, errors.Wrap(err, "")
+		return nil, nil, errors.Wrap(err, "")
 	}
 
+	logger.Debug("withdrawOracle start scan ...", zap.String("refSlot", memberInfo.CurrentFrameRefSlot.String()), zap.String("deadlineSlot", memberInfo.DeadlineSlot.String()))
+
 	if !memberInfo.CanReport {
-		logger.Debug("Member's ConsensusState is not CanReport.")
-		return memberInfo.CurrentFrameRefSlot, memberInfo.DeadlineSlot, false, nil
+		return nil, nil, errs.NewSleepError("Member's ConsensusState is not CanReport.", RandomSleepTime())
 	}
 
 	// Slot < CurrentFrameRefSlot
 	if headSlot.Cmp(memberInfo.CurrentFrameRefSlot) == -1 {
-		logger.Info("Reference slot is not yet finalized.",
+		logger.Warn("Reference slot is not yet finalized.",
 			zap.String("headSlot", headSlot.String()),
 			zap.String("CurrentFrameRefSlot", memberInfo.CurrentFrameRefSlot.String()))
-		return memberInfo.CurrentFrameRefSlot, memberInfo.DeadlineSlot, false, nil
+		return nil, nil, errs.NewSleepError("Reference slot is not yet finalized.", RandomSleepTime())
 	}
 
 	// Slot > DeadlineSlot
 	if headSlot.Cmp(memberInfo.DeadlineSlot) == 1 {
-		logger.Info("Deadline missed.",
+		logger.Warn("Deadline missed.",
 			zap.String("headSlot", headSlot.String()),
 			zap.String("DeadlineSlot", memberInfo.DeadlineSlot.String()))
-		return memberInfo.CurrentFrameRefSlot, memberInfo.DeadlineSlot, false, nil
+		return nil, nil, errs.NewSleepError("Deadline missed.", RandomSleepTime())
 	}
 
-	return memberInfo.CurrentFrameRefSlot, memberInfo.DeadlineSlot, true, nil
+	return memberInfo.CurrentFrameRefSlot, memberInfo.DeadlineSlot, nil
 }
 
 func (v *HashConsensusHelper) GetLastData(ctx context.Context) (*big.Int, *MemberInfo, error) {
