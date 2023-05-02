@@ -41,6 +41,9 @@ func (v *WithdrawHelper) obtainValidatorConsensusInfo(ctx context.Context) error
 	}
 
 	validators, err := consensus.ConsensusClient.CustomizeBeaconService.ValidatorsByPubKey(ctx, v.refSlot.String(), pubkeys)
+	if err != nil {
+		return errors.Wrap(err, "Failed to get validators info.")
+	}
 	for _, pubkey := range pubkeys {
 		validator, ok := validators[pubkey]
 		// Handle pubkeys that are not query by Beacon
