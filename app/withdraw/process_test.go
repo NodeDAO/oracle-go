@@ -125,3 +125,19 @@ func TestBigInt(t *testing.T) {
 
 	require.Equal(t, s2.String(), s1.String())
 }
+
+func TestNethEx(t *testing.T) {
+	ether1, _ := decimal.NewFromString("1000000000000000000")
+
+	clBalance, _ := decimal.NewFromString("3520000000000000000000")
+	clVaultBalance, _ := decimal.NewFromString("3297310124000000000")
+	operatorPoolBalancesSum, _ := decimal.NewFromString("56684526602667774526")
+	totalETH := clBalance.Add(clVaultBalance).Add(operatorPoolBalancesSum)
+	fmt.Println("totalETH", totalETH.String())
+
+	nETH1, _ := decimal.NewFromString("1000000000000000000")
+	totalNETH, _ := decimal.NewFromString("3565401715328792503385")
+	ex := nETH1.Mul(totalETH).Div(totalNETH)
+	// 1.004089334824513800
+	fmt.Println("1 nETH = ", ex.Div(ether1).String(), " ether")
+}
