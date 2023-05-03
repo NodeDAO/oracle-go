@@ -1,7 +1,7 @@
 server:
   name: oracle-go
   # Global version output，eg： cli: oracle-go version
-  version: 0.0.6
+  version: 0.0.8-rc3
 
 cli:
   name: oracle-go
@@ -27,3 +27,5 @@ oracle:
   isReportData: true
   # Whether to turn on a transaction that only simulates reportData
   isSimulatedReportData: false
+  # If the hashConsensus report is different, whether to allow it to be reported again
+  isDifferentConsensusHashReport: false

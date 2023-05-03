@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 )
+
 type asset struct {
 	bytes []byte
 	info  os.FileInfo
@@ -56,7 +57,7 @@ func (fi bindataFileInfo) Sys() interface{} {
 var _ConfConfigDefaultYaml = []byte(`server:
   name: oracle-go
   # Global version output，eg： cli: oracle-go version
-  version: 0.0.6
+  version: 0.0.8-rc3
 
 cli:
   name: oracle-go
@@ -69,8 +70,11 @@ log:
 
 eth:
   network: mainnet
+  # ETH execution layer connection address
   elAddr:
+  # ETH consensus layer connection address
   clAddr:
+  # Oracle member's private key（Make enough ETH to support the GAS of transactions; without ‘0x’ prefix）
   privateKey:
 
 # oracle config
@@ -78,7 +82,9 @@ oracle:
   # Whether Oracle sends real data to the chain
   isReportData: true
   # Whether to turn on a transaction that only simulates reportData
-  isSimulatedReportData: false`)
+  isSimulatedReportData: false
+  # If the hashConsensus report is different, whether to allow it to be reported again
+  isDifferentConsensusHashReport: false`)
 
 func ConfConfigDefaultYamlBytes() ([]byte, error) {
 	return _ConfConfigDefaultYaml, nil
@@ -90,7 +96,7 @@ func ConfConfigDefaultYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "../conf/config-default.yaml", size: 445, mode: os.FileMode(420), modTime: time.Unix(1682502540, 0)}
+	info := bindataFileInfo{name: "../conf/config-default.yaml", size: 775, mode: os.FileMode(420), modTime: time.Unix(1683121663, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -154,11 +160,13 @@ var _bindata = map[string]func() (*asset, error){
 // directory embedded in the file by go-bindata.
 // For example if you run go-bindata on data/... and data contains the
 // following hierarchy:
-//     data/
-//       foo.txt
-//       img/
-//         a.png
-//         b.png
+//
+//	data/
+//	  foo.txt
+//	  img/
+//	    a.png
+//	    b.png
+//
 // then AssetDir("data") would return []string{"foo.txt", "img"}
 // AssetDir("data/img") would return []string{"a.png", "b.png"}
 // AssetDir("foo.txt") and AssetDir("notexist") would return an error

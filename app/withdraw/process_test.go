@@ -20,8 +20,8 @@ import (
 func TestProcessReport(t *testing.T) {
 	var err error
 	ctx := context.Background()
-	//config.InitConfig("../../conf/config-mainnet.dev.yaml")
-	config.InitConfig("../../conf/config-goerli.dev.yaml")
+	config.InitConfig("../../conf/config-mainnet.dev.yaml")
+	//config.InitConfig("../../conf/config-goerli.dev.yaml")
 	logger.InitLog("debug", "console")
 	app.InitServer(ctx)
 	w := new(WithdrawHelper)
@@ -140,4 +140,15 @@ func TestNethEx(t *testing.T) {
 	ex := nETH1.Mul(totalETH).Div(totalNETH)
 	// 1.004089334824513800
 	fmt.Println("1 nETH = ", ex.Div(ether1).String(), " ether")
+}
+
+func TestClBalance(t *testing.T) {
+	ether1, _ := decimal.NewFromString("1000000000000000000")
+
+	h1, _ := decimal.NewFromString("3552000000000000000000")
+	//h2, _ := decimal.NewFromString("3552272701086000000000")
+	h2, _ := decimal.NewFromString("3552346631528000000000")
+	s1 := h2.Sub(h1)
+	// 0.272701086 ether
+	fmt.Println(s1.Div(ether1).String())
 }

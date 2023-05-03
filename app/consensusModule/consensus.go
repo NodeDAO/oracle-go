@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"github.com/NodeDAO/oracle-go/common/errs"
 	"github.com/NodeDAO/oracle-go/common/logger"
+	"github.com/NodeDAO/oracle-go/config"
 	"github.com/NodeDAO/oracle-go/consensus"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
@@ -56,11 +57,12 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 		oldDataHashStr := hexutil.Encode(memberInfo.CurrentFrameMemberReport[:])
 		reportJson, _ := json.Marshal(reportData)
 
-		if memberInfo.IsCurrentReportConsensus {
+		if memberInfo.IsCurrentReportConsensus && !config.Config.Oracle.IsDifferentConsensusHashReport {
 			logger.Warn("Consensus hash is different.",
 				zap.String("new hash", dataHashStr),
 				zap.String("old hash", oldDataHashStr),
 				zap.String("ReportData", string(reportJson)),
+				zap.Bool("IsDifferentConsensusHashReport", config.Config.Oracle.IsDifferentConsensusHashReport),
 			)
 			return errs.NewSleepError("CurrentFrameMemberReport Consensus hash is different. Member has report consensus.", RandomSleepTime())
 		}
@@ -73,11 +75,14 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 		if oldDataHashStr == eth1.ZERO_HASH_STR {
 			logger.Debug("Send reportData's hash.", zap.String("hash", dataHashStr), zap.String("ReportData", string(reportJson)))
 		} else {
-			logger.Debug("Send reportData's hash.",
-				zap.String("new hash", dataHashStr),
-				zap.String("old hash", oldDataHashStr),
-				zap.String("ReportData", string(reportJson)),
-			)
+			if config.Config.Oracle.IsDifferentConsensusHashReport {
+				logger.Warn("Send reportData's hash. CurrentFrameMemberReport Consensus hash is different.",
+					zap.String("new hash", dataHashStr),
+					zap.String("old hash", oldDataHashStr),
+					zap.String("ReportData", string(reportJson)),
+					zap.Bool("IsDifferentConsensusHashReport", config.Config.Oracle.IsDifferentConsensusHashReport),
+				)
+			}
 		}
 	} else {
 		logger.Debug("Provided hash already submitted.", zap.String("hash", dataHashStr))

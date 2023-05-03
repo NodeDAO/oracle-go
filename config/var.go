@@ -39,7 +39,8 @@ type ConfigYaml struct {
 	}
 
 	Oracle struct {
-		IsReportData          bool
-		IsSimulatedReportData bool
+		IsReportData                   bool
+		IsSimulatedReportData          bool
+		IsDifferentConsensusHashReport bool
 	}
 }
