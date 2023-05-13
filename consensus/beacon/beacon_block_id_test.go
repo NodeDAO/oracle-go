@@ -20,7 +20,7 @@ func TestGetBeaconBlock(t *testing.T) {
 		Timeout: 1 * time.Minute,
 	}
 
-	beaconBlock, err := b.BeaconBlock(context.Background(), "5435071")
+	beaconBlock, _, err := b.BeaconBlock(context.Background(), "5435071")
 	require.NoError(t, err)
 
 	marshal, err := json.Marshal(beaconBlock)
