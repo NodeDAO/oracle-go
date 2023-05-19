@@ -15,7 +15,7 @@ import (
 )
 
 type Consensus struct {
-	ConsensusClient        *eth2client.Service
+	ConsensusClient        eth2client.Service
 	ChainTimeService       *standard.Service
 	CustomizeBeaconService *beacon.BeaconService
 
@@ -45,7 +45,7 @@ func New(ctx context.Context, addr string, timeout time.Duration) (*Consensus, e
 	}
 
 	return &Consensus{
-		ConsensusClient:        &beaconNode,
+		ConsensusClient:        beaconNode,
 		ChainTimeService:       chainTimeService,
 		CustomizeBeaconService: beaconService,
 		Timeout:                timeout,

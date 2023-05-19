@@ -10,6 +10,13 @@ import (
 	"math/big"
 )
 
+const (
+	MAINNET = "mainnet"
+	GOERLI  = "goerli"
+	PRATER  = "prater"
+	SEPOLIA = "sepolia"
+)
+
 var ZERO_HASH = [32]byte{}
 
 const ZERO_HASH_STR = "0x0000000000000000000000000000000000000000000000000000000000000000"

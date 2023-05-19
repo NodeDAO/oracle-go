@@ -16,8 +16,10 @@ import (
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
+	consensusclient "github.com/attestantio/go-eth2-client"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/pkg/errors"
+	"github.com/spf13/cast"
 	"go.uber.org/zap"
 	"math/big"
 	"sort"
@@ -48,6 +50,66 @@ func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
 
 	if err := v.processReportData(ctx, reportDataHash); err != nil {
 		return errors.Wrap(err, "processReportData err.")
+	}
+
+	return nil
+}
+
+func (v *WithdrawHelper) check(ctx context.Context) error {
+	// check network
+	chainID, err := eth1.ElClient.Client.ChainID(ctx)
+	isSameNetwork := eth1.IsSameNetwork(config.Config.Eth.Network, int(chainID.Int64()))
+	if !isSameNetwork {
+		return errs.NewSleepError("el is not same network.", RandomSleepTime())
+	}
+
+	depositContract, err := consensus.ConsensusClient.ConsensusClient.(consensusclient.DepositContractProvider).DepositContract(ctx)
+	if err != nil {
+		return errors.Wrap(err, "get DepositContract err.")
+	}
+	isSameNetwork = eth1.IsSameNetwork(config.Config.Eth.Network, int(depositContract.ChainID))
+	if !isSameNetwork {
+		return errs.NewSleepError("cl is not same network.", RandomSleepTime())
+	}
+
+	// check beacon sync
+	syncState, err := consensus.ConsensusClient.ConsensusClient.(consensusclient.NodeSyncingProvider).NodeSyncing(ctx)
+	if err != nil {
+		return errors.Wrap(err, "check err.")
+	}
+	if syncState.IsSyncing {
+		logger.Warnf("Beacon node is syncing. isSync:%v SyncDistance:%v", syncState.IsSyncing, syncState.SyncDistance)
+		return errs.NewSleepError("Beacon node is syncing.", RandomSleepTime())
+	}
+
+	// check el sync
+	blockHeader, err := consensus.ConsensusClient.ConsensusClient.(consensusclient.BeaconBlockHeadersProvider).BeaconBlockHeader(ctx, "finalized")
+	if err != nil {
+		return errors.Wrap(err, "get BeaconBlockHeader finalized err.")
+	}
+	finalizedSlot := blockHeader.Header.Message.Slot
+
+	consensusBlock, err := consensus.ConsensusClient.CustomizeBeaconService.ExecutionBlock(ctx, cast.ToString(finalizedSlot))
+	if err != nil {
+		return errors.Wrap(err, "get ExecutionBlock err.")
+	}
+
+	blockNumber, err := eth1.ElClient.Client.BlockNumber(ctx)
+
+	if blockNumber < consensusBlock.BlockNumber.Uint64() {
+		logger.Warn("El node is syncing.",
+			zap.Uint64("beacon blockNumber", consensusBlock.BlockNumber.Uint64()),
+			zap.Uint64("el blockNumber", blockNumber),
+		)
+		return errs.NewSleepError("el node blockNumber is old.", RandomSleepTime())
+	}
+
+	if blockNumber > consensusBlock.BlockNumber.Uint64()+100 {
+		logger.Warn("el and cl is not same env.",
+			zap.Uint64("beacon blockNumber", consensusBlock.BlockNumber.Uint64()),
+			zap.Uint64("el blockNumber", blockNumber),
+		)
+		return errs.NewSleepError("el and cl is not same env.", RandomSleepTime())
 	}
 
 	return nil

@@ -7,6 +7,7 @@ package utils
 import (
 	"fmt"
 	"github.com/shopspring/decimal"
+	"github.com/spf13/cast"
 	"math/big"
 	"testing"
 )
@@ -34,6 +35,7 @@ func TestMakeArr(t *testing.T) {
 }
 
 func TestDecimalForBigInt(t *testing.T) {
+	cast.ToInt("1")
 	fmt.Println(decimal.NewFromBigInt(big.NewInt(111), 0).String())
 	fmt.Println(decimal.NewFromBigInt(big.NewInt(111), 1).String())
 }

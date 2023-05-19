@@ -20,8 +20,8 @@ import (
 func TestProcessReport(t *testing.T) {
 	var err error
 	ctx := context.Background()
-	config.InitConfig("../../conf/config-mainnet.dev.yaml")
-	//config.InitConfig("../../conf/config-goerli.dev.yaml")
+	//config.InitConfig("../../conf/config-mainnet.dev.yaml")
+	config.InitConfig("../../conf/config-goerli.dev.yaml")
 	logger.InitLog("debug", "console")
 	app.InitServer(ctx)
 	w := new(WithdrawHelper)
@@ -126,7 +126,7 @@ func TestBigInt(t *testing.T) {
 	require.Equal(t, s2.String(), s1.String())
 }
 
-func TestNethEx(t *testing.T) {
+func TestNethEx0501(t *testing.T) {
 	ether1, _ := decimal.NewFromString("1000000000000000000")
 
 	clBalance, _ := decimal.NewFromString("3520000000000000000000")
@@ -142,12 +142,46 @@ func TestNethEx(t *testing.T) {
 	fmt.Println("1 nETH = ", ex.Div(ether1).String(), " ether")
 }
 
+func TestNethEx0503(t *testing.T) {
+	ether1, _ := decimal.NewFromString("1000000000000000000")
+
+	clBalance, _ := decimal.NewFromString("3552098096645000000000")
+	clVaultBalance, _ := decimal.NewFromString("3653139213000000000")
+	operatorPoolBalancesSum, _ := decimal.NewFromString("10674703411883184608")
+	totalETH := clBalance.Add(clVaultBalance).Add(operatorPoolBalancesSum)
+	fmt.Println("totalETH", totalETH.String(), " wei ", totalETH.Div(ether1).String(), " ether")
+
+	nETH1, _ := decimal.NewFromString("1000000000000000000")
+	totalNETH, _ := decimal.NewFromString("3551442991856375267186")
+	ex := nETH1.Mul(totalETH).Div(totalNETH)
+	// 1.0042188337100904
+	fmt.Println("1 nETH = ", ex.Div(ether1).String(), " ether")
+}
+
 func TestClBalance(t *testing.T) {
 	ether1, _ := decimal.NewFromString("1000000000000000000")
 
 	h1, _ := decimal.NewFromString("3552000000000000000000")
 	//h2, _ := decimal.NewFromString("3552272701086000000000")
 	h2, _ := decimal.NewFromString("3552346631528000000000")
+	s1 := h2.Sub(h1)
+	// 0.272701086 ether
+	fmt.Println(s1.Div(ether1).String())
+}
+
+func TestCheckTotalClBalance(t *testing.T) {
+	ether1, _ := decimal.NewFromString("1000000000000000000")
+
+	h1, _ := decimal.NewFromString("128006940284000000000")
+	h2, _ := decimal.NewFromString("20892684000000000")
+	preTotal := h1.Add(h2)
+
+	h3, _ := decimal.NewFromString("128000503467000000000")
+	h4, _ := decimal.NewFromString("1028527387000000000")
+	curTotal := h3.Add(h4)
+
+	require.Equal(t, true, preTotal.LessThan(curTotal))
+
 	s1 := h2.Sub(h1)
 	// 0.272701086 ether
 	fmt.Println(s1.Div(ether1).String())
