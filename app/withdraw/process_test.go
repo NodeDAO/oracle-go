@@ -5,21 +5,61 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/NodeDAO/oracle-go/app"
+	"github.com/NodeDAO/oracle-go/common/errs"
+	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/config"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
+	"github.com/pkg/errors"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/zap"
 	"math/big"
 	"testing"
 )
 
 func TestProcessReport(t *testing.T) {
+	var err error
 	ctx := context.Background()
 	//config.InitConfig("../../conf/config-mainnet.dev.yaml")
 	config.InitConfig("../../conf/config-goerli.dev.yaml")
+	logger.InitLog("debug", "console")
 	app.InitServer(ctx)
 	w := new(WithdrawHelper)
-	err := w.ProcessReport(ctx)
+
+	err = w.ProcessReport(ctx)
+
+	if sleepErr, ok := errors.Cause(err).(*errs.SleepError); ok {
+		logger.Debug("withdraw oracle sleep",
+			zap.String("msg", sleepErr.Msg),
+			zap.String("sleep time", sleepErr.Sleep.String()),
+		)
+		err = nil
+	}
+
+	require.NoError(t, err)
+}
+
+func TestProcessReportLoop(t *testing.T) {
+	var err error
+	ctx := context.Background()
+	//config.InitConfig("../../conf/config-mainnet.dev.yaml")
+	config.InitConfig("../../conf/config-goerli.dev.yaml")
+	logger.InitLog("debug", "console")
+	app.InitServer(ctx)
+	w := new(WithdrawHelper)
+
+	for i := 0; i < 50; i++ {
+		err = w.ProcessReport(ctx)
+	}
+
+	if sleepErr, ok := errors.Cause(err).(*errs.SleepError); ok {
+		logger.Debug("withdraw oracle sleep",
+			zap.String("msg", sleepErr.Msg),
+			zap.String("sleep time", sleepErr.Sleep.String()),
+		)
+		err = nil
+	}
+
 	require.NoError(t, err)
 }
 
@@ -84,4 +124,65 @@ func TestBigInt(t *testing.T) {
 	s2, _ := decimal.NewFromString("65606791189000000000")
 
 	require.Equal(t, s2.String(), s1.String())
+}
+
+func TestNethEx0501(t *testing.T) {
+	ether1, _ := decimal.NewFromString("1000000000000000000")
+
+	clBalance, _ := decimal.NewFromString("3520000000000000000000")
+	clVaultBalance, _ := decimal.NewFromString("3297310124000000000")
+	operatorPoolBalancesSum, _ := decimal.NewFromString("56684526602667774526")
+	totalETH := clBalance.Add(clVaultBalance).Add(operatorPoolBalancesSum)
+	fmt.Println("totalETH", totalETH.String())
+
+	nETH1, _ := decimal.NewFromString("1000000000000000000")
+	totalNETH, _ := decimal.NewFromString("3565401715328792503385")
+	ex := nETH1.Mul(totalETH).Div(totalNETH)
+	// 1.004089334824513800
+	fmt.Println("1 nETH = ", ex.Div(ether1).String(), " ether")
+}
+
+func TestNethEx0503(t *testing.T) {
+	ether1, _ := decimal.NewFromString("1000000000000000000")
+
+	clBalance, _ := decimal.NewFromString("3552098096645000000000")
+	clVaultBalance, _ := decimal.NewFromString("3653139213000000000")
+	operatorPoolBalancesSum, _ := decimal.NewFromString("10674703411883184608")
+	totalETH := clBalance.Add(clVaultBalance).Add(operatorPoolBalancesSum)
+	fmt.Println("totalETH", totalETH.String(), " wei ", totalETH.Div(ether1).String(), " ether")
+
+	nETH1, _ := decimal.NewFromString("1000000000000000000")
+	totalNETH, _ := decimal.NewFromString("3551442991856375267186")
+	ex := nETH1.Mul(totalETH).Div(totalNETH)
+	// 1.0042188337100904
+	fmt.Println("1 nETH = ", ex.Div(ether1).String(), " ether")
+}
+
+func TestClBalance(t *testing.T) {
+	ether1, _ := decimal.NewFromString("1000000000000000000")
+
+	h1, _ := decimal.NewFromString("3552000000000000000000")
+	//h2, _ := decimal.NewFromString("3552272701086000000000")
+	h2, _ := decimal.NewFromString("3552346631528000000000")
+	s1 := h2.Sub(h1)
+	// 0.272701086 ether
+	fmt.Println(s1.Div(ether1).String())
+}
+
+func TestCheckTotalClBalance(t *testing.T) {
+	ether1, _ := decimal.NewFromString("1000000000000000000")
+
+	h1, _ := decimal.NewFromString("128006940284000000000")
+	h2, _ := decimal.NewFromString("20892684000000000")
+	preTotal := h1.Add(h2)
+
+	h3, _ := decimal.NewFromString("128000503467000000000")
+	h4, _ := decimal.NewFromString("1028527387000000000")
+	curTotal := h3.Add(h4)
+
+	require.Equal(t, true, preTotal.LessThan(curTotal))
+
+	s1 := h2.Sub(h1)
+	// 0.272701086 ether
+	fmt.Println(s1.Div(ether1).String())
 }

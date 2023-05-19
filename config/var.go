@@ -2,6 +2,8 @@
 // @author renshiwei
 // Date: 2022/10/5 17:06
 
+//go:generate go-bindata -pkg=config -nocompress -o=default_conf.go ../conf/config-default.yaml
+
 package config
 
 var (
@@ -26,6 +28,7 @@ type ConfigYaml struct {
 		Level struct {
 			Server string
 		}
+		Format string
 	}
 
 	Eth struct {
@@ -36,7 +39,8 @@ type ConfigYaml struct {
 	}
 
 	Oracle struct {
-		IsReportData          bool
-		IsSimulatedReportData bool
+		IsReportData                   bool
+		IsSimulatedReportData          bool
+		IsDifferentConsensusHashReport bool
 	}
 }

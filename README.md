@@ -20,24 +20,30 @@ You are advised to modify the configuration：
 ```yaml
 log:
   level:
-    server: debug
+    server: info
+  # console or json
+  format: console
 
 eth:
   network: mainnet
+  # ETH execution layer connection address
   elAddr:
+  # ETH consensus layer connection address
   clAddr:
+  # Oracle member's private key（Make enough ETH to support the GAS of transactions; without ‘0x’ prefix）
   privateKey:
 ```
 
 ### Configuration details
 
-| Attribute           | Required | Default | Description                                                                                          |
-|:--------------------| -------- | ------- |------------------------------------------------------------------------------------------------------|
-| log.level.server    | false    | info    | log level                                                                                            |
-| eth.network         | false    | mainnet | network                                                                                              |
-| eth.clAddr          | true     |         | ETH consensus layer connection address                                                               |
-| eth.elAddr          | true     |         | ETH execution layer connection address                                                               |
-| eth.privateKey      | true     |         | Oracle member's private key（Make enough ETH to support the GAS of transactions; without ‘0x’ prefix） |
+| Attribute        | Required | Default | Description                                                                                          |
+|:-----------------|----------|---------|------------------------------------------------------------------------------------------------------|
+| log.level.server | false    | info    | log level                                                                                            |
+| log.format       | false    | console | log format: console or json                                                                                         |
+| eth.network      | false    | mainnet | network                                                                                              |
+| eth.clAddr       | true     |         | ETH consensus layer connection address                                                               |
+| eth.elAddr       | true     |         | ETH execution layer connection address                                                               |
+| eth.privateKey   | true     |         | Oracle member's private key（Make enough ETH to support the GAS of transactions; without ‘0x’ prefix） |
 
 ### Note:
 

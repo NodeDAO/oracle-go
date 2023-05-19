@@ -6,6 +6,7 @@ package withdraw
 
 import (
 	"context"
+	"github.com/NodeDAO/oracle-go/common/errs"
 	"github.com/NodeDAO/oracle-go/consensus"
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
@@ -40,6 +41,9 @@ func (v *WithdrawHelper) obtainValidatorConsensusInfo(ctx context.Context) error
 	}
 
 	validators, err := consensus.ConsensusClient.CustomizeBeaconService.ValidatorsByPubKey(ctx, v.refSlot.String(), pubkeys)
+	if err != nil {
+		return errors.Wrap(err, "Failed to get validators info.")
+	}
 	for _, pubkey := range pubkeys {
 		validator, ok := validators[pubkey]
 		// Handle pubkeys that are not query by Beacon
@@ -133,6 +137,7 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 	for i, number := range oracleReportExitNumbers {
 		// Ge 0
 		if number.Cmp(decimal.Zero.BigInt()) == 0 {
+			// todo 遍历map 改为数组
 			for s, exa := range v.validatorExaMap {
 				if exitTokenIds[i] == exa.TokenId {
 					exa.IsNeedOracleReportExit = true
@@ -182,6 +187,11 @@ func (v *WithdrawHelper) calculationClVaultBalance(ctx context.Context) error {
 	if err != nil {
 		return errors.Wrapf(err, "Failed to get ClVault BalanceAt. executionBlock:%s address:%s", executionBlock.BlockNumber.String(), contracts.GetClVaultAddress())
 	}
+
+	if balance.Cmp(big.NewInt(0)) == 0 {
+		return errs.NewSleepError("ClVaultBalance is zero. Cancel report.", RandomSleepTime())
+	}
+
 	v.clVaultBalance = balance
 
 	return nil

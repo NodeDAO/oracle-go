@@ -18,10 +18,16 @@ type validatorsByPubKeyJSON struct {
 	Data []*consensusApi.Validator `json:"data"`
 }
 
+var indexChunkSize = 20
+
 func (b *BeaconService) ValidatorsByPubKey(ctx context.Context, stateID string, validatorPubKeys []string) (map[string]*consensusApi.Validator, error) {
 	httpTool, err := httptool.New(ctx, b.Timeout)
 	if err != nil {
 		return nil, errors.Wrap(err, "")
+	}
+
+	if len(validatorPubKeys) > indexChunkSize {
+		return b.chunkedValidatorsByPubKey(ctx, stateID, validatorPubKeys)
 	}
 
 	url := fmt.Sprintf("%s/eth/v1/beacon/states/%s/validators", b.BaseUrl, stateID)
@@ -54,5 +60,27 @@ func (b *BeaconService) ValidatorsByPubKey(ctx context.Context, stateID string, 
 		res[validator.Validator.PublicKey.String()] = validator
 	}
 
+	return res, nil
+}
+
+func (b *BeaconService) chunkedValidatorsByPubKey(ctx context.Context, stateID string, validatorPubKeys []string) (map[string]*consensusApi.Validator, error) {
+	res := make(map[string]*consensusApi.Validator)
+
+	for i := 0; i < len(validatorPubKeys); i += indexChunkSize {
+		chunkStart := i
+		chunkEnd := i + indexChunkSize
+		if len(validatorPubKeys) < chunkEnd {
+			chunkEnd = len(validatorPubKeys)
+		}
+		chunk := validatorPubKeys[chunkStart:chunkEnd]
+		chunkRes, err := b.ValidatorsByPubKey(ctx, stateID, chunk)
+		if err != nil {
+			return nil, errors.Wrap(err, "failed to obtain chunk")
+		}
+
+		for k, v := range chunkRes {
+			res[k] = v
+		}
+	}
 	return res, nil
 }

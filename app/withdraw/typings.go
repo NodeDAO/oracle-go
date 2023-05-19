@@ -18,6 +18,7 @@ import (
 type WithdrawHelper struct {
 	// param
 	refSlot          *big.Int
+	deadlineSlot     *big.Int
 	consensusVersion *big.Int
 
 	// initial
@@ -95,4 +96,10 @@ func DefaultRandomSleep() {
 	minSleep := time.Second * SECONDS_PER_EPOCH
 	maxSleep := time.Second * SECONDS_PER_EPOCH * 2
 	timetool.SleepWithRandom(minSleep, maxSleep)
+}
+
+func RandomSleepTime() time.Duration {
+	minSleep := time.Second * SECONDS_PER_EPOCH
+	maxSleep := time.Second * SECONDS_PER_EPOCH * 2
+	return timetool.RandomTime(minSleep, maxSleep)
 }

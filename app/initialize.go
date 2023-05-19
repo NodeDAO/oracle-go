@@ -11,6 +11,7 @@ import (
 	"github.com/NodeDAO/oracle-go/consensus"
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/eth1"
+	"go.uber.org/zap"
 	"sync"
 	"time"
 )
@@ -22,7 +23,6 @@ func InitServer(ctx context.Context) {
 	var err error
 
 	once.Do(func() {
-		logger.InitLog()
 
 		consensus.ConsensusClient, err = consensus.New(ctx, config.Config.Eth.ClAddr, timeout)
 		if err != nil {
@@ -37,5 +37,12 @@ func InitServer(ctx context.Context) {
 		}
 
 		contracts.InitContracts()
+
+		address, err := eth1.AddressFromPrivateKey(config.Config.Eth.PrivateKey)
+		if err != nil {
+			logger.Errorf("err:%+v", err)
+			panic(err)
+		}
+		logger.Info("Loaded ETH Account Success.", zap.String("address", address.String()))
 	})
 }

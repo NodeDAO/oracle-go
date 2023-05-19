@@ -17,6 +17,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/pkg/errors"
+	"go.uber.org/zap"
 	"math/big"
 	"strings"
 )
@@ -46,6 +47,14 @@ func (v *Oracle) Paused(ctx context.Context) (bool, error) {
 	}
 
 	return paused, nil
+}
+
+func (v *Oracle) GetReportAsyncProcessorAddress() (common.Address, error) {
+	if contracts.WithdrawOracleContract.Address == "" {
+		return common.BigToAddress(big.NewInt(0)), errors.New("WithdrawOracleContract address is Empty.")
+	}
+
+	return common.HexToAddress(contracts.WithdrawOracleContract.Address), nil
 }
 
 func (v *Oracle) GetConsensusContract(ctx context.Context) (*hashConsensus.HashConsensus, error) {
@@ -106,6 +115,14 @@ func (v *Oracle) IsMainDataSubmitted(ctx context.Context) (bool, error) {
 	return processingState.DataSubmitted, nil
 }
 
+func (v *Oracle) GetLastProcessingRefSlot(ctx context.Context) (*big.Int, error) {
+	lastProcessingRefSlot, err := contracts.WithdrawOracleContract.Contract.GetLastProcessingRefSlot(nil)
+	if err != nil {
+		return nil, errors.Wrap(err, "Failed to get WithdrawOracleContract GetLastProcessingRefSlot.")
+	}
+	return lastProcessingRefSlot, nil
+}
+
 func (v *Oracle) GetProcessingState(ctx context.Context) (*withdrawOracle.WithdrawOracleProcessingState, error) {
 	processingState, err := contracts.WithdrawOracleContract.Contract.GetProcessingState(nil)
 	if err != nil {
@@ -138,7 +155,11 @@ func (v *Oracle) simulatedSubmitReportData(ctx context.Context, opts *bind.Trans
 		return errors.Wrap(err, "Failed to EstimateGas submitReportData")
 	}
 
-	logger.Infof("submitReportData EstimateGas:%v", gasLimit)
+	logger.Info("submitReportData EstimateGas",
+		zap.Uint64("gasLimit", gasLimit),
+		zap.String("from", msg.From.String()),
+		zap.String("to", msg.To.String()),
+	)
 
 	return nil
 }

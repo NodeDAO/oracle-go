@@ -13,6 +13,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 	"math/big"
+	"strings"
 )
 
 func (v *WithdrawHelper) calculationForOperator(ctx context.Context) error {
@@ -21,7 +22,7 @@ func (v *WithdrawHelper) calculationForOperator(ctx context.Context) error {
 	if v.clVaultBalance.Cmp(v.clVaultMinSettleLimit) == -1 {
 		logger.Debugf("clVaultBalance less than clVaultMinSettleLimit, There is no need to distribute Operator rewards."+
 			" clVaultBalance:%s clVaultMinSettleLimit:%s",
-			v.clBalance.String(),
+			v.clVaultBalance.String(),
 			v.clVaultMinSettleLimit.String())
 	} else {
 		v.isComputeOperatorReward = true
@@ -115,6 +116,10 @@ func (v *WithdrawHelper) calculationOperatorWeight(ctx context.Context, effectiv
 		if isTrusted && !isQuit {
 			nftCount, err := contracts.VnftContract.Contract.GetActiveNftCountsOfOperator(nil, operatorId)
 			if err != nil {
+				if strings.Contains(err.Error(), "execution reverted") {
+					nftCount = big.NewInt(0)
+					err = nil
+				}
 				return errors.Wrapf(err, "Failed to get VnftContract GetActiveNftCountsOfOperator operatorId:%v.", i)
 			}
 
