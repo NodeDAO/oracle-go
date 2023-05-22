@@ -57,7 +57,7 @@ func (fi bindataFileInfo) Sys() interface{} {
 var _ConfConfigDefaultYaml = []byte(`server:
   name: oracle-go
   # Global version output，eg： cli: oracle-go version
-  version: 0.0.8-rc3
+  version: 0.0.8
 
 cli:
   name: oracle-go
@@ -96,7 +96,7 @@ func ConfConfigDefaultYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "../conf/config-default.yaml", size: 775, mode: os.FileMode(420), modTime: time.Unix(1683121663, 0)}
+	info := bindataFileInfo{name: "../conf/config-default.yaml", size: 771, mode: os.FileMode(420), modTime: time.Unix(1684739881, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
