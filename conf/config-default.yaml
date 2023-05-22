@@ -1,7 +1,7 @@
 server:
   name: oracle-go
   # Global version output，eg： cli: oracle-go version
-  version: 0.0.8-rc3
+  version: 0.0.8
 
 cli:
   name: oracle-go
