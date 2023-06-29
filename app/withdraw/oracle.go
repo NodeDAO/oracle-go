@@ -89,11 +89,11 @@ func (v *Oracle) CheckContractVersions(ctx context.Context) error {
 		return errors.Wrap(err, "Failed to get WithdrawOracleContract GetConsensusVersion.")
 	}
 
-	if oracleContractVersion.Int64() != CONTRACT_VERSION || consensusVersion.Int64() != CONSENSUS_VERSION {
+	if oracleContractVersion.Int64() != WITHRAW_ORACLE_CONTRACT_VERSION || consensusVersion.Int64() != CONSENSUS_VERSION {
 		return errors.Errorf(`Incompatible Oracle version err. 
 			Expected contract version %v got %v.
 			Expected consensus version %v got %v.
-		`, oracleContractVersion.Int64(), CONTRACT_VERSION, consensusVersion.Int64(), CONSENSUS_VERSION)
+		`, oracleContractVersion.Int64(), WITHRAW_ORACLE_CONTRACT_VERSION, consensusVersion.Int64(), CONSENSUS_VERSION)
 	}
 
 	return nil

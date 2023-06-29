@@ -93,6 +93,16 @@
   },
   {
     "inputs": [],
+    "name": "ModuleIdIsZero",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleIdNotEqual",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "NonZeroContractVersionOnInit",
     "type": "error"
   },
@@ -860,6 +870,19 @@
   },
   {
     "inputs": [],
+    "name": "getLastClSettleAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "getLastProcessingRefSlot",
     "outputs": [
       {
@@ -983,8 +1006,39 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_consensus",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_lastProcessingRefSlot",
+        "type": "uint256"
+      }
+    ],
+    "name": "initializeV2",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "lastClSettleAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "lastRefSlot",
     "outputs": [
       {
         "internalType": "uint256",
@@ -1194,6 +1248,11 @@
         "internalType": "uint256",
         "name": "deadline",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_moduleId",
+        "type": "uint256"
       }
     ],
     "name": "submitConsensusReport",
@@ -1298,6 +1357,11 @@
         "internalType": "uint256",
         "name": "_contractVersion",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_moduleId",
+        "type": "uint256"
       }
     ],
     "name": "submitReportData",
@@ -1334,6 +1398,19 @@
   {
     "inputs": [],
     "name": "unpause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "version",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateContractVersion",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

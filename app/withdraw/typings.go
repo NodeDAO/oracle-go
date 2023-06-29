@@ -27,6 +27,7 @@ type WithdrawHelper struct {
 	clVaultMinSettleLimit    *big.Int
 	exitRequestLimit         *big.Int
 	keyTransactOpts          *bind.TransactOpts
+	withdrawOracleModuleId   *big.Int
 
 	// compute process
 	validatorExaMap         map[string]*ValidatorExa
@@ -84,8 +85,8 @@ type Oracle struct {
 
 // version
 const (
-	CONSENSUS_VERSION = 1
-	CONTRACT_VERSION  = 1
+	CONSENSUS_VERSION               = 2
+	WITHRAW_ORACLE_CONTRACT_VERSION = 2
 
 	SLOTS_PER_EPOCH   = 32
 	SECONDS_PER_SLOT  = 12

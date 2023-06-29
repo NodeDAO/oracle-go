@@ -45,8 +45,8 @@ type MemberInfo struct {
 	FastLaneLengthSlot          *big.Int
 	CurrentFrameRefSlot         *big.Int
 	DeadlineSlot                *big.Int
-	CurrentFrameMemberReport    [32]byte
-	CurrentFrameConsensusReport [32]byte
+	CurrentFrameMemberReport    [][32]byte
+	CurrentFrameConsensusReport [][32]byte
 }
 
 func RandomSleepTime() time.Duration {

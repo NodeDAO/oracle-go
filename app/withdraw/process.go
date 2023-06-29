@@ -16,10 +16,11 @@ import (
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
+	"github.com/NodeDAO/oracle-go/utils/typetool"
 	consensusclient "github.com/attestantio/go-eth2-client"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
-	"github.com/spf13/cast"
 	"go.uber.org/zap"
 	"math/big"
 	"sort"
@@ -35,20 +36,29 @@ func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
 		return errs.NewSleepError("withdrawOracle is paused.", RandomSleepTime())
 	}
 
+	if err := v.check(ctx); err != nil {
+		return errors.Wrap(err, "check network、el、cl config err.")
+	}
+
 	if err := v.buildReportData(ctx); err != nil {
 		return errors.Wrap(err, "buildReportData err.")
 	}
 
-	reportDataHash, err := EncodeReportData(v.reportData)
+	withdrawOracleReportDataHash, err := EncodeReportData(v.reportData)
 	if err != nil {
 		return errors.Wrap(err, "EncodeReportData err.")
 	}
 
-	if err := v.hashConsensusHelper.ProcessReportHash(ctx, reportDataHash, v.refSlot, v.consensusVersion, v.reportData); err != nil {
+	reportHashArr := make([][32]byte, 0)
+	reportHashArr = append(reportHashArr, withdrawOracleReportDataHash)
+	// todo
+	reportHashArr = append(reportHashArr, eth1.ZERO_HASH)
+
+	if err := v.hashConsensusHelper.ProcessReportHash(ctx, reportHashArr, v.refSlot, v.reportData); err != nil {
 		return errors.Wrap(err, "ProcessReportHash err.")
 	}
 
-	if err := v.processReportData(ctx, reportDataHash); err != nil {
+	if err := v.processReportData(ctx, reportHashArr); err != nil {
 		return errors.Wrap(err, "processReportData err.")
 	}
 
@@ -89,7 +99,7 @@ func (v *WithdrawHelper) check(ctx context.Context) error {
 	}
 	finalizedSlot := blockHeader.Header.Message.Slot
 
-	consensusBlock, err := consensus.ConsensusClient.CustomizeBeaconService.ExecutionBlock(ctx, cast.ToString(finalizedSlot))
+	consensusBlock, err := consensus.ConsensusClient.CustomizeBeaconService.ExecutionBlock(ctx, fmt.Sprintf("%v", finalizedSlot))
 	if err != nil {
 		return errors.Wrap(err, "get ExecutionBlock err.")
 	}
@@ -160,7 +170,7 @@ func (v *WithdrawHelper) buildReportData(ctx context.Context) error {
 	return nil
 }
 
-func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]byte) error {
+func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [][32]byte) error {
 	// If the configuration does not report real data, return it directly
 	if !config.Config.Oracle.IsReportData {
 		return nil
@@ -171,12 +181,12 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 		return errors.Wrap(err, "hashConsensus GetLastData err.")
 	}
 
-	if memberInfo.CurrentFrameConsensusReport == eth1.ZERO_HASH {
+	if len(memberInfo.CurrentFrameConsensusReport) == 0 {
 		logger.Debug("Quorum is not ready.")
 		return errs.NewSleepError("Quorum is not ready.", RandomSleepTime())
 	}
 
-	if memberInfo.CurrentFrameConsensusReport != reportHash {
+	if !typetool.CompareByte32Arrays(memberInfo.CurrentFrameConsensusReport, reportHash) {
 		logger.Error("Oracle`s hash differs from consensus report hash.")
 		return errors.New("Oracle`s hash differs from consensus report hash.")
 	}
@@ -200,6 +210,7 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 	// If configured to only simulate transactions
 	if config.Config.Oracle.IsSimulatedReportData {
 		logger.Debug("simulated report data...")
+		// todo
 		err := v.oracle.simulatedSubmitReportData(ctx, v.keyTransactOpts, *v.reportData, v.consensusVersion)
 		if err != nil {
 			return errors.Wrap(err, "simulatedSubmitReportData err.")
@@ -212,7 +223,8 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [32]b
 
 	//opt := v.keyTransactOpts
 	//opt.GasLimit = 2000000
-	tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(v.keyTransactOpts, *v.reportData, v.consensusVersion)
+	// todo v.consensusVersion => contractVersion
+	tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(v.keyTransactOpts, *v.reportData, v.consensusVersion, v.withdrawOracleModuleId)
 	if err != nil {
 		return errors.Wrap(err, "WithdrawOracle SubmitReportData err.")
 	}
@@ -290,6 +302,11 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 		return errors.Wrap(err, "Failed to get WithdrawOracleContract GetConsensusVersion.")
 	}
 	v.consensusVersion = consensusVersion
+
+	v.withdrawOracleModuleId, err = v.hashConsensusHelper.GetModuleId(ctx, common.HexToAddress(contracts.WithdrawOracleContract.Address))
+	if err != nil {
+		return errors.Wrap(err, "Failed to withdrawOracleModuleId.")
+	}
 
 	refSlot, deadlineSlot, err := v.hashConsensusHelper.GetRefSlotAndIsReport(ctx)
 	if err != nil {

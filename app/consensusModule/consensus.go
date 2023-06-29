@@ -14,14 +14,16 @@ import (
 	"github.com/NodeDAO/oracle-go/consensus"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
+	"github.com/NodeDAO/oracle-go/utils/typetool"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"math/big"
+	"strings"
 )
 
-func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [32]byte, refSlot, consensusVersion *big.Int, reportData *withdrawOracle.WithdrawOracleReportData) error {
+func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [][32]byte, refSlot *big.Int, reportData *withdrawOracle.WithdrawOracleReportData) error {
 	headSlot, err := consensus.ConsensusClient.CustomizeBeaconService.HeadSlot(ctx)
 	if err != nil {
 		return errors.Wrap(err, "ProcessReportHash HeadSlot err.")
@@ -52,9 +54,10 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 		return errs.NewSleepError("Consensus Report Already Processing (Main data already submitted)", RandomSleepTime())
 	}
 
-	dataHashStr := hexutil.Encode(dataHash[:])
-	if dataHash != memberInfo.CurrentFrameMemberReport {
-		oldDataHashStr := hexutil.Encode(memberInfo.CurrentFrameMemberReport[:])
+	dataHashStr := strings.Join(typetool.Byte32ArrToStrArr(dataHash), ",")
+
+	if !typetool.CompareByte32Arrays(dataHash, memberInfo.CurrentFrameMemberReport) {
+		oldDataHashStr := strings.Join(typetool.Byte32ArrToStrArr(memberInfo.CurrentFrameMemberReport), ",")
 		reportJson, _ := json.Marshal(reportData)
 
 		if memberInfo.IsCurrentReportConsensus && !config.Config.Oracle.IsDifferentConsensusHashReport {
@@ -67,7 +70,7 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 			return errs.NewSleepError("CurrentFrameMemberReport Consensus hash is different. Member has report consensus.", RandomSleepTime())
 		}
 
-		err := v.submitReport(ctx, dataHash, refSlot, consensusVersion)
+		err := v.submitReport(ctx, dataHash, refSlot)
 		if err != nil {
 			return errors.Wrap(err, "")
 		}
@@ -91,7 +94,7 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 	return nil
 }
 
-func (v *HashConsensusHelper) submitReport(ctx context.Context, dataHash [32]byte, refSlot, consensusVersion *big.Int) error {
+func (v *HashConsensusHelper) submitReport(ctx context.Context, dataHash [][32]byte, refSlot *big.Int) error {
 	consensusContract, err := v.ReportContract.GetConsensusContract(ctx)
 	if err != nil {
 		return errors.Wrap(err, "")
@@ -99,13 +102,13 @@ func (v *HashConsensusHelper) submitReport(ctx context.Context, dataHash [32]byt
 
 	//opt := v.KeyTransactOpts
 	//opt.GasLimit = 2000000
-	tx, err := consensusContract.SubmitReport(v.KeyTransactOpts, refSlot, dataHash, consensusVersion)
+	tx, err := consensusContract.SubmitReport(v.KeyTransactOpts, refSlot, dataHash)
 	if err != nil {
-		return errors.Wrapf(err, "Failed to submit consensus report. refslot:%s, consensusVersion:%s", refSlot.String(), consensusVersion.String())
+		return errors.Wrapf(err, "Failed to submit consensus report. refslot:%s", refSlot.String())
 	}
 	// Wait for the transaction to complete
 	if _, err = bind.WaitMined(context.Background(), eth1.ElClient.Client, tx); err != nil {
-		return errors.Wrapf(err, "Failed to WaitMined submit consensus report. refslot:%s, consensusVersion:%s", refSlot.String(), consensusVersion.String())
+		return errors.Wrapf(err, "Failed to WaitMined submit consensus report. refslot:%s", refSlot.String())
 	}
 
 	to, err := v.ReportContract.GetConsensusContractAddress(ctx)
@@ -120,7 +123,6 @@ func (v *HashConsensusHelper) submitReport(ctx context.Context, dataHash [32]byt
 		zap.String("from", v.KeyTransactOpts.From.String()),
 		zap.String("to", to.String()),
 		zap.Uint64("gas", tx.Gas()),
-		zap.String("consensusVersion", consensusVersion.String()),
 	)
 
 	return nil
@@ -237,4 +239,22 @@ func (v *HashConsensusHelper) isConsensusReportAlreadyProcessing(ctx context.Con
 	}
 
 	return false, nil
+}
+
+func (v *HashConsensusHelper) GetModuleId(ctx context.Context, oracleAddress common.Address) (*big.Int, error) {
+	consensusContract, err := v.ReportContract.GetConsensusContract(ctx)
+	if err != nil {
+		return big.NewInt(0), errors.Wrap(err, "GetConsensusContract err.")
+	}
+
+	moduleId, err := consensusContract.GetReportModuleId(nil, oracleAddress)
+	if err != nil {
+		return big.NewInt(0), errors.Wrap(err, "consensusContract GetReportModuleId err.")
+	}
+
+	if moduleId.Cmp(big.NewInt(0)) == 0 {
+		return big.NewInt(0), errors.New("moduleId is zero err.")
+	}
+
+	return moduleId, nil
 }
