@@ -1,0 +1,990 @@
+[
+  {
+    "inputs": [],
+    "name": "AddressCannotBeSame",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "AddressCannotBeZero",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "DaoCannotBeZero",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "initialRefSlot",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "processingRefSlot",
+        "type": "uint256"
+      }
+    ],
+    "name": "InitialRefSlotCannotBeLessThanProcessingOne",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidAddr",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidContractVersionIncrement",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleIdIsZero",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ModuleIdNotEqual",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NonZeroContractVersionOnInit",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "OnlyConsensusContractCanSubmitReport",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "PermissionDenied",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "deadline",
+        "type": "uint256"
+      }
+    ],
+    "name": "ProcessingDeadlineMissed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "RefSlotAlreadyProcessing",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "refSlot",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "prevRefSlot",
+        "type": "uint256"
+      }
+    ],
+    "name": "RefSlotCannotDecrease",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "refSlot",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "processingRefSlot",
+        "type": "uint256"
+      }
+    ],
+    "name": "RefSlotMustBeGreaterThanProcessingOne",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ReportDataIsEmpty",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SenderNotAllowed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "UnexpectedChainConfig",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "expectedVersion",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "receivedVersion",
+        "type": "uint256"
+      }
+    ],
+    "name": "UnexpectedConsensusVersion",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "expected",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "received",
+        "type": "uint256"
+      }
+    ],
+    "name": "UnexpectedContractVersion",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "consensusHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "receivedHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "UnexpectedDataHash",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "consensusRefSlot",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "dataRefSlot",
+        "type": "uint256"
+      }
+    ],
+    "name": "UnexpectedRefSlot",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "VersionCannotBeSame",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "previousAdmin",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newAdmin",
+        "type": "address"
+      }
+    ],
+    "name": "AdminChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "beacon",
+        "type": "address"
+      }
+    ],
+    "name": "BeaconUpgraded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "prevAddr",
+        "type": "address"
+      }
+    ],
+    "name": "ConsensusHashContractSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "version",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "prevVersion",
+        "type": "uint256"
+      }
+    ],
+    "name": "ConsensusVersionSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "version",
+        "type": "uint256"
+      }
+    ],
+    "name": "ContractVersionSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_oldDao",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_dao",
+        "type": "address"
+      }
+    ],
+    "name": "DaoAddressChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "oldLargeStake",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newLargeStake",
+        "type": "address"
+      }
+    ],
+    "name": "LargeStakeContractChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Paused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "refSlot",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "ProcessingStarted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "refSlot",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "processingDeadlineTime",
+        "type": "uint256"
+      }
+    ],
+    "name": "ReportSubmitted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "refSlot",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "consensusVersion",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "stakingId",
+            "type": "uint128"
+          },
+          {
+            "internalType": "bytes",
+            "name": "pubkey",
+            "type": "bytes"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct CLStakingExitInfo[]",
+        "name": "cLStakingExitInfos",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "stakingId",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "slashAmount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "bytes",
+            "name": "pubkey",
+            "type": "bytes"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct CLStakingSlashInfo[]",
+        "name": "cLStakingSlashInfos",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "ReportSuccess",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Unpaused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "implementation",
+        "type": "address"
+      }
+    ],
+    "name": "Upgraded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "refSlot",
+        "type": "uint256"
+      }
+    ],
+    "name": "WarnProcessingMissed",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "GENESIS_TIME",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "SECONDS_PER_SLOT",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "dao",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getConsensusContract",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getConsensusReport",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "refSlot",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "processingDeadlineTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "processingStarted",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getConsensusVersion",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getContractVersion",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getLastProcessingRefSlot",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getProcessingState",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "currentFrameRefSlot",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "processingDeadlineTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "dataHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bool",
+            "name": "dataSubmitted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct LargeStakeOracle.ProcessingState",
+        "name": "result",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "secondsPerSlot",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "genesisTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "consensusContract",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "consensusVersion",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lastProcessingRefSlot",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_dao",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_largeStakeContract",
+        "type": "address"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "largeStakeContract",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "paused",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "proxiableUUID",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "setConsensusContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "version",
+        "type": "uint256"
+      }
+    ],
+    "name": "setConsensusVersion",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_dao",
+        "type": "address"
+      }
+    ],
+    "name": "setDaoAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_largeStakeContractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setLargeStakeContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "reportHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "refSlot",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_moduleId",
+        "type": "uint256"
+      }
+    ],
+    "name": "submitConsensusReport",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "consensusVersion",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "refSlot",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint128",
+                "name": "stakingId",
+                "type": "uint128"
+              },
+              {
+                "internalType": "bytes",
+                "name": "pubkey",
+                "type": "bytes"
+              }
+            ],
+            "internalType": "struct CLStakingExitInfo[]",
+            "name": "clStakingExitInfos",
+            "type": "tuple[]"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint128",
+                "name": "stakingId",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint128",
+                "name": "slashAmount",
+                "type": "uint128"
+              },
+              {
+                "internalType": "bytes",
+                "name": "pubkey",
+                "type": "bytes"
+              }
+            ],
+            "internalType": "struct CLStakingSlashInfo[]",
+            "name": "clStakingSlashInfos",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct LargeStakeOracle.ReportData",
+        "name": "data",
+        "type": "tuple"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_contractVersion",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_moduleId",
+        "type": "uint256"
+      }
+    ],
+    "name": "submitReportData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "unpause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "version",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateContractVersion",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newImplementation",
+        "type": "address"
+      }
+    ],
+    "name": "upgradeTo",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newImplementation",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "upgradeToAndCall",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  }
+]

@@ -29,6 +29,8 @@ type Service interface {
 	CurrentSyncCommitteePeriod() uint64
 	// SlotToEpoch provides the epoch of the given slot.
 	SlotToEpoch(slot phase0.Slot) phase0.Epoch
+	// EpochToSlot provides the slot of the given epoch.
+	EpochToSlot(epoch phase0.Epoch) phase0.Slot
 	// SlotToSyncCommitteePeriod provides the sync committee period of the given slot.
 	SlotToSyncCommitteePeriod(slot phase0.Slot) uint64
 	// FirstSlotOfEpoch provides the first slot of the given epoch.

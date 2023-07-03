@@ -9,6 +9,8 @@ import (
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/config"
 	"github.com/NodeDAO/oracle-go/contracts/hashConsensus"
+	"github.com/NodeDAO/oracle-go/contracts/largeStakeOracle"
+	"github.com/NodeDAO/oracle-go/contracts/largeStaking"
 	"github.com/NodeDAO/oracle-go/contracts/liq"
 	"github.com/NodeDAO/oracle-go/contracts/operator"
 	"github.com/NodeDAO/oracle-go/contracts/operatorSlash"
@@ -69,6 +71,18 @@ type withdrawalRequestHelper struct {
 	Contract *withdrawalRequest.WithdrawalRequest
 }
 
+type largeStakingHelper struct {
+	Network  string
+	Address  string
+	Contract *largeStaking.LargeStaking
+}
+
+type largeStakeOracleHelper struct {
+	Network  string
+	Address  string
+	Contract *largeStakeOracle.LargeStakeOracle
+}
+
 var (
 	WithdrawOracleContract    *withdrawOracleHelper
 	VnftContract              *vnftHelper
@@ -76,6 +90,8 @@ var (
 	OperatorContract          *nodeOperatorHelper
 	OperatorSlashContract     *operatorSlashHelper
 	WithdrawalRequestContract *withdrawalRequestHelper
+	LargeStakingContract      *largeStakingHelper
+	LargeStakeOracleContract  *largeStakeOracleHelper
 )
 
 const (
@@ -104,6 +120,12 @@ const (
 
 	WITHDRAWAL_REQUEST_ADDRESS_MAINNET = "0xE81fC969D14Cad8537ebAFa2a1c478F29d7840FC"
 	WITHDRAWAL_REQUEST_ADDRESS_GOERLi  = "0x006e69F509E31c91263C03a744B47c3b03eAC391"
+
+	LARGE_STAKING_ADDRESS_MAINNET = ""
+	LARGE_STAKING_ADDRESS_GOERLI  = "0xB71D8903Ae22df40DdDb189AfBcE5e99B23b7077"
+
+	LARGE_STAKE_ORACLE_ADDRESS_MAINNET = ""
+	LARGE_STAKE_ORACLE_ADDRESS_GOERLI  = "0xB8E0EE431d78273d7BAefEB0Fb64897626b0B8FA"
 )
 
 var network string
@@ -118,12 +140,15 @@ func InitContracts() {
 		network = config.Config.Eth.Network
 	}
 
-	WithdrawOracleContract, err = NewWithdrawOracle()
-	VnftContract, err = NewVnft()
-	LiqContract, err = NewLiq()
-	OperatorContract, err = NewNodeOperator()
-	OperatorSlashContract, err = NewOperatorSlash()
-	WithdrawalRequestContract, err = NewWithdrawalRequest()
+	WithdrawOracleContract, err = newWithdrawOracle()
+	VnftContract, err = newVnft()
+	LiqContract, err = newLiq()
+	OperatorContract, err = newNodeOperator()
+	OperatorSlashContract, err = newOperatorSlash()
+	WithdrawalRequestContract, err = newWithdrawalRequest()
+	LargeStakingContract, err = newLargeStaking()
+	LargeStakeOracleContract, err = newLargeStakeOracle()
+
 	if err != nil {
 		panic(fmt.Sprintf("New contract error: %+v", err))
 	}
@@ -141,7 +166,7 @@ func GetClVaultAddress() string {
 	return ""
 }
 
-func NewWithdrawOracle() (*withdrawOracleHelper, error) {
+func newWithdrawOracle() (*withdrawOracleHelper, error) {
 	e := &withdrawOracleHelper{
 		Network: network,
 	}
@@ -163,7 +188,7 @@ func NewWithdrawOracle() (*withdrawOracleHelper, error) {
 	return e, nil
 }
 
-func NewVnft() (*vnftHelper, error) {
+func newVnft() (*vnftHelper, error) {
 	e := &vnftHelper{
 		Network: network,
 	}
@@ -185,7 +210,7 @@ func NewVnft() (*vnftHelper, error) {
 	return e, nil
 }
 
-func NewLiq() (*liqHelper, error) {
+func newLiq() (*liqHelper, error) {
 	e := &liqHelper{
 		Network: network,
 	}
@@ -207,7 +232,7 @@ func NewLiq() (*liqHelper, error) {
 	return e, nil
 }
 
-func NewNodeOperator() (*nodeOperatorHelper, error) {
+func newNodeOperator() (*nodeOperatorHelper, error) {
 	e := &nodeOperatorHelper{
 		Network: network,
 	}
@@ -229,7 +254,7 @@ func NewNodeOperator() (*nodeOperatorHelper, error) {
 	return e, nil
 }
 
-func NewOperatorSlash() (*operatorSlashHelper, error) {
+func newOperatorSlash() (*operatorSlashHelper, error) {
 	e := &operatorSlashHelper{
 		Network: network,
 	}
@@ -247,7 +272,7 @@ func NewOperatorSlash() (*operatorSlashHelper, error) {
 	return e, nil
 }
 
-func NewWithdrawalRequest() (*withdrawalRequestHelper, error) {
+func newWithdrawalRequest() (*withdrawalRequestHelper, error) {
 	e := &withdrawalRequestHelper{
 		Network: network,
 	}
@@ -261,6 +286,42 @@ func NewWithdrawalRequest() (*withdrawalRequestHelper, error) {
 	e.Contract, err = withdrawalRequest.NewWithdrawalRequest(common.HexToAddress(e.Address), eth1.ElClient.Client)
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to new withdrawal Request.")
+	}
+	return e, nil
+}
+
+func newLargeStaking() (*largeStakingHelper, error) {
+	e := &largeStakingHelper{
+		Network: network,
+	}
+	if strings.ToLower(network) == MAINNET {
+		e.Address = LARGE_STAKING_ADDRESS_MAINNET
+	} else if strings.ToLower(network) == GOERLI {
+		e.Address = LARGE_STAKING_ADDRESS_GOERLI
+	}
+
+	var err error
+	e.Contract, err = largeStaking.NewLargeStaking(common.HexToAddress(e.Address), eth1.ElClient.Client)
+	if err != nil {
+		return nil, errors.Wrap(err, "Failed to new largeStaking.")
+	}
+	return e, nil
+}
+
+func newLargeStakeOracle() (*largeStakeOracleHelper, error) {
+	e := &largeStakeOracleHelper{
+		Network: network,
+	}
+	if strings.ToLower(network) == MAINNET {
+		e.Address = LARGE_STAKE_ORACLE_ADDRESS_MAINNET
+	} else if strings.ToLower(network) == GOERLI {
+		e.Address = LARGE_STAKE_ORACLE_ADDRESS_GOERLI
+	}
+
+	var err error
+	e.Contract, err = largeStakeOracle.NewLargeStakeOracle(common.HexToAddress(e.Address), eth1.ElClient.Client)
+	if err != nil {
+		return nil, errors.Wrap(err, "Failed to new LargeStakeOracle.")
 	}
 	return e, nil
 }

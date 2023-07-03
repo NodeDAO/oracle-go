@@ -14,7 +14,7 @@ import (
 )
 
 func TestGetConsensusInfo(t *testing.T) {
-	config.InitConfig("../conf/config-dev.yaml")
+	config.InitConfig("../conf/config-goerli.dev.yaml")
 	clAddr := config.Config.Eth.ClAddr
 	timeout := 1 * time.Minute
 
@@ -28,4 +28,5 @@ func TestGetConsensusInfo(t *testing.T) {
 	fmt.Printf("current epoch: %v\n", currentEpoch)
 	fmt.Printf("first slot of current epoch: %v\n", firstSlotOfCurrentEpoch)
 	require.Equal(t, currentEpoch, consensusClient.ChainTimeService.SlotToEpoch(firstSlotOfCurrentEpoch))
+	require.Equal(t, 3852416, int(consensusClient.ChainTimeService.EpochToSlot(120388)))
 }

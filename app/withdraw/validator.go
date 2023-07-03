@@ -144,7 +144,17 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 
 					// slashed
 					if exa.Validator.Validator.Slashed {
-						exa.SlashAmount = eth1.ETH32().Sub(decimal.NewFromInt(int64(exa.Validator.Balance)).Mul(decimal.NewFromInt(params.GWei))).BigInt()
+						withdrawAbleSlot := consensus.ConsensusClient.ChainTimeService.EpochToSlot(exa.Validator.Validator.WithdrawableEpoch)
+						currentSlot := consensus.ConsensusClient.ChainTimeService.CurrentSlot()
+						if withdrawAbleSlot <= currentSlot {
+							pubkeys := make([]string, 1)
+							pubkeys[0] = s
+							validator, err := consensus.ConsensusClient.CustomizeBeaconService.ValidatorsByPubKey(ctx, strconv.FormatInt(int64(withdrawAbleSlot), 10), pubkeys)
+							if err != nil {
+								return errors.Wrapf(err, "Failed to get validator ExitedAmount. tokenId:%s pubkey:%s slot:%s", exa.TokenId.String(), s, exa.ExitedSlot.String())
+							}
+							exa.SlashAmount = eth1.ETH32().Sub(decimal.NewFromInt(int64(validator[s].Balance)).Mul(decimal.NewFromInt(params.GWei))).BigInt()
+						}
 					} else {
 						exa.SlashAmount = big.NewInt(0)
 					}
