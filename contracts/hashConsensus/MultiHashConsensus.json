@@ -46,6 +46,11 @@
   },
   {
     "inputs": [],
+    "name": "FrameMultipleCannotBeZero",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "InitialEpochAlreadyArrived",
     "type": "error"
   },
@@ -82,6 +87,32 @@
   {
     "inputs": [],
     "name": "NumericOverflow",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "refSlot",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "report",
+        "type": "bytes32[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "moduleId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint64",
+        "name": "frameMultiple",
+        "type": "uint64"
+      }
+    ],
+    "name": "OracleIndexReportShouldZeroHash",
     "type": "error"
   },
   {
@@ -382,6 +413,12 @@
         "internalType": "uint256",
         "name": "moduleId",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "frameMultiple",
+        "type": "uint64"
       }
     ],
     "name": "ReportProcessorAdd",
@@ -407,6 +444,12 @@
         "internalType": "uint256",
         "name": "moduleId",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "frameMultiple",
+        "type": "uint64"
       }
     ],
     "name": "ReportProcessorUpdate",
@@ -474,6 +517,11 @@
         "internalType": "address",
         "name": "newProcessor",
         "type": "address"
+      },
+      {
+        "internalType": "uint64",
+        "name": "frameMultiple",
+        "type": "uint64"
       }
     ],
     "name": "addReportProcessor",
@@ -801,9 +849,21 @@
     "name": "getReportProcessors",
     "outputs": [
       {
-        "internalType": "address[]",
+        "components": [
+          {
+            "internalType": "address",
+            "name": "processor",
+            "type": "address"
+          },
+          {
+            "internalType": "uint64",
+            "name": "frameMultiple",
+            "type": "uint64"
+          }
+        ],
+        "internalType": "struct MultiHashConsensus.ReportProcessor[]",
         "name": "",
-        "type": "address[]"
+        "type": "tuple[]"
       }
     ],
     "stateMutability": "view",
@@ -858,16 +918,35 @@
         "internalType": "address",
         "name": "_dao",
         "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "reportProcessor",
-        "type": "address"
       }
     ],
     "name": "initialize",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "moduleId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "slot",
+        "type": "uint256"
+      }
+    ],
+    "name": "isModuleReport",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1033,6 +1112,11 @@
         "internalType": "address",
         "name": "newProcessor",
         "type": "address"
+      },
+      {
+        "internalType": "uint64",
+        "name": "frameMultiple",
+        "type": "uint64"
       }
     ],
     "name": "updateReportProcessor",

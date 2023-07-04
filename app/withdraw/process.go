@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/NodeDAO/oracle-go/app/consensusModule"
+	"github.com/NodeDAO/oracle-go/app/largestake"
 	"github.com/NodeDAO/oracle-go/common/errs"
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/config"
@@ -40,26 +41,72 @@ func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
 		return errors.Wrap(err, "check network、el、cl config err.")
 	}
 
-	if err := v.buildReportData(ctx); err != nil {
-		return errors.Wrap(err, "buildReportData err.")
+	if err := v.setup(ctx); err != nil {
+		return errors.Wrap(err, "setup err.")
 	}
 
-	withdrawOracleReportDataHash, err := EncodeReportData(v.reportData)
-	if err != nil {
-		return errors.Wrap(err, "EncodeReportData err.")
+	if err := v.reportHashArr(ctx); err != nil {
+		return errors.Wrap(err, "reportHashArr err.")
 	}
 
-	reportHashArr := make([][32]byte, 0)
-	reportHashArr = append(reportHashArr, withdrawOracleReportDataHash)
-	// todo
-	reportHashArr = append(reportHashArr, eth1.ZERO_HASH)
+	if !v.isConsensusReport {
+		return errs.NewSleepError("All Oracle not need to report consensus.", RandomSleepTime())
+	}
 
-	if err := v.hashConsensusHelper.ProcessReportHash(ctx, reportHashArr, v.refSlot, v.reportData); err != nil {
+	if err := v.hashConsensusHelper.ProcessReportHash(ctx, v.consensusReportHashArr, v.refSlot, v.reportData); err != nil {
 		return errors.Wrap(err, "ProcessReportHash err.")
 	}
 
-	if err := v.processReportData(ctx, reportHashArr); err != nil {
+	if err := v.processReportData(ctx, v.consensusReportHashArr); err != nil {
 		return errors.Wrap(err, "processReportData err.")
+	}
+
+	return nil
+}
+
+func (v *WithdrawHelper) reportHashArr(ctx context.Context) error {
+	var err error
+	v.isWithdrawOracleNeedReport, err = v.hashConsensusHelper.IsModuleReport(big.NewInt(WITHRAW_ORACLE_MODULE_ID), v.refSlot)
+	if err != nil {
+		return errors.Wrap(err, "[WithdrawOracle] IsModuleReport err.")
+	}
+	v.isLargeStakeOracleNeedReport, err = v.hashConsensusHelper.IsModuleReport(big.NewInt(LARGE_STAKE_MODULE_ID), v.refSlot)
+	if err != nil {
+		return errors.Wrap(err, "[LargeStakeOracle] IsModuleReport err.")
+	}
+
+	if v.isWithdrawOracleNeedReport {
+		if err := v.buildReportData(ctx); err != nil {
+			return errors.Wrap(err, "[WithdrawOracle] buildReportData err.")
+		}
+
+		withdrawOracleReportDataHash, err := EncodeReportData(v.reportData)
+		if err != nil {
+			return errors.Wrap(err, "[WithdrawOracle] EncodeReportData err.")
+		}
+		v.consensusReportHashArr = append(v.consensusReportHashArr, withdrawOracleReportDataHash)
+	} else {
+		v.consensusReportHashArr = append(v.consensusReportHashArr, eth1.ZERO_HASH)
+	}
+
+	if v.isLargeStakeOracleNeedReport {
+		v.largeStakeOracleRes, err = v.largeStakeOracleHelper.ProcessReportData(ctx)
+		if err != nil {
+			return errors.Wrap(err, "[LargeStakeOracle] ProcessReportData err.")
+		}
+
+		v.consensusReportHashArr = append(v.consensusReportHashArr, v.largeStakeOracleRes.ReportDataHash)
+		if !v.largeStakeOracleRes.IsNeedReport {
+			v.isLargeStakeOracleNeedReport = false
+		}
+	} else {
+		v.consensusReportHashArr = append(v.consensusReportHashArr, eth1.ZERO_HASH)
+	}
+
+	if !v.isWithdrawOracleNeedReport && !v.isLargeStakeOracleNeedReport {
+		v.isConsensusReport = false
+	} else {
+		v.isConsensusReport = true
 	}
 
 	return nil
@@ -135,9 +182,6 @@ func (v *WithdrawHelper) check(ctx context.Context) error {
 // 7. dealLargeExitDelayedRequest for LargeExitDelayedRequestIds
 // 8. obtainReportData
 func (v *WithdrawHelper) buildReportData(ctx context.Context) error {
-	if err := v.setup(ctx); err != nil {
-		return errors.Wrap(err, "buildReportData err.")
-	}
 
 	if err := v.obtainValidatorConsensusInfo(ctx); err != nil {
 		return errors.Wrap(err, "buildReportData err.")
@@ -191,13 +235,18 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [][32
 		return errors.New("Oracle`s hash differs from consensus report hash.")
 	}
 
-	submitted, err := v.oracle.IsMainDataSubmitted(ctx)
+	withdrawOracleProcessingState, err := contracts.WithdrawOracleContract.Contract.GetProcessingState(nil)
 	if err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "withdrawOracleContract GetProcessingState err.")
 	}
-	if submitted {
+	largeStakeOracleProcessingState, err := contracts.LargeStakeOracleContract.Contract.GetProcessingState(nil)
+	if err != nil {
+		return errors.Wrap(err, "LargeStakeOracleContract GetProcessingState err.")
+	}
+
+	if withdrawOracleProcessingState.DataSubmitted && largeStakeOracleProcessingState.DataSubmitted {
 		logger.Debug("Main data already submitted.")
-		return errs.NewSleepError("Main data already submitted.", RandomSleepTime())
+		return errs.NewSleepError("All Oracle Main data already submitted.", RandomSleepTime())
 	}
 
 	reportJson, err := json.Marshal(v.reportData)
@@ -210,10 +259,22 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [][32
 	// If configured to only simulate transactions
 	if config.Config.Oracle.IsSimulatedReportData {
 		logger.Debug("simulated report data...")
-		// todo
-		err := v.oracle.simulatedSubmitReportData(ctx, v.keyTransactOpts, *v.reportData, v.consensusVersion)
-		if err != nil {
-			return errors.Wrap(err, "simulatedSubmitReportData err.")
+		if v.isWithdrawOracleNeedReport {
+			err := v.oracle.simulatedWithdrawOracleSubmitReportData(ctx, v.keyTransactOpts, *v.reportData, big.NewInt(WITHRAW_ORACLE_CONTRACT_VERSION), big.NewInt(WITHRAW_ORACLE_MODULE_ID))
+			if err != nil {
+				return errors.Wrap(err, "[WithdrawOracle] simulatedWithdrawOracleSubmitReportData err.")
+			}
+		} else {
+			logger.Debug("[WithdrawOracle] not need to report data.")
+		}
+
+		if v.isLargeStakeOracleNeedReport {
+			err = v.oracle.simulatedLargeStakeOracleSubmitReportData(ctx, v.keyTransactOpts, v.largeStakeOracleRes.ReportData, big.NewInt(LARGE_STAKE_ORACLE_CONTRACT_VERSION), big.NewInt(LARGE_STAKE_MODULE_ID))
+			if err != nil {
+				return errors.Wrap(err, "[WithdrawOracle] simulatedWithdrawOracleSubmitReportData err.")
+			}
+		} else {
+			logger.Debug("[LargeStakeOracle] not need to report data.")
 		}
 
 		return errs.NewSleepError("simulated report data success.", RandomSleepTime())
@@ -223,23 +284,47 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [][32
 
 	//opt := v.keyTransactOpts
 	//opt.GasLimit = 2000000
-	// todo v.consensusVersion => contractVersion
-	tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(v.keyTransactOpts, *v.reportData, v.consensusVersion, v.withdrawOracleModuleId)
-	if err != nil {
-		return errors.Wrap(err, "WithdrawOracle SubmitReportData err.")
+	if v.isWithdrawOracleNeedReport {
+		tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(v.keyTransactOpts, *v.reportData, big.NewInt(WITHRAW_ORACLE_CONTRACT_VERSION), big.NewInt(WITHRAW_ORACLE_MODULE_ID))
+		if err != nil {
+			return errors.Wrap(err, "[WithdrawOracle] SubmitReportData err.")
+		}
+		// Wait for the transaction to complete
+		if _, err = bind.WaitMined(ctx, eth1.ElClient.Client, tx); err != nil {
+			return errors.Wrapf(err, "[WithdrawOracle] Failed to WaitMined submit report data. tx hash:%s", tx.Hash().String())
+		}
+		logger.Info("[WithdrawOracle] Send report data success.",
+			zap.String("refSlot", v.refSlot.String()),
+			zap.String("tx hash", tx.Hash().String()),
+			zap.String("from", v.keyTransactOpts.From.String()),
+			zap.String("to", contracts.WithdrawOracleContract.Address),
+			zap.Uint64("gas", tx.Gas()),
+			zap.String("consensusVersion", v.consensusVersion.String()),
+		)
+	} else {
+		logger.Debug("[WithdrawOracle] not need to report data.")
 	}
-	// Wait for the transaction to complete
-	if _, err = bind.WaitMined(ctx, eth1.ElClient.Client, tx); err != nil {
-		return errors.Wrapf(err, "Failed to WaitMined submit report data. tx hash:%s", tx.Hash().String())
+
+	if v.isLargeStakeOracleNeedReport {
+		tx, err := contracts.LargeStakeOracleContract.Contract.SubmitReportData(v.keyTransactOpts, v.largeStakeOracleRes.ReportData, big.NewInt(LARGE_STAKE_ORACLE_CONTRACT_VERSION), big.NewInt(LARGE_STAKE_MODULE_ID))
+		if err != nil {
+			return errors.Wrap(err, "[LargeStakeOracle] SubmitReportData err.")
+		}
+		// Wait for the transaction to complete
+		if _, err = bind.WaitMined(ctx, eth1.ElClient.Client, tx); err != nil {
+			return errors.Wrapf(err, "[LargeStakeOracle] Failed to WaitMined submit report data. tx hash:%s", tx.Hash().String())
+		}
+		logger.Info("[LargeStakeOracle] Send report data success.",
+			zap.String("refSlot", v.refSlot.String()),
+			zap.String("tx hash", tx.Hash().String()),
+			zap.String("from", v.keyTransactOpts.From.String()),
+			zap.String("to", contracts.WithdrawOracleContract.Address),
+			zap.Uint64("gas", tx.Gas()),
+			zap.String("consensusVersion", v.consensusVersion.String()),
+		)
+	} else {
+		logger.Debug("[LargeStakeOracle] not need to report data.")
 	}
-	logger.Info("Send report data success.",
-		zap.String("refSlot", v.refSlot.String()),
-		zap.String("tx hash", tx.Hash().String()),
-		zap.String("from", v.keyTransactOpts.From.String()),
-		zap.String("to", contracts.WithdrawOracleContract.Address),
-		zap.Uint64("gas", tx.Gas()),
-		zap.String("consensusVersion", v.consensusVersion.String()),
-	)
 
 	return nil
 }
@@ -290,6 +375,7 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	v.largeExitDelayedRequestIds = make([]*big.Int, 0)
 	v.withdrawInfos = make([]withdrawOracle.WithdrawInfo, 0)
 	v.exitValidatorInfos = make([]withdrawOracle.ExitValidatorInfo, 0)
+	v.consensusReportHashArr = make([][32]byte, 0)
 
 	v.oracle = &Oracle{}
 	v.hashConsensusHelper = &consensusModule.HashConsensusHelper{
@@ -303,7 +389,7 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	}
 	v.consensusVersion = consensusVersion
 
-	v.withdrawOracleModuleId, err = v.hashConsensusHelper.GetModuleId(ctx, common.HexToAddress(contracts.WithdrawOracleContract.Address))
+	v.withdrawOracleModuleId, err = v.hashConsensusHelper.GetModuleId(common.HexToAddress(contracts.WithdrawOracleContract.Address))
 	if err != nil {
 		return errors.Wrap(err, "Failed to withdrawOracleModuleId.")
 	}
@@ -331,6 +417,8 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	if err != nil {
 		return errors.Wrap(err, "setup err.")
 	}
+
+	v.largeStakeOracleHelper = largestake.NewLargeStakeHelper(v.refSlot, big.NewInt(CONSENSUS_VERSION))
 
 	return nil
 }

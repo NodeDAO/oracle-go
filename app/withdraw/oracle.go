@@ -9,6 +9,7 @@ import (
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/hashConsensus"
+	"github.com/NodeDAO/oracle-go/contracts/largeStakeOracle"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
 	"github.com/ethereum/go-ethereum"
@@ -131,7 +132,7 @@ func (v *Oracle) GetProcessingState(ctx context.Context) (*withdrawOracle.Withdr
 	return &processingState, nil
 }
 
-func (v *Oracle) simulatedSubmitReportData(ctx context.Context, opts *bind.TransactOpts, reportData withdrawOracle.WithdrawOracleReportData, consensusVersion *big.Int) error {
+func (v *Oracle) simulatedWithdrawOracleSubmitReportData(ctx context.Context, opts *bind.TransactOpts, reportData withdrawOracle.WithdrawOracleReportData, contractVersion, moduleId *big.Int) error {
 
 	toAddress := common.HexToAddress(contracts.WithdrawOracleContract.Address)
 
@@ -139,7 +140,7 @@ func (v *Oracle) simulatedSubmitReportData(ctx context.Context, opts *bind.Trans
 	if err != nil {
 		return errors.Wrap(err, "Failed to abi json submitReportData")
 	}
-	encodedData, err := abiJson.Pack("submitReportData", reportData, consensusVersion)
+	encodedData, err := abiJson.Pack("submitReportData", reportData, contractVersion, moduleId)
 	if err != nil {
 		return errors.Wrap(err, "Failed to Pack submitReportData")
 	}
@@ -155,7 +156,40 @@ func (v *Oracle) simulatedSubmitReportData(ctx context.Context, opts *bind.Trans
 		return errors.Wrap(err, "Failed to EstimateGas submitReportData")
 	}
 
-	logger.Info("submitReportData EstimateGas",
+	logger.Info("[WithdrawOracle] submitReportData EstimateGas",
+		zap.Uint64("gasLimit", gasLimit),
+		zap.String("from", msg.From.String()),
+		zap.String("to", msg.To.String()),
+	)
+
+	return nil
+}
+
+func (v *Oracle) simulatedLargeStakeOracleSubmitReportData(ctx context.Context, opts *bind.TransactOpts, reportData largeStakeOracle.LargeStakeOracleReportData, contractVersion, moduleId *big.Int) error {
+
+	toAddress := common.HexToAddress(contracts.WithdrawOracleContract.Address)
+
+	abiJson, err := abi.JSON(strings.NewReader(withdrawOracle.WithdrawOracleMetaData.ABI))
+	if err != nil {
+		return errors.Wrap(err, "Failed to abi json submitReportData")
+	}
+	encodedData, err := abiJson.Pack("submitReportData", reportData, contractVersion, moduleId)
+	if err != nil {
+		return errors.Wrap(err, "Failed to Pack submitReportData")
+	}
+
+	msg := ethereum.CallMsg{
+		From: opts.From,
+		To:   &toAddress,
+		Data: encodedData,
+	}
+
+	gasLimit, err := eth1.ElClient.Client.EstimateGas(ctx, msg)
+	if err != nil {
+		return errors.Wrap(err, "Failed to EstimateGas submitReportData")
+	}
+
+	logger.Info("[LargeStakeOracle] submitReportData EstimateGas",
 		zap.Uint64("gasLimit", gasLimit),
 		zap.String("from", msg.From.String()),
 		zap.String("to", msg.To.String()),

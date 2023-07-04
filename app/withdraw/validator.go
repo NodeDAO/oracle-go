@@ -312,6 +312,9 @@ func (v *WithdrawHelper) dealLargeExitDelayedRequest(ctx context.Context) error 
 					return errors.Wrapf(err, "Failed to get OperatorSlashContract LargeExitDelayedSlashRecords. requestId: %s", requestId)
 				}
 				q := withdrawalQueues[i]
+				if q.IsClaim {
+					continue
+				}
 
 				lastReportBlock := big.NewInt(0)
 				if delayedSlashRecords.Cmp(big.NewInt(0)) == 0 {

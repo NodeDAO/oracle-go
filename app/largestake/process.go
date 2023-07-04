@@ -154,7 +154,7 @@ func (v *LargeStakeHelper) filterExitedSlashedValidator(ctx context.Context, val
 		}
 
 		if validatorExa.Validator.Validator.Slashed {
-			validatorSlashedAmount, err := beacon.ValidatorSlashedAmount(ctx, validatorExa.Validator)
+			validatorSlashedAmount, err := consensus.ConsensusClient.CustomizeBeaconService.ValidatorSlashedAmount(ctx, validatorExa.Validator)
 			if err != nil {
 				return nil, nil, errors.Wrapf(err, "failed to get ValidatorSlashedAmount:%s", pubkey)
 			}

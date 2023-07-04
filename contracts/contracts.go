@@ -92,6 +92,7 @@ var (
 	WithdrawalRequestContract *withdrawalRequestHelper
 	LargeStakingContract      *largeStakingHelper
 	LargeStakeOracleContract  *largeStakeOracleHelper
+	HashConsensusContract     *hashConsensusHelper
 )
 
 const (
@@ -100,6 +101,9 @@ const (
 )
 
 const (
+	HASH_CONSENSUS_ADDRESS_MAINNET = ""
+	HASH_CONSENSUS_ADDRESS_GOERLI  = "0xBF7b3b741052D33ca0f522A0D70589e350d38bb7"
+
 	LIQ_ADDRESS_MAINNET = "0x8103151E2377e78C04a3d2564e20542680ed3096"
 	LIQ_ADDRESS_GOERLI  = "0x949AC43bb71F8710B0F1193880b338f0323DeB1a"
 
@@ -148,6 +152,7 @@ func InitContracts() {
 	WithdrawalRequestContract, err = newWithdrawalRequest()
 	LargeStakingContract, err = newLargeStaking()
 	LargeStakeOracleContract, err = newLargeStakeOracle()
+	HashConsensusContract, err = newHashConsensus()
 
 	if err != nil {
 		panic(fmt.Sprintf("New contract error: %+v", err))
@@ -322,6 +327,24 @@ func newLargeStakeOracle() (*largeStakeOracleHelper, error) {
 	e.Contract, err = largeStakeOracle.NewLargeStakeOracle(common.HexToAddress(e.Address), eth1.ElClient.Client)
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to new LargeStakeOracle.")
+	}
+	return e, nil
+}
+
+func newHashConsensus() (*hashConsensusHelper, error) {
+	e := &hashConsensusHelper{
+		Network: network,
+	}
+	if strings.ToLower(network) == MAINNET {
+		e.Address = HASH_CONSENSUS_ADDRESS_MAINNET
+	} else if strings.ToLower(network) == GOERLI {
+		e.Address = HASH_CONSENSUS_ADDRESS_GOERLI
+	}
+
+	var err error
+	e.Contract, err = hashConsensus.NewHashConsensus(common.HexToAddress(e.Address), eth1.ElClient.Client)
+	if err != nil {
+		return nil, errors.Wrap(err, "Failed to new HashConsensus.")
 	}
 	return e, nil
 }

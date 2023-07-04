@@ -6,6 +6,7 @@ package withdraw
 
 import (
 	"github.com/NodeDAO/oracle-go/app/consensusModule"
+	"github.com/NodeDAO/oracle-go/app/largestake"
 	"github.com/NodeDAO/oracle-go/consensus/beacon"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/utils/timetool"
@@ -46,11 +47,17 @@ type WithdrawHelper struct {
 	exitValidatorInfos         []withdrawOracle.ExitValidatorInfo
 
 	// res
-	reportData *withdrawOracle.WithdrawOracleReportData
+	reportData          *withdrawOracle.WithdrawOracleReportData
+	largeStakeOracleRes *largestake.LargeStakeReportRes
 
-	// report
-	oracle              *Oracle
-	hashConsensusHelper *consensusModule.HashConsensusHelper
+	// report @see `reportHashArr()`
+	oracle                       *Oracle
+	hashConsensusHelper          *consensusModule.HashConsensusHelper
+	largeStakeOracleHelper       *largestake.LargeStakeHelper
+	isWithdrawOracleNeedReport   bool
+	isLargeStakeOracleNeedReport bool
+	isConsensusReport            bool
+	consensusReportHashArr       [][32]byte
 }
 
 type ValidatorExa struct {
@@ -85,8 +92,13 @@ type Oracle struct {
 
 // version
 const (
-	CONSENSUS_VERSION               = 2
-	WITHRAW_ORACLE_CONTRACT_VERSION = 2
+	CONSENSUS_VERSION = 2
+
+	WITHRAW_ORACLE_CONTRACT_VERSION     = 2
+	LARGE_STAKE_ORACLE_CONTRACT_VERSION = 1
+
+	WITHRAW_ORACLE_MODULE_ID = 1
+	LARGE_STAKE_MODULE_ID    = 2
 
 	SLOTS_PER_EPOCH   = 32
 	SECONDS_PER_SLOT  = 12
