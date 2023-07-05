@@ -1337,16 +1337,6 @@
             "internalType": "struct ExitValidatorInfo[]",
             "name": "exitValidatorInfos",
             "type": "tuple[]"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "delayedExitTokenIds",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "largeExitDelayedRequestIds",
-            "type": "uint256[]"
           }
         ],
         "internalType": "struct WithdrawOracle.ReportData",

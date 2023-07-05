@@ -116,13 +116,6 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 			// IsNeedOracleReportExit
 			exitTokenIds = append(exitTokenIds, tokenId)
 		}
-
-		// delayedExitSlashStandard
-		err = v.calculationIsDelayedExit(ctx, exa)
-		if err != nil {
-			return errors.Wrapf(err, "Failed to calculationIsDelayedExit. tokenId:%s  pubkey:%s", exa.TokenId.String(), pubkey)
-		}
-
 	}
 
 	// cl balance to wei
@@ -207,53 +200,6 @@ func (v *WithdrawHelper) calculationClVaultBalance(ctx context.Context) error {
 	return nil
 }
 
-func (v *WithdrawHelper) calculationIsDelayedExit(ctx context.Context, exa *ValidatorExa) error {
-	// View liq contract nftUnstakeBlockNumbers and query tokenId exit block height (block height is 0, exit not initiated)
-	requireBlockNumbers, err := contracts.WithdrawalRequestContract.Contract.GetNftUnstakeBlockNumber(nil, exa.TokenId)
-	if err != nil {
-		return errors.Wrapf(err, "Failed to get WithdrawalRequestContract nftUnstakeBlockNumbers. tokenId:%s", exa.TokenId.String())
-	}
-
-	// ge 0 requested to exit. need to exit
-	if requireBlockNumbers.Cmp(decimal.Zero.BigInt()) == 1 {
-		// delayedExitSlashRecords The number of blocks that are not exited in time is reported by the Oracle database.
-		// This record is used to handle the report rounds that do not exit the validator in time
-		//  1. If the block height is 0, the oracle does not report the token Id
-		//  2. Determine the current block height - The last reported block height > The maximum block height that can not exit in time
-		// (delayedExitSlashStandard = 21600)
-		reportDelayedNumber, err := contracts.OperatorSlashContract.Contract.NftExitDelayedSlashRecords(nil, exa.TokenId)
-		if err != nil {
-			return errors.Wrapf(err, "Failed to get liq contract NftExitDelayedSlashRecords. tokenId:%s", exa.TokenId.String())
-		}
-
-		// If reportDelayedNumber == 0, the report is not reported. cmpNumber - requireBlockNumbers > (delayedExitSlashStandard = 21600)
-		// If reportDelayedNumber is greater than 0, it has been reported and has not logged out in time. cmpNumber-reportDelayedNumber > (delayedExitSlashStandard = 21600)
-		isReportDelayed := false
-		cmpNumber := v.executionBlock.BlockNumber
-		if exa.IsExited {
-			cmpNumber = exa.ExitedBlockHeight
-		}
-
-		if reportDelayedNumber.Cmp(decimal.Zero.BigInt()) == 0 {
-			if new(big.Int).Sub(cmpNumber, requireBlockNumbers).Cmp(v.delayedExitSlashStandard) == 1 {
-				isReportDelayed = true
-			}
-		} else if reportDelayedNumber.Cmp(decimal.Zero.BigInt()) == 1 {
-			if new(big.Int).Sub(cmpNumber, reportDelayedNumber).Cmp(v.delayedExitSlashStandard) == 1 {
-				isReportDelayed = true
-			}
-		}
-
-		if isReportDelayed {
-			exa.IsDelayedExit = true
-			v.delayedExitTokenIds = append(v.delayedExitTokenIds, exa.TokenId)
-		}
-
-	}
-
-	return nil
-}
-
 func (v *WithdrawHelper) calculationExitValidatorInfo(ctx context.Context) error {
 	for _, exa := range v.requireReportValidator {
 		if exa.ExitedBlockHeight.Cmp(big.NewInt(0)) == 0 {
@@ -276,67 +222,4 @@ func (v *WithdrawHelper) IsOwnerLiqPool(ctx context.Context, exa *ValidatorExa) 
 	}
 
 	return add.String() == contracts.LiqContract.Address, nil
-}
-
-// dealLargeExitDelayedRequest
-func (v *WithdrawHelper) dealLargeExitDelayedRequest(ctx context.Context) error {
-	// Get all the operators
-	operatorCount, err := v.getAllOperatorId(ctx)
-	if err != nil {
-		return errors.Wrap(err, "Failed to get OperatorContract GetNodeOperatorsCount.")
-	}
-
-	// operator id start 0.
-	for i := int64(1); i < operatorCount.Int64()+1; i++ {
-
-		operatorId := big.NewInt(i)
-		operatorPendingEthRequestAmount, operatorPendingEthPoolBalance, err := contracts.WithdrawalRequestContract.Contract.GetOperatorLargeWithdrawalPendingInfo(nil, operatorId)
-		if err != nil {
-			return errors.Wrapf(err, "Failed to get WithdrawalRequestContract GetOperatorLargeWitdrawalPendingInfo. OperatorId: %s", operatorId.String())
-		}
-
-		// operatorPendingEthRequestAmount > operatorPendingEthPoolBalance
-		// has largeExitDelayedRequest
-		if operatorPendingEthRequestAmount.Cmp(operatorPendingEthPoolBalance) == 1 {
-			cha := new(big.Int).Sub(operatorPendingEthRequestAmount, operatorPendingEthPoolBalance)
-
-			withdrawalQueues, err := contracts.WithdrawalRequestContract.Contract.GetWithdrawalOfOperator(nil, operatorId)
-			if err != nil {
-				return errors.Wrapf(err, "Failed to get WithdrawalRequestContract getWithdrawalOfOperator. OperatorId: %s", operatorId.String())
-			}
-
-			for i := len(withdrawalQueues) - 1; i >= 0; i-- {
-				requestId := big.NewInt(int64(i))
-				delayedSlashRecords, err := contracts.OperatorSlashContract.Contract.LargeExitDelayedSlashRecords(nil, requestId)
-				if err != nil {
-					return errors.Wrapf(err, "Failed to get OperatorSlashContract LargeExitDelayedSlashRecords. requestId: %s", requestId)
-				}
-				q := withdrawalQueues[i]
-				if q.IsClaim {
-					continue
-				}
-
-				lastReportBlock := big.NewInt(0)
-				if delayedSlashRecords.Cmp(big.NewInt(0)) == 0 {
-					lastReportBlock = q.WithdrawHeight
-				} else {
-					lastReportBlock = delayedSlashRecords
-				}
-
-				isDelayed := new(big.Int).Sub(v.executionBlock.BlockNumber, lastReportBlock).Cmp(v.delayedExitSlashStandard) == 1
-
-				if isDelayed {
-					v.largeExitDelayedRequestIds = append(v.largeExitDelayedRequestIds, requestId)
-				} else {
-					continue
-				}
-
-				if q.ClaimEthAmount.Cmp(cha) == 1 {
-					break
-				}
-			}
-		}
-	}
-
-	return nil
 }

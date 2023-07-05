@@ -38,13 +38,11 @@ type WithdrawHelper struct {
 	isComputeOperatorReward bool
 
 	// process res
-	clBalance                  *big.Int
-	clVaultBalance             *big.Int
-	delayedExitTokenIds        []*big.Int
-	largeExitDelayedRequestIds []*big.Int
-	clSettleAmount             *big.Int
-	withdrawInfos              []withdrawOracle.WithdrawInfo
-	exitValidatorInfos         []withdrawOracle.ExitValidatorInfo
+	clBalance          *big.Int
+	clVaultBalance     *big.Int
+	clSettleAmount     *big.Int
+	withdrawInfos      []withdrawOracle.WithdrawInfo
+	exitValidatorInfos []withdrawOracle.ExitValidatorInfo
 
 	// res
 	reportData          *withdrawOracle.WithdrawOracleReportData
@@ -78,8 +76,6 @@ type ValidatorExa struct {
 
 	// 1.slashed 2.exited 3.Not OracleReportExit
 	SlashAmount *big.Int
-
-	IsDelayedExit bool
 }
 
 type EffectiveOperator struct {

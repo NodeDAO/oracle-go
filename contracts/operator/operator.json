@@ -1132,6 +1132,25 @@
         "type": "uint256"
       }
     ],
+    "name": "isConformBasicPledge",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_operatorId",
+        "type": "uint256"
+      }
+    ],
     "name": "isQuitOperator",
     "outputs": [
       {
@@ -1585,24 +1604,6 @@
       }
     ],
     "name": "slash",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_operatorId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "slashOfExitDelayed",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

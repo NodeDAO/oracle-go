@@ -173,14 +173,12 @@ func (v *WithdrawHelper) check(ctx context.Context) error {
 }
 
 // buildReportData core process
-// 1. init: setup
-// 2. get Validators
-// 3. calculation ValidatorExa and delayedExitTokenIds
-// 4. clVaultBalance
-// 5. calculationExitValidatorInfo
-// 6. calculationForOperator for rewards
-// 7. dealLargeExitDelayedRequest for LargeExitDelayedRequestIds
-// 8. obtainReportData
+// 1. get Validators
+// 2. calculation ValidatorExa
+// 3. clVaultBalance
+// 4. calculationExitValidatorInfo
+// 5. calculationForOperator for rewards
+// 6. obtainReportData
 func (v *WithdrawHelper) buildReportData(ctx context.Context) error {
 
 	if err := v.obtainValidatorConsensusInfo(ctx); err != nil {
@@ -200,10 +198,6 @@ func (v *WithdrawHelper) buildReportData(ctx context.Context) error {
 	}
 
 	if err := v.calculationForOperator(ctx); err != nil {
-		return errors.Wrap(err, "buildReportData err.")
-	}
-
-	if err := v.dealLargeExitDelayedRequest(ctx); err != nil {
 		return errors.Wrap(err, "buildReportData err.")
 	}
 
@@ -348,12 +342,6 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 		return errors.Wrap(err, "Failed to get KeyTransactOpts by privateKey.")
 	}
 
-	// delayedExitSlashStandard
-	v.delayedExitSlashStandard, err = contracts.OperatorSlashContract.Contract.DelayedExitSlashStandard(nil)
-	if err != nil {
-		return errors.Wrap(err, "Failed to get OperatorSlashContract delayedExitSlashStandard.")
-	}
-
 	// clVaultMinSettleLimit
 	v.clVaultMinSettleLimit, err = contracts.WithdrawOracleContract.Contract.ClVaultMinSettleLimit(nil)
 	if err != nil {
@@ -371,8 +359,6 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 		return errors.Wrap(err, "Failed to get VnftContract TotalSupply.")
 	}
 
-	v.delayedExitTokenIds = make([]*big.Int, 0)
-	v.largeExitDelayedRequestIds = make([]*big.Int, 0)
 	v.withdrawInfos = make([]withdrawOracle.WithdrawInfo, 0)
 	v.exitValidatorInfos = make([]withdrawOracle.ExitValidatorInfo, 0)
 	v.consensusReportHashArr = make([][32]byte, 0)
@@ -435,30 +421,20 @@ func (v *WithdrawHelper) obtainReportData(ctx context.Context) error {
 		return v.exitValidatorInfos[i].ExitTokenId < v.exitValidatorInfos[j].ExitTokenId
 	})
 
-	sort.Slice(v.delayedExitTokenIds, func(i, j int) bool {
-		return v.delayedExitTokenIds[i].Cmp(v.delayedExitTokenIds[j]) < 0
-	})
-
-	sort.Slice(v.largeExitDelayedRequestIds, func(i, j int) bool {
-		return v.largeExitDelayedRequestIds[i].Cmp(v.largeExitDelayedRequestIds[j]) < 0
-	})
-
 	reportExitedCount := big.NewInt(0)
 	if len(v.exitValidatorInfos) > 0 {
 		reportExitedCount = big.NewInt(int64(len(v.exitValidatorInfos)))
 	}
 
 	v.reportData = &withdrawOracle.WithdrawOracleReportData{
-		ConsensusVersion:           v.consensusVersion,
-		RefSlot:                    v.refSlot,
-		ClBalance:                  v.clBalance,
-		ClVaultBalance:             v.clVaultBalance,
-		ReportExitedCount:          reportExitedCount,
-		WithdrawInfos:              v.withdrawInfos,
-		ExitValidatorInfos:         v.exitValidatorInfos,
-		DelayedExitTokenIds:        v.delayedExitTokenIds,
-		LargeExitDelayedRequestIds: v.largeExitDelayedRequestIds,
-		ClSettleAmount:             v.clSettleAmount,
+		ConsensusVersion:   v.consensusVersion,
+		RefSlot:            v.refSlot,
+		ClBalance:          v.clBalance,
+		ClVaultBalance:     v.clVaultBalance,
+		ReportExitedCount:  reportExitedCount,
+		WithdrawInfos:      v.withdrawInfos,
+		ExitValidatorInfos: v.exitValidatorInfos,
+		ClSettleAmount:     v.clSettleAmount,
 	}
 
 	return nil

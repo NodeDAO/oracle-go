@@ -13,10 +13,8 @@ import (
 	"github.com/NodeDAO/oracle-go/contracts/largeStaking"
 	"github.com/NodeDAO/oracle-go/contracts/liq"
 	"github.com/NodeDAO/oracle-go/contracts/operator"
-	"github.com/NodeDAO/oracle-go/contracts/operatorSlash"
 	"github.com/NodeDAO/oracle-go/contracts/vnft"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
-	"github.com/NodeDAO/oracle-go/contracts/withdrawalRequest"
 	"github.com/NodeDAO/oracle-go/eth1"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
@@ -59,18 +57,6 @@ type nodeOperatorHelper struct {
 	Contract *operator.Operator
 }
 
-type operatorSlashHelper struct {
-	Network  string
-	Address  string
-	Contract *operatorSlash.OperatorSlash
-}
-
-type withdrawalRequestHelper struct {
-	Network  string
-	Address  string
-	Contract *withdrawalRequest.WithdrawalRequest
-}
-
 type largeStakingHelper struct {
 	Network  string
 	Address  string
@@ -84,15 +70,13 @@ type largeStakeOracleHelper struct {
 }
 
 var (
-	WithdrawOracleContract    *withdrawOracleHelper
-	VnftContract              *vnftHelper
-	LiqContract               *liqHelper
-	OperatorContract          *nodeOperatorHelper
-	OperatorSlashContract     *operatorSlashHelper
-	WithdrawalRequestContract *withdrawalRequestHelper
-	LargeStakingContract      *largeStakingHelper
-	LargeStakeOracleContract  *largeStakeOracleHelper
-	HashConsensusContract     *hashConsensusHelper
+	WithdrawOracleContract   *withdrawOracleHelper
+	VnftContract             *vnftHelper
+	LiqContract              *liqHelper
+	OperatorContract         *nodeOperatorHelper
+	LargeStakingContract     *largeStakingHelper
+	LargeStakeOracleContract *largeStakeOracleHelper
+	HashConsensusContract    *hashConsensusHelper
 )
 
 const (
@@ -119,12 +103,6 @@ const (
 	CL_VAULT_ADDRESS_MAINNET = "0x4b8Dc35b44296D8D6DCc7aFEBBbe283c997E80Ae"
 	CL_VAULT_ADDRESS_GOERLi  = "0x138d5D3C2d7d68bFC653726c8a5E8bA301452202"
 
-	OPERATOR_SLASH_ADDRESS_MAINNET = "0x82c87cC83c9fA09DAdBEBFB8f8b9152Ee6104B5d"
-	OPERATOR_SLASH_ADDRESS_GOERLi  = "0x69b11EF441EEb3A7cb2A3d82bC31F90596A7C48d"
-
-	WITHDRAWAL_REQUEST_ADDRESS_MAINNET = "0xE81fC969D14Cad8537ebAFa2a1c478F29d7840FC"
-	WITHDRAWAL_REQUEST_ADDRESS_GOERLi  = "0x006e69F509E31c91263C03a744B47c3b03eAC391"
-
 	LARGE_STAKING_ADDRESS_MAINNET = ""
 	LARGE_STAKING_ADDRESS_GOERLI  = "0xB71D8903Ae22df40DdDb189AfBcE5e99B23b7077"
 
@@ -148,8 +126,6 @@ func InitContracts() {
 	VnftContract, err = newVnft()
 	LiqContract, err = newLiq()
 	OperatorContract, err = newNodeOperator()
-	OperatorSlashContract, err = newOperatorSlash()
-	WithdrawalRequestContract, err = newWithdrawalRequest()
 	LargeStakingContract, err = newLargeStaking()
 	LargeStakeOracleContract, err = newLargeStakeOracle()
 	HashConsensusContract, err = newHashConsensus()
@@ -255,42 +231,6 @@ func newNodeOperator() (*nodeOperatorHelper, error) {
 	e.Contract, err = operator.NewOperator(common.HexToAddress(e.Address), eth1.ElClient.Client)
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to new withdraw Oracle.")
-	}
-	return e, nil
-}
-
-func newOperatorSlash() (*operatorSlashHelper, error) {
-	e := &operatorSlashHelper{
-		Network: network,
-	}
-	if strings.ToLower(network) == MAINNET {
-		e.Address = OPERATOR_SLASH_ADDRESS_MAINNET
-	} else if strings.ToLower(network) == GOERLI {
-		e.Address = OPERATOR_SLASH_ADDRESS_GOERLi
-	}
-
-	var err error
-	e.Contract, err = operatorSlash.NewOperatorSlash(common.HexToAddress(e.Address), eth1.ElClient.Client)
-	if err != nil {
-		return nil, errors.Wrap(err, "Failed to new operatorSlashHelper.")
-	}
-	return e, nil
-}
-
-func newWithdrawalRequest() (*withdrawalRequestHelper, error) {
-	e := &withdrawalRequestHelper{
-		Network: network,
-	}
-	if strings.ToLower(network) == MAINNET {
-		e.Address = WITHDRAWAL_REQUEST_ADDRESS_MAINNET
-	} else if strings.ToLower(network) == GOERLI {
-		e.Address = WITHDRAWAL_REQUEST_ADDRESS_GOERLi
-	}
-
-	var err error
-	e.Contract, err = withdrawalRequest.NewWithdrawalRequest(common.HexToAddress(e.Address), eth1.ElClient.Client)
-	if err != nil {
-		return nil, errors.Wrap(err, "Failed to new withdrawal Request.")
 	}
 	return e, nil
 }
