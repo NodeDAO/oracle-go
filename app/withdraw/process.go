@@ -49,10 +49,6 @@ func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
 		return errors.Wrap(err, "reportHashArr err.")
 	}
 
-	if !v.isConsensusReport {
-		return errs.NewSleepError("All Oracle not need to report consensus.", RandomSleepTime())
-	}
-
 	if err := v.hashConsensusHelper.ProcessReportHash(ctx, v.consensusReportHashArr, v.refSlot, v.reportData); err != nil {
 		return errors.Wrap(err, "ProcessReportHash err.")
 	}
@@ -76,8 +72,8 @@ func (v *WithdrawHelper) reportHashArr(ctx context.Context) error {
 	}
 
 	if v.isWithdrawOracleNeedReport {
-		if err := v.buildReportData(ctx); err != nil {
-			return errors.Wrap(err, "[WithdrawOracle] buildReportData err.")
+		if err := v.buildWithdrawOracleReportData(ctx); err != nil {
+			return errors.Wrap(err, "[WithdrawOracle] buildWithdrawOracleReportData err.")
 		}
 
 		withdrawOracleReportDataHash, err := EncodeReportData(v.reportData)
@@ -86,6 +82,7 @@ func (v *WithdrawHelper) reportHashArr(ctx context.Context) error {
 		}
 		v.consensusReportHashArr = append(v.consensusReportHashArr, withdrawOracleReportDataHash)
 	} else {
+		logger.Debug("[WithdrawOracle] not need report.")
 		v.consensusReportHashArr = append(v.consensusReportHashArr, eth1.ZERO_HASH)
 	}
 
@@ -100,11 +97,13 @@ func (v *WithdrawHelper) reportHashArr(ctx context.Context) error {
 			v.isLargeStakeOracleNeedReport = false
 		}
 	} else {
+		logger.Debug("[LargeStakeOracle] not need report.")
 		v.consensusReportHashArr = append(v.consensusReportHashArr, eth1.ZERO_HASH)
 	}
 
 	if !v.isWithdrawOracleNeedReport && !v.isLargeStakeOracleNeedReport {
 		v.isConsensusReport = false
+		return errs.NewSleepError("All Oracle not need to report consensus.", RandomSleepTime())
 	} else {
 		v.isConsensusReport = true
 	}
@@ -112,97 +111,37 @@ func (v *WithdrawHelper) reportHashArr(ctx context.Context) error {
 	return nil
 }
 
-func (v *WithdrawHelper) check(ctx context.Context) error {
-	// check network
-	chainID, err := eth1.ElClient.Client.ChainID(ctx)
-	isSameNetwork := eth1.IsSameNetwork(config.Config.Eth.Network, int(chainID.Int64()))
-	if !isSameNetwork {
-		return errs.NewSleepError("el is not same network.", RandomSleepTime())
-	}
-
-	depositContract, err := consensus.ConsensusClient.ConsensusClient.(consensusclient.DepositContractProvider).DepositContract(ctx)
-	if err != nil {
-		return errors.Wrap(err, "get DepositContract err.")
-	}
-	isSameNetwork = eth1.IsSameNetwork(config.Config.Eth.Network, int(depositContract.ChainID))
-	if !isSameNetwork {
-		return errs.NewSleepError("cl is not same network.", RandomSleepTime())
-	}
-
-	// check beacon sync
-	syncState, err := consensus.ConsensusClient.ConsensusClient.(consensusclient.NodeSyncingProvider).NodeSyncing(ctx)
-	if err != nil {
-		return errors.Wrap(err, "check err.")
-	}
-	if syncState.IsSyncing {
-		logger.Warnf("Beacon node is syncing. isSync:%v SyncDistance:%v", syncState.IsSyncing, syncState.SyncDistance)
-		return errs.NewSleepError("Beacon node is syncing.", RandomSleepTime())
-	}
-
-	// check el sync
-	blockHeader, err := consensus.ConsensusClient.ConsensusClient.(consensusclient.BeaconBlockHeadersProvider).BeaconBlockHeader(ctx, "finalized")
-	if err != nil {
-		return errors.Wrap(err, "get BeaconBlockHeader finalized err.")
-	}
-	finalizedSlot := blockHeader.Header.Message.Slot
-
-	consensusBlock, err := consensus.ConsensusClient.CustomizeBeaconService.ExecutionBlock(ctx, fmt.Sprintf("%v", finalizedSlot))
-	if err != nil {
-		return errors.Wrap(err, "get ExecutionBlock err.")
-	}
-
-	blockNumber, err := eth1.ElClient.Client.BlockNumber(ctx)
-
-	if blockNumber < consensusBlock.BlockNumber.Uint64() {
-		logger.Warn("El node is syncing.",
-			zap.Uint64("beacon blockNumber", consensusBlock.BlockNumber.Uint64()),
-			zap.Uint64("el blockNumber", blockNumber),
-		)
-		return errs.NewSleepError("el node blockNumber is old.", RandomSleepTime())
-	}
-
-	if blockNumber > consensusBlock.BlockNumber.Uint64()+100 {
-		logger.Warn("el and cl is not same env.",
-			zap.Uint64("beacon blockNumber", consensusBlock.BlockNumber.Uint64()),
-			zap.Uint64("el blockNumber", blockNumber),
-		)
-		return errs.NewSleepError("el and cl is not same env.", RandomSleepTime())
-	}
-
-	return nil
-}
-
-// buildReportData core process
+// buildWithdrawOracleReportData core process
 // 1. get Validators
 // 2. calculation ValidatorExa
 // 3. clVaultBalance
 // 4. calculationExitValidatorInfo
 // 5. calculationForOperator for rewards
-// 6. obtainReportData
-func (v *WithdrawHelper) buildReportData(ctx context.Context) error {
+// 6. obtainWithdrawOracleReportData
+func (v *WithdrawHelper) buildWithdrawOracleReportData(ctx context.Context) error {
 
 	if err := v.obtainValidatorConsensusInfo(ctx); err != nil {
-		return errors.Wrap(err, "buildReportData err.")
+		return errors.Wrap(err, "buildWithdrawOracleReportData err.")
 	}
 
 	if err := v.calculationValidatorExa(ctx); err != nil {
-		return errors.Wrap(err, "buildReportData err.")
+		return errors.Wrap(err, "buildWithdrawOracleReportData err.")
 	}
 
 	if err := v.calculationClVaultBalance(ctx); err != nil {
-		return errors.Wrap(err, "buildReportData err.")
+		return errors.Wrap(err, "buildWithdrawOracleReportData err.")
 	}
 
 	if err := v.calculationExitValidatorInfo(ctx); err != nil {
-		return errors.Wrap(err, "buildReportData err.")
+		return errors.Wrap(err, "buildWithdrawOracleReportData err.")
 	}
 
 	if err := v.calculationForOperator(ctx); err != nil {
-		return errors.Wrap(err, "buildReportData err.")
+		return errors.Wrap(err, "buildWithdrawOracleReportData err.")
 	}
 
-	if err := v.obtainReportData(ctx); err != nil {
-		return errors.Wrap(err, "buildReportData err.")
+	if err := v.obtainWithdrawOracleReportData(ctx); err != nil {
+		return errors.Wrap(err, "buildWithdrawOracleReportData err.")
 	}
 
 	return nil
@@ -229,18 +168,12 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [][32
 		return errors.New("Oracle`s hash differs from consensus report hash.")
 	}
 
-	withdrawOracleProcessingState, err := contracts.WithdrawOracleContract.Contract.GetProcessingState(nil)
+	submitted, err := v.checkALlOracleDataSubmitted()
 	if err != nil {
-		return errors.Wrap(err, "withdrawOracleContract GetProcessingState err.")
+		return errors.Wrap(err, "checkALlOracleDataSubmitted err.")
 	}
-	largeStakeOracleProcessingState, err := contracts.LargeStakeOracleContract.Contract.GetProcessingState(nil)
-	if err != nil {
-		return errors.Wrap(err, "LargeStakeOracleContract GetProcessingState err.")
-	}
-
-	if withdrawOracleProcessingState.DataSubmitted && largeStakeOracleProcessingState.DataSubmitted {
-		logger.Debug("Main data already submitted.")
-		return errs.NewSleepError("All Oracle Main data already submitted.", RandomSleepTime())
+	if submitted {
+		return errs.NewSleepError("All Oracle main data already submitted.", RandomSleepTime())
 	}
 
 	reportJson, err := json.Marshal(v.reportData)
@@ -258,8 +191,6 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [][32
 			if err != nil {
 				return errors.Wrap(err, "[WithdrawOracle] simulatedWithdrawOracleSubmitReportData err.")
 			}
-		} else {
-			logger.Debug("[WithdrawOracle] not need to report data.")
 		}
 
 		if v.isLargeStakeOracleNeedReport {
@@ -267,8 +198,6 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [][32
 			if err != nil {
 				return errors.Wrap(err, "[WithdrawOracle] simulatedWithdrawOracleSubmitReportData err.")
 			}
-		} else {
-			logger.Debug("[LargeStakeOracle] not need to report data.")
 		}
 
 		return errs.NewSleepError("simulated report data success.", RandomSleepTime())
@@ -295,8 +224,6 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [][32
 			zap.Uint64("gas", tx.Gas()),
 			zap.String("consensusVersion", v.consensusVersion.String()),
 		)
-	} else {
-		logger.Debug("[WithdrawOracle] not need to report data.")
 	}
 
 	if v.isLargeStakeOracleNeedReport {
@@ -316,11 +243,35 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [][32
 			zap.Uint64("gas", tx.Gas()),
 			zap.String("consensusVersion", v.consensusVersion.String()),
 		)
-	} else {
-		logger.Debug("[LargeStakeOracle] not need to report data.")
 	}
 
 	return nil
+}
+
+func (v *WithdrawHelper) checkALlOracleDataSubmitted() (bool, error) {
+	withdrawOracleProcessingState, err := contracts.WithdrawOracleContract.Contract.GetProcessingState(nil)
+	if err != nil {
+		return false, errors.Wrap(err, "withdrawOracleContract GetProcessingState err.")
+	}
+	largeStakeOracleProcessingState, err := contracts.LargeStakeOracleContract.Contract.GetProcessingState(nil)
+	if err != nil {
+		return false, errors.Wrap(err, "LargeStakeOracleContract GetProcessingState err.")
+	}
+
+	if withdrawOracleProcessingState.DataSubmitted && largeStakeOracleProcessingState.DataSubmitted {
+		logger.Debug("[ALL Oracle] Main data already submitted.")
+		return true, nil
+	}
+	if withdrawOracleProcessingState.DataSubmitted && !v.isLargeStakeOracleNeedReport {
+		logger.Debug("[WithdrawOracle] main data already submitted. [LargeStakeOracle] not need to report.")
+		return true, nil
+	}
+	if largeStakeOracleProcessingState.DataSubmitted && !v.isWithdrawOracleNeedReport {
+		logger.Debug("[LargeStakeOracle] main data already submitted. [WithdrawOracle] not need to report.")
+		return true, nil
+	}
+
+	return false, nil
 }
 
 func (v *WithdrawHelper) setup(ctx context.Context) error {
@@ -409,8 +360,68 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	return nil
 }
 
+func (v *WithdrawHelper) check(ctx context.Context) error {
+	// check network
+	chainID, err := eth1.ElClient.Client.ChainID(ctx)
+	isSameNetwork := eth1.IsSameNetwork(config.Config.Eth.Network, int(chainID.Int64()))
+	if !isSameNetwork {
+		return errs.NewSleepError("el is not same network.", RandomSleepTime())
+	}
+
+	depositContract, err := consensus.ConsensusClient.ConsensusClient.(consensusclient.DepositContractProvider).DepositContract(ctx)
+	if err != nil {
+		return errors.Wrap(err, "get DepositContract err.")
+	}
+	isSameNetwork = eth1.IsSameNetwork(config.Config.Eth.Network, int(depositContract.ChainID))
+	if !isSameNetwork {
+		return errs.NewSleepError("cl is not same network.", RandomSleepTime())
+	}
+
+	// check beacon sync
+	syncState, err := consensus.ConsensusClient.ConsensusClient.(consensusclient.NodeSyncingProvider).NodeSyncing(ctx)
+	if err != nil {
+		return errors.Wrap(err, "check err.")
+	}
+	if syncState.IsSyncing {
+		logger.Warnf("Beacon node is syncing. isSync:%v SyncDistance:%v", syncState.IsSyncing, syncState.SyncDistance)
+		return errs.NewSleepError("Beacon node is syncing.", RandomSleepTime())
+	}
+
+	// check el sync
+	blockHeader, err := consensus.ConsensusClient.ConsensusClient.(consensusclient.BeaconBlockHeadersProvider).BeaconBlockHeader(ctx, "finalized")
+	if err != nil {
+		return errors.Wrap(err, "get BeaconBlockHeader finalized err.")
+	}
+	finalizedSlot := blockHeader.Header.Message.Slot
+
+	consensusBlock, err := consensus.ConsensusClient.CustomizeBeaconService.ExecutionBlock(ctx, fmt.Sprintf("%v", finalizedSlot))
+	if err != nil {
+		return errors.Wrap(err, "get ExecutionBlock err.")
+	}
+
+	blockNumber, err := eth1.ElClient.Client.BlockNumber(ctx)
+
+	if blockNumber < consensusBlock.BlockNumber.Uint64() {
+		logger.Warn("El node is syncing.",
+			zap.Uint64("beacon blockNumber", consensusBlock.BlockNumber.Uint64()),
+			zap.Uint64("el blockNumber", blockNumber),
+		)
+		return errs.NewSleepError("el node blockNumber is old.", RandomSleepTime())
+	}
+
+	if blockNumber > consensusBlock.BlockNumber.Uint64()+100 {
+		logger.Warn("el and cl is not same env.",
+			zap.Uint64("beacon blockNumber", consensusBlock.BlockNumber.Uint64()),
+			zap.Uint64("el blockNumber", blockNumber),
+		)
+		return errs.NewSleepError("el and cl is not same env.", RandomSleepTime())
+	}
+
+	return nil
+}
+
 // Slice types need to be sorted
-func (v *WithdrawHelper) obtainReportData(ctx context.Context) error {
+func (v *WithdrawHelper) obtainWithdrawOracleReportData(ctx context.Context) error {
 	// sort slice
 
 	sort.Slice(v.withdrawInfos, func(i, j int) bool {
