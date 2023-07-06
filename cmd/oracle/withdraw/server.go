@@ -70,7 +70,7 @@ func run() {
 	} else {
 		sleepTime := withdraw.RandomSleepTime()
 
-		logger.Debug("withdraw oracle sleep success run once for sleep.",
+		logger.Debug("oracle sleep success run once for sleep.",
 			zap.String("sleep time", sleepTime.String()),
 		)
 		time.Sleep(sleepTime)

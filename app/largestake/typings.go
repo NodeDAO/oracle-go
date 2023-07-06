@@ -24,6 +24,6 @@ type LargeStakeValidator struct {
 
 type LargeStakeReportRes struct {
 	IsNeedReport   bool
-	ReportData     largeStakeOracle.LargeStakeOracleReportData
+	ReportData     *largeStakeOracle.LargeStakeOracleReportData
 	ReportDataHash [32]byte
 }

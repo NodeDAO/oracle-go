@@ -29,7 +29,7 @@ func TestProcessReport(t *testing.T) {
 	err = w.ProcessReport(ctx)
 
 	if sleepErr, ok := errors.Cause(err).(*errs.SleepError); ok {
-		logger.Debug("withdraw oracle sleep",
+		logger.Debug("oracle sleep",
 			zap.String("msg", sleepErr.Msg),
 			zap.String("sleep time", sleepErr.Sleep.String()),
 		)
@@ -53,7 +53,7 @@ func TestProcessReportLoop(t *testing.T) {
 	}
 
 	if sleepErr, ok := errors.Cause(err).(*errs.SleepError); ok {
-		logger.Debug("withdraw oracle sleep",
+		logger.Debug("oracle sleep",
 			zap.String("msg", sleepErr.Msg),
 			zap.String("sleep time", sleepErr.Sleep.String()),
 		)

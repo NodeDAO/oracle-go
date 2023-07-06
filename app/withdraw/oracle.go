@@ -165,7 +165,7 @@ func (v *Oracle) simulatedWithdrawOracleSubmitReportData(ctx context.Context, op
 	return nil
 }
 
-func (v *Oracle) simulatedLargeStakeOracleSubmitReportData(ctx context.Context, opts *bind.TransactOpts, reportData largeStakeOracle.LargeStakeOracleReportData, contractVersion, moduleId *big.Int) error {
+func (v *Oracle) simulatedLargeStakeOracleSubmitReportData(ctx context.Context, opts *bind.TransactOpts, reportData *largeStakeOracle.LargeStakeOracleReportData, contractVersion, moduleId *big.Int) error {
 
 	toAddress := common.HexToAddress(contracts.WithdrawOracleContract.Address)
 

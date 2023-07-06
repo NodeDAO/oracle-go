@@ -6,6 +6,7 @@ package largestake
 
 import (
 	"context"
+	"github.com/NodeDAO/oracle-go/common/errs"
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/consensus"
 	"github.com/NodeDAO/oracle-go/consensus/beacon"
@@ -17,11 +18,13 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/pkg/errors"
+	"go.uber.org/zap"
 	"math/big"
 	"strings"
+	"time"
 )
 
-func EncodeLargeStakeReportData(reportData largeStakeOracle.LargeStakeOracleReportData) ([32]byte, error) {
+func EncodeLargeStakeReportData(reportData *largeStakeOracle.LargeStakeOracleReportData) ([32]byte, error) {
 	json, err := abi.JSON(strings.NewReader("[{\"inputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"consensusVersion\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"uint128\",\"name\":\"stakingId\",\"type\":\"uint128\"},{\"internalType\":\"bytes\",\"name\":\"pubkey\",\"type\":\"bytes\"}],\"internalType\":\"struct CLStakingExitInfo[]\",\"name\":\"clStakingExitInfos\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint128\",\"name\":\"stakingId\",\"type\":\"uint128\"},{\"internalType\":\"uint128\",\"name\":\"slashAmount\",\"type\":\"uint128\"},{\"internalType\":\"bytes\",\"name\":\"pubkey\",\"type\":\"bytes\"}],\"internalType\":\"struct CLStakingSlashInfo[]\",\"name\":\"clStakingSlashInfos\",\"type\":\"tuple[]\"}],\"internalType\":\"struct LargeStakeOracle.ReportData\",\"name\":\"data\",\"type\":\"tuple\"}],\"name\":\"submitReportData\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"))
 	encodedData, err := json.Methods["submitReportData"].Inputs.Pack(reportData)
 
@@ -61,12 +64,12 @@ func (v *LargeStakeHelper) ProcessReportData(ctx context.Context) (*LargeStakeRe
 		logger.Debug("[LargeStakeOracle] no validator exited and slashed.")
 		return &LargeStakeReportRes{
 			IsNeedReport:   false,
-			ReportData:     largeStakeOracle.LargeStakeOracleReportData{},
+			ReportData:     &largeStakeOracle.LargeStakeOracleReportData{},
 			ReportDataHash: eth1.ZERO_HASH,
 		}, nil
 	}
 
-	reportData := largeStakeOracle.LargeStakeOracleReportData{
+	reportData := &largeStakeOracle.LargeStakeOracleReportData{
 		ConsensusVersion:    v.consensusVersion,
 		RefSlot:             v.refSlot,
 		ClStakingExitInfos:  clStakingExitInfos,
@@ -146,24 +149,47 @@ func (v *LargeStakeHelper) filterExitedSlashedValidator(ctx context.Context, val
 			return nil, nil, errors.Wrapf(err, "failed to decode pubkey:%s", pubkey)
 		}
 
+		if validatorExa.Validator.Status == consensusApi.ValidatorStateUnknown {
+			continue
+		}
+
 		if beacon.ValidatorIsFullExited(validatorExa.Validator) {
-			clStakingExitInfos = append(clStakingExitInfos, largeStakeOracle.CLStakingExitInfo{
-				StakingId: validatorExa.StakingId,
-				Pubkey:    pubkeyByte,
-			})
+			reportBlock, err := contracts.LargeStakingContract.Contract.ValidatorExitReportBlock(nil, pubkeyByte)
+			if err != nil {
+				return nil, nil, errors.Wrapf(err, "failed to get ValidatorExitReportBlock:%s", pubkey)
+			}
+			if reportBlock.Cmp(big.NewInt(0)) == 0 {
+				clStakingExitInfos = append(clStakingExitInfos, largeStakeOracle.CLStakingExitInfo{
+					StakingId: validatorExa.StakingId,
+					Pubkey:    pubkeyByte,
+				})
+			}
 		}
 
 		if validatorExa.Validator.Validator.Slashed {
-			validatorSlashedAmount, err := consensus.ConsensusClient.CustomizeBeaconService.ValidatorSlashedAmount(ctx, validatorExa.Validator)
+			reportSlashAmount, err := contracts.LargeStakingContract.Contract.ValidatorSlashAmount(nil, pubkeyByte)
 			if err != nil {
-				return nil, nil, errors.Wrapf(err, "failed to get ValidatorSlashedAmount:%s", pubkey)
+				return nil, nil, errors.Wrapf(err, "failed to get ValidatorExitReportBlock:%s", pubkey)
 			}
+			if reportSlashAmount.Cmp(big.NewInt(0)) == 0 {
+				validatorSlashedAmount, err := consensus.ConsensusClient.CustomizeBeaconService.ValidatorSlashedAmount(ctx, validatorExa.Validator)
+				if err != nil {
+					return nil, nil, errors.Wrapf(err, "failed to get ValidatorSlashedAmount:%s", pubkey)
+				}
+				if validatorSlashedAmount.Cmp(eth1.ETH(2)) == 1 {
+					logger.Warn("[LargeStakeOracle] slash amount > 2 ETH.",
+						zap.String("pubkey", pubkey),
+						zap.String("slashAmount", validatorSlashedAmount.String()),
+					)
+					return nil, nil, errs.NewSleepError("[LargeStakeOracle] slash amount > 2 ETH", 10*time.Minute)
+				}
 
-			clStakingSlashInfos = append(clStakingSlashInfos, largeStakeOracle.CLStakingSlashInfo{
-				StakingId:   validatorExa.StakingId,
-				SlashAmount: validatorSlashedAmount,
-				Pubkey:      pubkeyByte,
-			})
+				clStakingSlashInfos = append(clStakingSlashInfos, largeStakeOracle.CLStakingSlashInfo{
+					StakingId:   validatorExa.StakingId,
+					SlashAmount: validatorSlashedAmount,
+					Pubkey:      pubkeyByte,
+				})
+			}
 		}
 	}
 

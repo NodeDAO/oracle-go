@@ -49,7 +49,15 @@ func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
 		return errors.Wrap(err, "reportHashArr err.")
 	}
 
-	if err := v.hashConsensusHelper.ProcessReportHash(ctx, v.consensusReportHashArr, v.refSlot, v.reportData); err != nil {
+	submitted, err := v.checkALlOracleDataSubmitted()
+	if err != nil {
+		return errors.Wrap(err, "checkALlOracleDataSubmitted err.")
+	}
+	if submitted {
+		return errs.NewSleepError("All Oracle main data already submitted.", RandomSleepTime())
+	}
+
+	if err := v.hashConsensusHelper.ProcessReportHash(ctx, v.consensusReportHashArr, v.refSlot, v.reportData, v.largeStakeOracleRes.ReportData); err != nil {
 		return errors.Wrap(err, "ProcessReportHash err.")
 	}
 
@@ -95,6 +103,7 @@ func (v *WithdrawHelper) reportHashArr(ctx context.Context) error {
 		v.consensusReportHashArr = append(v.consensusReportHashArr, v.largeStakeOracleRes.ReportDataHash)
 		if !v.largeStakeOracleRes.IsNeedReport {
 			v.isLargeStakeOracleNeedReport = false
+			logger.Debug("[LargeStakeOracle] not need report.")
 		}
 	} else {
 		logger.Debug("[LargeStakeOracle] not need report.")
@@ -176,11 +185,22 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [][32
 		return errs.NewSleepError("All Oracle main data already submitted.", RandomSleepTime())
 	}
 
-	reportJson, err := json.Marshal(v.reportData)
-	if err != nil {
-		logger.Debug("report data.", zap.String("report data", fmt.Sprintf("%+v", v.reportData)))
-	} else {
-		logger.Debug("report data.", zap.String("report data", fmt.Sprintf("%s", string(reportJson))))
+	if v.isWithdrawOracleNeedReport {
+		reportJson, err := json.Marshal(v.reportData)
+		if err != nil {
+			logger.Debug("[WithdrawOracle] report data.", zap.String("report data", fmt.Sprintf("%+v", v.reportData)))
+		} else {
+			logger.Debug("[WithdrawOracle] report data.", zap.String("report data", fmt.Sprintf("%s", string(reportJson))))
+		}
+	}
+
+	if v.isLargeStakeOracleNeedReport {
+		reportJson, err := json.Marshal(v.largeStakeOracleRes)
+		if err != nil {
+			logger.Debug("[LargeStakeOracle] report data.", zap.String("report data", fmt.Sprintf("%+v", v.largeStakeOracleRes)))
+		} else {
+			logger.Debug("[LargeStakeOracle] report data.", zap.String("report data", fmt.Sprintf("%s", string(reportJson))))
+		}
 	}
 
 	// If configured to only simulate transactions
@@ -205,10 +225,10 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [][32
 
 	logger.Debug("Sending report data...")
 
-	opt := v.keyTransactOpts
-	opt.GasLimit = 2000000
 	if v.isWithdrawOracleNeedReport {
-		tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(opt, *v.reportData, big.NewInt(WITHRAW_ORACLE_CONTRACT_VERSION), big.NewInt(WITHRAW_ORACLE_MODULE_ID))
+		//opt := v.keyTransactOpts
+		//opt.GasLimit = 2000000
+		tx, err := contracts.WithdrawOracleContract.Contract.SubmitReportData(v.keyTransactOpts, *v.reportData, big.NewInt(WITHRAW_ORACLE_CONTRACT_VERSION), big.NewInt(WITHRAW_ORACLE_MODULE_ID))
 		if err != nil {
 			return errors.Wrap(err, "[WithdrawOracle] SubmitReportData err.")
 		}
@@ -227,7 +247,7 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [][32
 	}
 
 	if v.isLargeStakeOracleNeedReport {
-		tx, err := contracts.LargeStakeOracleContract.Contract.SubmitReportData(v.keyTransactOpts, v.largeStakeOracleRes.ReportData, big.NewInt(LARGE_STAKE_ORACLE_CONTRACT_VERSION), big.NewInt(LARGE_STAKE_MODULE_ID))
+		tx, err := contracts.LargeStakeOracleContract.Contract.SubmitReportData(v.keyTransactOpts, *v.largeStakeOracleRes.ReportData, big.NewInt(LARGE_STAKE_ORACLE_CONTRACT_VERSION), big.NewInt(LARGE_STAKE_MODULE_ID))
 		if err != nil {
 			return errors.Wrap(err, "[LargeStakeOracle] SubmitReportData err.")
 		}
@@ -279,7 +299,9 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	v.clBalance = big.NewInt(0)
 	v.clSettleAmount = big.NewInt(0)
 	v.totalOperatorClCapital = big.NewInt(0)
-	v.totalNftCount = big.NewInt(0)
+	v.totalNftCountOfStakingPool = big.NewInt(0)
+	v.validatorExaMap = make(map[string]*ValidatorExa)
+	v.requireReportValidator = make(map[string]*ValidatorExa)
 
 	var err error
 
@@ -303,11 +325,6 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	v.exitRequestLimit, err = contracts.WithdrawOracleContract.Contract.ExitRequestLimit(nil)
 	if err != nil {
 		return errors.Wrap(err, "Failed to get WithdrawOracleContract ExitRequestLimit.")
-	}
-
-	v.totalNftCount, err = contracts.VnftContract.Contract.TotalSupply(nil)
-	if err != nil {
-		return errors.Wrap(err, "Failed to get VnftContract TotalSupply.")
 	}
 
 	v.withdrawInfos = make([]withdrawOracle.WithdrawInfo, 0)

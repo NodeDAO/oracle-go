@@ -13,6 +13,7 @@ import (
 	"github.com/NodeDAO/oracle-go/config"
 	"github.com/NodeDAO/oracle-go/consensus"
 	"github.com/NodeDAO/oracle-go/contracts"
+	"github.com/NodeDAO/oracle-go/contracts/largeStakeOracle"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
 	"github.com/NodeDAO/oracle-go/utils/typetool"
@@ -24,7 +25,13 @@ import (
 	"strings"
 )
 
-func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [][32]byte, refSlot *big.Int, reportData *withdrawOracle.WithdrawOracleReportData) error {
+func (v *HashConsensusHelper) ProcessReportHash(
+	ctx context.Context,
+	dataHash [][32]byte,
+	refSlot *big.Int,
+	withdrawOracleReportData *withdrawOracle.WithdrawOracleReportData,
+	largeStakeReportData *largeStakeOracle.LargeStakeOracleReportData,
+) error {
 	headSlot, err := consensus.ConsensusClient.CustomizeBeaconService.HeadSlot(ctx)
 	if err != nil {
 		return errors.Wrap(err, "ProcessReportHash HeadSlot err.")
@@ -34,6 +41,12 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash []
 	if err != nil {
 		return errors.Wrap(err, "ProcessReportHash GetMemberInfo err.")
 	}
+
+	if len(memberInfo.CurrentFrameConsensusReport) > 0 {
+		logger.Debug("Consensus quorum is reached.")
+		return nil
+	}
+
 	if !memberInfo.IsFastLane {
 		if headSlot.Cmp(new(big.Int).Add(memberInfo.CurrentFrameRefSlot, memberInfo.FastLaneLengthSlot)) == -1 {
 			msg := fmt.Sprintf("Member is not in fast lane, so report will be postponed for %s slots", memberInfo.FastLaneLengthSlot.String())
@@ -59,13 +72,15 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash []
 
 	if !typetool.CompareByte32Arrays(dataHash, memberInfo.CurrentFrameMemberReport) {
 		oldDataHashStr := strings.Join(typetool.Byte32ArrToStrArr(memberInfo.CurrentFrameMemberReport), ",")
-		reportJson, _ := json.Marshal(reportData)
+		withdrawOracleReportJson, _ := json.Marshal(withdrawOracleReportData)
+		largeStakeReportDataReportJson, _ := json.Marshal(largeStakeReportData)
 
 		if memberInfo.IsCurrentReportConsensus && !config.Config.Oracle.IsDifferentConsensusHashReport {
 			logger.Warn("Consensus hash is different.",
 				zap.String("new hash", dataHashStr),
 				zap.String("old hash", oldDataHashStr),
-				zap.String("ReportData", string(reportJson)),
+				zap.String("[WithdrawOracle] ReportData", string(withdrawOracleReportJson)),
+				zap.String("[LargeStakeOracle] ReportData", string(largeStakeReportDataReportJson)),
 				zap.Bool("IsDifferentConsensusHashReport", config.Config.Oracle.IsDifferentConsensusHashReport),
 			)
 			return errs.NewSleepError("CurrentFrameMemberReport Consensus hash is different. Member has report consensus.", RandomSleepTime())
@@ -76,14 +91,19 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash []
 			return errors.Wrap(err, "")
 		}
 
-		if oldDataHashStr == eth1.ZERO_HASH_STR {
-			logger.Debug("Send reportData's hash.", zap.String("hash", dataHashStr), zap.String("ReportData", string(reportJson)))
+		if len(memberInfo.CurrentFrameMemberReport) == 0 {
+			logger.Debug("Send consensus's hash.",
+				zap.String("hash", dataHashStr),
+				zap.String("[WithdrawOracle] ReportData", string(withdrawOracleReportJson)),
+				zap.String("[LargeStakeOracle] ReportData", string(largeStakeReportDataReportJson)),
+			)
 		} else {
 			if config.Config.Oracle.IsDifferentConsensusHashReport {
-				logger.Warn("Send reportData's hash. CurrentFrameMemberReport Consensus hash is different.",
+				logger.Warn("Send consensus's hash. CurrentFrameMemberReport Consensus hash is different.",
 					zap.String("new hash", dataHashStr),
 					zap.String("old hash", oldDataHashStr),
-					zap.String("ReportData", string(reportJson)),
+					zap.String("[WithdrawOracle] ReportData", string(withdrawOracleReportJson)),
+					zap.String("[LargeStakeOracle] ReportData", string(largeStakeReportDataReportJson)),
 					zap.Bool("IsDifferentConsensusHashReport", config.Config.Oracle.IsDifferentConsensusHashReport),
 				)
 			}

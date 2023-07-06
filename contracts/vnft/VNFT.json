@@ -16,6 +16,26 @@
   },
   {
     "inputs": [],
+    "name": "ExceedMaxSupply",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidAddr",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidBlockHeight",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidPubkey",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "InvalidQueryRange",
     "type": "error"
   },
@@ -36,12 +56,42 @@
   },
   {
     "inputs": [],
+    "name": "NotBelongUserNft",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "OwnerQueryForNonexistentToken",
     "type": "error"
   },
   {
     "inputs": [],
     "name": "OwnershipNotInitializedForExtraData",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "PermissionDenied",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "PubkeyAlreadyUsed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "TokenAlreadyReport",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "TokenNotBurned",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "TokenNotExist",
     "type": "error"
   },
   {
@@ -67,6 +117,16 @@
   {
     "inputs": [],
     "name": "URIQueryForNonexistentToken",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "WithdrawalCredentialsEmpty",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "WithdrawalCredentialsMismatch",
     "type": "error"
   },
   {
@@ -350,6 +410,32 @@
   },
   {
     "inputs": [],
+    "name": "activeNftsOfUser",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "activeValidatorOfUser",
+    "outputs": [
+      {
+        "internalType": "bytes[]",
+        "name": "",
+        "type": "bytes[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "activeValidatorsOfStakingPool",
     "outputs": [
       {
@@ -545,6 +631,30 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_operatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_number",
+        "type": "uint256"
+      }
+    ],
+    "name": "getMultipleValidatorWithdrawalCredentials",
+    "outputs": [
+      {
+        "internalType": "bytes[]",
+        "name": "",
+        "type": "bytes[]"
       }
     ],
     "stateMutability": "view",
@@ -781,6 +891,25 @@
       }
     ],
     "name": "numberMinted",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "operatorEmptyNftCounts",
     "outputs": [
       {
         "internalType": "uint256",

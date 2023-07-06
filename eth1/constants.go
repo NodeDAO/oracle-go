@@ -34,3 +34,7 @@ func ETH32() decimal.Decimal {
 func GweiToWei(gwei phase0.Gwei) *big.Int {
 	return new(big.Int).Mul(big.NewInt(int64(gwei)), big.NewInt(params.GWei))
 }
+
+func ETH(eth int64) *big.Int {
+	return new(big.Int).Mul(big.NewInt(params.Ether), big.NewInt(eth))
+}

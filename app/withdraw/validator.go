@@ -6,15 +6,17 @@ package withdraw
 
 import (
 	"context"
+	"github.com/NodeDAO/oracle-go/common/errs"
+	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/consensus"
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
 	consensusApi "github.com/attestantio/go-eth2-client/api/v1"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/params"
 	"github.com/pkg/errors"
 	"github.com/shopspring/decimal"
+	"go.uber.org/zap"
 	"math/big"
 	"strconv"
 )
@@ -23,15 +25,29 @@ import (
 // 2. Query information about beacon
 // 3. The pubkey not found by the beacon, balance = 32 GWEI
 func (v *WithdrawHelper) obtainValidatorConsensusInfo(ctx context.Context) error {
-	// Gets all active validators for the NodeDAO
-	validatorBytes, err := contracts.VnftContract.Contract.ActiveValidatorsOfStakingPool(nil)
+	// Gets all active validators for the NodeDAO's StakingPool (nETH's vNFT)
+	validatorBytesOfStakingPool, err := contracts.VnftContract.Contract.ActiveValidatorsOfStakingPool(nil)
 	if err != nil {
 		return errors.Wrap(err, "Failed to get VnftContract.ActiveValidatorsOfStakingPool")
 	}
+	if err := v.parseValidatorExaMap(ctx, validatorBytesOfStakingPool, LiquidStaking); err != nil {
+		return errors.Wrap(err, "ActiveValidatorsOfStakingPool parseValidatorExaMap err.")
+	}
 
+	// Gets all active validators for the NodeDAO's User (vNFT)
+	validatorBytesOfUser, err := contracts.VnftContract.Contract.ActiveValidatorOfUser(nil)
+	if err != nil {
+		return errors.Wrap(err, "Failed to get VnftContract.ActiveValidatorOfUser")
+	}
+	if err := v.parseValidatorExaMap(ctx, validatorBytesOfUser, USER); err != nil {
+		return errors.Wrap(err, "ActiveValidatorOfUser parseValidatorExaMap err.")
+	}
+
+	return nil
+}
+
+func (v *WithdrawHelper) parseValidatorExaMap(ctx context.Context, validatorBytes [][]byte, vnftOwner VnftOwner) error {
 	validatorCount := len(validatorBytes)
-	v.validatorExaMap = make(map[string]*ValidatorExa)
-	v.requireReportValidator = make(map[string]*ValidatorExa)
 
 	pubkeys := make([]string, validatorCount)
 	for i := 0; i < validatorCount; i++ {
@@ -55,6 +71,7 @@ func (v *WithdrawHelper) obtainValidatorConsensusInfo(ctx context.Context) error
 
 		validatorExa := &ValidatorExa{
 			Validator: validator,
+			VnftOwner: vnftOwner,
 		}
 		v.validatorExaMap[pubkey] = validatorExa
 	}
@@ -62,6 +79,7 @@ func (v *WithdrawHelper) obtainValidatorConsensusInfo(ctx context.Context) error
 	for k, value := range validators {
 		validatorExa := &ValidatorExa{
 			Validator: value,
+			VnftOwner: vnftOwner,
 		}
 		v.validatorExaMap[k] = validatorExa
 	}
@@ -73,9 +91,14 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 
 	exitTokenIds := make([]*big.Int, 0)
 
+	validatorExaArr := make([]*ValidatorExa, 0)
+
 	for pubkey, exa := range v.validatorExaMap {
 		// sum cl balance
-		v.clBalance = new(big.Int).Add(v.clBalance, big.NewInt(int64(exa.Validator.Balance)))
+		if exa.VnftOwner == LiquidStaking {
+			v.clBalance = new(big.Int).Add(v.clBalance, big.NewInt(int64(exa.Validator.Balance)))
+		}
+
 		pubkeyBytes, err := hexutil.Decode(pubkey)
 		if err != nil {
 			return errors.Wrapf(err, "failed to decode pubkey: %s", pubkey)
@@ -115,6 +138,8 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 			// IsNeedOracleReportExit
 			exitTokenIds = append(exitTokenIds, tokenId)
 		}
+
+		validatorExaArr = append(validatorExaArr, exa)
 	}
 
 	// cl balance to wei
@@ -127,49 +152,46 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 	}
 
 	for i, number := range oracleReportExitNumbers {
-		// Ge 0
 		if number.Cmp(decimal.Zero.BigInt()) == 0 {
-			// todo 遍历map 改为数组
-			for s, exa := range v.validatorExaMap {
+			for _, exa := range validatorExaArr {
+				pubkey := exa.Validator.Validator.PublicKey.String()
 				if exitTokenIds[i] == exa.TokenId {
 					exa.IsNeedOracleReportExit = true
 
 					// slashed
-					if exa.Validator.Validator.Slashed {
-						withdrawAbleSlot := consensus.ConsensusClient.ChainTimeService.EpochToSlot(exa.Validator.Validator.WithdrawableEpoch)
-						currentSlot := consensus.ConsensusClient.ChainTimeService.CurrentSlot()
-						if withdrawAbleSlot <= currentSlot {
-							pubkeys := make([]string, 1)
-							pubkeys[0] = s
-							validator, err := consensus.ConsensusClient.CustomizeBeaconService.ValidatorsByPubKey(ctx, strconv.FormatInt(int64(withdrawAbleSlot), 10), pubkeys)
-							if err != nil {
-								return errors.Wrapf(err, "Failed to get validator ExitedAmount. tokenId:%s pubkey:%s slot:%s", exa.TokenId.String(), s, exa.ExitedSlot.String())
-							}
-							exa.SlashAmount = eth1.ETH32().Sub(decimal.NewFromInt(int64(validator[s].Balance)).Mul(decimal.NewFromInt(params.GWei))).BigInt()
+					if exa.Validator.Status == consensusApi.ValidatorStateWithdrawalDone && exa.Validator.Validator.Slashed {
+						validatorSlashedAmount, err := consensus.ConsensusClient.CustomizeBeaconService.ValidatorSlashedAmount(ctx, exa.Validator)
+						if err != nil {
+							return errors.Wrapf(err, "failed to get ValidatorSlashedAmount:%s", pubkey)
 						}
+						if validatorSlashedAmount.Cmp(eth1.ETH(2)) == 1 {
+							logger.Warn("[WithdrawOracle] slash amount > 2 ETH.",
+								zap.String("pubkey", pubkey),
+								zap.String("slashAmount", validatorSlashedAmount.String()),
+							)
+							return errs.NewSleepError("slash amount > 2 ETH", RandomSleepTime())
+						}
+
+						exa.SlashAmount = validatorSlashedAmount
 					} else {
 						exa.SlashAmount = big.NewInt(0)
 					}
 
-					// ExitedAmount
-					isOwnerLiqPool, err := v.IsOwnerLiqPool(ctx, exa)
-					if err != nil {
-						return errors.Wrap(err, "")
-					}
-					if isOwnerLiqPool {
+					// ExitedAmountForClCapital
+					if exa.VnftOwner == LiquidStaking {
 						pubkeys := make([]string, 1)
-						pubkeys[0] = s
+						pubkeys[0] = pubkey
 						validator, err := consensus.ConsensusClient.CustomizeBeaconService.ValidatorsByPubKey(ctx, exa.ExitedSlot.String(), pubkeys)
 						if err != nil {
-							return errors.Wrapf(err, "Failed to get validator ExitedAmount. tokenId:%s pubkey:%s slot:%s", exa.TokenId.String(), s, exa.ExitedSlot.String())
+							return errors.Wrapf(err, "Failed to get validator ExitedAmountForClCapital. tokenId:%s pubkey:%s slot:%s", exa.TokenId.String(), pubkey, exa.ExitedSlot.String())
 						}
-						exa.ExitedAmount = eth1.GWEIToWEI(big.NewInt(int64(validator[s].Balance)))
+						exa.ExitedAmountForClCapital = eth1.GWEIToWEI(big.NewInt(int64(validator[pubkey].Balance)))
 					}
 
 					// requireReportValidator If the limit is reached, it is not added
 					exitLimit := int(v.exitRequestLimit.Int64())
 					if len(v.requireReportValidator) < exitLimit {
-						v.requireReportValidator[s] = exa
+						v.requireReportValidator[pubkey] = exa
 					}
 
 					break

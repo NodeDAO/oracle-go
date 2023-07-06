@@ -31,11 +31,11 @@ type WithdrawHelper struct {
 	withdrawOracleModuleId   *big.Int
 
 	// compute process
-	validatorExaMap         map[string]*ValidatorExa
-	requireReportValidator  map[string]*ValidatorExa
-	totalOperatorClCapital  *big.Int
-	totalNftCount           *big.Int
-	isComputeOperatorReward bool
+	validatorExaMap            map[string]*ValidatorExa
+	requireReportValidator     map[string]*ValidatorExa
+	totalOperatorClCapital     *big.Int
+	totalNftCountOfStakingPool *big.Int
+	isComputeOperatorReward    bool
 
 	// process res
 	clBalance          *big.Int
@@ -61,6 +61,8 @@ type WithdrawHelper struct {
 type ValidatorExa struct {
 	Validator *consensusApi.Validator
 
+	VnftOwner VnftOwner
+
 	IsExited          bool
 	ExitedSlot        *big.Int
 	ExitedBlockHeight *big.Int
@@ -70,17 +72,16 @@ type ValidatorExa struct {
 	// Whether oracle needs to make a report
 	IsNeedOracleReportExit bool
 	// IsNeedOracleReportExit = true And then to calculate
-	ExitedAmount *big.Int
-	// Whether the tokenId is owned by the pledge pool
-	IsOwnerLiqPool bool
+	// ClCapital used to calculate WithdrawInfo
+	ExitedAmountForClCapital *big.Int
 
 	// 1.slashed 2.exited 3.Not OracleReportExit
 	SlashAmount *big.Int
 }
 
 type EffectiveOperator struct {
-	VnftCount      uint64
-	OperatorReward withdrawOracle.WithdrawInfo
+	VnftCountOfStakingPool uint64
+	OperatorReward         withdrawOracle.WithdrawInfo
 }
 
 type Oracle struct {
@@ -112,3 +113,10 @@ func RandomSleepTime() time.Duration {
 	maxSleep := time.Second * SECONDS_PER_EPOCH * 2
 	return timetool.RandomTime(minSleep, maxSleep)
 }
+
+type VnftOwner uint32
+
+const (
+	USER VnftOwner = iota
+	LiquidStaking
+)
