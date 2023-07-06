@@ -107,8 +107,11 @@ func (v *HashConsensusHelper) submitReport(ctx context.Context, dataHash [][32]b
 		return errors.Wrapf(err, "Failed to WaitMined submit consensus report. refslot:%s", refSlot.String())
 	}
 
+	dataHashStr := strings.Join(typetool.Byte32ArrToStrArr(dataHash), ",")
+
 	logger.Info("submit consensus Report success.",
 		zap.String("refSlot", refSlot.String()),
+		zap.String("consensus dataHashStr", dataHashStr),
 		zap.String("tx hash", tx.Hash().String()),
 		zap.String("from", v.KeyTransactOpts.From.String()),
 		zap.String("to", tx.To().String()),
@@ -172,7 +175,7 @@ func (v *HashConsensusHelper) GetRefSlotAndIsReport(ctx context.Context) (*big.I
 		return nil, nil, errors.Wrap(err, "")
 	}
 
-	logger.Debug("withdrawOracle start scan ...", zap.String("refSlot", memberInfo.CurrentFrameRefSlot.String()), zap.String("deadlineSlot", memberInfo.DeadlineSlot.String()))
+	logger.Debug("Oracle start scan ...", zap.String("refSlot", memberInfo.CurrentFrameRefSlot.String()), zap.String("deadlineSlot", memberInfo.DeadlineSlot.String()))
 
 	if !memberInfo.CanReport {
 		return nil, nil, errs.NewSleepError("Member's ConsensusState is not CanReport.", RandomSleepTime())
