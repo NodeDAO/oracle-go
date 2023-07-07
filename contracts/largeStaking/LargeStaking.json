@@ -780,6 +780,19 @@
   },
   {
     "inputs": [],
+    "name": "MAX_SLASH_AMOUNT",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "MIN_STAKE_AMOUNT",
     "outputs": [
       {
@@ -1812,68 +1825,26 @@
         "type": "bytes"
       }
     ],
-    "name": "validatorExitReportBlock",
+    "name": "validatorInfo",
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "stakingId",
         "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "name": "validatorOfStaking",
-    "outputs": [
+      },
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "registerBlock",
         "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "name": "validatorRegisterBlock",
-    "outputs": [
+      },
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "exitBlock",
         "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "name": "validatorSlashAmount",
-    "outputs": [
+      },
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "slashAmount",
         "type": "uint256"
       }
     ],
