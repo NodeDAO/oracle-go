@@ -1,9 +1,9 @@
 # oracle-go
 **Golang NodeDAO Oracle daemon**
 
-Made by:  [kinghash](https://www.kinghash.com/)
+Made by:  [HashKing](https://www.hashking.fi)
 
-![kinghash](./docs/images/kingHashLogo.PNG)
+![HashKing](./docs/images/HashKingLogo.svg)
 
 Oracle daemon for NodeDAO decentralized staking service. Collects and reports Beacon Chain states to the NodeDAO contract running on Ethereum execution layer.
 
