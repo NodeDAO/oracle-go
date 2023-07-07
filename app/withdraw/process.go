@@ -28,17 +28,8 @@ import (
 )
 
 func (v *WithdrawHelper) ProcessReport(ctx context.Context) error {
-	paused, err := v.oracle.Paused(ctx)
-	if err != nil {
-		return errors.Wrap(err, "")
-	}
-	if paused {
-		logger.Info("withdrawOracle is paused.")
-		return errs.NewSleepError("withdrawOracle is paused.", RandomSleepTime())
-	}
-
-	if err := v.check(ctx); err != nil {
-		return errors.Wrap(err, "check network、el、cl config err.")
+	if err := v.checkNetwork(ctx); err != nil {
+		return errors.Wrap(err, "checkNetwork network、el、cl config err.")
 	}
 
 	if err := v.setup(ctx); err != nil {
@@ -79,6 +70,26 @@ func (v *WithdrawHelper) reportHashArr(ctx context.Context) error {
 		return errors.Wrap(err, "[LargeStakeOracle] IsModuleReport err.")
 	}
 
+	// deal paused.
+	withdrawOraclePaused, err := contracts.WithdrawOracleContract.Contract.Paused(nil)
+	if err != nil {
+		return errors.Wrap(err, "Failed to get WithdrawOracleContract Paused.")
+	}
+	if withdrawOraclePaused {
+		v.isWithdrawOracleNeedReport = false
+		logger.Debug("[WithdrawOracle] paused.")
+	}
+
+	largeStakeOraclePaused, err := contracts.LargeStakeOracleContract.Contract.Paused(nil)
+	if err != nil {
+		return errors.Wrap(err, "Failed to get LargeStakeOracleContract Paused.")
+	}
+	if largeStakeOraclePaused {
+		v.isLargeStakeOracleNeedReport = false
+		logger.Debug("[LargeStakeOracle] paused.")
+	}
+
+	// Whether the processing is escalated
 	if v.isWithdrawOracleNeedReport {
 		if err := v.buildWithdrawOracleReportData(ctx); err != nil {
 			return errors.Wrap(err, "[WithdrawOracle] buildWithdrawOracleReportData err.")
@@ -159,7 +170,7 @@ func (v *WithdrawHelper) buildWithdrawOracleReportData(ctx context.Context) erro
 func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [][32]byte) error {
 	// If the configuration does not report real data, return it directly
 	if !config.Config.Oracle.IsReportData {
-		return nil
+		return errs.NewSleepError("config file IsReportData is false. Not Report.", RandomSleepTime())
 	}
 
 	_, memberInfo, err := v.hashConsensusHelper.GetLastData(ctx)
@@ -377,7 +388,7 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 	return nil
 }
 
-func (v *WithdrawHelper) check(ctx context.Context) error {
+func (v *WithdrawHelper) checkNetwork(ctx context.Context) error {
 	// check network
 	chainID, err := eth1.ElClient.Client.ChainID(ctx)
 	isSameNetwork := eth1.IsSameNetwork(config.Config.Eth.Network, int(chainID.Int64()))
@@ -397,7 +408,7 @@ func (v *WithdrawHelper) check(ctx context.Context) error {
 	// check beacon sync
 	syncState, err := consensus.ConsensusClient.ConsensusClient.(consensusclient.NodeSyncingProvider).NodeSyncing(ctx)
 	if err != nil {
-		return errors.Wrap(err, "check err.")
+		return errors.Wrap(err, "checkNetwork err.")
 	}
 	if syncState.IsSyncing {
 		logger.Warnf("Beacon node is syncing. isSync:%v SyncDistance:%v", syncState.IsSyncing, syncState.SyncDistance)

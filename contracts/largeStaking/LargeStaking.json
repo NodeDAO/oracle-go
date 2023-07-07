@@ -414,6 +414,12 @@
       {
         "indexed": false,
         "internalType": "address",
+        "name": "_elRewardAddr",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
         "name": "_withdrawCredentials",
         "type": "address"
       },
@@ -502,6 +508,12 @@
         "indexed": false,
         "internalType": "address",
         "name": "_owner",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_elRewardAddr",
         "type": "address"
       },
       {
@@ -670,19 +682,6 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "address",
-        "name": "account",
-        "type": "address"
-      }
-    ],
-    "name": "Paused",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
         "internalType": "uint256",
         "name": "_operatorId",
         "type": "uint256"
@@ -695,19 +694,6 @@
       }
     ],
     "name": "SharedRewardPoolStart",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "account",
-        "type": "address"
-      }
-    ],
-    "name": "Unpaused",
     "type": "event"
   },
   {
@@ -860,12 +846,7 @@
     "inputs": [
       {
         "internalType": "uint256[]",
-        "name": "_privatePoolStakingIds",
-        "type": "uint256[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "_operatorIds",
+        "name": "_stakingIds",
         "type": "uint256[]"
       }
     ],
@@ -877,19 +858,14 @@
   {
     "inputs": [
       {
-        "internalType": "uint256[]",
-        "name": "_privatePoolStakingIds",
-        "type": "uint256[]"
-      },
-      {
-        "internalType": "bool",
-        "name": "_claimSharePool",
-        "type": "bool"
-      },
-      {
         "internalType": "uint256",
         "name": "_operatorId",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_privatePoolStakingIds",
+        "type": "uint256[]"
       }
     ],
     "name": "claimRewardsOfOperator",
@@ -903,11 +879,6 @@
         "internalType": "uint256",
         "name": "_stakingId",
         "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "beneficiary",
-        "type": "address"
       },
       {
         "internalType": "uint256",
@@ -1199,6 +1170,11 @@
             "type": "address"
           },
           {
+            "internalType": "address",
+            "name": "elRewardAddr",
+            "type": "address"
+          },
+          {
             "internalType": "bytes32",
             "name": "withdrawCredentials",
             "type": "bytes32"
@@ -1302,7 +1278,7 @@
       },
       {
         "internalType": "address",
-        "name": "_owner",
+        "name": "_elRewardAddr",
         "type": "address"
       },
       {
@@ -1372,6 +1348,11 @@
         "type": "address"
       },
       {
+        "internalType": "address",
+        "name": "elRewardAddr",
+        "type": "address"
+      },
+      {
         "internalType": "bytes32",
         "name": "withdrawCredentials",
         "type": "bytes32"
@@ -1403,6 +1384,11 @@
       {
         "internalType": "address",
         "name": "_owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_elRewardAddr",
         "type": "address"
       },
       {
@@ -1498,19 +1484,6 @@
         "internalType": "address",
         "name": "",
         "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "paused",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -1859,6 +1832,25 @@
       }
     ],
     "name": "validatorOfStaking",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "name": "validatorRegisterBlock",
     "outputs": [
       {
         "internalType": "uint256",

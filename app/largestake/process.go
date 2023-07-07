@@ -150,13 +150,25 @@ func (v *LargeStakeHelper) filterExitedSlashedValidator(ctx context.Context, val
 		}
 
 		if validatorExa.Validator.Status == consensusApi.ValidatorStateUnknown {
+			validatorRegisterBlock, err := contracts.LargeStakingContract.Contract.ValidatorRegisterBlock(nil, pubkeyByte)
+			if err != nil {
+				return nil, nil, errors.Wrapf(err, "failed to get LargeStakingContract ValidatorRegisterBlock:%s", pubkey)
+			}
+
+			if validatorRegisterBlock.Cmp(big.NewInt(TWO_DAY_BLOCK_NUMBER)) > 0 {
+				clStakingExitInfos = append(clStakingExitInfos, largeStakeOracle.CLStakingExitInfo{
+					StakingId: validatorExa.StakingId,
+					Pubkey:    pubkeyByte,
+				})
+			}
+
 			continue
 		}
 
 		if beacon.ValidatorIsFullExited(validatorExa.Validator) {
 			reportBlock, err := contracts.LargeStakingContract.Contract.ValidatorExitReportBlock(nil, pubkeyByte)
 			if err != nil {
-				return nil, nil, errors.Wrapf(err, "failed to get ValidatorExitReportBlock:%s", pubkey)
+				return nil, nil, errors.Wrapf(err, "failed to get LargeStakingContract ValidatorExitReportBlock:%s", pubkey)
 			}
 			if reportBlock.Cmp(big.NewInt(0)) == 0 {
 				clStakingExitInfos = append(clStakingExitInfos, largeStakeOracle.CLStakingExitInfo{
@@ -166,7 +178,7 @@ func (v *LargeStakeHelper) filterExitedSlashedValidator(ctx context.Context, val
 			}
 		}
 
-		if validatorExa.Validator.Validator.Slashed {
+		if validatorExa.Validator.Status != consensusApi.ValidatorStateUnknown && validatorExa.Validator.Validator.Slashed {
 			reportSlashAmount, err := contracts.LargeStakingContract.Contract.ValidatorSlashAmount(nil, pubkeyByte)
 			if err != nil {
 				return nil, nil, errors.Wrapf(err, "failed to get ValidatorExitReportBlock:%s", pubkey)

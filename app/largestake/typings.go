@@ -27,3 +27,8 @@ type LargeStakeReportRes struct {
 	ReportData     *largeStakeOracle.LargeStakeOracleReportData
 	ReportDataHash [32]byte
 }
+
+const (
+	DAY_BLOCK_NUMBER     = 60 * 60 * 24 / 12
+	TWO_DAY_BLOCK_NUMBER = DAY_BLOCK_NUMBER * 2
+)
