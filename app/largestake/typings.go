@@ -14,6 +14,7 @@ type LargeStakeHelper struct {
 	// params
 	refSlot          *big.Int
 	consensusVersion *big.Int
+	refBlockNumber   *big.Int
 }
 
 type LargeStakeValidator struct {

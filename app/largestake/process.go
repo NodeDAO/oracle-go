@@ -42,10 +42,11 @@ func EncodeLargeStakeReportData(reportData *largeStakeOracle.LargeStakeOracleRep
 	return res, nil
 }
 
-func NewLargeStakeHelper(refSlot, consensusVersion *big.Int) *LargeStakeHelper {
+func NewLargeStakeHelper(refSlot, consensusVersion, refBlockNumber *big.Int) *LargeStakeHelper {
 	return &LargeStakeHelper{
 		refSlot:          refSlot,
 		consensusVersion: consensusVersion,
+		refBlockNumber:   refBlockNumber,
 	}
 }
 
@@ -139,7 +140,10 @@ func (v *LargeStakeHelper) getLargeStakeValidator(ctx context.Context) (map[stri
 	return validatorExaMap, nil
 }
 
-func (v *LargeStakeHelper) filterExitedSlashedValidator(ctx context.Context, validatorExaMap map[string]*LargeStakeValidator) ([]largeStakeOracle.CLStakingExitInfo, []largeStakeOracle.CLStakingSlashInfo, error) {
+func (v *LargeStakeHelper) filterExitedSlashedValidator(
+	ctx context.Context,
+	validatorExaMap map[string]*LargeStakeValidator,
+) ([]largeStakeOracle.CLStakingExitInfo, []largeStakeOracle.CLStakingSlashInfo, error) {
 	clStakingExitInfos := make([]largeStakeOracle.CLStakingExitInfo, 0)
 	clStakingSlashInfos := make([]largeStakeOracle.CLStakingSlashInfo, 0)
 
@@ -155,13 +159,14 @@ func (v *LargeStakeHelper) filterExitedSlashedValidator(ctx context.Context, val
 		}
 
 		if validatorExa.Validator.Status == consensusApi.ValidatorStateUnknown {
-			if validatorInfo.RegisterBlock.Cmp(big.NewInt(TWO_DAY_BLOCK_NUMBER)) > 0 {
-				clStakingExitInfos = append(clStakingExitInfos, largeStakeOracle.CLStakingExitInfo{
-					StakingId: validatorExa.StakingId,
-					Pubkey:    pubkeyByte,
-				})
+			if validatorInfo.RegisterBlock.Cmp(v.refBlockNumber) < 0 {
+				if new(big.Int).Sub(v.refBlockNumber, validatorInfo.RegisterBlock).Cmp(big.NewInt(TWO_DAY_BLOCK_NUMBER)) > 0 {
+					clStakingExitInfos = append(clStakingExitInfos, largeStakeOracle.CLStakingExitInfo{
+						StakingId: validatorExa.StakingId,
+						Pubkey:    pubkeyByte,
+					})
+				}
 			}
-
 			continue
 		}
 

@@ -29,7 +29,7 @@ func TestProcessLargeStakeOracleReport(t *testing.T) {
 	frame, err := contracts.HashConsensusContract.Contract.GetCurrentFrame(nil)
 	require.NoError(t, err)
 
-	helper := NewLargeStakeHelper(frame.RefSlot, big.NewInt(2))
+	helper := NewLargeStakeHelper(frame.RefSlot, big.NewInt(2), big.NewInt(11111))
 
 	largeStakeReportRes, err := helper.ProcessReportData(ctx)
 
