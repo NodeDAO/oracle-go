@@ -20,6 +20,7 @@ import (
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"math/big"
+	"sort"
 	"strings"
 	"time"
 )
@@ -68,6 +69,27 @@ func (v *LargeStakeHelper) ProcessReportData(ctx context.Context) (*LargeStakeRe
 			ReportData:     &largeStakeOracle.LargeStakeOracleReportData{},
 			ReportDataHash: eth1.ZERO_HASH,
 		}, nil
+	}
+
+	exitLimit, err := contracts.LargeStakeOracleContract.Contract.ExitLimit(nil)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to get LargeStakeOracleContract ExitLimit.")
+	}
+
+	// If the exit validator is greater than the exit limit, only the exit limit is taken
+	if len(clStakingExitInfos) > int(exitLimit.Int64()) {
+		logger.Warn("[LargeStakeOracle] exited validator count is more than exit limit.")
+		sort.Slice(clStakingExitInfos, func(i, j int) bool {
+			return string(clStakingExitInfos[i].Pubkey) < string(clStakingExitInfos[j].Pubkey)
+		})
+		clStakingExitInfos = clStakingExitInfos[:exitLimit.Int64()]
+
+		if len(clStakingSlashInfos) > int(exitLimit.Int64()) {
+			sort.Slice(clStakingSlashInfos, func(i, j int) bool {
+				return string(clStakingSlashInfos[i].Pubkey) < string(clStakingSlashInfos[j].Pubkey)
+			})
+			clStakingSlashInfos = clStakingSlashInfos[:exitLimit.Int64()]
+		}
 	}
 
 	reportData := &largeStakeOracle.LargeStakeOracleReportData{
@@ -159,7 +181,7 @@ func (v *LargeStakeHelper) filterExitedSlashedValidator(
 		}
 
 		if validatorExa.Validator.Status == consensusApi.ValidatorStateUnknown {
-			if validatorInfo.RegisterBlock.Cmp(v.refBlockNumber) < 0 {
+			if validatorInfo.RegisterBlock.Cmp(v.refBlockNumber) < 0 && validatorInfo.ExitBlock.Cmp(big.NewInt(0)) == 0 {
 				if new(big.Int).Sub(v.refBlockNumber, validatorInfo.RegisterBlock).Cmp(big.NewInt(TWO_DAY_BLOCK_NUMBER)) > 0 {
 					clStakingExitInfos = append(clStakingExitInfos, largeStakeOracle.CLStakingExitInfo{
 						StakingId: validatorExa.StakingId,

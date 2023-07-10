@@ -15,6 +15,11 @@
     "type": "error"
   },
   {
+    "inputs": [],
+    "name": "ExitLimitNotZero",
+    "type": "error"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -58,6 +63,11 @@
   {
     "inputs": [],
     "name": "OnlyConsensusContractCanSubmitReport",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "OverExitLimit",
     "type": "error"
   },
   {
@@ -374,50 +384,6 @@
       },
       {
         "indexed": false,
-        "internalType": "bytes32",
-        "name": "hash",
-        "type": "bytes32"
-      }
-    ],
-    "name": "ProcessingStarted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "refSlot",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "bytes32",
-        "name": "hash",
-        "type": "bytes32"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "processingDeadlineTime",
-        "type": "uint256"
-      }
-    ],
-    "name": "ReportSubmitted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "refSlot",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
         "internalType": "uint256",
         "name": "consensusVersion",
         "type": "uint256"
@@ -484,6 +450,25 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "oldExitLimit",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newExitLimit",
+        "type": "uint256"
+      }
+    ],
+    "name": "UpdateExitLimit",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "implementation",
@@ -540,6 +525,19 @@
         "internalType": "address",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "exitLimit",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -804,6 +802,19 @@
       }
     ],
     "name": "setDaoAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_exitLimit",
+        "type": "uint256"
+      }
+    ],
+    "name": "setExitLimit",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

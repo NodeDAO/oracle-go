@@ -18,6 +18,7 @@ import (
 	"github.com/shopspring/decimal"
 	"go.uber.org/zap"
 	"math/big"
+	"sort"
 	"strconv"
 )
 
@@ -144,6 +145,10 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 
 	// cl balance to wei
 	v.clBalance = eth1.GWEIToWEI(v.clBalance)
+
+	sort.Slice(validatorExaArr, func(i, j int) bool {
+		return validatorExaArr[i].TokenId.Uint64() < validatorExaArr[j].TokenId.Uint64()
+	})
 
 	// IsNeedOracleReportExit
 	oracleReportExitNumbers, err := contracts.VnftContract.Contract.GetNftExitBlockNumbers(nil, exitTokenIds)
