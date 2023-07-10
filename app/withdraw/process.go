@@ -203,6 +203,14 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [][32
 		} else {
 			logger.Debug("[WithdrawOracle] report data.", zap.String("report data", fmt.Sprintf("%s", string(reportJson))))
 		}
+
+		withdrawOracleProcessingState, err := contracts.WithdrawOracleContract.Contract.GetProcessingState(nil)
+		if err != nil {
+			return errors.Wrap(err, "WithdrawOracleContract GetProcessingState err.")
+		}
+		if withdrawOracleProcessingState.DataSubmitted {
+			v.isWithdrawOracleNeedReport = false
+		}
 	}
 
 	if v.isLargeStakeOracleNeedReport {
@@ -211,6 +219,13 @@ func (v *WithdrawHelper) processReportData(ctx context.Context, reportHash [][32
 			logger.Debug("[LargeStakeOracle] report data.", zap.String("report data", fmt.Sprintf("%+v", v.largeStakeOracleRes)))
 		} else {
 			logger.Debug("[LargeStakeOracle] report data.", zap.String("report data", fmt.Sprintf("%s", string(reportJson))))
+		}
+		largeStakeOracleProcessingState, err := contracts.LargeStakeOracleContract.Contract.GetProcessingState(nil)
+		if err != nil {
+			return errors.Wrap(err, "LargeStakeOracleContract GetProcessingState err.")
+		}
+		if largeStakeOracleProcessingState.DataSubmitted {
+			v.isLargeStakeOracleNeedReport = false
 		}
 	}
 
