@@ -29,20 +29,26 @@ var (
 	_ = abi.ConvertType
 )
 
-// HashConsensusMemberConsensusState is an auto generated low-level Go binding around an user-defined struct.
-type HashConsensusMemberConsensusState struct {
+// MultiHashConsensusMemberConsensusState is an auto generated low-level Go binding around an user-defined struct.
+type MultiHashConsensusMemberConsensusState struct {
 	CurrentFrameRefSlot         *big.Int
-	CurrentFrameConsensusReport [32]byte
+	CurrentFrameConsensusReport [][32]byte
 	IsMember                    bool
 	IsFastLane                  bool
 	CanReport                   bool
 	LastMemberReportRefSlot     *big.Int
-	CurrentFrameMemberReport    [32]byte
+	CurrentFrameMemberReport    [][32]byte
+}
+
+// MultiHashConsensusReportProcessor is an auto generated low-level Go binding around an user-defined struct.
+type MultiHashConsensusReportProcessor struct {
+	Processor     common.Address
+	FrameMultiple uint64
 }
 
 // HashConsensusMetaData contains all meta data concerning the HashConsensus contract.
 var HashConsensusMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[],\"name\":\"AddressCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ConsensusReportAlreadyProcessing\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DaoCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DuplicateMember\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DuplicateReport\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EmptyReport\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EpochsPerFrameCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FastLanePeriodCannotBeLongerThanFrame\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InitialEpochAlreadyArrived\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InitialEpochIsYetToArrive\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InitialEpochRefSlotCannotBeEarlierThanProcessingSlot\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidAddr\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidSlot\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NewProcessorCannotBeTheSame\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NonFastLaneMemberCannotReportWithinFastLaneInterval\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NonMember\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NumericOverflow\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"minQuorum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"receivedQuorum\",\"type\":\"uint256\"}],\"name\":\"QuorumTooSmall\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ReportProcessorCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"StaleReport\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"expected\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"received\",\"type\":\"uint256\"}],\"name\":\"UnexpectedConsensusVersion\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"report\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"support\",\"type\":\"uint256\"}],\"name\":\"ConsensusReached\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDao\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"DaoAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fastLaneLengthSlots\",\"type\":\"uint256\"}],\"name\":\"FastLaneConfigSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newInitialEpoch\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newEpochsPerFrame\",\"type\":\"uint256\"}],\"name\":\"FrameConfigSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newTotalMembers\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newQuorum\",\"type\":\"uint256\"}],\"name\":\"MemberAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newTotalMembers\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newQuorum\",\"type\":\"uint256\"}],\"name\":\"MemberRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newQuorum\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalMembers\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"prevQuorum\",\"type\":\"uint256\"}],\"name\":\"QuorumSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"processor\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"prevProcessor\",\"type\":\"address\"}],\"name\":\"ReportProcessorSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"member\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"report\",\"type\":\"bytes32\"}],\"name\":\"ReportReceived\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"quorum\",\"type\":\"uint256\"}],\"name\":\"addMember\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dao\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"disableConsensus\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getChainConfig\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"slotsPerEpoch\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"secondsPerSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"genesisTime\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getConsensusState\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"consensusReport\",\"type\":\"bytes32\"},{\"internalType\":\"bool\",\"name\":\"isReportProcessing\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"getConsensusStateForMember\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"currentFrameRefSlot\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"currentFrameConsensusReport\",\"type\":\"bytes32\"},{\"internalType\":\"bool\",\"name\":\"isMember\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"isFastLane\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"canReport\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"lastMemberReportRefSlot\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"currentFrameMemberReport\",\"type\":\"bytes32\"}],\"internalType\":\"structHashConsensus.MemberConsensusState\",\"name\":\"result\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCurrentFrame\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"reportProcessingDeadlineSlot\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getFastLaneMembers\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"addresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"lastReportedRefSlots\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getFrameConfig\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"initialEpoch\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"epochsPerFrame\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fastLaneLengthSlots\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getInitialRefSlot\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"getIsFastLaneMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"getIsMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getLastReportingRefSlotState\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"lastReportRefSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lastConsensusRefSlot\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMembers\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"addresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"lastReportedRefSlots\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getQuorum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getReportProcessor\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getReportVariants\",\"outputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"variants\",\"type\":\"bytes32[]\"},{\"internalType\":\"uint256[]\",\"name\":\"support\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slotsPerEpoch\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"secondsPerSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"genesisTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"epochsPerFrame\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fastLaneLengthSlots\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"reportProcessor\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"quorum\",\"type\":\"uint256\"}],\"name\":\"removeMember\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"setDaoAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"fastLaneLengthSlots\",\"type\":\"uint256\"}],\"name\":\"setFastLaneLengthSlots\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"epochsPerFrame\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fastLaneLengthSlots\",\"type\":\"uint256\"}],\"name\":\"setFrameConfig\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"quorum\",\"type\":\"uint256\"}],\"name\":\"setQuorum\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newProcessor\",\"type\":\"address\"}],\"name\":\"setReportProcessor\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"report\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"consensusVersion\",\"type\":\"uint256\"}],\"name\":\"submitReport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"initialEpoch\",\"type\":\"uint256\"}],\"name\":\"updateInitialEpoch\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[],\"name\":\"AddressCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ConsensusReportAlreadyProcessing\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DaoCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DuplicateMember\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DuplicateReport\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DuplicateReportProcessor\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EmptyReport\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EpochsPerFrameCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FastLanePeriodCannotBeLongerThanFrame\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FrameMultipleCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InitialEpochAlreadyArrived\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InitialEpochIsYetToArrive\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InitialEpochRefSlotCannotBeEarlierThanProcessingSlot\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidAddr\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidSlot\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NonFastLaneMemberCannotReportWithinFastLaneInterval\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NonMember\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NumericOverflow\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"bytes32[]\",\"name\":\"report\",\"type\":\"bytes32[]\"},{\"internalType\":\"uint256\",\"name\":\"moduleId\",\"type\":\"uint256\"},{\"internalType\":\"uint64\",\"name\":\"frameMultiple\",\"type\":\"uint64\"}],\"name\":\"OracleIndexReportShouldZeroHash\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"minQuorum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"receivedQuorum\",\"type\":\"uint256\"}],\"name\":\"QuorumTooSmall\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ReportLenNotEqualReportProcessorsLen\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ReportProcessorCannotBeZero\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"reportProcessor\",\"type\":\"address\"}],\"name\":\"ReportProcessorExist\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"reportProcessor\",\"type\":\"address\"}],\"name\":\"ReportProcessorNotFound\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"StaleReport\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"expected\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"received\",\"type\":\"uint256\"}],\"name\":\"UnexpectedConsensusVersion\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes32[]\",\"name\":\"report\",\"type\":\"bytes32[]\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"support\",\"type\":\"uint256\"}],\"name\":\"ConsensusReached\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDao\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"DaoAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fastLaneLengthSlots\",\"type\":\"uint256\"}],\"name\":\"FastLaneConfigSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newInitialEpoch\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newEpochsPerFrame\",\"type\":\"uint256\"}],\"name\":\"FrameConfigSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newTotalMembers\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newQuorum\",\"type\":\"uint256\"}],\"name\":\"MemberAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newTotalMembers\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newQuorum\",\"type\":\"uint256\"}],\"name\":\"MemberRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newQuorum\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalMembers\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"prevQuorum\",\"type\":\"uint256\"}],\"name\":\"QuorumSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"processor\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"moduleId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"frameMultiple\",\"type\":\"uint64\"}],\"name\":\"ReportProcessorAdd\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"oldProcessor\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newProcessor\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"moduleId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"frameMultiple\",\"type\":\"uint64\"}],\"name\":\"ReportProcessorUpdate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"member\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32[]\",\"name\":\"report\",\"type\":\"bytes32[]\"}],\"name\":\"ReportReceived\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"quorum\",\"type\":\"uint256\"}],\"name\":\"addMember\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newProcessor\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"frameMultiple\",\"type\":\"uint64\"}],\"name\":\"addReportProcessor\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dao\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"disableConsensus\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getChainConfig\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"slotsPerEpoch\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"secondsPerSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"genesisTime\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getConsensusState\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"bytes32[]\",\"name\":\"consensusReport\",\"type\":\"bytes32[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"getConsensusStateForMember\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"currentFrameRefSlot\",\"type\":\"uint256\"},{\"internalType\":\"bytes32[]\",\"name\":\"currentFrameConsensusReport\",\"type\":\"bytes32[]\"},{\"internalType\":\"bool\",\"name\":\"isMember\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"isFastLane\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"canReport\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"lastMemberReportRefSlot\",\"type\":\"uint256\"},{\"internalType\":\"bytes32[]\",\"name\":\"currentFrameMemberReport\",\"type\":\"bytes32[]\"}],\"internalType\":\"structMultiHashConsensus.MemberConsensusState\",\"name\":\"result\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCurrentFrame\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"reportProcessingDeadlineSlot\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getFastLaneMembers\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"addresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"lastReportedRefSlots\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getFrameConfig\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"initialEpoch\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"epochsPerFrame\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fastLaneLengthSlots\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getInitialRefSlot\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"getIsFastLaneMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"getIsMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_reportProcessor\",\"type\":\"address\"}],\"name\":\"getIsReportProcessing\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"getIsReportProcessor\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMembers\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"addresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"lastReportedRefSlots\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getQuorum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"reportProcessor\",\"type\":\"address\"}],\"name\":\"getReportModuleId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getReportProcessors\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"processor\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"frameMultiple\",\"type\":\"uint64\"}],\"internalType\":\"structMultiHashConsensus.ReportProcessor[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getReportVariants\",\"outputs\":[{\"internalType\":\"bytes32[][]\",\"name\":\"variants\",\"type\":\"bytes32[][]\"},{\"internalType\":\"uint256[]\",\"name\":\"support\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slotsPerEpoch\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"secondsPerSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"genesisTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"epochsPerFrame\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fastLaneLengthSlots\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"moduleId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"}],\"name\":\"isModuleReport\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"quorum\",\"type\":\"uint256\"}],\"name\":\"removeMember\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"setDaoAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"fastLaneLengthSlots\",\"type\":\"uint256\"}],\"name\":\"setFastLaneLengthSlots\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"epochsPerFrame\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fastLaneLengthSlots\",\"type\":\"uint256\"}],\"name\":\"setFrameConfig\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"quorum\",\"type\":\"uint256\"}],\"name\":\"setQuorum\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"slot\",\"type\":\"uint256\"},{\"internalType\":\"bytes32[]\",\"name\":\"report\",\"type\":\"bytes32[]\"}],\"name\":\"submitReport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"initialEpoch\",\"type\":\"uint256\"}],\"name\":\"updateInitialEpoch\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"oldProcessor\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"newProcessor\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"frameMultiple\",\"type\":\"uint64\"}],\"name\":\"updateReportProcessor\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}]",
 }
 
 // HashConsensusABI is the input ABI used to generate the binding from.
@@ -274,27 +280,24 @@ func (_HashConsensus *HashConsensusCallerSession) GetChainConfig() (struct {
 
 // GetConsensusState is a free data retrieval call binding the contract method 0xea87627d.
 //
-// Solidity: function getConsensusState() view returns(uint256 refSlot, bytes32 consensusReport, bool isReportProcessing)
+// Solidity: function getConsensusState() view returns(uint256 refSlot, bytes32[] consensusReport)
 func (_HashConsensus *HashConsensusCaller) GetConsensusState(opts *bind.CallOpts) (struct {
-	RefSlot            *big.Int
-	ConsensusReport    [32]byte
-	IsReportProcessing bool
+	RefSlot         *big.Int
+	ConsensusReport [][32]byte
 }, error) {
 	var out []interface{}
 	err := _HashConsensus.contract.Call(opts, &out, "getConsensusState")
 
 	outstruct := new(struct {
-		RefSlot            *big.Int
-		ConsensusReport    [32]byte
-		IsReportProcessing bool
+		RefSlot         *big.Int
+		ConsensusReport [][32]byte
 	})
 	if err != nil {
 		return *outstruct, err
 	}
 
 	outstruct.RefSlot = *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-	outstruct.ConsensusReport = *abi.ConvertType(out[1], new([32]byte)).(*[32]byte)
-	outstruct.IsReportProcessing = *abi.ConvertType(out[2], new(bool)).(*bool)
+	outstruct.ConsensusReport = *abi.ConvertType(out[1], new([][32]byte)).(*[][32]byte)
 
 	return *outstruct, err
 
@@ -302,38 +305,36 @@ func (_HashConsensus *HashConsensusCaller) GetConsensusState(opts *bind.CallOpts
 
 // GetConsensusState is a free data retrieval call binding the contract method 0xea87627d.
 //
-// Solidity: function getConsensusState() view returns(uint256 refSlot, bytes32 consensusReport, bool isReportProcessing)
+// Solidity: function getConsensusState() view returns(uint256 refSlot, bytes32[] consensusReport)
 func (_HashConsensus *HashConsensusSession) GetConsensusState() (struct {
-	RefSlot            *big.Int
-	ConsensusReport    [32]byte
-	IsReportProcessing bool
+	RefSlot         *big.Int
+	ConsensusReport [][32]byte
 }, error) {
 	return _HashConsensus.Contract.GetConsensusState(&_HashConsensus.CallOpts)
 }
 
 // GetConsensusState is a free data retrieval call binding the contract method 0xea87627d.
 //
-// Solidity: function getConsensusState() view returns(uint256 refSlot, bytes32 consensusReport, bool isReportProcessing)
+// Solidity: function getConsensusState() view returns(uint256 refSlot, bytes32[] consensusReport)
 func (_HashConsensus *HashConsensusCallerSession) GetConsensusState() (struct {
-	RefSlot            *big.Int
-	ConsensusReport    [32]byte
-	IsReportProcessing bool
+	RefSlot         *big.Int
+	ConsensusReport [][32]byte
 }, error) {
 	return _HashConsensus.Contract.GetConsensusState(&_HashConsensus.CallOpts)
 }
 
 // GetConsensusStateForMember is a free data retrieval call binding the contract method 0x60e61801.
 //
-// Solidity: function getConsensusStateForMember(address addr) view returns((uint256,bytes32,bool,bool,bool,uint256,bytes32) result)
-func (_HashConsensus *HashConsensusCaller) GetConsensusStateForMember(opts *bind.CallOpts, addr common.Address) (HashConsensusMemberConsensusState, error) {
+// Solidity: function getConsensusStateForMember(address addr) view returns((uint256,bytes32[],bool,bool,bool,uint256,bytes32[]) result)
+func (_HashConsensus *HashConsensusCaller) GetConsensusStateForMember(opts *bind.CallOpts, addr common.Address) (MultiHashConsensusMemberConsensusState, error) {
 	var out []interface{}
 	err := _HashConsensus.contract.Call(opts, &out, "getConsensusStateForMember", addr)
 
 	if err != nil {
-		return *new(HashConsensusMemberConsensusState), err
+		return *new(MultiHashConsensusMemberConsensusState), err
 	}
 
-	out0 := *abi.ConvertType(out[0], new(HashConsensusMemberConsensusState)).(*HashConsensusMemberConsensusState)
+	out0 := *abi.ConvertType(out[0], new(MultiHashConsensusMemberConsensusState)).(*MultiHashConsensusMemberConsensusState)
 
 	return out0, err
 
@@ -341,15 +342,15 @@ func (_HashConsensus *HashConsensusCaller) GetConsensusStateForMember(opts *bind
 
 // GetConsensusStateForMember is a free data retrieval call binding the contract method 0x60e61801.
 //
-// Solidity: function getConsensusStateForMember(address addr) view returns((uint256,bytes32,bool,bool,bool,uint256,bytes32) result)
-func (_HashConsensus *HashConsensusSession) GetConsensusStateForMember(addr common.Address) (HashConsensusMemberConsensusState, error) {
+// Solidity: function getConsensusStateForMember(address addr) view returns((uint256,bytes32[],bool,bool,bool,uint256,bytes32[]) result)
+func (_HashConsensus *HashConsensusSession) GetConsensusStateForMember(addr common.Address) (MultiHashConsensusMemberConsensusState, error) {
 	return _HashConsensus.Contract.GetConsensusStateForMember(&_HashConsensus.CallOpts, addr)
 }
 
 // GetConsensusStateForMember is a free data retrieval call binding the contract method 0x60e61801.
 //
-// Solidity: function getConsensusStateForMember(address addr) view returns((uint256,bytes32,bool,bool,bool,uint256,bytes32) result)
-func (_HashConsensus *HashConsensusCallerSession) GetConsensusStateForMember(addr common.Address) (HashConsensusMemberConsensusState, error) {
+// Solidity: function getConsensusStateForMember(address addr) view returns((uint256,bytes32[],bool,bool,bool,uint256,bytes32[]) result)
+func (_HashConsensus *HashConsensusCallerSession) GetConsensusStateForMember(addr common.Address) (MultiHashConsensusMemberConsensusState, error) {
 	return _HashConsensus.Contract.GetConsensusStateForMember(&_HashConsensus.CallOpts, addr)
 }
 
@@ -586,49 +587,66 @@ func (_HashConsensus *HashConsensusCallerSession) GetIsMember(addr common.Addres
 	return _HashConsensus.Contract.GetIsMember(&_HashConsensus.CallOpts, addr)
 }
 
-// GetLastReportingRefSlotState is a free data retrieval call binding the contract method 0x2e3be210.
+// GetIsReportProcessing is a free data retrieval call binding the contract method 0x948073c6.
 //
-// Solidity: function getLastReportingRefSlotState() view returns(uint256 lastReportRefSlot, uint256 lastConsensusRefSlot)
-func (_HashConsensus *HashConsensusCaller) GetLastReportingRefSlotState(opts *bind.CallOpts) (struct {
-	LastReportRefSlot    *big.Int
-	LastConsensusRefSlot *big.Int
-}, error) {
+// Solidity: function getIsReportProcessing(address _reportProcessor) view returns(bool)
+func (_HashConsensus *HashConsensusCaller) GetIsReportProcessing(opts *bind.CallOpts, _reportProcessor common.Address) (bool, error) {
 	var out []interface{}
-	err := _HashConsensus.contract.Call(opts, &out, "getLastReportingRefSlotState")
+	err := _HashConsensus.contract.Call(opts, &out, "getIsReportProcessing", _reportProcessor)
 
-	outstruct := new(struct {
-		LastReportRefSlot    *big.Int
-		LastConsensusRefSlot *big.Int
-	})
 	if err != nil {
-		return *outstruct, err
+		return *new(bool), err
 	}
 
-	outstruct.LastReportRefSlot = *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-	outstruct.LastConsensusRefSlot = *abi.ConvertType(out[1], new(*big.Int)).(**big.Int)
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
 
-	return *outstruct, err
+	return out0, err
 
 }
 
-// GetLastReportingRefSlotState is a free data retrieval call binding the contract method 0x2e3be210.
+// GetIsReportProcessing is a free data retrieval call binding the contract method 0x948073c6.
 //
-// Solidity: function getLastReportingRefSlotState() view returns(uint256 lastReportRefSlot, uint256 lastConsensusRefSlot)
-func (_HashConsensus *HashConsensusSession) GetLastReportingRefSlotState() (struct {
-	LastReportRefSlot    *big.Int
-	LastConsensusRefSlot *big.Int
-}, error) {
-	return _HashConsensus.Contract.GetLastReportingRefSlotState(&_HashConsensus.CallOpts)
+// Solidity: function getIsReportProcessing(address _reportProcessor) view returns(bool)
+func (_HashConsensus *HashConsensusSession) GetIsReportProcessing(_reportProcessor common.Address) (bool, error) {
+	return _HashConsensus.Contract.GetIsReportProcessing(&_HashConsensus.CallOpts, _reportProcessor)
 }
 
-// GetLastReportingRefSlotState is a free data retrieval call binding the contract method 0x2e3be210.
+// GetIsReportProcessing is a free data retrieval call binding the contract method 0x948073c6.
 //
-// Solidity: function getLastReportingRefSlotState() view returns(uint256 lastReportRefSlot, uint256 lastConsensusRefSlot)
-func (_HashConsensus *HashConsensusCallerSession) GetLastReportingRefSlotState() (struct {
-	LastReportRefSlot    *big.Int
-	LastConsensusRefSlot *big.Int
-}, error) {
-	return _HashConsensus.Contract.GetLastReportingRefSlotState(&_HashConsensus.CallOpts)
+// Solidity: function getIsReportProcessing(address _reportProcessor) view returns(bool)
+func (_HashConsensus *HashConsensusCallerSession) GetIsReportProcessing(_reportProcessor common.Address) (bool, error) {
+	return _HashConsensus.Contract.GetIsReportProcessing(&_HashConsensus.CallOpts, _reportProcessor)
+}
+
+// GetIsReportProcessor is a free data retrieval call binding the contract method 0x2117f9a9.
+//
+// Solidity: function getIsReportProcessor(address addr) view returns(bool)
+func (_HashConsensus *HashConsensusCaller) GetIsReportProcessor(opts *bind.CallOpts, addr common.Address) (bool, error) {
+	var out []interface{}
+	err := _HashConsensus.contract.Call(opts, &out, "getIsReportProcessor", addr)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// GetIsReportProcessor is a free data retrieval call binding the contract method 0x2117f9a9.
+//
+// Solidity: function getIsReportProcessor(address addr) view returns(bool)
+func (_HashConsensus *HashConsensusSession) GetIsReportProcessor(addr common.Address) (bool, error) {
+	return _HashConsensus.Contract.GetIsReportProcessor(&_HashConsensus.CallOpts, addr)
+}
+
+// GetIsReportProcessor is a free data retrieval call binding the contract method 0x2117f9a9.
+//
+// Solidity: function getIsReportProcessor(address addr) view returns(bool)
+func (_HashConsensus *HashConsensusCallerSession) GetIsReportProcessor(addr common.Address) (bool, error) {
+	return _HashConsensus.Contract.GetIsReportProcessor(&_HashConsensus.CallOpts, addr)
 }
 
 // GetMembers is a free data retrieval call binding the contract method 0x9eab5253.
@@ -707,56 +725,87 @@ func (_HashConsensus *HashConsensusCallerSession) GetQuorum() (*big.Int, error) 
 	return _HashConsensus.Contract.GetQuorum(&_HashConsensus.CallOpts)
 }
 
-// GetReportProcessor is a free data retrieval call binding the contract method 0x6d058268.
+// GetReportModuleId is a free data retrieval call binding the contract method 0x1300f68d.
 //
-// Solidity: function getReportProcessor() view returns(address)
-func (_HashConsensus *HashConsensusCaller) GetReportProcessor(opts *bind.CallOpts) (common.Address, error) {
+// Solidity: function getReportModuleId(address reportProcessor) view returns(uint256)
+func (_HashConsensus *HashConsensusCaller) GetReportModuleId(opts *bind.CallOpts, reportProcessor common.Address) (*big.Int, error) {
 	var out []interface{}
-	err := _HashConsensus.contract.Call(opts, &out, "getReportProcessor")
+	err := _HashConsensus.contract.Call(opts, &out, "getReportModuleId", reportProcessor)
 
 	if err != nil {
-		return *new(common.Address), err
+		return *new(*big.Int), err
 	}
 
-	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
 
 	return out0, err
 
 }
 
-// GetReportProcessor is a free data retrieval call binding the contract method 0x6d058268.
+// GetReportModuleId is a free data retrieval call binding the contract method 0x1300f68d.
 //
-// Solidity: function getReportProcessor() view returns(address)
-func (_HashConsensus *HashConsensusSession) GetReportProcessor() (common.Address, error) {
-	return _HashConsensus.Contract.GetReportProcessor(&_HashConsensus.CallOpts)
+// Solidity: function getReportModuleId(address reportProcessor) view returns(uint256)
+func (_HashConsensus *HashConsensusSession) GetReportModuleId(reportProcessor common.Address) (*big.Int, error) {
+	return _HashConsensus.Contract.GetReportModuleId(&_HashConsensus.CallOpts, reportProcessor)
 }
 
-// GetReportProcessor is a free data retrieval call binding the contract method 0x6d058268.
+// GetReportModuleId is a free data retrieval call binding the contract method 0x1300f68d.
 //
-// Solidity: function getReportProcessor() view returns(address)
-func (_HashConsensus *HashConsensusCallerSession) GetReportProcessor() (common.Address, error) {
-	return _HashConsensus.Contract.GetReportProcessor(&_HashConsensus.CallOpts)
+// Solidity: function getReportModuleId(address reportProcessor) view returns(uint256)
+func (_HashConsensus *HashConsensusCallerSession) GetReportModuleId(reportProcessor common.Address) (*big.Int, error) {
+	return _HashConsensus.Contract.GetReportModuleId(&_HashConsensus.CallOpts, reportProcessor)
+}
+
+// GetReportProcessors is a free data retrieval call binding the contract method 0xb6ac0119.
+//
+// Solidity: function getReportProcessors() view returns((address,uint64)[])
+func (_HashConsensus *HashConsensusCaller) GetReportProcessors(opts *bind.CallOpts) ([]MultiHashConsensusReportProcessor, error) {
+	var out []interface{}
+	err := _HashConsensus.contract.Call(opts, &out, "getReportProcessors")
+
+	if err != nil {
+		return *new([]MultiHashConsensusReportProcessor), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]MultiHashConsensusReportProcessor)).(*[]MultiHashConsensusReportProcessor)
+
+	return out0, err
+
+}
+
+// GetReportProcessors is a free data retrieval call binding the contract method 0xb6ac0119.
+//
+// Solidity: function getReportProcessors() view returns((address,uint64)[])
+func (_HashConsensus *HashConsensusSession) GetReportProcessors() ([]MultiHashConsensusReportProcessor, error) {
+	return _HashConsensus.Contract.GetReportProcessors(&_HashConsensus.CallOpts)
+}
+
+// GetReportProcessors is a free data retrieval call binding the contract method 0xb6ac0119.
+//
+// Solidity: function getReportProcessors() view returns((address,uint64)[])
+func (_HashConsensus *HashConsensusCallerSession) GetReportProcessors() ([]MultiHashConsensusReportProcessor, error) {
+	return _HashConsensus.Contract.GetReportProcessors(&_HashConsensus.CallOpts)
 }
 
 // GetReportVariants is a free data retrieval call binding the contract method 0x2fd2d750.
 //
-// Solidity: function getReportVariants() view returns(bytes32[] variants, uint256[] support)
+// Solidity: function getReportVariants() view returns(bytes32[][] variants, uint256[] support)
 func (_HashConsensus *HashConsensusCaller) GetReportVariants(opts *bind.CallOpts) (struct {
-	Variants [][32]byte
+	Variants [][][32]byte
 	Support  []*big.Int
 }, error) {
 	var out []interface{}
 	err := _HashConsensus.contract.Call(opts, &out, "getReportVariants")
 
 	outstruct := new(struct {
-		Variants [][32]byte
+		Variants [][][32]byte
 		Support  []*big.Int
 	})
 	if err != nil {
 		return *outstruct, err
 	}
 
-	outstruct.Variants = *abi.ConvertType(out[0], new([][32]byte)).(*[][32]byte)
+	outstruct.Variants = *abi.ConvertType(out[0], new([][][32]byte)).(*[][][32]byte)
 	outstruct.Support = *abi.ConvertType(out[1], new([]*big.Int)).(*[]*big.Int)
 
 	return *outstruct, err
@@ -765,9 +814,9 @@ func (_HashConsensus *HashConsensusCaller) GetReportVariants(opts *bind.CallOpts
 
 // GetReportVariants is a free data retrieval call binding the contract method 0x2fd2d750.
 //
-// Solidity: function getReportVariants() view returns(bytes32[] variants, uint256[] support)
+// Solidity: function getReportVariants() view returns(bytes32[][] variants, uint256[] support)
 func (_HashConsensus *HashConsensusSession) GetReportVariants() (struct {
-	Variants [][32]byte
+	Variants [][][32]byte
 	Support  []*big.Int
 }, error) {
 	return _HashConsensus.Contract.GetReportVariants(&_HashConsensus.CallOpts)
@@ -775,12 +824,43 @@ func (_HashConsensus *HashConsensusSession) GetReportVariants() (struct {
 
 // GetReportVariants is a free data retrieval call binding the contract method 0x2fd2d750.
 //
-// Solidity: function getReportVariants() view returns(bytes32[] variants, uint256[] support)
+// Solidity: function getReportVariants() view returns(bytes32[][] variants, uint256[] support)
 func (_HashConsensus *HashConsensusCallerSession) GetReportVariants() (struct {
-	Variants [][32]byte
+	Variants [][][32]byte
 	Support  []*big.Int
 }, error) {
 	return _HashConsensus.Contract.GetReportVariants(&_HashConsensus.CallOpts)
+}
+
+// IsModuleReport is a free data retrieval call binding the contract method 0x314abbed.
+//
+// Solidity: function isModuleReport(uint256 moduleId, uint256 slot) view returns(bool)
+func (_HashConsensus *HashConsensusCaller) IsModuleReport(opts *bind.CallOpts, moduleId *big.Int, slot *big.Int) (bool, error) {
+	var out []interface{}
+	err := _HashConsensus.contract.Call(opts, &out, "isModuleReport", moduleId, slot)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// IsModuleReport is a free data retrieval call binding the contract method 0x314abbed.
+//
+// Solidity: function isModuleReport(uint256 moduleId, uint256 slot) view returns(bool)
+func (_HashConsensus *HashConsensusSession) IsModuleReport(moduleId *big.Int, slot *big.Int) (bool, error) {
+	return _HashConsensus.Contract.IsModuleReport(&_HashConsensus.CallOpts, moduleId, slot)
+}
+
+// IsModuleReport is a free data retrieval call binding the contract method 0x314abbed.
+//
+// Solidity: function isModuleReport(uint256 moduleId, uint256 slot) view returns(bool)
+func (_HashConsensus *HashConsensusCallerSession) IsModuleReport(moduleId *big.Int, slot *big.Int) (bool, error) {
+	return _HashConsensus.Contract.IsModuleReport(&_HashConsensus.CallOpts, moduleId, slot)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
@@ -866,6 +946,27 @@ func (_HashConsensus *HashConsensusTransactorSession) AddMember(addr common.Addr
 	return _HashConsensus.Contract.AddMember(&_HashConsensus.TransactOpts, addr, quorum)
 }
 
+// AddReportProcessor is a paid mutator transaction binding the contract method 0xf292a786.
+//
+// Solidity: function addReportProcessor(address newProcessor, uint64 frameMultiple) returns()
+func (_HashConsensus *HashConsensusTransactor) AddReportProcessor(opts *bind.TransactOpts, newProcessor common.Address, frameMultiple uint64) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "addReportProcessor", newProcessor, frameMultiple)
+}
+
+// AddReportProcessor is a paid mutator transaction binding the contract method 0xf292a786.
+//
+// Solidity: function addReportProcessor(address newProcessor, uint64 frameMultiple) returns()
+func (_HashConsensus *HashConsensusSession) AddReportProcessor(newProcessor common.Address, frameMultiple uint64) (*types.Transaction, error) {
+	return _HashConsensus.Contract.AddReportProcessor(&_HashConsensus.TransactOpts, newProcessor, frameMultiple)
+}
+
+// AddReportProcessor is a paid mutator transaction binding the contract method 0xf292a786.
+//
+// Solidity: function addReportProcessor(address newProcessor, uint64 frameMultiple) returns()
+func (_HashConsensus *HashConsensusTransactorSession) AddReportProcessor(newProcessor common.Address, frameMultiple uint64) (*types.Transaction, error) {
+	return _HashConsensus.Contract.AddReportProcessor(&_HashConsensus.TransactOpts, newProcessor, frameMultiple)
+}
+
 // DisableConsensus is a paid mutator transaction binding the contract method 0xad231cb2.
 //
 // Solidity: function disableConsensus() returns()
@@ -887,25 +988,25 @@ func (_HashConsensus *HashConsensusTransactorSession) DisableConsensus() (*types
 	return _HashConsensus.Contract.DisableConsensus(&_HashConsensus.TransactOpts)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x1f85d8bc.
+// Initialize is a paid mutator transaction binding the contract method 0x427a61ba.
 //
-// Solidity: function initialize(uint256 slotsPerEpoch, uint256 secondsPerSlot, uint256 genesisTime, uint256 epochsPerFrame, uint256 fastLaneLengthSlots, address _dao, address reportProcessor) returns()
-func (_HashConsensus *HashConsensusTransactor) Initialize(opts *bind.TransactOpts, slotsPerEpoch *big.Int, secondsPerSlot *big.Int, genesisTime *big.Int, epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int, _dao common.Address, reportProcessor common.Address) (*types.Transaction, error) {
-	return _HashConsensus.contract.Transact(opts, "initialize", slotsPerEpoch, secondsPerSlot, genesisTime, epochsPerFrame, fastLaneLengthSlots, _dao, reportProcessor)
+// Solidity: function initialize(uint256 slotsPerEpoch, uint256 secondsPerSlot, uint256 genesisTime, uint256 epochsPerFrame, uint256 fastLaneLengthSlots, address _dao) returns()
+func (_HashConsensus *HashConsensusTransactor) Initialize(opts *bind.TransactOpts, slotsPerEpoch *big.Int, secondsPerSlot *big.Int, genesisTime *big.Int, epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int, _dao common.Address) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "initialize", slotsPerEpoch, secondsPerSlot, genesisTime, epochsPerFrame, fastLaneLengthSlots, _dao)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x1f85d8bc.
+// Initialize is a paid mutator transaction binding the contract method 0x427a61ba.
 //
-// Solidity: function initialize(uint256 slotsPerEpoch, uint256 secondsPerSlot, uint256 genesisTime, uint256 epochsPerFrame, uint256 fastLaneLengthSlots, address _dao, address reportProcessor) returns()
-func (_HashConsensus *HashConsensusSession) Initialize(slotsPerEpoch *big.Int, secondsPerSlot *big.Int, genesisTime *big.Int, epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int, _dao common.Address, reportProcessor common.Address) (*types.Transaction, error) {
-	return _HashConsensus.Contract.Initialize(&_HashConsensus.TransactOpts, slotsPerEpoch, secondsPerSlot, genesisTime, epochsPerFrame, fastLaneLengthSlots, _dao, reportProcessor)
+// Solidity: function initialize(uint256 slotsPerEpoch, uint256 secondsPerSlot, uint256 genesisTime, uint256 epochsPerFrame, uint256 fastLaneLengthSlots, address _dao) returns()
+func (_HashConsensus *HashConsensusSession) Initialize(slotsPerEpoch *big.Int, secondsPerSlot *big.Int, genesisTime *big.Int, epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int, _dao common.Address) (*types.Transaction, error) {
+	return _HashConsensus.Contract.Initialize(&_HashConsensus.TransactOpts, slotsPerEpoch, secondsPerSlot, genesisTime, epochsPerFrame, fastLaneLengthSlots, _dao)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x1f85d8bc.
+// Initialize is a paid mutator transaction binding the contract method 0x427a61ba.
 //
-// Solidity: function initialize(uint256 slotsPerEpoch, uint256 secondsPerSlot, uint256 genesisTime, uint256 epochsPerFrame, uint256 fastLaneLengthSlots, address _dao, address reportProcessor) returns()
-func (_HashConsensus *HashConsensusTransactorSession) Initialize(slotsPerEpoch *big.Int, secondsPerSlot *big.Int, genesisTime *big.Int, epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int, _dao common.Address, reportProcessor common.Address) (*types.Transaction, error) {
-	return _HashConsensus.Contract.Initialize(&_HashConsensus.TransactOpts, slotsPerEpoch, secondsPerSlot, genesisTime, epochsPerFrame, fastLaneLengthSlots, _dao, reportProcessor)
+// Solidity: function initialize(uint256 slotsPerEpoch, uint256 secondsPerSlot, uint256 genesisTime, uint256 epochsPerFrame, uint256 fastLaneLengthSlots, address _dao) returns()
+func (_HashConsensus *HashConsensusTransactorSession) Initialize(slotsPerEpoch *big.Int, secondsPerSlot *big.Int, genesisTime *big.Int, epochsPerFrame *big.Int, fastLaneLengthSlots *big.Int, _dao common.Address) (*types.Transaction, error) {
+	return _HashConsensus.Contract.Initialize(&_HashConsensus.TransactOpts, slotsPerEpoch, secondsPerSlot, genesisTime, epochsPerFrame, fastLaneLengthSlots, _dao)
 }
 
 // RemoveMember is a paid mutator transaction binding the contract method 0x16f6f03e.
@@ -1034,46 +1135,25 @@ func (_HashConsensus *HashConsensusTransactorSession) SetQuorum(quorum *big.Int)
 	return _HashConsensus.Contract.SetQuorum(&_HashConsensus.TransactOpts, quorum)
 }
 
-// SetReportProcessor is a paid mutator transaction binding the contract method 0xe76cd4e0.
+// SubmitReport is a paid mutator transaction binding the contract method 0x56e2ca0a.
 //
-// Solidity: function setReportProcessor(address newProcessor) returns()
-func (_HashConsensus *HashConsensusTransactor) SetReportProcessor(opts *bind.TransactOpts, newProcessor common.Address) (*types.Transaction, error) {
-	return _HashConsensus.contract.Transact(opts, "setReportProcessor", newProcessor)
+// Solidity: function submitReport(uint256 slot, bytes32[] report) returns()
+func (_HashConsensus *HashConsensusTransactor) SubmitReport(opts *bind.TransactOpts, slot *big.Int, report [][32]byte) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "submitReport", slot, report)
 }
 
-// SetReportProcessor is a paid mutator transaction binding the contract method 0xe76cd4e0.
+// SubmitReport is a paid mutator transaction binding the contract method 0x56e2ca0a.
 //
-// Solidity: function setReportProcessor(address newProcessor) returns()
-func (_HashConsensus *HashConsensusSession) SetReportProcessor(newProcessor common.Address) (*types.Transaction, error) {
-	return _HashConsensus.Contract.SetReportProcessor(&_HashConsensus.TransactOpts, newProcessor)
+// Solidity: function submitReport(uint256 slot, bytes32[] report) returns()
+func (_HashConsensus *HashConsensusSession) SubmitReport(slot *big.Int, report [][32]byte) (*types.Transaction, error) {
+	return _HashConsensus.Contract.SubmitReport(&_HashConsensus.TransactOpts, slot, report)
 }
 
-// SetReportProcessor is a paid mutator transaction binding the contract method 0xe76cd4e0.
+// SubmitReport is a paid mutator transaction binding the contract method 0x56e2ca0a.
 //
-// Solidity: function setReportProcessor(address newProcessor) returns()
-func (_HashConsensus *HashConsensusTransactorSession) SetReportProcessor(newProcessor common.Address) (*types.Transaction, error) {
-	return _HashConsensus.Contract.SetReportProcessor(&_HashConsensus.TransactOpts, newProcessor)
-}
-
-// SubmitReport is a paid mutator transaction binding the contract method 0xe33a8d39.
-//
-// Solidity: function submitReport(uint256 slot, bytes32 report, uint256 consensusVersion) returns()
-func (_HashConsensus *HashConsensusTransactor) SubmitReport(opts *bind.TransactOpts, slot *big.Int, report [32]byte, consensusVersion *big.Int) (*types.Transaction, error) {
-	return _HashConsensus.contract.Transact(opts, "submitReport", slot, report, consensusVersion)
-}
-
-// SubmitReport is a paid mutator transaction binding the contract method 0xe33a8d39.
-//
-// Solidity: function submitReport(uint256 slot, bytes32 report, uint256 consensusVersion) returns()
-func (_HashConsensus *HashConsensusSession) SubmitReport(slot *big.Int, report [32]byte, consensusVersion *big.Int) (*types.Transaction, error) {
-	return _HashConsensus.Contract.SubmitReport(&_HashConsensus.TransactOpts, slot, report, consensusVersion)
-}
-
-// SubmitReport is a paid mutator transaction binding the contract method 0xe33a8d39.
-//
-// Solidity: function submitReport(uint256 slot, bytes32 report, uint256 consensusVersion) returns()
-func (_HashConsensus *HashConsensusTransactorSession) SubmitReport(slot *big.Int, report [32]byte, consensusVersion *big.Int) (*types.Transaction, error) {
-	return _HashConsensus.Contract.SubmitReport(&_HashConsensus.TransactOpts, slot, report, consensusVersion)
+// Solidity: function submitReport(uint256 slot, bytes32[] report) returns()
+func (_HashConsensus *HashConsensusTransactorSession) SubmitReport(slot *big.Int, report [][32]byte) (*types.Transaction, error) {
+	return _HashConsensus.Contract.SubmitReport(&_HashConsensus.TransactOpts, slot, report)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
@@ -1116,6 +1196,27 @@ func (_HashConsensus *HashConsensusSession) UpdateInitialEpoch(initialEpoch *big
 // Solidity: function updateInitialEpoch(uint256 initialEpoch) returns()
 func (_HashConsensus *HashConsensusTransactorSession) UpdateInitialEpoch(initialEpoch *big.Int) (*types.Transaction, error) {
 	return _HashConsensus.Contract.UpdateInitialEpoch(&_HashConsensus.TransactOpts, initialEpoch)
+}
+
+// UpdateReportProcessor is a paid mutator transaction binding the contract method 0x486e7b9e.
+//
+// Solidity: function updateReportProcessor(address oldProcessor, address newProcessor, uint64 frameMultiple) returns()
+func (_HashConsensus *HashConsensusTransactor) UpdateReportProcessor(opts *bind.TransactOpts, oldProcessor common.Address, newProcessor common.Address, frameMultiple uint64) (*types.Transaction, error) {
+	return _HashConsensus.contract.Transact(opts, "updateReportProcessor", oldProcessor, newProcessor, frameMultiple)
+}
+
+// UpdateReportProcessor is a paid mutator transaction binding the contract method 0x486e7b9e.
+//
+// Solidity: function updateReportProcessor(address oldProcessor, address newProcessor, uint64 frameMultiple) returns()
+func (_HashConsensus *HashConsensusSession) UpdateReportProcessor(oldProcessor common.Address, newProcessor common.Address, frameMultiple uint64) (*types.Transaction, error) {
+	return _HashConsensus.Contract.UpdateReportProcessor(&_HashConsensus.TransactOpts, oldProcessor, newProcessor, frameMultiple)
+}
+
+// UpdateReportProcessor is a paid mutator transaction binding the contract method 0x486e7b9e.
+//
+// Solidity: function updateReportProcessor(address oldProcessor, address newProcessor, uint64 frameMultiple) returns()
+func (_HashConsensus *HashConsensusTransactorSession) UpdateReportProcessor(oldProcessor common.Address, newProcessor common.Address, frameMultiple uint64) (*types.Transaction, error) {
+	return _HashConsensus.Contract.UpdateReportProcessor(&_HashConsensus.TransactOpts, oldProcessor, newProcessor, frameMultiple)
 }
 
 // UpgradeTo is a paid mutator transaction binding the contract method 0x3659cfe6.
@@ -1509,14 +1610,14 @@ func (it *HashConsensusConsensusReachedIterator) Close() error {
 // HashConsensusConsensusReached represents a ConsensusReached event raised by the HashConsensus contract.
 type HashConsensusConsensusReached struct {
 	RefSlot *big.Int
-	Report  [32]byte
+	Report  [][32]byte
 	Support *big.Int
 	Raw     types.Log // Blockchain specific contextual infos
 }
 
-// FilterConsensusReached is a free log retrieval operation binding the contract event 0x2b6bc782c916fa763822f1e50c6db0f95dade36d6541a8a4cbe070735b8b226d.
+// FilterConsensusReached is a free log retrieval operation binding the contract event 0xbc6c822d332d57d2feaf07942537eceae55d981169f087793da8adae1e38466b.
 //
-// Solidity: event ConsensusReached(uint256 indexed refSlot, bytes32 report, uint256 support)
+// Solidity: event ConsensusReached(uint256 indexed refSlot, bytes32[] report, uint256 support)
 func (_HashConsensus *HashConsensusFilterer) FilterConsensusReached(opts *bind.FilterOpts, refSlot []*big.Int) (*HashConsensusConsensusReachedIterator, error) {
 
 	var refSlotRule []interface{}
@@ -1531,9 +1632,9 @@ func (_HashConsensus *HashConsensusFilterer) FilterConsensusReached(opts *bind.F
 	return &HashConsensusConsensusReachedIterator{contract: _HashConsensus.contract, event: "ConsensusReached", logs: logs, sub: sub}, nil
 }
 
-// WatchConsensusReached is a free log subscription operation binding the contract event 0x2b6bc782c916fa763822f1e50c6db0f95dade36d6541a8a4cbe070735b8b226d.
+// WatchConsensusReached is a free log subscription operation binding the contract event 0xbc6c822d332d57d2feaf07942537eceae55d981169f087793da8adae1e38466b.
 //
-// Solidity: event ConsensusReached(uint256 indexed refSlot, bytes32 report, uint256 support)
+// Solidity: event ConsensusReached(uint256 indexed refSlot, bytes32[] report, uint256 support)
 func (_HashConsensus *HashConsensusFilterer) WatchConsensusReached(opts *bind.WatchOpts, sink chan<- *HashConsensusConsensusReached, refSlot []*big.Int) (event.Subscription, error) {
 
 	var refSlotRule []interface{}
@@ -1573,9 +1674,9 @@ func (_HashConsensus *HashConsensusFilterer) WatchConsensusReached(opts *bind.Wa
 	}), nil
 }
 
-// ParseConsensusReached is a log parse operation binding the contract event 0x2b6bc782c916fa763822f1e50c6db0f95dade36d6541a8a4cbe070735b8b226d.
+// ParseConsensusReached is a log parse operation binding the contract event 0xbc6c822d332d57d2feaf07942537eceae55d981169f087793da8adae1e38466b.
 //
-// Solidity: event ConsensusReached(uint256 indexed refSlot, bytes32 report, uint256 support)
+// Solidity: event ConsensusReached(uint256 indexed refSlot, bytes32[] report, uint256 support)
 func (_HashConsensus *HashConsensusFilterer) ParseConsensusReached(log types.Log) (*HashConsensusConsensusReached, error) {
 	event := new(HashConsensusConsensusReached)
 	if err := _HashConsensus.contract.UnpackLog(event, "ConsensusReached", log); err != nil {
@@ -2704,9 +2805,9 @@ func (_HashConsensus *HashConsensusFilterer) ParseQuorumSet(log types.Log) (*Has
 	return event, nil
 }
 
-// HashConsensusReportProcessorSetIterator is returned from FilterReportProcessorSet and is used to iterate over the raw logs and unpacked data for ReportProcessorSet events raised by the HashConsensus contract.
-type HashConsensusReportProcessorSetIterator struct {
-	Event *HashConsensusReportProcessorSet // Event containing the contract specifics and raw log
+// HashConsensusReportProcessorAddIterator is returned from FilterReportProcessorAdd and is used to iterate over the raw logs and unpacked data for ReportProcessorAdd events raised by the HashConsensus contract.
+type HashConsensusReportProcessorAddIterator struct {
+	Event *HashConsensusReportProcessorAdd // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -2720,7 +2821,7 @@ type HashConsensusReportProcessorSetIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *HashConsensusReportProcessorSetIterator) Next() bool {
+func (it *HashConsensusReportProcessorAddIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -2729,7 +2830,7 @@ func (it *HashConsensusReportProcessorSetIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(HashConsensusReportProcessorSet)
+			it.Event = new(HashConsensusReportProcessorAdd)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -2744,7 +2845,7 @@ func (it *HashConsensusReportProcessorSetIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(HashConsensusReportProcessorSet)
+		it.Event = new(HashConsensusReportProcessorAdd)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -2760,60 +2861,61 @@ func (it *HashConsensusReportProcessorSetIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *HashConsensusReportProcessorSetIterator) Error() error {
+func (it *HashConsensusReportProcessorAddIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *HashConsensusReportProcessorSetIterator) Close() error {
+func (it *HashConsensusReportProcessorAddIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// HashConsensusReportProcessorSet represents a ReportProcessorSet event raised by the HashConsensus contract.
-type HashConsensusReportProcessorSet struct {
+// HashConsensusReportProcessorAdd represents a ReportProcessorAdd event raised by the HashConsensus contract.
+type HashConsensusReportProcessorAdd struct {
 	Processor     common.Address
-	PrevProcessor common.Address
+	ModuleId      *big.Int
+	FrameMultiple uint64
 	Raw           types.Log // Blockchain specific contextual infos
 }
 
-// FilterReportProcessorSet is a free log retrieval operation binding the contract event 0x3b59429457a41af89ea682ac9ed8abb8e99eb5c7d3363d5eedfc6bff6271a81e.
+// FilterReportProcessorAdd is a free log retrieval operation binding the contract event 0x1d16c9cc876bd665652757423fbbd76c5cbf2eb88fe07207794b52f14e2a54a9.
 //
-// Solidity: event ReportProcessorSet(address indexed processor, address indexed prevProcessor)
-func (_HashConsensus *HashConsensusFilterer) FilterReportProcessorSet(opts *bind.FilterOpts, processor []common.Address, prevProcessor []common.Address) (*HashConsensusReportProcessorSetIterator, error) {
+// Solidity: event ReportProcessorAdd(address indexed processor, uint256 indexed moduleId, uint64 frameMultiple)
+func (_HashConsensus *HashConsensusFilterer) FilterReportProcessorAdd(opts *bind.FilterOpts, processor []common.Address, moduleId []*big.Int) (*HashConsensusReportProcessorAddIterator, error) {
 
 	var processorRule []interface{}
 	for _, processorItem := range processor {
 		processorRule = append(processorRule, processorItem)
 	}
-	var prevProcessorRule []interface{}
-	for _, prevProcessorItem := range prevProcessor {
-		prevProcessorRule = append(prevProcessorRule, prevProcessorItem)
+	var moduleIdRule []interface{}
+	for _, moduleIdItem := range moduleId {
+		moduleIdRule = append(moduleIdRule, moduleIdItem)
 	}
 
-	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "ReportProcessorSet", processorRule, prevProcessorRule)
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "ReportProcessorAdd", processorRule, moduleIdRule)
 	if err != nil {
 		return nil, err
 	}
-	return &HashConsensusReportProcessorSetIterator{contract: _HashConsensus.contract, event: "ReportProcessorSet", logs: logs, sub: sub}, nil
+	return &HashConsensusReportProcessorAddIterator{contract: _HashConsensus.contract, event: "ReportProcessorAdd", logs: logs, sub: sub}, nil
 }
 
-// WatchReportProcessorSet is a free log subscription operation binding the contract event 0x3b59429457a41af89ea682ac9ed8abb8e99eb5c7d3363d5eedfc6bff6271a81e.
+// WatchReportProcessorAdd is a free log subscription operation binding the contract event 0x1d16c9cc876bd665652757423fbbd76c5cbf2eb88fe07207794b52f14e2a54a9.
 //
-// Solidity: event ReportProcessorSet(address indexed processor, address indexed prevProcessor)
-func (_HashConsensus *HashConsensusFilterer) WatchReportProcessorSet(opts *bind.WatchOpts, sink chan<- *HashConsensusReportProcessorSet, processor []common.Address, prevProcessor []common.Address) (event.Subscription, error) {
+// Solidity: event ReportProcessorAdd(address indexed processor, uint256 indexed moduleId, uint64 frameMultiple)
+func (_HashConsensus *HashConsensusFilterer) WatchReportProcessorAdd(opts *bind.WatchOpts, sink chan<- *HashConsensusReportProcessorAdd, processor []common.Address, moduleId []*big.Int) (event.Subscription, error) {
 
 	var processorRule []interface{}
 	for _, processorItem := range processor {
 		processorRule = append(processorRule, processorItem)
 	}
-	var prevProcessorRule []interface{}
-	for _, prevProcessorItem := range prevProcessor {
-		prevProcessorRule = append(prevProcessorRule, prevProcessorItem)
+	var moduleIdRule []interface{}
+	for _, moduleIdItem := range moduleId {
+		moduleIdRule = append(moduleIdRule, moduleIdItem)
 	}
 
-	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "ReportProcessorSet", processorRule, prevProcessorRule)
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "ReportProcessorAdd", processorRule, moduleIdRule)
 	if err != nil {
 		return nil, err
 	}
@@ -2823,8 +2925,8 @@ func (_HashConsensus *HashConsensusFilterer) WatchReportProcessorSet(opts *bind.
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(HashConsensusReportProcessorSet)
-				if err := _HashConsensus.contract.UnpackLog(event, "ReportProcessorSet", log); err != nil {
+				event := new(HashConsensusReportProcessorAdd)
+				if err := _HashConsensus.contract.UnpackLog(event, "ReportProcessorAdd", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -2845,12 +2947,175 @@ func (_HashConsensus *HashConsensusFilterer) WatchReportProcessorSet(opts *bind.
 	}), nil
 }
 
-// ParseReportProcessorSet is a log parse operation binding the contract event 0x3b59429457a41af89ea682ac9ed8abb8e99eb5c7d3363d5eedfc6bff6271a81e.
+// ParseReportProcessorAdd is a log parse operation binding the contract event 0x1d16c9cc876bd665652757423fbbd76c5cbf2eb88fe07207794b52f14e2a54a9.
 //
-// Solidity: event ReportProcessorSet(address indexed processor, address indexed prevProcessor)
-func (_HashConsensus *HashConsensusFilterer) ParseReportProcessorSet(log types.Log) (*HashConsensusReportProcessorSet, error) {
-	event := new(HashConsensusReportProcessorSet)
-	if err := _HashConsensus.contract.UnpackLog(event, "ReportProcessorSet", log); err != nil {
+// Solidity: event ReportProcessorAdd(address indexed processor, uint256 indexed moduleId, uint64 frameMultiple)
+func (_HashConsensus *HashConsensusFilterer) ParseReportProcessorAdd(log types.Log) (*HashConsensusReportProcessorAdd, error) {
+	event := new(HashConsensusReportProcessorAdd)
+	if err := _HashConsensus.contract.UnpackLog(event, "ReportProcessorAdd", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// HashConsensusReportProcessorUpdateIterator is returned from FilterReportProcessorUpdate and is used to iterate over the raw logs and unpacked data for ReportProcessorUpdate events raised by the HashConsensus contract.
+type HashConsensusReportProcessorUpdateIterator struct {
+	Event *HashConsensusReportProcessorUpdate // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *HashConsensusReportProcessorUpdateIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(HashConsensusReportProcessorUpdate)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(HashConsensusReportProcessorUpdate)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *HashConsensusReportProcessorUpdateIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *HashConsensusReportProcessorUpdateIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// HashConsensusReportProcessorUpdate represents a ReportProcessorUpdate event raised by the HashConsensus contract.
+type HashConsensusReportProcessorUpdate struct {
+	OldProcessor  common.Address
+	NewProcessor  common.Address
+	ModuleId      *big.Int
+	FrameMultiple uint64
+	Raw           types.Log // Blockchain specific contextual infos
+}
+
+// FilterReportProcessorUpdate is a free log retrieval operation binding the contract event 0x3694893f40a88007c11b4f279b54afbb1b9f8c70d8552aafc76a4ec2c1ef7d70.
+//
+// Solidity: event ReportProcessorUpdate(address indexed oldProcessor, address indexed newProcessor, uint256 indexed moduleId, uint64 frameMultiple)
+func (_HashConsensus *HashConsensusFilterer) FilterReportProcessorUpdate(opts *bind.FilterOpts, oldProcessor []common.Address, newProcessor []common.Address, moduleId []*big.Int) (*HashConsensusReportProcessorUpdateIterator, error) {
+
+	var oldProcessorRule []interface{}
+	for _, oldProcessorItem := range oldProcessor {
+		oldProcessorRule = append(oldProcessorRule, oldProcessorItem)
+	}
+	var newProcessorRule []interface{}
+	for _, newProcessorItem := range newProcessor {
+		newProcessorRule = append(newProcessorRule, newProcessorItem)
+	}
+	var moduleIdRule []interface{}
+	for _, moduleIdItem := range moduleId {
+		moduleIdRule = append(moduleIdRule, moduleIdItem)
+	}
+
+	logs, sub, err := _HashConsensus.contract.FilterLogs(opts, "ReportProcessorUpdate", oldProcessorRule, newProcessorRule, moduleIdRule)
+	if err != nil {
+		return nil, err
+	}
+	return &HashConsensusReportProcessorUpdateIterator{contract: _HashConsensus.contract, event: "ReportProcessorUpdate", logs: logs, sub: sub}, nil
+}
+
+// WatchReportProcessorUpdate is a free log subscription operation binding the contract event 0x3694893f40a88007c11b4f279b54afbb1b9f8c70d8552aafc76a4ec2c1ef7d70.
+//
+// Solidity: event ReportProcessorUpdate(address indexed oldProcessor, address indexed newProcessor, uint256 indexed moduleId, uint64 frameMultiple)
+func (_HashConsensus *HashConsensusFilterer) WatchReportProcessorUpdate(opts *bind.WatchOpts, sink chan<- *HashConsensusReportProcessorUpdate, oldProcessor []common.Address, newProcessor []common.Address, moduleId []*big.Int) (event.Subscription, error) {
+
+	var oldProcessorRule []interface{}
+	for _, oldProcessorItem := range oldProcessor {
+		oldProcessorRule = append(oldProcessorRule, oldProcessorItem)
+	}
+	var newProcessorRule []interface{}
+	for _, newProcessorItem := range newProcessor {
+		newProcessorRule = append(newProcessorRule, newProcessorItem)
+	}
+	var moduleIdRule []interface{}
+	for _, moduleIdItem := range moduleId {
+		moduleIdRule = append(moduleIdRule, moduleIdItem)
+	}
+
+	logs, sub, err := _HashConsensus.contract.WatchLogs(opts, "ReportProcessorUpdate", oldProcessorRule, newProcessorRule, moduleIdRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(HashConsensusReportProcessorUpdate)
+				if err := _HashConsensus.contract.UnpackLog(event, "ReportProcessorUpdate", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseReportProcessorUpdate is a log parse operation binding the contract event 0x3694893f40a88007c11b4f279b54afbb1b9f8c70d8552aafc76a4ec2c1ef7d70.
+//
+// Solidity: event ReportProcessorUpdate(address indexed oldProcessor, address indexed newProcessor, uint256 indexed moduleId, uint64 frameMultiple)
+func (_HashConsensus *HashConsensusFilterer) ParseReportProcessorUpdate(log types.Log) (*HashConsensusReportProcessorUpdate, error) {
+	event := new(HashConsensusReportProcessorUpdate)
+	if err := _HashConsensus.contract.UnpackLog(event, "ReportProcessorUpdate", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -2928,13 +3193,13 @@ func (it *HashConsensusReportReceivedIterator) Close() error {
 type HashConsensusReportReceived struct {
 	RefSlot *big.Int
 	Member  common.Address
-	Report  [32]byte
+	Report  [][32]byte
 	Raw     types.Log // Blockchain specific contextual infos
 }
 
-// FilterReportReceived is a free log retrieval operation binding the contract event 0x92f77576dabd7bad26f75c36abb3021b5bbb66a3e5688570a0355daddd417488.
+// FilterReportReceived is a free log retrieval operation binding the contract event 0xd6f9dc41f1a10bb63a22fd32e563b3c0b1b6c79d95c41a404a86f6fc16939a34.
 //
-// Solidity: event ReportReceived(uint256 indexed refSlot, address indexed member, bytes32 report)
+// Solidity: event ReportReceived(uint256 indexed refSlot, address indexed member, bytes32[] report)
 func (_HashConsensus *HashConsensusFilterer) FilterReportReceived(opts *bind.FilterOpts, refSlot []*big.Int, member []common.Address) (*HashConsensusReportReceivedIterator, error) {
 
 	var refSlotRule []interface{}
@@ -2953,9 +3218,9 @@ func (_HashConsensus *HashConsensusFilterer) FilterReportReceived(opts *bind.Fil
 	return &HashConsensusReportReceivedIterator{contract: _HashConsensus.contract, event: "ReportReceived", logs: logs, sub: sub}, nil
 }
 
-// WatchReportReceived is a free log subscription operation binding the contract event 0x92f77576dabd7bad26f75c36abb3021b5bbb66a3e5688570a0355daddd417488.
+// WatchReportReceived is a free log subscription operation binding the contract event 0xd6f9dc41f1a10bb63a22fd32e563b3c0b1b6c79d95c41a404a86f6fc16939a34.
 //
-// Solidity: event ReportReceived(uint256 indexed refSlot, address indexed member, bytes32 report)
+// Solidity: event ReportReceived(uint256 indexed refSlot, address indexed member, bytes32[] report)
 func (_HashConsensus *HashConsensusFilterer) WatchReportReceived(opts *bind.WatchOpts, sink chan<- *HashConsensusReportReceived, refSlot []*big.Int, member []common.Address) (event.Subscription, error) {
 
 	var refSlotRule []interface{}
@@ -2999,9 +3264,9 @@ func (_HashConsensus *HashConsensusFilterer) WatchReportReceived(opts *bind.Watc
 	}), nil
 }
 
-// ParseReportReceived is a log parse operation binding the contract event 0x92f77576dabd7bad26f75c36abb3021b5bbb66a3e5688570a0355daddd417488.
+// ParseReportReceived is a log parse operation binding the contract event 0xd6f9dc41f1a10bb63a22fd32e563b3c0b1b6c79d95c41a404a86f6fc16939a34.
 //
-// Solidity: event ReportReceived(uint256 indexed refSlot, address indexed member, bytes32 report)
+// Solidity: event ReportReceived(uint256 indexed refSlot, address indexed member, bytes32[] report)
 func (_HashConsensus *HashConsensusFilterer) ParseReportReceived(log types.Log) (*HashConsensusReportReceived, error) {
 	event := new(HashConsensusReportReceived)
 	if err := _HashConsensus.contract.UnpackLog(event, "ReportReceived", log); err != nil {

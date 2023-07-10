@@ -6,7 +6,72 @@
   },
   {
     "inputs": [],
+    "name": "ControllerAddrUsed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InsufficientAmount",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InsufficientMargin",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidAddr",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidCommission",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "InvalidParameter",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidRewardRatio",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NoPermissionPhase",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "OperatorAlreadyTrusted",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "OperatorExitFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "OperatorHasArrears",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "OperatorHasBlacklisted",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "OperatorHasExited",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "OperatorNotBlacklisted",
     "type": "error"
   },
   {
@@ -16,7 +81,17 @@
   },
   {
     "inputs": [],
+    "name": "OperatorNotTrusted",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "PermissionDenied",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "PermissionlessPhaseStart",
     "type": "error"
   },
   {
@@ -67,7 +142,7 @@
         "type": "uint256"
       }
     ],
-    "name": "ComissionRateChanged",
+    "name": "CommissionRateChanged",
     "type": "event"
   },
   {
@@ -132,12 +207,50 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "uint256",
+        "name": "_oldDefaultOperatorCommission",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_defaultOperatorCommission",
+        "type": "uint256"
+      }
+    ],
+    "name": "DefaultOperatorCommissionRateChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "uint8",
         "name": "version",
         "type": "uint8"
       }
     ],
     "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_oldLargeStakingContractAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_largeStakingContractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "LargeStakingChanged",
     "type": "event"
   },
   {
@@ -696,19 +809,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "DEFAULT_COMISSION",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -773,6 +873,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "defaultOperatorCommission",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -783,19 +896,6 @@
     "name": "deposit",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getBlacklistOperatorsCount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -815,46 +915,27 @@
     "outputs": [
       {
         "internalType": "bool",
-        "name": "trusted",
+        "name": "_trusted",
         "type": "bool"
       },
       {
         "internalType": "string",
-        "name": "name",
+        "name": "_name",
         "type": "string"
       },
       {
         "internalType": "address",
-        "name": "owner",
+        "name": "_owner",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "controllerAddress",
+        "name": "_controllerAddress",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "vaultContractAddress",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getNodeOperatorOwner",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
+        "name": "_vaultContractAddress",
         "type": "address"
       }
     ],
@@ -925,7 +1006,7 @@
         "type": "uint256[]"
       }
     ],
-    "name": "getOperatorComissionRate",
+    "name": "getOperatorCommissionRate",
     "outputs": [
       {
         "internalType": "uint256[]",
@@ -961,19 +1042,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "getTrustedOperatorsCount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
@@ -997,6 +1065,42 @@
       }
     ],
     "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_vaultFactoryContractAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_operatorSlashContractAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_resetVaultOperatorIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "initializeV2",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_largeStakingContractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "initializeV3",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1091,6 +1195,19 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "largeStakingContract",
+    "outputs": [
+      {
+        "internalType": "contract ILargeStaking",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -1331,81 +1448,6 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_dao",
-        "type": "address"
-      }
-    ],
-    "name": "setDaoAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_daoVaultAddress",
-        "type": "address"
-      }
-    ],
-    "name": "setDaoVaultAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_liquidStakingContractAddress",
-        "type": "address"
-      }
-    ],
-    "name": "setLiquidStaking",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "_controllerAddress",
-        "type": "address"
-      }
-    ],
-    "name": "setNodeOperatorControllerAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
-      }
-    ],
-    "name": "setNodeOperatorName",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "uint256",
         "name": "_id",
         "type": "uint256"
@@ -1424,22 +1466,52 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_dao",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_daoVaultAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_liquidStakingContractAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_operatorSlashContractAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_vaultFactoryContractAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_largeStakingContractAddress",
+        "type": "address"
+      },
+      {
         "internalType": "uint256",
-        "name": "_id",
+        "name": "_defaultOperatorCommission",
         "type": "uint256"
       },
       {
-        "internalType": "address[]",
-        "name": "_rewardAddresses",
-        "type": "address[]"
+        "internalType": "uint256",
+        "name": "_registrationFee",
+        "type": "uint256"
       },
       {
-        "internalType": "uint256[]",
-        "name": "_ratios",
-        "type": "uint256[]"
+        "internalType": "uint256",
+        "name": "_permissionlessBlockNumber",
+        "type": "uint256"
       }
     ],
-    "name": "setNodeOperatorRewardAddress",
+    "name": "setNodeOperatorRegistrySetting",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1457,20 +1529,7 @@
         "type": "uint256"
       }
     ],
-    "name": "setOperatorComissionRate",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_operatorSlashContractAddress",
-        "type": "address"
-      }
-    ],
-    "name": "setOperatorSlashContract",
+    "name": "setOperatorCommissionRate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1479,11 +1538,31 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_fee",
+        "name": "_id",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "_controllerAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_rewardAddresses",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_ratios",
+        "type": "uint256[]"
       }
     ],
-    "name": "setRegistrationFee",
+    "name": "setOperatorSetting",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1504,34 +1583,18 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_vaultFactoryContractAddress",
-        "type": "address"
-      }
-    ],
-    "name": "setVaultFactorContract",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "uint256",
-        "name": "_blockNumber",
+        "name": "_slashType",
         "type": "uint256"
-      }
-    ],
-    "name": "setpermissionlessBlockNumber",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
+      },
       {
         "internalType": "uint256[]",
-        "name": "_exitTokenIds",
+        "name": "_slashIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_operatorIds",
         "type": "uint256[]"
       },
       {
@@ -1541,24 +1604,6 @@
       }
     ],
     "name": "slash",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_operatorId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "slashOfExitDelayed",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

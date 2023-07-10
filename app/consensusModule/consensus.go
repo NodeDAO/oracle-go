@@ -12,16 +12,26 @@ import (
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/config"
 	"github.com/NodeDAO/oracle-go/consensus"
+	"github.com/NodeDAO/oracle-go/contracts"
+	"github.com/NodeDAO/oracle-go/contracts/largeStakeOracle"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
+	"github.com/NodeDAO/oracle-go/utils/typetool"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"math/big"
+	"strings"
 )
 
-func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [32]byte, refSlot, consensusVersion *big.Int, reportData *withdrawOracle.WithdrawOracleReportData) error {
+func (v *HashConsensusHelper) ProcessReportHash(
+	ctx context.Context,
+	dataHash [][32]byte,
+	refSlot *big.Int,
+	withdrawOracleReportData *withdrawOracle.WithdrawOracleReportData,
+	largeStakeReportData *largeStakeOracle.LargeStakeOracleReportData,
+) error {
 	headSlot, err := consensus.ConsensusClient.CustomizeBeaconService.HeadSlot(ctx)
 	if err != nil {
 		return errors.Wrap(err, "ProcessReportHash HeadSlot err.")
@@ -31,6 +41,12 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 	if err != nil {
 		return errors.Wrap(err, "ProcessReportHash GetMemberInfo err.")
 	}
+
+	if len(memberInfo.CurrentFrameConsensusReport) > 0 {
+		logger.Debug("Consensus quorum is reached.")
+		return nil
+	}
+
 	if !memberInfo.IsFastLane {
 		if headSlot.Cmp(new(big.Int).Add(memberInfo.CurrentFrameRefSlot, memberInfo.FastLaneLengthSlot)) == -1 {
 			msg := fmt.Sprintf("Member is not in fast lane, so report will be postponed for %s slots", memberInfo.FastLaneLengthSlot.String())
@@ -44,7 +60,7 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 	}
 
 	// If Oracle has already submitted real data, it is not submitting consensus
-	isConsensusReportAlreadyProcessing, err := v.isConsensusReportAlreadyProcessing(ctx, memberInfo)
+	isConsensusReportAlreadyProcessing, err := v.isConsensusReportAlreadyProcessing()
 	if err != nil {
 		return errors.Wrap(err, "get isConsensusReportAlreadyProcessing err.")
 	}
@@ -52,34 +68,42 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 		return errs.NewSleepError("Consensus Report Already Processing (Main data already submitted)", RandomSleepTime())
 	}
 
-	dataHashStr := hexutil.Encode(dataHash[:])
-	if dataHash != memberInfo.CurrentFrameMemberReport {
-		oldDataHashStr := hexutil.Encode(memberInfo.CurrentFrameMemberReport[:])
-		reportJson, _ := json.Marshal(reportData)
+	dataHashStr := strings.Join(typetool.Byte32ArrToStrArr(dataHash), ",")
+
+	if !typetool.CompareByte32Arrays(dataHash, memberInfo.CurrentFrameMemberReport) {
+		oldDataHashStr := strings.Join(typetool.Byte32ArrToStrArr(memberInfo.CurrentFrameMemberReport), ",")
+		withdrawOracleReportJson, _ := json.Marshal(withdrawOracleReportData)
+		largeStakeReportDataReportJson, _ := json.Marshal(largeStakeReportData)
 
 		if memberInfo.IsCurrentReportConsensus && !config.Config.Oracle.IsDifferentConsensusHashReport {
 			logger.Warn("Consensus hash is different.",
 				zap.String("new hash", dataHashStr),
 				zap.String("old hash", oldDataHashStr),
-				zap.String("ReportData", string(reportJson)),
+				zap.String("[WithdrawOracle] ReportData", string(withdrawOracleReportJson)),
+				zap.String("[LargeStakeOracle] ReportData", string(largeStakeReportDataReportJson)),
 				zap.Bool("IsDifferentConsensusHashReport", config.Config.Oracle.IsDifferentConsensusHashReport),
 			)
 			return errs.NewSleepError("CurrentFrameMemberReport Consensus hash is different. Member has report consensus.", RandomSleepTime())
 		}
 
-		err := v.submitReport(ctx, dataHash, refSlot, consensusVersion)
+		err := v.submitReport(ctx, dataHash, refSlot)
 		if err != nil {
 			return errors.Wrap(err, "")
 		}
 
-		if oldDataHashStr == eth1.ZERO_HASH_STR {
-			logger.Debug("Send reportData's hash.", zap.String("hash", dataHashStr), zap.String("ReportData", string(reportJson)))
+		if len(memberInfo.CurrentFrameMemberReport) == 0 {
+			logger.Debug("Send consensus's hash.",
+				zap.String("hash", dataHashStr),
+				zap.String("[WithdrawOracle] ReportData", string(withdrawOracleReportJson)),
+				zap.String("[LargeStakeOracle] ReportData", string(largeStakeReportDataReportJson)),
+			)
 		} else {
 			if config.Config.Oracle.IsDifferentConsensusHashReport {
-				logger.Warn("Send reportData's hash. CurrentFrameMemberReport Consensus hash is different.",
+				logger.Warn("Send consensus's hash. CurrentFrameMemberReport Consensus hash is different.",
 					zap.String("new hash", dataHashStr),
 					zap.String("old hash", oldDataHashStr),
-					zap.String("ReportData", string(reportJson)),
+					zap.String("[WithdrawOracle] ReportData", string(withdrawOracleReportJson)),
+					zap.String("[LargeStakeOracle] ReportData", string(largeStakeReportDataReportJson)),
 					zap.Bool("IsDifferentConsensusHashReport", config.Config.Oracle.IsDifferentConsensusHashReport),
 				)
 			}
@@ -91,53 +115,39 @@ func (v *HashConsensusHelper) ProcessReportHash(ctx context.Context, dataHash [3
 	return nil
 }
 
-func (v *HashConsensusHelper) submitReport(ctx context.Context, dataHash [32]byte, refSlot, consensusVersion *big.Int) error {
-	consensusContract, err := v.ReportContract.GetConsensusContract(ctx)
-	if err != nil {
-		return errors.Wrap(err, "")
-	}
-
+func (v *HashConsensusHelper) submitReport(ctx context.Context, dataHash [][32]byte, refSlot *big.Int) error {
 	//opt := v.KeyTransactOpts
 	//opt.GasLimit = 2000000
-	tx, err := consensusContract.SubmitReport(v.KeyTransactOpts, refSlot, dataHash, consensusVersion)
+	tx, err := contracts.HashConsensusContract.Contract.SubmitReport(v.KeyTransactOpts, refSlot, dataHash)
 	if err != nil {
-		return errors.Wrapf(err, "Failed to submit consensus report. refslot:%s, consensusVersion:%s", refSlot.String(), consensusVersion.String())
+		return errors.Wrapf(err, "Failed to submit consensus report. refslot:%s", refSlot.String())
 	}
 	// Wait for the transaction to complete
 	if _, err = bind.WaitMined(context.Background(), eth1.ElClient.Client, tx); err != nil {
-		return errors.Wrapf(err, "Failed to WaitMined submit consensus report. refslot:%s, consensusVersion:%s", refSlot.String(), consensusVersion.String())
+		return errors.Wrapf(err, "Failed to WaitMined submit consensus report. refslot:%s", refSlot.String())
 	}
 
-	to, err := v.ReportContract.GetConsensusContractAddress(ctx)
-	if err != nil {
-		processorAddress, _ := v.ReportContract.GetReportAsyncProcessorAddress()
-		logger.Warn("GetConsensusContractAddress failed.", zap.String("ReportAsyncProcessor", processorAddress.String()))
-	}
+	dataHashStr := strings.Join(typetool.Byte32ArrToStrArr(dataHash), ",")
 
 	logger.Info("submit consensus Report success.",
 		zap.String("refSlot", refSlot.String()),
+		zap.String("consensus dataHashStr", dataHashStr),
 		zap.String("tx hash", tx.Hash().String()),
 		zap.String("from", v.KeyTransactOpts.From.String()),
-		zap.String("to", to.String()),
+		zap.String("to", tx.To().String()),
 		zap.Uint64("gas", tx.Gas()),
-		zap.String("consensusVersion", consensusVersion.String()),
 	)
 
 	return nil
 }
 
 func (v *HashConsensusHelper) GetMemberInfo(ctx context.Context) (*MemberInfo, error) {
-	consensusContract, err := v.ReportContract.GetConsensusContract(ctx)
-	if err != nil {
-		return nil, errors.Wrap(err, "")
-	}
-
-	currentFrame, err := consensusContract.GetCurrentFrame(nil)
+	currentFrame, err := contracts.HashConsensusContract.Contract.GetCurrentFrame(nil)
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to get HashConsensus's GetCurrentFrame.")
 	}
 
-	frameConfig, err := consensusContract.GetFrameConfig(nil)
+	frameConfig, err := contracts.HashConsensusContract.Contract.GetFrameConfig(nil)
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to get HashConsensus's GetCurrentFrame.")
 	}
@@ -145,7 +155,7 @@ func (v *HashConsensusHelper) GetMemberInfo(ctx context.Context) (*MemberInfo, e
 	// v.KeyTransactOpts.From
 	// mainnet address
 	//mainnetAddress := common.HexToAddress("0x080C185D164446746068Db1650850F453ffdB92c")
-	memberConsensusState, err := consensusContract.GetConsensusStateForMember(nil, v.KeyTransactOpts.From)
+	memberConsensusState, err := contracts.HashConsensusContract.Contract.GetConsensusStateForMember(nil, v.KeyTransactOpts.From)
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to get HashConsensus's GetConsensusStateForMember.")
 	}
@@ -185,7 +195,7 @@ func (v *HashConsensusHelper) GetRefSlotAndIsReport(ctx context.Context) (*big.I
 		return nil, nil, errors.Wrap(err, "")
 	}
 
-	logger.Debug("withdrawOracle start scan ...", zap.String("refSlot", memberInfo.CurrentFrameRefSlot.String()), zap.String("deadlineSlot", memberInfo.DeadlineSlot.String()))
+	logger.Debug("Oracle start scan ...", zap.String("refSlot", memberInfo.CurrentFrameRefSlot.String()), zap.String("deadlineSlot", memberInfo.DeadlineSlot.String()))
 
 	if !memberInfo.CanReport {
 		return nil, nil, errs.NewSleepError("Member's ConsensusState is not CanReport.", RandomSleepTime())
@@ -224,17 +234,36 @@ func (v *HashConsensusHelper) GetLastData(ctx context.Context) (*big.Int, *Membe
 	return headSlot, memberInfo, nil
 }
 
-func (v *HashConsensusHelper) isConsensusReportAlreadyProcessing(ctx context.Context, memberInfo *MemberInfo) (bool, error) {
-	lastProcessingRefSlot, err := v.ReportContract.GetLastProcessingRefSlot(ctx)
+func (v *HashConsensusHelper) isConsensusReportAlreadyProcessing() (bool, error) {
+	withdrawOracleProcessingState, err := contracts.WithdrawOracleContract.Contract.GetProcessingState(nil)
 	if err != nil {
-		return false, errors.Wrap(err, "")
+		return false, errors.Wrap(err, "withdrawOracleContract GetProcessingState err.")
+	}
+	largeStakeOracleProcessingState, err := contracts.LargeStakeOracleContract.Contract.GetProcessingState(nil)
+	if err != nil {
+		return false, errors.Wrap(err, "LargeStakeOracleContract GetProcessingState err.")
 	}
 
-	if memberInfo.CurrentFrameRefSlot.Cmp(lastProcessingRefSlot) != 1 {
-		if memberInfo.CurrentFrameRefSlot.Cmp(memberInfo.LastReportRefSlot) == 0 {
-			return true, nil
-		}
+	return withdrawOracleProcessingState.DataSubmitted && largeStakeOracleProcessingState.DataSubmitted, nil
+}
+
+func (v *HashConsensusHelper) GetModuleId(oracleAddress common.Address) (*big.Int, error) {
+	moduleId, err := contracts.HashConsensusContract.Contract.GetReportModuleId(nil, oracleAddress)
+	if err != nil {
+		return big.NewInt(0), errors.Wrap(err, "consensusContract GetReportModuleId err.")
 	}
 
-	return false, nil
+	if moduleId.Cmp(big.NewInt(0)) == 0 {
+		return big.NewInt(0), errors.New("moduleId is zero err.")
+	}
+
+	return moduleId, nil
+}
+
+func (v *HashConsensusHelper) IsModuleReport(module, slot *big.Int) (bool, error) {
+	isNeedReport, err := contracts.HashConsensusContract.Contract.IsModuleReport(nil, module, slot)
+	if err != nil {
+		return false, errors.Wrap(err, "IsModuleReport err.")
+	}
+	return isNeedReport, nil
 }

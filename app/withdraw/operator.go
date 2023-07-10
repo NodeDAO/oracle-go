@@ -13,14 +13,13 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 	"math/big"
-	"strings"
 )
 
 func (v *WithdrawHelper) calculationForOperator(ctx context.Context) error {
 
 	// Whether an operator is required to distribute rewards
 	if v.clVaultBalance.Cmp(v.clVaultMinSettleLimit) == -1 {
-		logger.Debugf("clVaultBalance less than clVaultMinSettleLimit, There is no need to distribute Operator rewards."+
+		logger.Debugf("[WithdrawOracle] Not distribute Operator rewards. clVaultBalance < clVaultMinSettleLimit."+
 			" clVaultBalance:%s clVaultMinSettleLimit:%s",
 			v.clVaultBalance.String(),
 			v.clVaultMinSettleLimit.String())
@@ -32,29 +31,29 @@ func (v *WithdrawHelper) calculationForOperator(ctx context.Context) error {
 	effectiveOperators := make(map[int64]*EffectiveOperator)
 
 	if err := v.calculationOperatorClCapital(ctx, effectiveOperators); err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "calculationOperatorClCapital err.")
 	}
 
 	if v.isComputeOperatorReward {
 		if err := v.calculationOperatorWeight(ctx, effectiveOperators); err != nil {
-			return errors.Wrap(err, "")
+			return errors.Wrap(err, "calculationOperatorWeight err.")
 		}
 
 		// calculationOperatorClReward and dealWithdrawInfo
 		if err := v.calculationOperatorClReward(ctx, effectiveOperators); err != nil {
-			return errors.Wrap(err, "")
+			return errors.Wrap(err, "calculationOperatorClReward err.")
 		}
 	}
 
 	if err := v.calculationWithdrawInfos(ctx, effectiveOperators); err != nil {
-		return errors.Wrap(err, "")
+		return errors.Wrap(err, "calculationWithdrawInfos err.")
 	}
 
 	return nil
 }
 
-// if ExitedAmount >= 32 ether  ClCapital = 32 ether
-// if ExitedAmount < 32 ether  ClCapital = ExitedAmount
+// if ExitedAmountForClCapital >= 32 ether  ClCapital = 32 ether
+// if ExitedAmountForClCapital < 32 ether  ClCapital = ExitedAmountForClCapital
 func (v *WithdrawHelper) calculationOperatorClCapital(ctx context.Context, effectiveOperators map[int64]*EffectiveOperator) error {
 	for _, exa := range v.requireReportValidator {
 		if exa.IsNeedOracleReportExit {
@@ -69,8 +68,8 @@ func (v *WithdrawHelper) calculationOperatorClCapital(ctx context.Context, effec
 
 			_cap := eth1.ETH32().BigInt()
 			// less 32 ether
-			if exa.ExitedAmount.Cmp(eth1.ETH32().BigInt()) == -1 {
-				_cap = exa.ExitedAmount
+			if exa.ExitedAmountForClCapital.Cmp(eth1.ETH32().BigInt()) == -1 {
+				_cap = exa.ExitedAmountForClCapital
 			}
 
 			if effectiveOperators[exa.OperatorId.Int64()] == nil {
@@ -114,14 +113,15 @@ func (v *WithdrawHelper) calculationOperatorWeight(ctx context.Context, effectiv
 
 		// effective Operator init
 		if isTrusted && !isQuit {
-			nftCount, err := contracts.VnftContract.Contract.GetActiveNftCountsOfOperator(nil, operatorId)
+			totalNftCountOfOperator, err := contracts.VnftContract.Contract.GetActiveNftCountsOfOperator(nil, operatorId)
 			if err != nil {
-				if strings.Contains(err.Error(), "execution reverted") {
-					nftCount = big.NewInt(0)
-					err = nil
-				}
 				return errors.Wrapf(err, "Failed to get VnftContract GetActiveNftCountsOfOperator operatorId:%v.", i)
 			}
+			nftUserCountOfOperator, err := contracts.VnftContract.Contract.GetUserActiveNftCountsOfOperator(nil, operatorId)
+			if err != nil {
+				return errors.Wrapf(err, "Failed to get VnftContract GetUserActiveNftCountsOfOperator operatorId:%v.", i)
+			}
+			nftCountOperatorOfStakingPool := new(big.Int).Sub(totalNftCountOfOperator, nftUserCountOfOperator)
 
 			clCapital := big.NewInt(0)
 			if effectiveOperators[i] != nil {
@@ -129,7 +129,7 @@ func (v *WithdrawHelper) calculationOperatorWeight(ctx context.Context, effectiv
 			}
 
 			effectiveOperators[i] = &EffectiveOperator{
-				VnftCount: nftCount.Uint64(),
+				VnftCountOfStakingPool: nftCountOperatorOfStakingPool.Uint64(),
 				OperatorReward: withdrawOracle.WithdrawInfo{
 					OperatorId: uint64(i),
 					ClReward:   big.NewInt(0),
@@ -144,11 +144,17 @@ func (v *WithdrawHelper) calculationOperatorWeight(ctx context.Context, effectiv
 }
 
 func (v *WithdrawHelper) calculationOperatorClReward(ctx context.Context, effectiveOperators map[int64]*EffectiveOperator) error {
+	activeNftsOfStakingPool, err := contracts.VnftContract.Contract.ActiveNftsOfStakingPool(nil)
+	if err != nil {
+		return errors.Wrap(err, "Failed to get VnftContract ActiveNftsOfStakingPool.")
+	}
+	v.totalNftCountOfStakingPool = big.NewInt(int64(len(activeNftsOfStakingPool)))
+
 	sumReward := new(big.Int).Sub(v.clVaultBalance, v.totalOperatorClCapital)
 
 	for _, op := range effectiveOperators {
-		mul := new(big.Int).Mul(sumReward, big.NewInt(int64(op.VnftCount)))
-		op.OperatorReward.ClReward = new(big.Int).Div(mul, v.totalNftCount)
+		mul := new(big.Int).Mul(sumReward, big.NewInt(int64(op.VnftCountOfStakingPool)))
+		op.OperatorReward.ClReward = new(big.Int).Div(mul, v.totalNftCountOfStakingPool)
 	}
 
 	v.clSettleAmount = new(big.Int).Add(v.clSettleAmount, sumReward)

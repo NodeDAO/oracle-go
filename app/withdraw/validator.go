@@ -7,16 +7,18 @@ package withdraw
 import (
 	"context"
 	"github.com/NodeDAO/oracle-go/common/errs"
+	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/consensus"
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
 	consensusApi "github.com/attestantio/go-eth2-client/api/v1"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/params"
 	"github.com/pkg/errors"
 	"github.com/shopspring/decimal"
+	"go.uber.org/zap"
 	"math/big"
+	"sort"
 	"strconv"
 )
 
@@ -24,15 +26,29 @@ import (
 // 2. Query information about beacon
 // 3. The pubkey not found by the beacon, balance = 32 GWEI
 func (v *WithdrawHelper) obtainValidatorConsensusInfo(ctx context.Context) error {
-	// Gets all active validators for the NodeDAO
-	validatorBytes, err := contracts.VnftContract.Contract.ActiveValidatorsOfStakingPool(nil)
+	// Gets all active validators for the NodeDAO's StakingPool (nETH's vNFT)
+	validatorBytesOfStakingPool, err := contracts.VnftContract.Contract.ActiveValidatorsOfStakingPool(nil)
 	if err != nil {
 		return errors.Wrap(err, "Failed to get VnftContract.ActiveValidatorsOfStakingPool")
 	}
+	if err := v.parseValidatorExaMap(ctx, validatorBytesOfStakingPool, LiquidStaking); err != nil {
+		return errors.Wrap(err, "ActiveValidatorsOfStakingPool parseValidatorExaMap err.")
+	}
 
+	// Gets all active validators for the NodeDAO's User (vNFT)
+	validatorBytesOfUser, err := contracts.VnftContract.Contract.ActiveValidatorOfUser(nil)
+	if err != nil {
+		return errors.Wrap(err, "Failed to get VnftContract.ActiveValidatorOfUser")
+	}
+	if err := v.parseValidatorExaMap(ctx, validatorBytesOfUser, USER); err != nil {
+		return errors.Wrap(err, "ActiveValidatorOfUser parseValidatorExaMap err.")
+	}
+
+	return nil
+}
+
+func (v *WithdrawHelper) parseValidatorExaMap(ctx context.Context, validatorBytes [][]byte, vnftOwner VnftOwner) error {
 	validatorCount := len(validatorBytes)
-	v.validatorExaMap = make(map[string]*ValidatorExa)
-	v.requireReportValidator = make(map[string]*ValidatorExa)
 
 	pubkeys := make([]string, validatorCount)
 	for i := 0; i < validatorCount; i++ {
@@ -56,6 +72,7 @@ func (v *WithdrawHelper) obtainValidatorConsensusInfo(ctx context.Context) error
 
 		validatorExa := &ValidatorExa{
 			Validator: validator,
+			VnftOwner: vnftOwner,
 		}
 		v.validatorExaMap[pubkey] = validatorExa
 	}
@@ -63,6 +80,7 @@ func (v *WithdrawHelper) obtainValidatorConsensusInfo(ctx context.Context) error
 	for k, value := range validators {
 		validatorExa := &ValidatorExa{
 			Validator: value,
+			VnftOwner: vnftOwner,
 		}
 		v.validatorExaMap[k] = validatorExa
 	}
@@ -74,9 +92,14 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 
 	exitTokenIds := make([]*big.Int, 0)
 
+	validatorExaArr := make([]*ValidatorExa, 0)
+
 	for pubkey, exa := range v.validatorExaMap {
 		// sum cl balance
-		v.clBalance = new(big.Int).Add(v.clBalance, big.NewInt(int64(exa.Validator.Balance)))
+		if exa.VnftOwner == LiquidStaking {
+			v.clBalance = new(big.Int).Add(v.clBalance, big.NewInt(int64(exa.Validator.Balance)))
+		}
+
 		pubkeyBytes, err := hexutil.Decode(pubkey)
 		if err != nil {
 			return errors.Wrapf(err, "failed to decode pubkey: %s", pubkey)
@@ -117,16 +140,15 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 			exitTokenIds = append(exitTokenIds, tokenId)
 		}
 
-		// delayedExitSlashStandard
-		err = v.calculationIsDelayedExit(ctx, exa)
-		if err != nil {
-			return errors.Wrapf(err, "Failed to calculationIsDelayedExit. tokenId:%s  pubkey:%s", exa.TokenId.String(), pubkey)
-		}
-
+		validatorExaArr = append(validatorExaArr, exa)
 	}
 
 	// cl balance to wei
 	v.clBalance = eth1.GWEIToWEI(v.clBalance)
+
+	sort.Slice(validatorExaArr, func(i, j int) bool {
+		return validatorExaArr[i].TokenId.Uint64() < validatorExaArr[j].TokenId.Uint64()
+	})
 
 	// IsNeedOracleReportExit
 	oracleReportExitNumbers, err := contracts.VnftContract.Contract.GetNftExitBlockNumbers(nil, exitTokenIds)
@@ -135,39 +157,46 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 	}
 
 	for i, number := range oracleReportExitNumbers {
-		// Ge 0
 		if number.Cmp(decimal.Zero.BigInt()) == 0 {
-			// todo 遍历map 改为数组
-			for s, exa := range v.validatorExaMap {
+			for _, exa := range validatorExaArr {
+				pubkey := exa.Validator.Validator.PublicKey.String()
 				if exitTokenIds[i] == exa.TokenId {
 					exa.IsNeedOracleReportExit = true
 
 					// slashed
-					if exa.Validator.Validator.Slashed {
-						exa.SlashAmount = eth1.ETH32().Sub(decimal.NewFromInt(int64(exa.Validator.Balance)).Mul(decimal.NewFromInt(params.GWei))).BigInt()
+					if exa.Validator.Status == consensusApi.ValidatorStateWithdrawalDone && exa.Validator.Validator.Slashed {
+						validatorSlashedAmount, err := consensus.ConsensusClient.CustomizeBeaconService.ValidatorSlashedAmount(ctx, exa.Validator)
+						if err != nil {
+							return errors.Wrapf(err, "failed to get ValidatorSlashedAmount:%s", pubkey)
+						}
+						if validatorSlashedAmount.Cmp(eth1.ETH(2)) == 1 {
+							logger.Warn("[WithdrawOracle] slash amount > 2 ETH.",
+								zap.String("pubkey", pubkey),
+								zap.String("slashAmount", validatorSlashedAmount.String()),
+							)
+							return errs.NewSleepError("slash amount > 2 ETH", RandomSleepTime())
+						}
+
+						exa.SlashAmount = validatorSlashedAmount
 					} else {
 						exa.SlashAmount = big.NewInt(0)
 					}
 
-					// ExitedAmount
-					isOwnerLiqPool, err := v.IsOwnerLiqPool(ctx, exa)
-					if err != nil {
-						return errors.Wrap(err, "")
-					}
-					if isOwnerLiqPool {
+					// ExitedAmountForClCapital
+					if exa.VnftOwner == LiquidStaking {
 						pubkeys := make([]string, 1)
-						pubkeys[0] = s
+						pubkeys[0] = pubkey
 						validator, err := consensus.ConsensusClient.CustomizeBeaconService.ValidatorsByPubKey(ctx, exa.ExitedSlot.String(), pubkeys)
 						if err != nil {
-							return errors.Wrapf(err, "Failed to get validator ExitedAmount. tokenId:%s pubkey:%s slot:%s", exa.TokenId.String(), s, exa.ExitedSlot.String())
+							return errors.Wrapf(err, "Failed to get validator ExitedAmountForClCapital. tokenId:%s pubkey:%s slot:%s", exa.TokenId.String(), pubkey, exa.ExitedSlot.String())
 						}
-						exa.ExitedAmount = eth1.GWEIToWEI(big.NewInt(int64(validator[s].Balance)))
+						exa.ExitedAmountForClCapital = eth1.GWEIToWEI(big.NewInt(int64(validator[pubkey].Balance)))
 					}
 
 					// requireReportValidator If the limit is reached, it is not added
 					exitLimit := int(v.exitRequestLimit.Int64())
 					if len(v.requireReportValidator) < exitLimit {
-						v.requireReportValidator[s] = exa
+						v.requireReportValidator[pubkey] = exa
 					}
 
 					break
@@ -187,59 +216,7 @@ func (v *WithdrawHelper) calculationClVaultBalance(ctx context.Context) error {
 	if err != nil {
 		return errors.Wrapf(err, "Failed to get ClVault BalanceAt. executionBlock:%s address:%s", executionBlock.BlockNumber.String(), contracts.GetClVaultAddress())
 	}
-
-	if balance.Cmp(big.NewInt(0)) == 0 {
-		return errs.NewSleepError("ClVaultBalance is zero. Cancel report.", RandomSleepTime())
-	}
-
 	v.clVaultBalance = balance
-
-	return nil
-}
-
-func (v *WithdrawHelper) calculationIsDelayedExit(ctx context.Context, exa *ValidatorExa) error {
-	// View liq contract nftUnstakeBlockNumbers and query tokenId exit block height (block height is 0, exit not initiated)
-	requireBlockNumbers, err := contracts.WithdrawalRequestContract.Contract.GetNftUnstakeBlockNumber(nil, exa.TokenId)
-	if err != nil {
-		return errors.Wrapf(err, "Failed to get WithdrawalRequestContract nftUnstakeBlockNumbers. tokenId:%s", exa.TokenId.String())
-	}
-
-	// ge 0 requested to exit. need to exit
-	if requireBlockNumbers.Cmp(decimal.Zero.BigInt()) == 1 {
-		// delayedExitSlashRecords The number of blocks that are not exited in time is reported by the Oracle database.
-		// This record is used to handle the report rounds that do not exit the validator in time
-		//  1. If the block height is 0, the oracle does not report the token Id
-		//  2. Determine the current block height - The last reported block height > The maximum block height that can not exit in time
-		// (delayedExitSlashStandard = 21600)
-		reportDelayedNumber, err := contracts.OperatorSlashContract.Contract.NftExitDelayedSlashRecords(nil, exa.TokenId)
-		if err != nil {
-			return errors.Wrapf(err, "Failed to get liq contract NftExitDelayedSlashRecords. tokenId:%s", exa.TokenId.String())
-		}
-
-		// If reportDelayedNumber == 0, the report is not reported. cmpNumber - requireBlockNumbers > (delayedExitSlashStandard = 21600)
-		// If reportDelayedNumber is greater than 0, it has been reported and has not logged out in time. cmpNumber-reportDelayedNumber > (delayedExitSlashStandard = 21600)
-		isReportDelayed := false
-		cmpNumber := v.executionBlock.BlockNumber
-		if exa.IsExited {
-			cmpNumber = exa.ExitedBlockHeight
-		}
-
-		if reportDelayedNumber.Cmp(decimal.Zero.BigInt()) == 0 {
-			if new(big.Int).Sub(cmpNumber, requireBlockNumbers).Cmp(v.delayedExitSlashStandard) == 1 {
-				isReportDelayed = true
-			}
-		} else if reportDelayedNumber.Cmp(decimal.Zero.BigInt()) == 1 {
-			if new(big.Int).Sub(cmpNumber, reportDelayedNumber).Cmp(v.delayedExitSlashStandard) == 1 {
-				isReportDelayed = true
-			}
-		}
-
-		if isReportDelayed {
-			exa.IsDelayedExit = true
-			v.delayedExitTokenIds = append(v.delayedExitTokenIds, exa.TokenId)
-		}
-
-	}
 
 	return nil
 }
@@ -266,64 +243,4 @@ func (v *WithdrawHelper) IsOwnerLiqPool(ctx context.Context, exa *ValidatorExa) 
 	}
 
 	return add.String() == contracts.LiqContract.Address, nil
-}
-
-// dealLargeExitDelayedRequest
-func (v *WithdrawHelper) dealLargeExitDelayedRequest(ctx context.Context) error {
-	// Get all the operators
-	operatorCount, err := v.getAllOperatorId(ctx)
-	if err != nil {
-		return errors.Wrap(err, "Failed to get OperatorContract GetNodeOperatorsCount.")
-	}
-
-	// operator id start 0.
-	for i := int64(1); i < operatorCount.Int64()+1; i++ {
-
-		operatorId := big.NewInt(i)
-		operatorPendingEthRequestAmount, operatorPendingEthPoolBalance, err := contracts.WithdrawalRequestContract.Contract.GetOperatorLargeWithdrawalPendingInfo(nil, operatorId)
-		if err != nil {
-			return errors.Wrapf(err, "Failed to get WithdrawalRequestContract GetOperatorLargeWitdrawalPendingInfo. OperatorId: %s", operatorId.String())
-		}
-
-		// operatorPendingEthRequestAmount > operatorPendingEthPoolBalance
-		// has largeExitDelayedRequest
-		if operatorPendingEthRequestAmount.Cmp(operatorPendingEthPoolBalance) == 1 {
-			cha := new(big.Int).Sub(operatorPendingEthRequestAmount, operatorPendingEthPoolBalance)
-
-			withdrawalQueues, err := contracts.WithdrawalRequestContract.Contract.GetWithdrawalOfOperator(nil, operatorId)
-			if err != nil {
-				return errors.Wrapf(err, "Failed to get WithdrawalRequestContract getWithdrawalOfOperator. OperatorId: %s", operatorId.String())
-			}
-
-			for i := len(withdrawalQueues) - 1; i >= 0; i-- {
-				requestId := big.NewInt(int64(i))
-				delayedSlashRecords, err := contracts.OperatorSlashContract.Contract.LargeExitDelayedSlashRecords(nil, requestId)
-				if err != nil {
-					return errors.Wrapf(err, "Failed to get OperatorSlashContract LargeExitDelayedSlashRecords. requestId: %s", requestId)
-				}
-				q := withdrawalQueues[i]
-
-				lastReportBlock := big.NewInt(0)
-				if delayedSlashRecords.Cmp(big.NewInt(0)) == 0 {
-					lastReportBlock = q.WithdrawHeight
-				} else {
-					lastReportBlock = delayedSlashRecords
-				}
-
-				isDelayed := new(big.Int).Sub(v.executionBlock.BlockNumber, lastReportBlock).Cmp(v.delayedExitSlashStandard) == 1
-
-				if isDelayed {
-					v.largeExitDelayedRequestIds = append(v.largeExitDelayedRequestIds, requestId)
-				} else {
-					continue
-				}
-
-				if q.ClaimEthAmount.Cmp(cha) == 1 {
-					break
-				}
-			}
-		}
-	}
-
-	return nil
 }

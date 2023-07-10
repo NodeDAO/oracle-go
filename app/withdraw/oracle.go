@@ -9,6 +9,7 @@ import (
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/hashConsensus"
+	"github.com/NodeDAO/oracle-go/contracts/largeStakeOracle"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
 	"github.com/NodeDAO/oracle-go/eth1"
 	"github.com/ethereum/go-ethereum"
@@ -23,7 +24,7 @@ import (
 )
 
 func EncodeReportData(reportData *withdrawOracle.WithdrawOracleReportData) ([32]byte, error) {
-	json, err := abi.JSON(strings.NewReader("[{\"inputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"consensusVersion\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"clBalance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"clVaultBalance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"clSettleAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"reportExitedCount\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"operatorId\",\"type\":\"uint64\"},{\"internalType\":\"uint96\",\"name\":\"clReward\",\"type\":\"uint96\"},{\"internalType\":\"uint96\",\"name\":\"clCapital\",\"type\":\"uint96\"}],\"internalType\":\"struct WithdrawInfo[]\",\"name\":\"withdrawInfos\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"exitTokenId\",\"type\":\"uint64\"},{\"internalType\":\"uint96\",\"name\":\"exitBlockNumber\",\"type\":\"uint96\"},{\"internalType\":\"uint96\",\"name\":\"slashAmount\",\"type\":\"uint96\"}],\"internalType\":\"struct ExitValidatorInfo[]\",\"name\":\"exitValidatorInfos\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256[]\",\"name\":\"delayedExitTokenIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"largeExitDelayedRequestIds\",\"type\":\"uint256[]\"}],\"internalType\":\"struct WithdrawOracle.ReportData\",\"name\":\"data\",\"type\":\"tuple\"}],\"name\":\"submitReportData\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"))
+	json, err := abi.JSON(strings.NewReader("[{\"inputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"consensusVersion\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"clBalance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"clVaultBalance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"clSettleAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"reportExitedCount\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"operatorId\",\"type\":\"uint64\"},{\"internalType\":\"uint96\",\"name\":\"clReward\",\"type\":\"uint96\"},{\"internalType\":\"uint96\",\"name\":\"clCapital\",\"type\":\"uint96\"}],\"internalType\":\"struct WithdrawInfo[]\",\"name\":\"withdrawInfos\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"exitTokenId\",\"type\":\"uint64\"},{\"internalType\":\"uint96\",\"name\":\"exitBlockNumber\",\"type\":\"uint96\"},{\"internalType\":\"uint96\",\"name\":\"slashAmount\",\"type\":\"uint96\"}],\"internalType\":\"struct ExitValidatorInfo[]\",\"name\":\"exitValidatorInfos\",\"type\":\"tuple[]\"}],\"internalType\":\"struct WithdrawOracle.ReportData\",\"name\":\"data\",\"type\":\"tuple\"}],\"name\":\"submitReportData\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"))
 	encodedData, err := json.Methods["submitReportData"].Inputs.Pack(reportData)
 
 	// Code the data using the Pack method of the abi.Arguments structure
@@ -89,11 +90,11 @@ func (v *Oracle) CheckContractVersions(ctx context.Context) error {
 		return errors.Wrap(err, "Failed to get WithdrawOracleContract GetConsensusVersion.")
 	}
 
-	if oracleContractVersion.Int64() != CONTRACT_VERSION || consensusVersion.Int64() != CONSENSUS_VERSION {
+	if oracleContractVersion.Int64() != WITHRAW_ORACLE_CONTRACT_VERSION || consensusVersion.Int64() != CONSENSUS_VERSION {
 		return errors.Errorf(`Incompatible Oracle version err. 
 			Expected contract version %v got %v.
 			Expected consensus version %v got %v.
-		`, oracleContractVersion.Int64(), CONTRACT_VERSION, consensusVersion.Int64(), CONSENSUS_VERSION)
+		`, oracleContractVersion.Int64(), WITHRAW_ORACLE_CONTRACT_VERSION, consensusVersion.Int64(), CONSENSUS_VERSION)
 	}
 
 	return nil
@@ -131,7 +132,7 @@ func (v *Oracle) GetProcessingState(ctx context.Context) (*withdrawOracle.Withdr
 	return &processingState, nil
 }
 
-func (v *Oracle) simulatedSubmitReportData(ctx context.Context, opts *bind.TransactOpts, reportData withdrawOracle.WithdrawOracleReportData, consensusVersion *big.Int) error {
+func (v *Oracle) simulatedWithdrawOracleSubmitReportData(ctx context.Context, opts *bind.TransactOpts, reportData withdrawOracle.WithdrawOracleReportData, contractVersion, moduleId *big.Int) error {
 
 	toAddress := common.HexToAddress(contracts.WithdrawOracleContract.Address)
 
@@ -139,7 +140,7 @@ func (v *Oracle) simulatedSubmitReportData(ctx context.Context, opts *bind.Trans
 	if err != nil {
 		return errors.Wrap(err, "Failed to abi json submitReportData")
 	}
-	encodedData, err := abiJson.Pack("submitReportData", reportData, consensusVersion)
+	encodedData, err := abiJson.Pack("submitReportData", reportData, contractVersion, moduleId)
 	if err != nil {
 		return errors.Wrap(err, "Failed to Pack submitReportData")
 	}
@@ -155,7 +156,40 @@ func (v *Oracle) simulatedSubmitReportData(ctx context.Context, opts *bind.Trans
 		return errors.Wrap(err, "Failed to EstimateGas submitReportData")
 	}
 
-	logger.Info("submitReportData EstimateGas",
+	logger.Info("[WithdrawOracle] submitReportData EstimateGas",
+		zap.Uint64("gasLimit", gasLimit),
+		zap.String("from", msg.From.String()),
+		zap.String("to", msg.To.String()),
+	)
+
+	return nil
+}
+
+func (v *Oracle) simulatedLargeStakeOracleSubmitReportData(ctx context.Context, opts *bind.TransactOpts, reportData *largeStakeOracle.LargeStakeOracleReportData, contractVersion, moduleId *big.Int) error {
+
+	toAddress := common.HexToAddress(contracts.WithdrawOracleContract.Address)
+
+	abiJson, err := abi.JSON(strings.NewReader(withdrawOracle.WithdrawOracleMetaData.ABI))
+	if err != nil {
+		return errors.Wrap(err, "Failed to abi json submitReportData")
+	}
+	encodedData, err := abiJson.Pack("submitReportData", reportData, contractVersion, moduleId)
+	if err != nil {
+		return errors.Wrap(err, "Failed to Pack submitReportData")
+	}
+
+	msg := ethereum.CallMsg{
+		From: opts.From,
+		To:   &toAddress,
+		Data: encodedData,
+	}
+
+	gasLimit, err := eth1.ElClient.Client.EstimateGas(ctx, msg)
+	if err != nil {
+		return errors.Wrap(err, "Failed to EstimateGas submitReportData")
+	}
+
+	logger.Info("[LargeStakeOracle] submitReportData EstimateGas",
 		zap.Uint64("gasLimit", gasLimit),
 		zap.String("from", msg.From.String()),
 		zap.String("to", msg.To.String()),

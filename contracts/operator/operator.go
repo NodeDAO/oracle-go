@@ -31,7 +31,7 @@ var (
 
 // OperatorMetaData contains all meta data concerning the Operator contract.
 var OperatorMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"InvalidParameter\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OperatorNotFound\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PermissionDenied\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_oldRate\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rate\",\"type\":\"uint256\"}],\"name\":\"ComissionRateChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDao\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"DaoAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"DaoClaimRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDaoVaultAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"}],\"name\":\"DaoVaultAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"}],\"name\":\"LiquidStakingChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"NodeOperatorBlacklistRemove\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"NodeOperatorBlacklistSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_controllerAddress\",\"type\":\"address\"}],\"name\":\"NodeOperatorControllerAddressSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"}],\"name\":\"NodeOperatorNameSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_ownerAddress\",\"type\":\"address\"}],\"name\":\"NodeOperatorOwnerAddressSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_controllerAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_vaultContractAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address[]\",\"name\":\"_rewardAddresses\",\"type\":\"address[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"_ratios\",\"type\":\"uint256[]\"}],\"name\":\"NodeOperatorRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address[]\",\"name\":\"_rewardAddresses\",\"type\":\"address[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"_ratios\",\"type\":\"uint256[]\"}],\"name\":\"NodeOperatorRewardAddressSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"_trusted\",\"type\":\"bool\"}],\"name\":\"NodeOperatorTrustedRemove\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"_trusted\",\"type\":\"bool\"}],\"name\":\"NodeOperatorTrustedSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"OperatorArrearsIncrease\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"OperatorArrearsReduce\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"OperatorClaimRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_nowVault\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"}],\"name\":\"OperatorQuit\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldOperatorSlashContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_operatorSlashContractAddress\",\"type\":\"address\"}],\"name\":\"OperatorSlashContractSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldVaultContractAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_vaultContractAddress\",\"type\":\"address\"}],\"name\":\"OperatorVaultContractReset\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_withdrawAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"}],\"name\":\"OperatorWithdraw\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_blockNumber\",\"type\":\"uint256\"}],\"name\":\"PermissionlessBlockNumberSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"PledgeDeposited\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_oldFee\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_fee\",\"type\":\"uint256\"}],\"name\":\"RegistrationFeeChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"Slashed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"Transferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_vaultFactoryContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_vaultFactoryContractAddress\",\"type\":\"address\"}],\"name\":\"VaultFactorContractSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"}],\"name\":\"Withdraw\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"BASIC_PLEDGE\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"DEFAULT_COMISSION\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"blacklistOperators\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"controllerAddress\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dao\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"daoVaultAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getBlacklistOperatorsCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"_fullInfo\",\"type\":\"bool\"}],\"name\":\"getNodeOperator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"trusted\",\"type\":\"bool\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"controllerAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"vaultContractAddress\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"getNodeOperatorOwner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"getNodeOperatorRewardSetting\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"rewardAddresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"ratios\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"getNodeOperatorVaultContract\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"vaultContractAddress\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getNodeOperatorsCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_operatorIds\",\"type\":\"uint256[]\"}],\"name\":\"getOperatorComissionRate\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"getPledgeInfoOfOperator\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getTrustedOperatorsCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_vaultFactoryContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nVNFTContractAddress\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"isBlacklistOperator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"isConformBasicPledge\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"isQuitOperator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"isTrustedOperator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_controllerAddress\",\"type\":\"address\"}],\"name\":\"isTrustedOperatorOfControllerAddress\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"liquidStakingContract\",\"outputs\":[{\"internalType\":\"contractILiquidStaking\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorPledgeVaultBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorSlashAmountOwed\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"operatorSlashContract\",\"outputs\":[{\"internalType\":\"contractIOperatorSlash\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"permissionlessBlockNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"}],\"name\":\"quitOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"_controllerAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"_rewardAddresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_ratios\",\"type\":\"uint256[]\"}],\"name\":\"registerOperator\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"registrationFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"removeBlacklistOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"removeTrustedOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_operatorIds\",\"type\":\"uint256[]\"}],\"name\":\"resetOperatorVaultContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"setBlacklistOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"setDaoAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"}],\"name\":\"setDaoVaultAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_liquidStakingContractAddress\",\"type\":\"address\"}],\"name\":\"setLiquidStaking\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_controllerAddress\",\"type\":\"address\"}],\"name\":\"setNodeOperatorControllerAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"}],\"name\":\"setNodeOperatorName\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"setNodeOperatorOwnerAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"_rewardAddresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_ratios\",\"type\":\"uint256[]\"}],\"name\":\"setNodeOperatorRewardAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_rate\",\"type\":\"uint256\"}],\"name\":\"setOperatorComissionRate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_operatorSlashContractAddress\",\"type\":\"address\"}],\"name\":\"setOperatorSlashContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_fee\",\"type\":\"uint256\"}],\"name\":\"setRegistrationFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"setTrustedOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_vaultFactoryContractAddress\",\"type\":\"address\"}],\"name\":\"setVaultFactorContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_blockNumber\",\"type\":\"uint256\"}],\"name\":\"setpermissionlessBlockNumber\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_exitTokenIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_amounts\",\"type\":\"uint256[]\"}],\"name\":\"slash\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"slashOfExitDelayed\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"trustedControllerAddress\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"usedControllerAddress\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vNFTContract\",\"outputs\":[{\"internalType\":\"contractIVNFT\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultFactoryContract\",\"outputs\":[{\"internalType\":\"contractIELVaultFactory\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_withdrawAmount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"}],\"name\":\"withdrawOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"ControllerAddrUsed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InsufficientAmount\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InsufficientMargin\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidAddr\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidCommission\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidParameter\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidRewardRatio\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NoPermissionPhase\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OperatorAlreadyTrusted\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OperatorExitFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OperatorHasArrears\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OperatorHasBlacklisted\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OperatorHasExited\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OperatorNotBlacklisted\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OperatorNotFound\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OperatorNotTrusted\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PermissionDenied\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PermissionlessPhaseStart\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_oldRate\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rate\",\"type\":\"uint256\"}],\"name\":\"CommissionRateChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDao\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"DaoAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"DaoClaimRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDaoVaultAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"}],\"name\":\"DaoVaultAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_oldDefaultOperatorCommission\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_defaultOperatorCommission\",\"type\":\"uint256\"}],\"name\":\"DefaultOperatorCommissionRateChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldLargeStakingContractAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_largeStakingContractAddress\",\"type\":\"address\"}],\"name\":\"LargeStakingChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"}],\"name\":\"LiquidStakingChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"NodeOperatorBlacklistRemove\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"NodeOperatorBlacklistSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_controllerAddress\",\"type\":\"address\"}],\"name\":\"NodeOperatorControllerAddressSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"}],\"name\":\"NodeOperatorNameSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_ownerAddress\",\"type\":\"address\"}],\"name\":\"NodeOperatorOwnerAddressSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_controllerAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_vaultContractAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address[]\",\"name\":\"_rewardAddresses\",\"type\":\"address[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"_ratios\",\"type\":\"uint256[]\"}],\"name\":\"NodeOperatorRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address[]\",\"name\":\"_rewardAddresses\",\"type\":\"address[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"_ratios\",\"type\":\"uint256[]\"}],\"name\":\"NodeOperatorRewardAddressSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"_trusted\",\"type\":\"bool\"}],\"name\":\"NodeOperatorTrustedRemove\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"_trusted\",\"type\":\"bool\"}],\"name\":\"NodeOperatorTrustedSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"OperatorArrearsIncrease\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"OperatorArrearsReduce\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"OperatorClaimRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_nowVault\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"}],\"name\":\"OperatorQuit\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldOperatorSlashContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_operatorSlashContractAddress\",\"type\":\"address\"}],\"name\":\"OperatorSlashContractSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldVaultContractAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_vaultContractAddress\",\"type\":\"address\"}],\"name\":\"OperatorVaultContractReset\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_withdrawAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"}],\"name\":\"OperatorWithdraw\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_blockNumber\",\"type\":\"uint256\"}],\"name\":\"PermissionlessBlockNumberSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"PledgeDeposited\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_oldFee\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_fee\",\"type\":\"uint256\"}],\"name\":\"RegistrationFeeChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"Slashed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"Transferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_vaultFactoryContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_vaultFactoryContractAddress\",\"type\":\"address\"}],\"name\":\"VaultFactorContractSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"}],\"name\":\"Withdraw\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"BASIC_PLEDGE\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"blacklistOperators\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"controllerAddress\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dao\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"daoVaultAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"defaultOperatorCommission\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"_fullInfo\",\"type\":\"bool\"}],\"name\":\"getNodeOperator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"_trusted\",\"type\":\"bool\"},{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_controllerAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_vaultContractAddress\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"getNodeOperatorRewardSetting\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"rewardAddresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"ratios\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"getNodeOperatorVaultContract\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"vaultContractAddress\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getNodeOperatorsCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_operatorIds\",\"type\":\"uint256[]\"}],\"name\":\"getOperatorCommissionRate\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"getPledgeInfoOfOperator\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_vaultFactoryContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nVNFTContractAddress\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_vaultFactoryContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_operatorSlashContractAddress\",\"type\":\"address\"},{\"internalType\":\"uint256[]\",\"name\":\"_resetVaultOperatorIds\",\"type\":\"uint256[]\"}],\"name\":\"initializeV2\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_largeStakingContractAddress\",\"type\":\"address\"}],\"name\":\"initializeV3\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"isBlacklistOperator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"isConformBasicPledge\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"isQuitOperator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"isTrustedOperator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_controllerAddress\",\"type\":\"address\"}],\"name\":\"isTrustedOperatorOfControllerAddress\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"largeStakingContract\",\"outputs\":[{\"internalType\":\"contractILargeStaking\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"liquidStakingContract\",\"outputs\":[{\"internalType\":\"contractILiquidStaking\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorPledgeVaultBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorSlashAmountOwed\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"operatorSlashContract\",\"outputs\":[{\"internalType\":\"contractIOperatorSlash\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"permissionlessBlockNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"}],\"name\":\"quitOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"_controllerAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"_rewardAddresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_ratios\",\"type\":\"uint256[]\"}],\"name\":\"registerOperator\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"registrationFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"removeBlacklistOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"removeTrustedOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_operatorIds\",\"type\":\"uint256[]\"}],\"name\":\"resetOperatorVaultContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"setBlacklistOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"setNodeOperatorOwnerAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_liquidStakingContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_operatorSlashContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_vaultFactoryContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_largeStakingContractAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_defaultOperatorCommission\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_registrationFee\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_permissionlessBlockNumber\",\"type\":\"uint256\"}],\"name\":\"setNodeOperatorRegistrySetting\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_rate\",\"type\":\"uint256\"}],\"name\":\"setOperatorCommissionRate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"_controllerAddress\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"_rewardAddresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_ratios\",\"type\":\"uint256[]\"}],\"name\":\"setOperatorSetting\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"setTrustedOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_slashType\",\"type\":\"uint256\"},{\"internalType\":\"uint256[]\",\"name\":\"_slashIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_operatorIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_amounts\",\"type\":\"uint256[]\"}],\"name\":\"slash\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"trustedControllerAddress\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"usedControllerAddress\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vNFTContract\",\"outputs\":[{\"internalType\":\"contractIVNFT\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultFactoryContract\",\"outputs\":[{\"internalType\":\"contractIELVaultFactory\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_withdrawAmount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"}],\"name\":\"withdrawOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
 }
 
 // OperatorABI is the input ABI used to generate the binding from.
@@ -211,37 +211,6 @@ func (_Operator *OperatorCallerSession) BASICPLEDGE() (*big.Int, error) {
 	return _Operator.Contract.BASICPLEDGE(&_Operator.CallOpts)
 }
 
-// DEFAULTCOMISSION is a free data retrieval call binding the contract method 0xc34daf12.
-//
-// Solidity: function DEFAULT_COMISSION() view returns(uint256)
-func (_Operator *OperatorCaller) DEFAULTCOMISSION(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _Operator.contract.Call(opts, &out, "DEFAULT_COMISSION")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// DEFAULTCOMISSION is a free data retrieval call binding the contract method 0xc34daf12.
-//
-// Solidity: function DEFAULT_COMISSION() view returns(uint256)
-func (_Operator *OperatorSession) DEFAULTCOMISSION() (*big.Int, error) {
-	return _Operator.Contract.DEFAULTCOMISSION(&_Operator.CallOpts)
-}
-
-// DEFAULTCOMISSION is a free data retrieval call binding the contract method 0xc34daf12.
-//
-// Solidity: function DEFAULT_COMISSION() view returns(uint256)
-func (_Operator *OperatorCallerSession) DEFAULTCOMISSION() (*big.Int, error) {
-	return _Operator.Contract.DEFAULTCOMISSION(&_Operator.CallOpts)
-}
-
 // BlacklistOperators is a free data retrieval call binding the contract method 0xc997f338.
 //
 // Solidity: function blacklistOperators(uint256 ) view returns(bool)
@@ -366,12 +335,12 @@ func (_Operator *OperatorCallerSession) DaoVaultAddress() (common.Address, error
 	return _Operator.Contract.DaoVaultAddress(&_Operator.CallOpts)
 }
 
-// GetBlacklistOperatorsCount is a free data retrieval call binding the contract method 0xa60ebf95.
+// DefaultOperatorCommission is a free data retrieval call binding the contract method 0xf96b31dc.
 //
-// Solidity: function getBlacklistOperatorsCount() view returns(uint256)
-func (_Operator *OperatorCaller) GetBlacklistOperatorsCount(opts *bind.CallOpts) (*big.Int, error) {
+// Solidity: function defaultOperatorCommission() view returns(uint256)
+func (_Operator *OperatorCaller) DefaultOperatorCommission(opts *bind.CallOpts) (*big.Int, error) {
 	var out []interface{}
-	err := _Operator.contract.Call(opts, &out, "getBlacklistOperatorsCount")
+	err := _Operator.contract.Call(opts, &out, "defaultOperatorCommission")
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -383,23 +352,23 @@ func (_Operator *OperatorCaller) GetBlacklistOperatorsCount(opts *bind.CallOpts)
 
 }
 
-// GetBlacklistOperatorsCount is a free data retrieval call binding the contract method 0xa60ebf95.
+// DefaultOperatorCommission is a free data retrieval call binding the contract method 0xf96b31dc.
 //
-// Solidity: function getBlacklistOperatorsCount() view returns(uint256)
-func (_Operator *OperatorSession) GetBlacklistOperatorsCount() (*big.Int, error) {
-	return _Operator.Contract.GetBlacklistOperatorsCount(&_Operator.CallOpts)
+// Solidity: function defaultOperatorCommission() view returns(uint256)
+func (_Operator *OperatorSession) DefaultOperatorCommission() (*big.Int, error) {
+	return _Operator.Contract.DefaultOperatorCommission(&_Operator.CallOpts)
 }
 
-// GetBlacklistOperatorsCount is a free data retrieval call binding the contract method 0xa60ebf95.
+// DefaultOperatorCommission is a free data retrieval call binding the contract method 0xf96b31dc.
 //
-// Solidity: function getBlacklistOperatorsCount() view returns(uint256)
-func (_Operator *OperatorCallerSession) GetBlacklistOperatorsCount() (*big.Int, error) {
-	return _Operator.Contract.GetBlacklistOperatorsCount(&_Operator.CallOpts)
+// Solidity: function defaultOperatorCommission() view returns(uint256)
+func (_Operator *OperatorCallerSession) DefaultOperatorCommission() (*big.Int, error) {
+	return _Operator.Contract.DefaultOperatorCommission(&_Operator.CallOpts)
 }
 
 // GetNodeOperator is a free data retrieval call binding the contract method 0x9a56983c.
 //
-// Solidity: function getNodeOperator(uint256 _id, bool _fullInfo) view returns(bool trusted, string name, address owner, address controllerAddress, address vaultContractAddress)
+// Solidity: function getNodeOperator(uint256 _id, bool _fullInfo) view returns(bool _trusted, string _name, address _owner, address _controllerAddress, address _vaultContractAddress)
 func (_Operator *OperatorCaller) GetNodeOperator(opts *bind.CallOpts, _id *big.Int, _fullInfo bool) (struct {
 	Trusted              bool
 	Name                 string
@@ -433,7 +402,7 @@ func (_Operator *OperatorCaller) GetNodeOperator(opts *bind.CallOpts, _id *big.I
 
 // GetNodeOperator is a free data retrieval call binding the contract method 0x9a56983c.
 //
-// Solidity: function getNodeOperator(uint256 _id, bool _fullInfo) view returns(bool trusted, string name, address owner, address controllerAddress, address vaultContractAddress)
+// Solidity: function getNodeOperator(uint256 _id, bool _fullInfo) view returns(bool _trusted, string _name, address _owner, address _controllerAddress, address _vaultContractAddress)
 func (_Operator *OperatorSession) GetNodeOperator(_id *big.Int, _fullInfo bool) (struct {
 	Trusted              bool
 	Name                 string
@@ -446,7 +415,7 @@ func (_Operator *OperatorSession) GetNodeOperator(_id *big.Int, _fullInfo bool) 
 
 // GetNodeOperator is a free data retrieval call binding the contract method 0x9a56983c.
 //
-// Solidity: function getNodeOperator(uint256 _id, bool _fullInfo) view returns(bool trusted, string name, address owner, address controllerAddress, address vaultContractAddress)
+// Solidity: function getNodeOperator(uint256 _id, bool _fullInfo) view returns(bool _trusted, string _name, address _owner, address _controllerAddress, address _vaultContractAddress)
 func (_Operator *OperatorCallerSession) GetNodeOperator(_id *big.Int, _fullInfo bool) (struct {
 	Trusted              bool
 	Name                 string
@@ -455,37 +424,6 @@ func (_Operator *OperatorCallerSession) GetNodeOperator(_id *big.Int, _fullInfo 
 	VaultContractAddress common.Address
 }, error) {
 	return _Operator.Contract.GetNodeOperator(&_Operator.CallOpts, _id, _fullInfo)
-}
-
-// GetNodeOperatorOwner is a free data retrieval call binding the contract method 0xb055e15c.
-//
-// Solidity: function getNodeOperatorOwner(uint256 _id) view returns(address)
-func (_Operator *OperatorCaller) GetNodeOperatorOwner(opts *bind.CallOpts, _id *big.Int) (common.Address, error) {
-	var out []interface{}
-	err := _Operator.contract.Call(opts, &out, "getNodeOperatorOwner", _id)
-
-	if err != nil {
-		return *new(common.Address), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
-
-	return out0, err
-
-}
-
-// GetNodeOperatorOwner is a free data retrieval call binding the contract method 0xb055e15c.
-//
-// Solidity: function getNodeOperatorOwner(uint256 _id) view returns(address)
-func (_Operator *OperatorSession) GetNodeOperatorOwner(_id *big.Int) (common.Address, error) {
-	return _Operator.Contract.GetNodeOperatorOwner(&_Operator.CallOpts, _id)
-}
-
-// GetNodeOperatorOwner is a free data retrieval call binding the contract method 0xb055e15c.
-//
-// Solidity: function getNodeOperatorOwner(uint256 _id) view returns(address)
-func (_Operator *OperatorCallerSession) GetNodeOperatorOwner(_id *big.Int) (common.Address, error) {
-	return _Operator.Contract.GetNodeOperatorOwner(&_Operator.CallOpts, _id)
 }
 
 // GetNodeOperatorRewardSetting is a free data retrieval call binding the contract method 0x0a61e6c4.
@@ -595,12 +533,12 @@ func (_Operator *OperatorCallerSession) GetNodeOperatorsCount() (*big.Int, error
 	return _Operator.Contract.GetNodeOperatorsCount(&_Operator.CallOpts)
 }
 
-// GetOperatorComissionRate is a free data retrieval call binding the contract method 0x60a2c1d9.
+// GetOperatorCommissionRate is a free data retrieval call binding the contract method 0x50aee62f.
 //
-// Solidity: function getOperatorComissionRate(uint256[] _operatorIds) view returns(uint256[])
-func (_Operator *OperatorCaller) GetOperatorComissionRate(opts *bind.CallOpts, _operatorIds []*big.Int) ([]*big.Int, error) {
+// Solidity: function getOperatorCommissionRate(uint256[] _operatorIds) view returns(uint256[])
+func (_Operator *OperatorCaller) GetOperatorCommissionRate(opts *bind.CallOpts, _operatorIds []*big.Int) ([]*big.Int, error) {
 	var out []interface{}
-	err := _Operator.contract.Call(opts, &out, "getOperatorComissionRate", _operatorIds)
+	err := _Operator.contract.Call(opts, &out, "getOperatorCommissionRate", _operatorIds)
 
 	if err != nil {
 		return *new([]*big.Int), err
@@ -612,18 +550,18 @@ func (_Operator *OperatorCaller) GetOperatorComissionRate(opts *bind.CallOpts, _
 
 }
 
-// GetOperatorComissionRate is a free data retrieval call binding the contract method 0x60a2c1d9.
+// GetOperatorCommissionRate is a free data retrieval call binding the contract method 0x50aee62f.
 //
-// Solidity: function getOperatorComissionRate(uint256[] _operatorIds) view returns(uint256[])
-func (_Operator *OperatorSession) GetOperatorComissionRate(_operatorIds []*big.Int) ([]*big.Int, error) {
-	return _Operator.Contract.GetOperatorComissionRate(&_Operator.CallOpts, _operatorIds)
+// Solidity: function getOperatorCommissionRate(uint256[] _operatorIds) view returns(uint256[])
+func (_Operator *OperatorSession) GetOperatorCommissionRate(_operatorIds []*big.Int) ([]*big.Int, error) {
+	return _Operator.Contract.GetOperatorCommissionRate(&_Operator.CallOpts, _operatorIds)
 }
 
-// GetOperatorComissionRate is a free data retrieval call binding the contract method 0x60a2c1d9.
+// GetOperatorCommissionRate is a free data retrieval call binding the contract method 0x50aee62f.
 //
-// Solidity: function getOperatorComissionRate(uint256[] _operatorIds) view returns(uint256[])
-func (_Operator *OperatorCallerSession) GetOperatorComissionRate(_operatorIds []*big.Int) ([]*big.Int, error) {
-	return _Operator.Contract.GetOperatorComissionRate(&_Operator.CallOpts, _operatorIds)
+// Solidity: function getOperatorCommissionRate(uint256[] _operatorIds) view returns(uint256[])
+func (_Operator *OperatorCallerSession) GetOperatorCommissionRate(_operatorIds []*big.Int) ([]*big.Int, error) {
+	return _Operator.Contract.GetOperatorCommissionRate(&_Operator.CallOpts, _operatorIds)
 }
 
 // GetPledgeInfoOfOperator is a free data retrieval call binding the contract method 0x2bcc1852.
@@ -656,37 +594,6 @@ func (_Operator *OperatorSession) GetPledgeInfoOfOperator(_operatorId *big.Int) 
 // Solidity: function getPledgeInfoOfOperator(uint256 _operatorId) view returns(uint256, uint256)
 func (_Operator *OperatorCallerSession) GetPledgeInfoOfOperator(_operatorId *big.Int) (*big.Int, *big.Int, error) {
 	return _Operator.Contract.GetPledgeInfoOfOperator(&_Operator.CallOpts, _operatorId)
-}
-
-// GetTrustedOperatorsCount is a free data retrieval call binding the contract method 0x150cd0a9.
-//
-// Solidity: function getTrustedOperatorsCount() view returns(uint256)
-func (_Operator *OperatorCaller) GetTrustedOperatorsCount(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _Operator.contract.Call(opts, &out, "getTrustedOperatorsCount")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// GetTrustedOperatorsCount is a free data retrieval call binding the contract method 0x150cd0a9.
-//
-// Solidity: function getTrustedOperatorsCount() view returns(uint256)
-func (_Operator *OperatorSession) GetTrustedOperatorsCount() (*big.Int, error) {
-	return _Operator.Contract.GetTrustedOperatorsCount(&_Operator.CallOpts)
-}
-
-// GetTrustedOperatorsCount is a free data retrieval call binding the contract method 0x150cd0a9.
-//
-// Solidity: function getTrustedOperatorsCount() view returns(uint256)
-func (_Operator *OperatorCallerSession) GetTrustedOperatorsCount() (*big.Int, error) {
-	return _Operator.Contract.GetTrustedOperatorsCount(&_Operator.CallOpts)
 }
 
 // IsBlacklistOperator is a free data retrieval call binding the contract method 0x3b781aad.
@@ -842,6 +749,37 @@ func (_Operator *OperatorSession) IsTrustedOperatorOfControllerAddress(_controll
 // Solidity: function isTrustedOperatorOfControllerAddress(address _controllerAddress) view returns(uint256)
 func (_Operator *OperatorCallerSession) IsTrustedOperatorOfControllerAddress(_controllerAddress common.Address) (*big.Int, error) {
 	return _Operator.Contract.IsTrustedOperatorOfControllerAddress(&_Operator.CallOpts, _controllerAddress)
+}
+
+// LargeStakingContract is a free data retrieval call binding the contract method 0xf08ae442.
+//
+// Solidity: function largeStakingContract() view returns(address)
+func (_Operator *OperatorCaller) LargeStakingContract(opts *bind.CallOpts) (common.Address, error) {
+	var out []interface{}
+	err := _Operator.contract.Call(opts, &out, "largeStakingContract")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
+}
+
+// LargeStakingContract is a free data retrieval call binding the contract method 0xf08ae442.
+//
+// Solidity: function largeStakingContract() view returns(address)
+func (_Operator *OperatorSession) LargeStakingContract() (common.Address, error) {
+	return _Operator.Contract.LargeStakingContract(&_Operator.CallOpts)
+}
+
+// LargeStakingContract is a free data retrieval call binding the contract method 0xf08ae442.
+//
+// Solidity: function largeStakingContract() view returns(address)
+func (_Operator *OperatorCallerSession) LargeStakingContract() (common.Address, error) {
+	return _Operator.Contract.LargeStakingContract(&_Operator.CallOpts)
 }
 
 // LiquidStakingContract is a free data retrieval call binding the contract method 0xbdcaa355.
@@ -1258,6 +1196,48 @@ func (_Operator *OperatorTransactorSession) Initialize(_dao common.Address, _dao
 	return _Operator.Contract.Initialize(&_Operator.TransactOpts, _dao, _daoVaultAddress, _vaultFactoryContractAddress, _nVNFTContractAddress)
 }
 
+// InitializeV2 is a paid mutator transaction binding the contract method 0xfb966e9f.
+//
+// Solidity: function initializeV2(address _vaultFactoryContractAddress, address _operatorSlashContractAddress, uint256[] _resetVaultOperatorIds) returns()
+func (_Operator *OperatorTransactor) InitializeV2(opts *bind.TransactOpts, _vaultFactoryContractAddress common.Address, _operatorSlashContractAddress common.Address, _resetVaultOperatorIds []*big.Int) (*types.Transaction, error) {
+	return _Operator.contract.Transact(opts, "initializeV2", _vaultFactoryContractAddress, _operatorSlashContractAddress, _resetVaultOperatorIds)
+}
+
+// InitializeV2 is a paid mutator transaction binding the contract method 0xfb966e9f.
+//
+// Solidity: function initializeV2(address _vaultFactoryContractAddress, address _operatorSlashContractAddress, uint256[] _resetVaultOperatorIds) returns()
+func (_Operator *OperatorSession) InitializeV2(_vaultFactoryContractAddress common.Address, _operatorSlashContractAddress common.Address, _resetVaultOperatorIds []*big.Int) (*types.Transaction, error) {
+	return _Operator.Contract.InitializeV2(&_Operator.TransactOpts, _vaultFactoryContractAddress, _operatorSlashContractAddress, _resetVaultOperatorIds)
+}
+
+// InitializeV2 is a paid mutator transaction binding the contract method 0xfb966e9f.
+//
+// Solidity: function initializeV2(address _vaultFactoryContractAddress, address _operatorSlashContractAddress, uint256[] _resetVaultOperatorIds) returns()
+func (_Operator *OperatorTransactorSession) InitializeV2(_vaultFactoryContractAddress common.Address, _operatorSlashContractAddress common.Address, _resetVaultOperatorIds []*big.Int) (*types.Transaction, error) {
+	return _Operator.Contract.InitializeV2(&_Operator.TransactOpts, _vaultFactoryContractAddress, _operatorSlashContractAddress, _resetVaultOperatorIds)
+}
+
+// InitializeV3 is a paid mutator transaction binding the contract method 0x3101cfcb.
+//
+// Solidity: function initializeV3(address _largeStakingContractAddress) returns()
+func (_Operator *OperatorTransactor) InitializeV3(opts *bind.TransactOpts, _largeStakingContractAddress common.Address) (*types.Transaction, error) {
+	return _Operator.contract.Transact(opts, "initializeV3", _largeStakingContractAddress)
+}
+
+// InitializeV3 is a paid mutator transaction binding the contract method 0x3101cfcb.
+//
+// Solidity: function initializeV3(address _largeStakingContractAddress) returns()
+func (_Operator *OperatorSession) InitializeV3(_largeStakingContractAddress common.Address) (*types.Transaction, error) {
+	return _Operator.Contract.InitializeV3(&_Operator.TransactOpts, _largeStakingContractAddress)
+}
+
+// InitializeV3 is a paid mutator transaction binding the contract method 0x3101cfcb.
+//
+// Solidity: function initializeV3(address _largeStakingContractAddress) returns()
+func (_Operator *OperatorTransactorSession) InitializeV3(_largeStakingContractAddress common.Address) (*types.Transaction, error) {
+	return _Operator.Contract.InitializeV3(&_Operator.TransactOpts, _largeStakingContractAddress)
+}
+
 // QuitOperator is a paid mutator transaction binding the contract method 0x14ac7a70.
 //
 // Solidity: function quitOperator(uint256 _operatorId, address _to) returns()
@@ -1405,111 +1385,6 @@ func (_Operator *OperatorTransactorSession) SetBlacklistOperator(_id *big.Int) (
 	return _Operator.Contract.SetBlacklistOperator(&_Operator.TransactOpts, _id)
 }
 
-// SetDaoAddress is a paid mutator transaction binding the contract method 0x9a3cac6a.
-//
-// Solidity: function setDaoAddress(address _dao) returns()
-func (_Operator *OperatorTransactor) SetDaoAddress(opts *bind.TransactOpts, _dao common.Address) (*types.Transaction, error) {
-	return _Operator.contract.Transact(opts, "setDaoAddress", _dao)
-}
-
-// SetDaoAddress is a paid mutator transaction binding the contract method 0x9a3cac6a.
-//
-// Solidity: function setDaoAddress(address _dao) returns()
-func (_Operator *OperatorSession) SetDaoAddress(_dao common.Address) (*types.Transaction, error) {
-	return _Operator.Contract.SetDaoAddress(&_Operator.TransactOpts, _dao)
-}
-
-// SetDaoAddress is a paid mutator transaction binding the contract method 0x9a3cac6a.
-//
-// Solidity: function setDaoAddress(address _dao) returns()
-func (_Operator *OperatorTransactorSession) SetDaoAddress(_dao common.Address) (*types.Transaction, error) {
-	return _Operator.Contract.SetDaoAddress(&_Operator.TransactOpts, _dao)
-}
-
-// SetDaoVaultAddress is a paid mutator transaction binding the contract method 0xc720d250.
-//
-// Solidity: function setDaoVaultAddress(address _daoVaultAddress) returns()
-func (_Operator *OperatorTransactor) SetDaoVaultAddress(opts *bind.TransactOpts, _daoVaultAddress common.Address) (*types.Transaction, error) {
-	return _Operator.contract.Transact(opts, "setDaoVaultAddress", _daoVaultAddress)
-}
-
-// SetDaoVaultAddress is a paid mutator transaction binding the contract method 0xc720d250.
-//
-// Solidity: function setDaoVaultAddress(address _daoVaultAddress) returns()
-func (_Operator *OperatorSession) SetDaoVaultAddress(_daoVaultAddress common.Address) (*types.Transaction, error) {
-	return _Operator.Contract.SetDaoVaultAddress(&_Operator.TransactOpts, _daoVaultAddress)
-}
-
-// SetDaoVaultAddress is a paid mutator transaction binding the contract method 0xc720d250.
-//
-// Solidity: function setDaoVaultAddress(address _daoVaultAddress) returns()
-func (_Operator *OperatorTransactorSession) SetDaoVaultAddress(_daoVaultAddress common.Address) (*types.Transaction, error) {
-	return _Operator.Contract.SetDaoVaultAddress(&_Operator.TransactOpts, _daoVaultAddress)
-}
-
-// SetLiquidStaking is a paid mutator transaction binding the contract method 0x08211be5.
-//
-// Solidity: function setLiquidStaking(address _liquidStakingContractAddress) returns()
-func (_Operator *OperatorTransactor) SetLiquidStaking(opts *bind.TransactOpts, _liquidStakingContractAddress common.Address) (*types.Transaction, error) {
-	return _Operator.contract.Transact(opts, "setLiquidStaking", _liquidStakingContractAddress)
-}
-
-// SetLiquidStaking is a paid mutator transaction binding the contract method 0x08211be5.
-//
-// Solidity: function setLiquidStaking(address _liquidStakingContractAddress) returns()
-func (_Operator *OperatorSession) SetLiquidStaking(_liquidStakingContractAddress common.Address) (*types.Transaction, error) {
-	return _Operator.Contract.SetLiquidStaking(&_Operator.TransactOpts, _liquidStakingContractAddress)
-}
-
-// SetLiquidStaking is a paid mutator transaction binding the contract method 0x08211be5.
-//
-// Solidity: function setLiquidStaking(address _liquidStakingContractAddress) returns()
-func (_Operator *OperatorTransactorSession) SetLiquidStaking(_liquidStakingContractAddress common.Address) (*types.Transaction, error) {
-	return _Operator.Contract.SetLiquidStaking(&_Operator.TransactOpts, _liquidStakingContractAddress)
-}
-
-// SetNodeOperatorControllerAddress is a paid mutator transaction binding the contract method 0x92c73d74.
-//
-// Solidity: function setNodeOperatorControllerAddress(uint256 _id, address _controllerAddress) returns()
-func (_Operator *OperatorTransactor) SetNodeOperatorControllerAddress(opts *bind.TransactOpts, _id *big.Int, _controllerAddress common.Address) (*types.Transaction, error) {
-	return _Operator.contract.Transact(opts, "setNodeOperatorControllerAddress", _id, _controllerAddress)
-}
-
-// SetNodeOperatorControllerAddress is a paid mutator transaction binding the contract method 0x92c73d74.
-//
-// Solidity: function setNodeOperatorControllerAddress(uint256 _id, address _controllerAddress) returns()
-func (_Operator *OperatorSession) SetNodeOperatorControllerAddress(_id *big.Int, _controllerAddress common.Address) (*types.Transaction, error) {
-	return _Operator.Contract.SetNodeOperatorControllerAddress(&_Operator.TransactOpts, _id, _controllerAddress)
-}
-
-// SetNodeOperatorControllerAddress is a paid mutator transaction binding the contract method 0x92c73d74.
-//
-// Solidity: function setNodeOperatorControllerAddress(uint256 _id, address _controllerAddress) returns()
-func (_Operator *OperatorTransactorSession) SetNodeOperatorControllerAddress(_id *big.Int, _controllerAddress common.Address) (*types.Transaction, error) {
-	return _Operator.Contract.SetNodeOperatorControllerAddress(&_Operator.TransactOpts, _id, _controllerAddress)
-}
-
-// SetNodeOperatorName is a paid mutator transaction binding the contract method 0x5e57d742.
-//
-// Solidity: function setNodeOperatorName(uint256 _id, string _name) returns()
-func (_Operator *OperatorTransactor) SetNodeOperatorName(opts *bind.TransactOpts, _id *big.Int, _name string) (*types.Transaction, error) {
-	return _Operator.contract.Transact(opts, "setNodeOperatorName", _id, _name)
-}
-
-// SetNodeOperatorName is a paid mutator transaction binding the contract method 0x5e57d742.
-//
-// Solidity: function setNodeOperatorName(uint256 _id, string _name) returns()
-func (_Operator *OperatorSession) SetNodeOperatorName(_id *big.Int, _name string) (*types.Transaction, error) {
-	return _Operator.Contract.SetNodeOperatorName(&_Operator.TransactOpts, _id, _name)
-}
-
-// SetNodeOperatorName is a paid mutator transaction binding the contract method 0x5e57d742.
-//
-// Solidity: function setNodeOperatorName(uint256 _id, string _name) returns()
-func (_Operator *OperatorTransactorSession) SetNodeOperatorName(_id *big.Int, _name string) (*types.Transaction, error) {
-	return _Operator.Contract.SetNodeOperatorName(&_Operator.TransactOpts, _id, _name)
-}
-
 // SetNodeOperatorOwnerAddress is a paid mutator transaction binding the contract method 0x49790fff.
 //
 // Solidity: function setNodeOperatorOwnerAddress(uint256 _id, address _owner) returns()
@@ -1531,88 +1406,67 @@ func (_Operator *OperatorTransactorSession) SetNodeOperatorOwnerAddress(_id *big
 	return _Operator.Contract.SetNodeOperatorOwnerAddress(&_Operator.TransactOpts, _id, _owner)
 }
 
-// SetNodeOperatorRewardAddress is a paid mutator transaction binding the contract method 0x211a9e57.
+// SetNodeOperatorRegistrySetting is a paid mutator transaction binding the contract method 0x3ac58bba.
 //
-// Solidity: function setNodeOperatorRewardAddress(uint256 _id, address[] _rewardAddresses, uint256[] _ratios) returns()
-func (_Operator *OperatorTransactor) SetNodeOperatorRewardAddress(opts *bind.TransactOpts, _id *big.Int, _rewardAddresses []common.Address, _ratios []*big.Int) (*types.Transaction, error) {
-	return _Operator.contract.Transact(opts, "setNodeOperatorRewardAddress", _id, _rewardAddresses, _ratios)
+// Solidity: function setNodeOperatorRegistrySetting(address _dao, address _daoVaultAddress, address _liquidStakingContractAddress, address _operatorSlashContractAddress, address _vaultFactoryContractAddress, address _largeStakingContractAddress, uint256 _defaultOperatorCommission, uint256 _registrationFee, uint256 _permissionlessBlockNumber) returns()
+func (_Operator *OperatorTransactor) SetNodeOperatorRegistrySetting(opts *bind.TransactOpts, _dao common.Address, _daoVaultAddress common.Address, _liquidStakingContractAddress common.Address, _operatorSlashContractAddress common.Address, _vaultFactoryContractAddress common.Address, _largeStakingContractAddress common.Address, _defaultOperatorCommission *big.Int, _registrationFee *big.Int, _permissionlessBlockNumber *big.Int) (*types.Transaction, error) {
+	return _Operator.contract.Transact(opts, "setNodeOperatorRegistrySetting", _dao, _daoVaultAddress, _liquidStakingContractAddress, _operatorSlashContractAddress, _vaultFactoryContractAddress, _largeStakingContractAddress, _defaultOperatorCommission, _registrationFee, _permissionlessBlockNumber)
 }
 
-// SetNodeOperatorRewardAddress is a paid mutator transaction binding the contract method 0x211a9e57.
+// SetNodeOperatorRegistrySetting is a paid mutator transaction binding the contract method 0x3ac58bba.
 //
-// Solidity: function setNodeOperatorRewardAddress(uint256 _id, address[] _rewardAddresses, uint256[] _ratios) returns()
-func (_Operator *OperatorSession) SetNodeOperatorRewardAddress(_id *big.Int, _rewardAddresses []common.Address, _ratios []*big.Int) (*types.Transaction, error) {
-	return _Operator.Contract.SetNodeOperatorRewardAddress(&_Operator.TransactOpts, _id, _rewardAddresses, _ratios)
+// Solidity: function setNodeOperatorRegistrySetting(address _dao, address _daoVaultAddress, address _liquidStakingContractAddress, address _operatorSlashContractAddress, address _vaultFactoryContractAddress, address _largeStakingContractAddress, uint256 _defaultOperatorCommission, uint256 _registrationFee, uint256 _permissionlessBlockNumber) returns()
+func (_Operator *OperatorSession) SetNodeOperatorRegistrySetting(_dao common.Address, _daoVaultAddress common.Address, _liquidStakingContractAddress common.Address, _operatorSlashContractAddress common.Address, _vaultFactoryContractAddress common.Address, _largeStakingContractAddress common.Address, _defaultOperatorCommission *big.Int, _registrationFee *big.Int, _permissionlessBlockNumber *big.Int) (*types.Transaction, error) {
+	return _Operator.Contract.SetNodeOperatorRegistrySetting(&_Operator.TransactOpts, _dao, _daoVaultAddress, _liquidStakingContractAddress, _operatorSlashContractAddress, _vaultFactoryContractAddress, _largeStakingContractAddress, _defaultOperatorCommission, _registrationFee, _permissionlessBlockNumber)
 }
 
-// SetNodeOperatorRewardAddress is a paid mutator transaction binding the contract method 0x211a9e57.
+// SetNodeOperatorRegistrySetting is a paid mutator transaction binding the contract method 0x3ac58bba.
 //
-// Solidity: function setNodeOperatorRewardAddress(uint256 _id, address[] _rewardAddresses, uint256[] _ratios) returns()
-func (_Operator *OperatorTransactorSession) SetNodeOperatorRewardAddress(_id *big.Int, _rewardAddresses []common.Address, _ratios []*big.Int) (*types.Transaction, error) {
-	return _Operator.Contract.SetNodeOperatorRewardAddress(&_Operator.TransactOpts, _id, _rewardAddresses, _ratios)
+// Solidity: function setNodeOperatorRegistrySetting(address _dao, address _daoVaultAddress, address _liquidStakingContractAddress, address _operatorSlashContractAddress, address _vaultFactoryContractAddress, address _largeStakingContractAddress, uint256 _defaultOperatorCommission, uint256 _registrationFee, uint256 _permissionlessBlockNumber) returns()
+func (_Operator *OperatorTransactorSession) SetNodeOperatorRegistrySetting(_dao common.Address, _daoVaultAddress common.Address, _liquidStakingContractAddress common.Address, _operatorSlashContractAddress common.Address, _vaultFactoryContractAddress common.Address, _largeStakingContractAddress common.Address, _defaultOperatorCommission *big.Int, _registrationFee *big.Int, _permissionlessBlockNumber *big.Int) (*types.Transaction, error) {
+	return _Operator.Contract.SetNodeOperatorRegistrySetting(&_Operator.TransactOpts, _dao, _daoVaultAddress, _liquidStakingContractAddress, _operatorSlashContractAddress, _vaultFactoryContractAddress, _largeStakingContractAddress, _defaultOperatorCommission, _registrationFee, _permissionlessBlockNumber)
 }
 
-// SetOperatorComissionRate is a paid mutator transaction binding the contract method 0x98463ebe.
+// SetOperatorCommissionRate is a paid mutator transaction binding the contract method 0x3a6c1fe6.
 //
-// Solidity: function setOperatorComissionRate(uint256 _operatorId, uint256 _rate) returns()
-func (_Operator *OperatorTransactor) SetOperatorComissionRate(opts *bind.TransactOpts, _operatorId *big.Int, _rate *big.Int) (*types.Transaction, error) {
-	return _Operator.contract.Transact(opts, "setOperatorComissionRate", _operatorId, _rate)
+// Solidity: function setOperatorCommissionRate(uint256 _operatorId, uint256 _rate) returns()
+func (_Operator *OperatorTransactor) SetOperatorCommissionRate(opts *bind.TransactOpts, _operatorId *big.Int, _rate *big.Int) (*types.Transaction, error) {
+	return _Operator.contract.Transact(opts, "setOperatorCommissionRate", _operatorId, _rate)
 }
 
-// SetOperatorComissionRate is a paid mutator transaction binding the contract method 0x98463ebe.
+// SetOperatorCommissionRate is a paid mutator transaction binding the contract method 0x3a6c1fe6.
 //
-// Solidity: function setOperatorComissionRate(uint256 _operatorId, uint256 _rate) returns()
-func (_Operator *OperatorSession) SetOperatorComissionRate(_operatorId *big.Int, _rate *big.Int) (*types.Transaction, error) {
-	return _Operator.Contract.SetOperatorComissionRate(&_Operator.TransactOpts, _operatorId, _rate)
+// Solidity: function setOperatorCommissionRate(uint256 _operatorId, uint256 _rate) returns()
+func (_Operator *OperatorSession) SetOperatorCommissionRate(_operatorId *big.Int, _rate *big.Int) (*types.Transaction, error) {
+	return _Operator.Contract.SetOperatorCommissionRate(&_Operator.TransactOpts, _operatorId, _rate)
 }
 
-// SetOperatorComissionRate is a paid mutator transaction binding the contract method 0x98463ebe.
+// SetOperatorCommissionRate is a paid mutator transaction binding the contract method 0x3a6c1fe6.
 //
-// Solidity: function setOperatorComissionRate(uint256 _operatorId, uint256 _rate) returns()
-func (_Operator *OperatorTransactorSession) SetOperatorComissionRate(_operatorId *big.Int, _rate *big.Int) (*types.Transaction, error) {
-	return _Operator.Contract.SetOperatorComissionRate(&_Operator.TransactOpts, _operatorId, _rate)
+// Solidity: function setOperatorCommissionRate(uint256 _operatorId, uint256 _rate) returns()
+func (_Operator *OperatorTransactorSession) SetOperatorCommissionRate(_operatorId *big.Int, _rate *big.Int) (*types.Transaction, error) {
+	return _Operator.Contract.SetOperatorCommissionRate(&_Operator.TransactOpts, _operatorId, _rate)
 }
 
-// SetOperatorSlashContract is a paid mutator transaction binding the contract method 0x2da0e120.
+// SetOperatorSetting is a paid mutator transaction binding the contract method 0x6d2cf614.
 //
-// Solidity: function setOperatorSlashContract(address _operatorSlashContractAddress) returns()
-func (_Operator *OperatorTransactor) SetOperatorSlashContract(opts *bind.TransactOpts, _operatorSlashContractAddress common.Address) (*types.Transaction, error) {
-	return _Operator.contract.Transact(opts, "setOperatorSlashContract", _operatorSlashContractAddress)
+// Solidity: function setOperatorSetting(uint256 _id, string _name, address _controllerAddress, address[] _rewardAddresses, uint256[] _ratios) returns()
+func (_Operator *OperatorTransactor) SetOperatorSetting(opts *bind.TransactOpts, _id *big.Int, _name string, _controllerAddress common.Address, _rewardAddresses []common.Address, _ratios []*big.Int) (*types.Transaction, error) {
+	return _Operator.contract.Transact(opts, "setOperatorSetting", _id, _name, _controllerAddress, _rewardAddresses, _ratios)
 }
 
-// SetOperatorSlashContract is a paid mutator transaction binding the contract method 0x2da0e120.
+// SetOperatorSetting is a paid mutator transaction binding the contract method 0x6d2cf614.
 //
-// Solidity: function setOperatorSlashContract(address _operatorSlashContractAddress) returns()
-func (_Operator *OperatorSession) SetOperatorSlashContract(_operatorSlashContractAddress common.Address) (*types.Transaction, error) {
-	return _Operator.Contract.SetOperatorSlashContract(&_Operator.TransactOpts, _operatorSlashContractAddress)
+// Solidity: function setOperatorSetting(uint256 _id, string _name, address _controllerAddress, address[] _rewardAddresses, uint256[] _ratios) returns()
+func (_Operator *OperatorSession) SetOperatorSetting(_id *big.Int, _name string, _controllerAddress common.Address, _rewardAddresses []common.Address, _ratios []*big.Int) (*types.Transaction, error) {
+	return _Operator.Contract.SetOperatorSetting(&_Operator.TransactOpts, _id, _name, _controllerAddress, _rewardAddresses, _ratios)
 }
 
-// SetOperatorSlashContract is a paid mutator transaction binding the contract method 0x2da0e120.
+// SetOperatorSetting is a paid mutator transaction binding the contract method 0x6d2cf614.
 //
-// Solidity: function setOperatorSlashContract(address _operatorSlashContractAddress) returns()
-func (_Operator *OperatorTransactorSession) SetOperatorSlashContract(_operatorSlashContractAddress common.Address) (*types.Transaction, error) {
-	return _Operator.Contract.SetOperatorSlashContract(&_Operator.TransactOpts, _operatorSlashContractAddress)
-}
-
-// SetRegistrationFee is a paid mutator transaction binding the contract method 0xc320c727.
-//
-// Solidity: function setRegistrationFee(uint256 _fee) returns()
-func (_Operator *OperatorTransactor) SetRegistrationFee(opts *bind.TransactOpts, _fee *big.Int) (*types.Transaction, error) {
-	return _Operator.contract.Transact(opts, "setRegistrationFee", _fee)
-}
-
-// SetRegistrationFee is a paid mutator transaction binding the contract method 0xc320c727.
-//
-// Solidity: function setRegistrationFee(uint256 _fee) returns()
-func (_Operator *OperatorSession) SetRegistrationFee(_fee *big.Int) (*types.Transaction, error) {
-	return _Operator.Contract.SetRegistrationFee(&_Operator.TransactOpts, _fee)
-}
-
-// SetRegistrationFee is a paid mutator transaction binding the contract method 0xc320c727.
-//
-// Solidity: function setRegistrationFee(uint256 _fee) returns()
-func (_Operator *OperatorTransactorSession) SetRegistrationFee(_fee *big.Int) (*types.Transaction, error) {
-	return _Operator.Contract.SetRegistrationFee(&_Operator.TransactOpts, _fee)
+// Solidity: function setOperatorSetting(uint256 _id, string _name, address _controllerAddress, address[] _rewardAddresses, uint256[] _ratios) returns()
+func (_Operator *OperatorTransactorSession) SetOperatorSetting(_id *big.Int, _name string, _controllerAddress common.Address, _rewardAddresses []common.Address, _ratios []*big.Int) (*types.Transaction, error) {
+	return _Operator.Contract.SetOperatorSetting(&_Operator.TransactOpts, _id, _name, _controllerAddress, _rewardAddresses, _ratios)
 }
 
 // SetTrustedOperator is a paid mutator transaction binding the contract method 0x804472b3.
@@ -1636,88 +1490,25 @@ func (_Operator *OperatorTransactorSession) SetTrustedOperator(_id *big.Int) (*t
 	return _Operator.Contract.SetTrustedOperator(&_Operator.TransactOpts, _id)
 }
 
-// SetVaultFactorContract is a paid mutator transaction binding the contract method 0x330c2484.
+// Slash is a paid mutator transaction binding the contract method 0xcccd3bb2.
 //
-// Solidity: function setVaultFactorContract(address _vaultFactoryContractAddress) returns()
-func (_Operator *OperatorTransactor) SetVaultFactorContract(opts *bind.TransactOpts, _vaultFactoryContractAddress common.Address) (*types.Transaction, error) {
-	return _Operator.contract.Transact(opts, "setVaultFactorContract", _vaultFactoryContractAddress)
+// Solidity: function slash(uint256 _slashType, uint256[] _slashIds, uint256[] _operatorIds, uint256[] _amounts) returns()
+func (_Operator *OperatorTransactor) Slash(opts *bind.TransactOpts, _slashType *big.Int, _slashIds []*big.Int, _operatorIds []*big.Int, _amounts []*big.Int) (*types.Transaction, error) {
+	return _Operator.contract.Transact(opts, "slash", _slashType, _slashIds, _operatorIds, _amounts)
 }
 
-// SetVaultFactorContract is a paid mutator transaction binding the contract method 0x330c2484.
+// Slash is a paid mutator transaction binding the contract method 0xcccd3bb2.
 //
-// Solidity: function setVaultFactorContract(address _vaultFactoryContractAddress) returns()
-func (_Operator *OperatorSession) SetVaultFactorContract(_vaultFactoryContractAddress common.Address) (*types.Transaction, error) {
-	return _Operator.Contract.SetVaultFactorContract(&_Operator.TransactOpts, _vaultFactoryContractAddress)
+// Solidity: function slash(uint256 _slashType, uint256[] _slashIds, uint256[] _operatorIds, uint256[] _amounts) returns()
+func (_Operator *OperatorSession) Slash(_slashType *big.Int, _slashIds []*big.Int, _operatorIds []*big.Int, _amounts []*big.Int) (*types.Transaction, error) {
+	return _Operator.Contract.Slash(&_Operator.TransactOpts, _slashType, _slashIds, _operatorIds, _amounts)
 }
 
-// SetVaultFactorContract is a paid mutator transaction binding the contract method 0x330c2484.
+// Slash is a paid mutator transaction binding the contract method 0xcccd3bb2.
 //
-// Solidity: function setVaultFactorContract(address _vaultFactoryContractAddress) returns()
-func (_Operator *OperatorTransactorSession) SetVaultFactorContract(_vaultFactoryContractAddress common.Address) (*types.Transaction, error) {
-	return _Operator.Contract.SetVaultFactorContract(&_Operator.TransactOpts, _vaultFactoryContractAddress)
-}
-
-// SetpermissionlessBlockNumber is a paid mutator transaction binding the contract method 0x01ad7462.
-//
-// Solidity: function setpermissionlessBlockNumber(uint256 _blockNumber) returns()
-func (_Operator *OperatorTransactor) SetpermissionlessBlockNumber(opts *bind.TransactOpts, _blockNumber *big.Int) (*types.Transaction, error) {
-	return _Operator.contract.Transact(opts, "setpermissionlessBlockNumber", _blockNumber)
-}
-
-// SetpermissionlessBlockNumber is a paid mutator transaction binding the contract method 0x01ad7462.
-//
-// Solidity: function setpermissionlessBlockNumber(uint256 _blockNumber) returns()
-func (_Operator *OperatorSession) SetpermissionlessBlockNumber(_blockNumber *big.Int) (*types.Transaction, error) {
-	return _Operator.Contract.SetpermissionlessBlockNumber(&_Operator.TransactOpts, _blockNumber)
-}
-
-// SetpermissionlessBlockNumber is a paid mutator transaction binding the contract method 0x01ad7462.
-//
-// Solidity: function setpermissionlessBlockNumber(uint256 _blockNumber) returns()
-func (_Operator *OperatorTransactorSession) SetpermissionlessBlockNumber(_blockNumber *big.Int) (*types.Transaction, error) {
-	return _Operator.Contract.SetpermissionlessBlockNumber(&_Operator.TransactOpts, _blockNumber)
-}
-
-// Slash is a paid mutator transaction binding the contract method 0x455bbc7d.
-//
-// Solidity: function slash(uint256[] _exitTokenIds, uint256[] _amounts) returns()
-func (_Operator *OperatorTransactor) Slash(opts *bind.TransactOpts, _exitTokenIds []*big.Int, _amounts []*big.Int) (*types.Transaction, error) {
-	return _Operator.contract.Transact(opts, "slash", _exitTokenIds, _amounts)
-}
-
-// Slash is a paid mutator transaction binding the contract method 0x455bbc7d.
-//
-// Solidity: function slash(uint256[] _exitTokenIds, uint256[] _amounts) returns()
-func (_Operator *OperatorSession) Slash(_exitTokenIds []*big.Int, _amounts []*big.Int) (*types.Transaction, error) {
-	return _Operator.Contract.Slash(&_Operator.TransactOpts, _exitTokenIds, _amounts)
-}
-
-// Slash is a paid mutator transaction binding the contract method 0x455bbc7d.
-//
-// Solidity: function slash(uint256[] _exitTokenIds, uint256[] _amounts) returns()
-func (_Operator *OperatorTransactorSession) Slash(_exitTokenIds []*big.Int, _amounts []*big.Int) (*types.Transaction, error) {
-	return _Operator.Contract.Slash(&_Operator.TransactOpts, _exitTokenIds, _amounts)
-}
-
-// SlashOfExitDelayed is a paid mutator transaction binding the contract method 0x055bcf32.
-//
-// Solidity: function slashOfExitDelayed(uint256 _operatorId, uint256 _amount) returns()
-func (_Operator *OperatorTransactor) SlashOfExitDelayed(opts *bind.TransactOpts, _operatorId *big.Int, _amount *big.Int) (*types.Transaction, error) {
-	return _Operator.contract.Transact(opts, "slashOfExitDelayed", _operatorId, _amount)
-}
-
-// SlashOfExitDelayed is a paid mutator transaction binding the contract method 0x055bcf32.
-//
-// Solidity: function slashOfExitDelayed(uint256 _operatorId, uint256 _amount) returns()
-func (_Operator *OperatorSession) SlashOfExitDelayed(_operatorId *big.Int, _amount *big.Int) (*types.Transaction, error) {
-	return _Operator.Contract.SlashOfExitDelayed(&_Operator.TransactOpts, _operatorId, _amount)
-}
-
-// SlashOfExitDelayed is a paid mutator transaction binding the contract method 0x055bcf32.
-//
-// Solidity: function slashOfExitDelayed(uint256 _operatorId, uint256 _amount) returns()
-func (_Operator *OperatorTransactorSession) SlashOfExitDelayed(_operatorId *big.Int, _amount *big.Int) (*types.Transaction, error) {
-	return _Operator.Contract.SlashOfExitDelayed(&_Operator.TransactOpts, _operatorId, _amount)
+// Solidity: function slash(uint256 _slashType, uint256[] _slashIds, uint256[] _operatorIds, uint256[] _amounts) returns()
+func (_Operator *OperatorTransactorSession) Slash(_slashType *big.Int, _slashIds []*big.Int, _operatorIds []*big.Int, _amounts []*big.Int) (*types.Transaction, error) {
+	return _Operator.Contract.Slash(&_Operator.TransactOpts, _slashType, _slashIds, _operatorIds, _amounts)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
@@ -2083,9 +1874,9 @@ func (_Operator *OperatorFilterer) ParseBeaconUpgraded(log types.Log) (*Operator
 	return event, nil
 }
 
-// OperatorComissionRateChangedIterator is returned from FilterComissionRateChanged and is used to iterate over the raw logs and unpacked data for ComissionRateChanged events raised by the Operator contract.
-type OperatorComissionRateChangedIterator struct {
-	Event *OperatorComissionRateChanged // Event containing the contract specifics and raw log
+// OperatorCommissionRateChangedIterator is returned from FilterCommissionRateChanged and is used to iterate over the raw logs and unpacked data for CommissionRateChanged events raised by the Operator contract.
+type OperatorCommissionRateChangedIterator struct {
+	Event *OperatorCommissionRateChanged // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -2099,7 +1890,7 @@ type OperatorComissionRateChangedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *OperatorComissionRateChangedIterator) Next() bool {
+func (it *OperatorCommissionRateChangedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -2108,7 +1899,7 @@ func (it *OperatorComissionRateChangedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(OperatorComissionRateChanged)
+			it.Event = new(OperatorCommissionRateChanged)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -2123,7 +1914,7 @@ func (it *OperatorComissionRateChangedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(OperatorComissionRateChanged)
+		it.Event = new(OperatorCommissionRateChanged)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -2139,42 +1930,42 @@ func (it *OperatorComissionRateChangedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *OperatorComissionRateChangedIterator) Error() error {
+func (it *OperatorCommissionRateChangedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *OperatorComissionRateChangedIterator) Close() error {
+func (it *OperatorCommissionRateChangedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// OperatorComissionRateChanged represents a ComissionRateChanged event raised by the Operator contract.
-type OperatorComissionRateChanged struct {
+// OperatorCommissionRateChanged represents a CommissionRateChanged event raised by the Operator contract.
+type OperatorCommissionRateChanged struct {
 	OldRate *big.Int
 	Rate    *big.Int
 	Raw     types.Log // Blockchain specific contextual infos
 }
 
-// FilterComissionRateChanged is a free log retrieval operation binding the contract event 0xc97a5924b8a30a0e61cda2c172c31518681f4b34652a4d491dfc6baaca52299c.
+// FilterCommissionRateChanged is a free log retrieval operation binding the contract event 0x74b81a9e0217358c4b0755d3032738dc303e980dde2980905160b1d8e7b68ba6.
 //
-// Solidity: event ComissionRateChanged(uint256 _oldRate, uint256 _rate)
-func (_Operator *OperatorFilterer) FilterComissionRateChanged(opts *bind.FilterOpts) (*OperatorComissionRateChangedIterator, error) {
+// Solidity: event CommissionRateChanged(uint256 _oldRate, uint256 _rate)
+func (_Operator *OperatorFilterer) FilterCommissionRateChanged(opts *bind.FilterOpts) (*OperatorCommissionRateChangedIterator, error) {
 
-	logs, sub, err := _Operator.contract.FilterLogs(opts, "ComissionRateChanged")
+	logs, sub, err := _Operator.contract.FilterLogs(opts, "CommissionRateChanged")
 	if err != nil {
 		return nil, err
 	}
-	return &OperatorComissionRateChangedIterator{contract: _Operator.contract, event: "ComissionRateChanged", logs: logs, sub: sub}, nil
+	return &OperatorCommissionRateChangedIterator{contract: _Operator.contract, event: "CommissionRateChanged", logs: logs, sub: sub}, nil
 }
 
-// WatchComissionRateChanged is a free log subscription operation binding the contract event 0xc97a5924b8a30a0e61cda2c172c31518681f4b34652a4d491dfc6baaca52299c.
+// WatchCommissionRateChanged is a free log subscription operation binding the contract event 0x74b81a9e0217358c4b0755d3032738dc303e980dde2980905160b1d8e7b68ba6.
 //
-// Solidity: event ComissionRateChanged(uint256 _oldRate, uint256 _rate)
-func (_Operator *OperatorFilterer) WatchComissionRateChanged(opts *bind.WatchOpts, sink chan<- *OperatorComissionRateChanged) (event.Subscription, error) {
+// Solidity: event CommissionRateChanged(uint256 _oldRate, uint256 _rate)
+func (_Operator *OperatorFilterer) WatchCommissionRateChanged(opts *bind.WatchOpts, sink chan<- *OperatorCommissionRateChanged) (event.Subscription, error) {
 
-	logs, sub, err := _Operator.contract.WatchLogs(opts, "ComissionRateChanged")
+	logs, sub, err := _Operator.contract.WatchLogs(opts, "CommissionRateChanged")
 	if err != nil {
 		return nil, err
 	}
@@ -2184,8 +1975,8 @@ func (_Operator *OperatorFilterer) WatchComissionRateChanged(opts *bind.WatchOpt
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(OperatorComissionRateChanged)
-				if err := _Operator.contract.UnpackLog(event, "ComissionRateChanged", log); err != nil {
+				event := new(OperatorCommissionRateChanged)
+				if err := _Operator.contract.UnpackLog(event, "CommissionRateChanged", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -2206,12 +1997,12 @@ func (_Operator *OperatorFilterer) WatchComissionRateChanged(opts *bind.WatchOpt
 	}), nil
 }
 
-// ParseComissionRateChanged is a log parse operation binding the contract event 0xc97a5924b8a30a0e61cda2c172c31518681f4b34652a4d491dfc6baaca52299c.
+// ParseCommissionRateChanged is a log parse operation binding the contract event 0x74b81a9e0217358c4b0755d3032738dc303e980dde2980905160b1d8e7b68ba6.
 //
-// Solidity: event ComissionRateChanged(uint256 _oldRate, uint256 _rate)
-func (_Operator *OperatorFilterer) ParseComissionRateChanged(log types.Log) (*OperatorComissionRateChanged, error) {
-	event := new(OperatorComissionRateChanged)
-	if err := _Operator.contract.UnpackLog(event, "ComissionRateChanged", log); err != nil {
+// Solidity: event CommissionRateChanged(uint256 _oldRate, uint256 _rate)
+func (_Operator *OperatorFilterer) ParseCommissionRateChanged(log types.Log) (*OperatorCommissionRateChanged, error) {
+	event := new(OperatorCommissionRateChanged)
+	if err := _Operator.contract.UnpackLog(event, "CommissionRateChanged", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -2623,6 +2414,141 @@ func (_Operator *OperatorFilterer) ParseDaoVaultAddressChanged(log types.Log) (*
 	return event, nil
 }
 
+// OperatorDefaultOperatorCommissionRateChangedIterator is returned from FilterDefaultOperatorCommissionRateChanged and is used to iterate over the raw logs and unpacked data for DefaultOperatorCommissionRateChanged events raised by the Operator contract.
+type OperatorDefaultOperatorCommissionRateChangedIterator struct {
+	Event *OperatorDefaultOperatorCommissionRateChanged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *OperatorDefaultOperatorCommissionRateChangedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(OperatorDefaultOperatorCommissionRateChanged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(OperatorDefaultOperatorCommissionRateChanged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *OperatorDefaultOperatorCommissionRateChangedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *OperatorDefaultOperatorCommissionRateChangedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// OperatorDefaultOperatorCommissionRateChanged represents a DefaultOperatorCommissionRateChanged event raised by the Operator contract.
+type OperatorDefaultOperatorCommissionRateChanged struct {
+	OldDefaultOperatorCommission *big.Int
+	DefaultOperatorCommission    *big.Int
+	Raw                          types.Log // Blockchain specific contextual infos
+}
+
+// FilterDefaultOperatorCommissionRateChanged is a free log retrieval operation binding the contract event 0x339c55e5a65dd0e07a470cc3c647937de03f5c538c59a7b55fe6951592ed5523.
+//
+// Solidity: event DefaultOperatorCommissionRateChanged(uint256 _oldDefaultOperatorCommission, uint256 _defaultOperatorCommission)
+func (_Operator *OperatorFilterer) FilterDefaultOperatorCommissionRateChanged(opts *bind.FilterOpts) (*OperatorDefaultOperatorCommissionRateChangedIterator, error) {
+
+	logs, sub, err := _Operator.contract.FilterLogs(opts, "DefaultOperatorCommissionRateChanged")
+	if err != nil {
+		return nil, err
+	}
+	return &OperatorDefaultOperatorCommissionRateChangedIterator{contract: _Operator.contract, event: "DefaultOperatorCommissionRateChanged", logs: logs, sub: sub}, nil
+}
+
+// WatchDefaultOperatorCommissionRateChanged is a free log subscription operation binding the contract event 0x339c55e5a65dd0e07a470cc3c647937de03f5c538c59a7b55fe6951592ed5523.
+//
+// Solidity: event DefaultOperatorCommissionRateChanged(uint256 _oldDefaultOperatorCommission, uint256 _defaultOperatorCommission)
+func (_Operator *OperatorFilterer) WatchDefaultOperatorCommissionRateChanged(opts *bind.WatchOpts, sink chan<- *OperatorDefaultOperatorCommissionRateChanged) (event.Subscription, error) {
+
+	logs, sub, err := _Operator.contract.WatchLogs(opts, "DefaultOperatorCommissionRateChanged")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(OperatorDefaultOperatorCommissionRateChanged)
+				if err := _Operator.contract.UnpackLog(event, "DefaultOperatorCommissionRateChanged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseDefaultOperatorCommissionRateChanged is a log parse operation binding the contract event 0x339c55e5a65dd0e07a470cc3c647937de03f5c538c59a7b55fe6951592ed5523.
+//
+// Solidity: event DefaultOperatorCommissionRateChanged(uint256 _oldDefaultOperatorCommission, uint256 _defaultOperatorCommission)
+func (_Operator *OperatorFilterer) ParseDefaultOperatorCommissionRateChanged(log types.Log) (*OperatorDefaultOperatorCommissionRateChanged, error) {
+	event := new(OperatorDefaultOperatorCommissionRateChanged)
+	if err := _Operator.contract.UnpackLog(event, "DefaultOperatorCommissionRateChanged", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
 // OperatorInitializedIterator is returned from FilterInitialized and is used to iterate over the raw logs and unpacked data for Initialized events raised by the Operator contract.
 type OperatorInitializedIterator struct {
 	Event *OperatorInitialized // Event containing the contract specifics and raw log
@@ -2751,6 +2677,141 @@ func (_Operator *OperatorFilterer) WatchInitialized(opts *bind.WatchOpts, sink c
 func (_Operator *OperatorFilterer) ParseInitialized(log types.Log) (*OperatorInitialized, error) {
 	event := new(OperatorInitialized)
 	if err := _Operator.contract.UnpackLog(event, "Initialized", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// OperatorLargeStakingChangedIterator is returned from FilterLargeStakingChanged and is used to iterate over the raw logs and unpacked data for LargeStakingChanged events raised by the Operator contract.
+type OperatorLargeStakingChangedIterator struct {
+	Event *OperatorLargeStakingChanged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *OperatorLargeStakingChangedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(OperatorLargeStakingChanged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(OperatorLargeStakingChanged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *OperatorLargeStakingChangedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *OperatorLargeStakingChangedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// OperatorLargeStakingChanged represents a LargeStakingChanged event raised by the Operator contract.
+type OperatorLargeStakingChanged struct {
+	OldLargeStakingContractAddress common.Address
+	LargeStakingContractAddress    common.Address
+	Raw                            types.Log // Blockchain specific contextual infos
+}
+
+// FilterLargeStakingChanged is a free log retrieval operation binding the contract event 0x796bfc23a386c56368910c17a5c85907974de0cbafabeaa08ac839b4ed8fe54c.
+//
+// Solidity: event LargeStakingChanged(address _oldLargeStakingContractAddress, address _largeStakingContractAddress)
+func (_Operator *OperatorFilterer) FilterLargeStakingChanged(opts *bind.FilterOpts) (*OperatorLargeStakingChangedIterator, error) {
+
+	logs, sub, err := _Operator.contract.FilterLogs(opts, "LargeStakingChanged")
+	if err != nil {
+		return nil, err
+	}
+	return &OperatorLargeStakingChangedIterator{contract: _Operator.contract, event: "LargeStakingChanged", logs: logs, sub: sub}, nil
+}
+
+// WatchLargeStakingChanged is a free log subscription operation binding the contract event 0x796bfc23a386c56368910c17a5c85907974de0cbafabeaa08ac839b4ed8fe54c.
+//
+// Solidity: event LargeStakingChanged(address _oldLargeStakingContractAddress, address _largeStakingContractAddress)
+func (_Operator *OperatorFilterer) WatchLargeStakingChanged(opts *bind.WatchOpts, sink chan<- *OperatorLargeStakingChanged) (event.Subscription, error) {
+
+	logs, sub, err := _Operator.contract.WatchLogs(opts, "LargeStakingChanged")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(OperatorLargeStakingChanged)
+				if err := _Operator.contract.UnpackLog(event, "LargeStakingChanged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseLargeStakingChanged is a log parse operation binding the contract event 0x796bfc23a386c56368910c17a5c85907974de0cbafabeaa08ac839b4ed8fe54c.
+//
+// Solidity: event LargeStakingChanged(address _oldLargeStakingContractAddress, address _largeStakingContractAddress)
+func (_Operator *OperatorFilterer) ParseLargeStakingChanged(log types.Log) (*OperatorLargeStakingChanged, error) {
+	event := new(OperatorLargeStakingChanged)
+	if err := _Operator.contract.UnpackLog(event, "LargeStakingChanged", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

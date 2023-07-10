@@ -5,6 +5,7 @@
 package eth1
 
 import (
+	"github.com/attestantio/go-eth2-client/spec/phase0"
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/shopspring/decimal"
 	"math/big"
@@ -28,4 +29,12 @@ func GWEIToWEI(value *big.Int) *big.Int {
 func ETH32() decimal.Decimal {
 	eth32, _ := decimal.NewFromString("32000000000000000000")
 	return eth32
+}
+
+func GweiToWei(gwei phase0.Gwei) *big.Int {
+	return new(big.Int).Mul(big.NewInt(int64(gwei)), big.NewInt(params.GWei))
+}
+
+func ETH(eth int64) *big.Int {
+	return new(big.Int).Mul(big.NewInt(params.Ether), big.NewInt(eth))
 }

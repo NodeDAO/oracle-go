@@ -11,27 +11,12 @@
   },
   {
     "inputs": [],
-    "name": "ArgumentOutOfBounds",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "ClVaultBalanceNotMinSettleLimit",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "ClVaultMinSettleLimitNotZero",
-    "type": "error"
-  },
-  {
-    "inputs": [],
     "name": "DaoCannotBeZero",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "ExitRequestLimitNotZero",
+    "name": "ExitLimitNotZero",
     "type": "error"
   },
   {
@@ -62,37 +47,6 @@
   },
   {
     "inputs": [],
-    "name": "InvalidRequestsData",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "InvalidRequestsDataLength",
-    "type": "error"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "curTotal",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "minTotal",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "maxTotal",
-        "type": "uint256"
-      }
-    ],
-    "name": "InvalidTotalBalance",
-    "type": "error"
-  },
-  {
-    "inputs": [],
     "name": "ModuleIdIsZero",
     "type": "error"
   },
@@ -109,6 +63,11 @@
   {
     "inputs": [],
     "name": "OnlyConsensusContractCanSubmitReport",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "OverExitLimit",
     "type": "error"
   },
   {
@@ -162,6 +121,11 @@
       }
     ],
     "name": "RefSlotMustBeGreaterThanProcessingOne",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ReportDataIsEmpty",
     "type": "error"
   },
   {
@@ -236,33 +200,6 @@
       }
     ],
     "name": "UnexpectedRefSlot",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "UnexpectedRequestsDataLength",
-    "type": "error"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "format",
-        "type": "uint256"
-      }
-    ],
-    "name": "UnsupportedRequestsDataFormat",
-    "type": "error"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      }
-    ],
-    "name": "ValidatorReportedExited",
     "type": "error"
   },
   {
@@ -391,17 +328,17 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "oldLiq",
+        "name": "oldLargeStake",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "newLiq",
+        "name": "newLargeStake",
         "type": "address"
       }
     ],
-    "name": "LiquidStakingChanged",
+    "name": "LargeStakeContractChanged",
     "type": "event"
   },
   {
@@ -440,57 +377,6 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "_addBalance",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "_totalBalance",
-        "type": "uint256"
-      }
-    ],
-    "name": "PendingBalancesAdd",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "totalBalance",
-        "type": "uint256"
-      }
-    ],
-    "name": "PendingBalancesReset",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "refSlot",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "bytes32",
-        "name": "hash",
-        "type": "bytes32"
-      }
-    ],
-    "name": "ProcessingStarted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
         "indexed": true,
         "internalType": "uint256",
         "name": "refSlot",
@@ -499,48 +385,52 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "reportExitedCount",
+        "name": "consensusVersion",
         "type": "uint256"
       },
       {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "stakingId",
+            "type": "uint128"
+          },
+          {
+            "internalType": "bytes",
+            "name": "pubkey",
+            "type": "bytes"
+          }
+        ],
         "indexed": false,
-        "internalType": "uint256",
-        "name": "clBalance",
-        "type": "uint256"
+        "internalType": "struct CLStakingExitInfo[]",
+        "name": "cLStakingExitInfos",
+        "type": "tuple[]"
       },
       {
+        "components": [
+          {
+            "internalType": "uint128",
+            "name": "stakingId",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "slashAmount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "bytes",
+            "name": "pubkey",
+            "type": "bytes"
+          }
+        ],
         "indexed": false,
-        "internalType": "uint256",
-        "name": "clVaultBalance",
-        "type": "uint256"
+        "internalType": "struct CLStakingSlashInfo[]",
+        "name": "cLStakingSlashInfos",
+        "type": "tuple[]"
       }
     ],
-    "name": "ReportDataSuccess",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "refSlot",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "bytes32",
-        "name": "hash",
-        "type": "bytes32"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "processingDeadlineTime",
-        "type": "uint256"
-      }
-    ],
-    "name": "ReportSubmitted",
+    "name": "ReportSuccess",
     "type": "event"
   },
   {
@@ -562,43 +452,17 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "clVaultMinSettleLimit",
-        "type": "uint256"
-      }
-    ],
-    "name": "UpdateClVaultMinSettleLimit",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "exitRequestLimit",
-        "type": "uint256"
-      }
-    ],
-    "name": "UpdateExitRequestLimit",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "old",
+        "name": "oldExitLimit",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "totalBalanceTolerate",
+        "name": "newExitLimit",
         "type": "uint256"
       }
     ],
-    "name": "UpdateTotalBalanceTolerate",
+    "name": "UpdateExitLimit",
     "type": "event"
   },
   {
@@ -612,50 +476,6 @@
       }
     ],
     "name": "Upgraded",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "oldVaultManager",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "newVaultManager",
-        "type": "address"
-      }
-    ],
-    "name": "VaultManagerChanged",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "refSlot",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "exitRequestLimit",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "reportExitedCount",
-        "type": "uint256"
-      }
-    ],
-    "name": "WarnDataIncompleteProcessing",
     "type": "event"
   },
   {
@@ -698,58 +518,6 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_pendingBalance",
-        "type": "uint256"
-      }
-    ],
-    "name": "addPendingBalances",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "clBalances",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "clVaultBalance",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "clVaultMinSettleLimit",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "dao",
     "outputs": [
@@ -764,33 +532,7 @@
   },
   {
     "inputs": [],
-    "name": "exitRequestLimit",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getClBalances",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getClVaultBalances",
+    "name": "exitLimit",
     "outputs": [
       {
         "internalType": "uint256",
@@ -870,33 +612,7 @@
   },
   {
     "inputs": [],
-    "name": "getLastClSettleAmount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "getLastProcessingRefSlot",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getPendingBalances",
     "outputs": [
       {
         "internalType": "uint256",
@@ -932,14 +648,9 @@
             "internalType": "bool",
             "name": "dataSubmitted",
             "type": "bool"
-          },
-          {
-            "internalType": "uint256",
-            "name": "reportExitedCount",
-            "type": "uint256"
           }
         ],
-        "internalType": "struct WithdrawOracle.ProcessingState",
+        "internalType": "struct LargeStakeOracle.ProcessingState",
         "name": "result",
         "type": "tuple"
       }
@@ -980,24 +691,9 @@
         "type": "address"
       },
       {
-        "internalType": "uint256",
-        "name": "_exitRequestLimit",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_clVaultMinSettleLimit",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_clBalance",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_pendingBalance",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "_largeStakeContract",
+        "type": "address"
       }
     ],
     "name": "initialize",
@@ -1006,52 +702,8 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_consensus",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_lastProcessingRefSlot",
-        "type": "uint256"
-      }
-    ],
-    "name": "initializeV2",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
-    "name": "lastClSettleAmount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "lastRefSlot",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "liquidStakingContractAddress",
+    "name": "largeStakeContract",
     "outputs": [
       {
         "internalType": "address",
@@ -1097,19 +749,6 @@
   },
   {
     "inputs": [],
-    "name": "pendingBalances",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "proxiableUUID",
     "outputs": [
       {
@@ -1124,19 +763,6 @@
   {
     "inputs": [],
     "name": "renounceOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_clVaultMinSettleLimit",
-        "type": "uint256"
-      }
-    ],
-    "name": "setClVaultMinSettleLimit",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1184,11 +810,11 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_exitRequestLimit",
+        "name": "_exitLimit",
         "type": "uint256"
       }
     ],
-    "name": "setExitRequestLimit",
+    "name": "setExitLimit",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1197,37 +823,11 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_liquidStakingContractAddress",
+        "name": "_largeStakeContractAddress",
         "type": "address"
       }
     ],
-    "name": "setLiquidStaking",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_totalBalanceTolerate",
-        "type": "uint256"
-      }
-    ],
-    "name": "setTotalBalanceTolerate",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_vaultManagerContractAddress",
-        "type": "address"
-      }
-    ],
-    "name": "setVaultManager",
+    "name": "setLargeStakeContract",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1275,71 +875,46 @@
             "type": "uint256"
           },
           {
-            "internalType": "uint256",
-            "name": "clBalance",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "clVaultBalance",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "clSettleAmount",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "reportExitedCount",
-            "type": "uint256"
-          },
-          {
             "components": [
               {
-                "internalType": "uint64",
-                "name": "operatorId",
-                "type": "uint64"
+                "internalType": "uint128",
+                "name": "stakingId",
+                "type": "uint128"
               },
               {
-                "internalType": "uint96",
-                "name": "clReward",
-                "type": "uint96"
-              },
-              {
-                "internalType": "uint96",
-                "name": "clCapital",
-                "type": "uint96"
+                "internalType": "bytes",
+                "name": "pubkey",
+                "type": "bytes"
               }
             ],
-            "internalType": "struct WithdrawInfo[]",
-            "name": "withdrawInfos",
+            "internalType": "struct CLStakingExitInfo[]",
+            "name": "clStakingExitInfos",
             "type": "tuple[]"
           },
           {
             "components": [
               {
-                "internalType": "uint64",
-                "name": "exitTokenId",
-                "type": "uint64"
+                "internalType": "uint128",
+                "name": "stakingId",
+                "type": "uint128"
               },
               {
-                "internalType": "uint96",
-                "name": "exitBlockNumber",
-                "type": "uint96"
-              },
-              {
-                "internalType": "uint96",
+                "internalType": "uint128",
                 "name": "slashAmount",
-                "type": "uint96"
+                "type": "uint128"
+              },
+              {
+                "internalType": "bytes",
+                "name": "pubkey",
+                "type": "bytes"
               }
             ],
-            "internalType": "struct ExitValidatorInfo[]",
-            "name": "exitValidatorInfos",
+            "internalType": "struct CLStakingSlashInfo[]",
+            "name": "clStakingSlashInfos",
             "type": "tuple[]"
           }
         ],
-        "internalType": "struct WithdrawOracle.ReportData",
+        "internalType": "struct LargeStakeOracle.ReportData",
         "name": "data",
         "type": "tuple"
       },
@@ -1357,19 +932,6 @@
     "name": "submitReportData",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "totalBalanceTolerate",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1434,19 +996,6 @@
     "name": "upgradeToAndCall",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "vaultManager",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   }
 ]

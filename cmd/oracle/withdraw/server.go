@@ -56,21 +56,21 @@ func run() {
 		case *errs.SleepError:
 			// If err is of type Sleep Error, the oracle program has reached the condition that needs to be slept and re-executed
 			if sleepErr, ok := errors.Cause(err).(*errs.SleepError); ok {
-				logger.Debug("withdraw oracle sleep",
+				logger.Debug("oracle sleep",
 					zap.String("msg", sleepErr.Msg),
 					zap.String("sleep time", sleepErr.Sleep.String()),
 				)
 				time.Sleep(sleepErr.Sleep)
 			}
 		default:
-			logger.Errorf("err:%+v", err)
+			logger.Errorf("oracle sleep. err:%+v", err)
 			withdraw.DefaultRandomSleep()
 		}
 		return
 	} else {
 		sleepTime := withdraw.RandomSleepTime()
 
-		logger.Debug("withdraw oracle sleep success run once for sleep.",
+		logger.Debug("oracle sleep success run once for sleep.",
 			zap.String("sleep time", sleepTime.String()),
 		)
 		time.Sleep(sleepTime)
