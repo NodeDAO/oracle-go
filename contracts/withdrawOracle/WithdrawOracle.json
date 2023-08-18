@@ -465,26 +465,7 @@
         "type": "uint256"
       }
     ],
-    "name": "PendingBalancesReset",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "refSlot",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "bytes32",
-        "name": "hash",
-        "type": "bytes32"
-      }
-    ],
-    "name": "ProcessingStarted",
+    "name": "PendingBalancesReported",
     "type": "event"
   },
   {
@@ -516,31 +497,6 @@
       }
     ],
     "name": "ReportDataSuccess",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "refSlot",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "bytes32",
-        "name": "hash",
-        "type": "bytes32"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "processingDeadlineTime",
-        "type": "uint256"
-      }
-    ],
-    "name": "ReportSubmitted",
     "type": "event"
   },
   {
@@ -631,31 +587,6 @@
       }
     ],
     "name": "VaultManagerChanged",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "refSlot",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "exitRequestLimit",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "reportExitedCount",
-        "type": "uint256"
-      }
-    ],
-    "name": "WarnDataIncompleteProcessing",
     "type": "event"
   },
   {
@@ -1337,6 +1268,11 @@
             "internalType": "struct ExitValidatorInfo[]",
             "name": "exitValidatorInfos",
             "type": "tuple[]"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reportPendingBalances",
+            "type": "uint256"
           }
         ],
         "internalType": "struct WithdrawOracle.ReportData",

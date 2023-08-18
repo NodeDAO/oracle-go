@@ -36,6 +36,7 @@ type WithdrawHelper struct {
 	totalOperatorClCapital     *big.Int
 	totalNftCountOfStakingPool *big.Int
 	isComputeOperatorReward    bool
+	ValidatorUnknownCount      uint64
 
 	// process res
 	clBalance          *big.Int
