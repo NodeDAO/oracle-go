@@ -154,7 +154,7 @@ func (v *WithdrawHelper) calculationOperatorClReward(ctx context.Context, effect
 	sumReward := new(big.Int).Sub(v.clVaultBalance, v.totalOperatorClCapital)
 	if sumReward.Cmp(big.NewInt(0)) == -1 {
 		return errs.NewSleepError("OperatorReward.ClReward < 0", RandomSleepTime())
-	} else if sumReward.Cmp(big.NewInt(20e18)) > 1 {
+	} else if sumReward.Cmp(eth1.ETH(20)) > 1 {
 		return errs.NewSleepError("OperatorReward.ClReward >= 20 ETH", RandomSleepTime())
 	}
 
