@@ -183,6 +183,11 @@ func (v *WithdrawHelper) calculationOperatorClReward(ctx context.Context, effect
 
 func (v *WithdrawHelper) calculationWithdrawInfos(ctx context.Context, effectiveOperators map[int64]*EffectiveOperator) error {
 	for _, op := range effectiveOperators {
+		if op.OperatorReward.ClReward.Cmp(big.NewInt(0)) == -1 {
+			return errs.NewSleepError("OperatorReward.ClReward < 0", RandomSleepTime())
+		} else if op.OperatorReward.ClReward.Cmp(big.NewInt(20e18)) > 1 {
+			return errs.NewSleepError("OperatorReward.ClReward >= 20 ETH", RandomSleepTime())
+		}
 		v.withdrawInfos = append(v.withdrawInfos, op.OperatorReward)
 	}
 
