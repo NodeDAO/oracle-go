@@ -6,6 +6,7 @@ package withdraw
 
 import (
 	"context"
+	"github.com/NodeDAO/oracle-go/common/errs"
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/contracts"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
@@ -151,6 +152,11 @@ func (v *WithdrawHelper) calculationOperatorClReward(ctx context.Context, effect
 	v.totalNftCountOfStakingPool = big.NewInt(int64(len(activeNftsOfStakingPool)))
 
 	sumReward := new(big.Int).Sub(v.clVaultBalance, v.totalOperatorClCapital)
+	if sumReward.Cmp(big.NewInt(0)) == -1 {
+		return errs.NewSleepError("OperatorReward.ClReward < 0", RandomSleepTime())
+	} else if sumReward.Cmp(big.NewInt(20e18)) > 1 {
+		return errs.NewSleepError("OperatorReward.ClReward >= 20 ETH", RandomSleepTime())
+	}
 
 	for _, op := range effectiveOperators {
 		mul := new(big.Int).Mul(sumReward, big.NewInt(int64(op.VnftCountOfStakingPool)))
