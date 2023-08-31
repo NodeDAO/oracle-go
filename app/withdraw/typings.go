@@ -29,6 +29,7 @@ type WithdrawHelper struct {
 	exitRequestLimit         *big.Int
 	keyTransactOpts          *bind.TransactOpts
 	withdrawOracleModuleId   *big.Int
+	curPendingBalances       *big.Int
 
 	// compute process
 	validatorExaMap            map[string]*ValidatorExa

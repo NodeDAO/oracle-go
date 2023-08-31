@@ -213,10 +213,6 @@ func (v *WithdrawHelper) getAllOperatorId(ctx context.Context) (*big.Int, error)
 
 // ClTotalReward = (_curClVaultBalance + _curClBalances - pendingBalances) - (clVaultBalance + clBalances - lastClSettleAmount)
 func (v *WithdrawHelper) calculationClTotalReward() (*big.Int, error) {
-	pendingBalances, err := contracts.WithdrawOracleContract.Contract.PendingBalances(nil)
-	if err != nil {
-		return nil, errors.Wrap(err, "Get PendingBalances err.")
-	}
 	preClVaultBalance, err := contracts.WithdrawOracleContract.Contract.ClVaultBalance(nil)
 	if err != nil {
 		return nil, errors.Wrap(err, "Get ClVaultBalance err.")
@@ -232,7 +228,7 @@ func (v *WithdrawHelper) calculationClTotalReward() (*big.Int, error) {
 
 	l := decimal.NewFromBigInt(v.clBalance, 0).
 		Add(decimal.NewFromBigInt(v.clVaultBalance, 0)).
-		Sub(decimal.NewFromBigInt(pendingBalances, 0))
+		Sub(decimal.NewFromBigInt(v.curPendingBalances, 0))
 
 	r := decimal.NewFromBigInt(preClVaultBalance, 0).
 		Add(decimal.NewFromBigInt(preClBalance, 0)).
