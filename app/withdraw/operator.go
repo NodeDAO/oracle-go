@@ -13,6 +13,7 @@ import (
 	"github.com/NodeDAO/oracle-go/eth1"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
+	"github.com/shopspring/decimal"
 	"math/big"
 )
 
@@ -151,19 +152,24 @@ func (v *WithdrawHelper) calculationOperatorClReward(ctx context.Context, effect
 	}
 	v.totalNftCountOfStakingPool = big.NewInt(int64(len(activeNftsOfStakingPool)))
 
-	sumReward := new(big.Int).Sub(v.clVaultBalance, v.totalOperatorClCapital)
-	if sumReward.Cmp(big.NewInt(0)) == -1 {
-		return errs.NewSleepError("OperatorReward.ClReward < 0", RandomSleepTime())
-	} else if sumReward.Cmp(eth1.ETH(20)) >= 0 {
-		return errs.NewSleepError("OperatorReward.ClReward >= 20 ETH", RandomSleepTime())
+	oldClTotalBalance := new(big.Int).Sub(v.clVaultBalance, v.totalOperatorClCapital)
+
+	newClTotalReward, err := v.calculationClTotalReward()
+	if err != nil {
+		return errors.Wrap(err, "calculationClTotalReward err.")
+	}
+
+	// Temporarily check for new rules
+	if newClTotalReward.Cmp(oldClTotalBalance) != 0 {
+		return errs.NewSleepError("oldClTotalBalance != newClTotalReward.", RandomSleepTime())
 	}
 
 	for _, op := range effectiveOperators {
-		mul := new(big.Int).Mul(sumReward, big.NewInt(int64(op.VnftCountOfStakingPool)))
+		mul := new(big.Int).Mul(newClTotalReward, big.NewInt(int64(op.VnftCountOfStakingPool)))
 		op.OperatorReward.ClReward = new(big.Int).Div(mul, v.totalNftCountOfStakingPool)
 	}
 
-	v.clSettleAmount = new(big.Int).Add(v.clSettleAmount, sumReward)
+	v.clSettleAmount = new(big.Int).Add(v.clSettleAmount, newClTotalReward)
 
 	// deal accuracy
 	sumSettle := big.NewInt(0)
@@ -200,4 +206,36 @@ func (v *WithdrawHelper) calculationWithdrawInfos(ctx context.Context, effective
 
 func (v *WithdrawHelper) getAllOperatorId(ctx context.Context) (*big.Int, error) {
 	return contracts.OperatorContract.Contract.GetNodeOperatorsCount(nil)
+}
+
+// ClTotalReward = (_curClVaultBalance + _curClBalances - pendingBalances) - (clVaultBalance + clBalances - lastClSettleAmount)
+func (v *WithdrawHelper) calculationClTotalReward() (*big.Int, error) {
+	pendingBalances, err := contracts.WithdrawOracleContract.Contract.PendingBalances(nil)
+	if err != nil {
+		return nil, errors.Wrap(err, "Get PendingBalances err.")
+	}
+	preClVaultBalance, err := contracts.WithdrawOracleContract.Contract.ClVaultBalance(nil)
+	if err != nil {
+		return nil, errors.Wrap(err, "Get ClVaultBalance err.")
+	}
+	preClBalance, err := contracts.WithdrawOracleContract.Contract.ClBalances(nil)
+	if err != nil {
+		return nil, errors.Wrap(err, "Get ClBalances err.")
+	}
+	lastClSettleAmount, err := contracts.WithdrawOracleContract.Contract.LastClSettleAmount(nil)
+	if err != nil {
+		return nil, errors.Wrap(err, "Get ClBalances err.")
+	}
+
+	l := decimal.NewFromBigInt(v.clBalance, 0).
+		Add(decimal.NewFromBigInt(v.clVaultBalance, 0)).
+		Sub(decimal.NewFromBigInt(pendingBalances, 0))
+
+	r := decimal.NewFromBigInt(preClVaultBalance, 0).
+		Add(decimal.NewFromBigInt(preClBalance, 0)).
+		Sub(decimal.NewFromBigInt(lastClSettleAmount, 0))
+
+	clTotalBalance := l.Sub(r).BigInt()
+
+	return clTotalBalance, nil
 }
