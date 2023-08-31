@@ -14,6 +14,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 	"github.com/shopspring/decimal"
+	"go.uber.org/zap"
 	"math/big"
 )
 
@@ -158,6 +159,8 @@ func (v *WithdrawHelper) calculationOperatorClReward(ctx context.Context, effect
 	if err != nil {
 		return errors.Wrap(err, "calculationClTotalReward err.")
 	}
+
+	logger.Debug("[WithdrawOracle] ClTotalBalance.", zap.String("oldClTotalBalance", oldClTotalBalance.String()), zap.String("newClTotalReward", newClTotalReward.String()))
 
 	// Temporarily check for new rules
 	if newClTotalReward.Cmp(oldClTotalBalance) != 0 {
