@@ -396,9 +396,9 @@
             "type": "uint128"
           },
           {
-            "internalType": "bytes",
-            "name": "pubkey",
-            "type": "bytes"
+            "internalType": "bytes[]",
+            "name": "pubkeys",
+            "type": "bytes[]"
           }
         ],
         "indexed": false,
@@ -882,9 +882,9 @@
                 "type": "uint128"
               },
               {
-                "internalType": "bytes",
-                "name": "pubkey",
-                "type": "bytes"
+                "internalType": "bytes[]",
+                "name": "pubkeys",
+                "type": "bytes[]"
               }
             ],
             "internalType": "struct CLStakingExitInfo[]",
