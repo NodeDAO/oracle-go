@@ -166,7 +166,7 @@ func (v *LargeStakeHelper) filterExitedSlashedValidator(
 	clStakingExitInfos := make([]largeStakeOracle.CLStakingExitInfo, 0)
 	clStakingSlashInfos := make([]largeStakeOracle.CLStakingSlashInfo, 0)
 
-	exitStakingIdMap := make(map[*big.Int][][]byte)
+	exitStakingIdMap := make(map[uint64][][]byte)
 
 	for pubkey, validatorExa := range validatorExaMap {
 		pubkeyByte, err := hexutil.Decode(pubkey)
@@ -182,10 +182,10 @@ func (v *LargeStakeHelper) filterExitedSlashedValidator(
 		if validatorExa.Validator.Status == consensusApi.ValidatorStateUnknown {
 			if validatorInfo.RegisterBlock.Cmp(v.refBlockNumber) < 0 && validatorInfo.ExitBlock.Cmp(big.NewInt(0)) == 0 {
 				if new(big.Int).Sub(v.refBlockNumber, validatorInfo.RegisterBlock).Cmp(big.NewInt(TWO_DAY_BLOCK_NUMBER)) > 0 {
-					if _, ok := exitStakingIdMap[validatorExa.StakingId]; !ok {
-						exitStakingIdMap[validatorExa.StakingId] = make([][]byte, 0)
+					if _, ok := exitStakingIdMap[validatorExa.StakingId.Uint64()]; !ok {
+						exitStakingIdMap[validatorExa.StakingId.Uint64()] = make([][]byte, 0)
 					}
-					exitStakingIdMap[validatorExa.StakingId] = append(exitStakingIdMap[validatorExa.StakingId], pubkeyByte)
+					exitStakingIdMap[validatorExa.StakingId.Uint64()] = append(exitStakingIdMap[validatorExa.StakingId.Uint64()], pubkeyByte)
 				}
 			}
 			continue
@@ -193,10 +193,10 @@ func (v *LargeStakeHelper) filterExitedSlashedValidator(
 
 		if beacon.ValidatorIsFullExited(validatorExa.Validator) {
 			if validatorInfo.ExitBlock.Cmp(big.NewInt(0)) == 0 {
-				if _, ok := exitStakingIdMap[validatorExa.StakingId]; !ok {
-					exitStakingIdMap[validatorExa.StakingId] = make([][]byte, 0)
+				if _, ok := exitStakingIdMap[validatorExa.StakingId.Uint64()]; !ok {
+					exitStakingIdMap[validatorExa.StakingId.Uint64()] = make([][]byte, 0)
 				}
-				exitStakingIdMap[validatorExa.StakingId] = append(exitStakingIdMap[validatorExa.StakingId], pubkeyByte)
+				exitStakingIdMap[validatorExa.StakingId.Uint64()] = append(exitStakingIdMap[validatorExa.StakingId.Uint64()], pubkeyByte)
 			}
 		}
 
@@ -228,7 +228,7 @@ func (v *LargeStakeHelper) filterExitedSlashedValidator(
 			return string(pubkeyBytes[i]) < string(pubkeyBytes[j])
 		})
 		clStakingExitInfos = append(clStakingExitInfos, largeStakeOracle.CLStakingExitInfo{
-			StakingId: stakingId,
+			StakingId: big.NewInt(int64(stakingId)),
 			Pubkeys:   pubkeyBytes,
 		})
 	}
