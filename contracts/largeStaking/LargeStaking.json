@@ -145,13 +145,13 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "_oldConsensusOracleContractAddr",
+        "name": "_oldLargeOracleContractAddr",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "_consensusOracleContractAddr",
+        "name": "_largeOracleContractAddr",
         "type": "address"
       }
     ],
@@ -357,6 +357,25 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "address",
+        "name": "_oldElRewardAddr",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_elRewardAddr",
+        "type": "address"
+      }
+    ],
+    "name": "ElRewardAddressChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "uint256",
         "name": "_stakingId",
         "type": "uint256"
@@ -489,6 +508,25 @@
       {
         "indexed": false,
         "internalType": "uint256",
+        "name": "_oldMaxSlashAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_maxSlashAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "MaxSlashAmountChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
         "name": "_operatorId",
         "type": "uint256"
       },
@@ -548,7 +586,7 @@
         "type": "uint256"
       }
     ],
-    "name": "MinStakeAmountChange",
+    "name": "MinStakeAmountChanged",
     "type": "event"
   },
   {
@@ -745,9 +783,9 @@
       },
       {
         "indexed": false,
-        "internalType": "bytes",
+        "internalType": "bytes[]",
         "name": "_pubkey",
-        "type": "bytes"
+        "type": "bytes[]"
       }
     ],
     "name": "ValidatorExitReport",
@@ -858,6 +896,24 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "_stakingId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_elRewardAddr",
+        "type": "address"
+      }
+    ],
+    "name": "changeElRewardAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256[]",
         "name": "_stakingIds",
         "type": "uint256[]"
@@ -902,19 +958,6 @@
     "name": "claimRewardsOfUser",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "consensusOracleContractAddr",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1263,7 +1306,7 @@
       },
       {
         "internalType": "address",
-        "name": "_consensusOracleContractAddr",
+        "name": "_largeOracleContractAddr",
         "type": "address"
       },
       {
@@ -1280,6 +1323,19 @@
     "name": "initialize",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "largeOracleContractAddr",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1560,9 +1616,9 @@
             "type": "uint128"
           },
           {
-            "internalType": "bytes",
-            "name": "pubkey",
-            "type": "bytes"
+            "internalType": "bytes[]",
+            "name": "pubkeys",
+            "type": "bytes[]"
           }
         ],
         "internalType": "struct CLStakingExitInfo[]",
@@ -1639,13 +1695,18 @@
         "type": "uint256"
       },
       {
+        "internalType": "uint256",
+        "name": "_MAX_SLASH_AMOUNT",
+        "type": "uint256"
+      },
+      {
         "internalType": "address",
         "name": "_nodeOperatorRegistryAddress",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "_consensusOracleContractAddr",
+        "name": "_largeOracleContractAddr",
         "type": "address"
       },
       {

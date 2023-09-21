@@ -26,6 +26,7 @@ import (
 // 2. Query information about beacon
 // 3. The pubkey not found by the beacon, balance = 32 GWEI
 func (v *WithdrawHelper) obtainValidatorConsensusInfo(ctx context.Context) error {
+
 	// Gets all active validators for the NodeDAO's StakingPool (nETH's vNFT)
 	validatorBytesOfStakingPool, err := contracts.VnftContract.Contract.ActiveValidatorsOfStakingPool(nil)
 	if err != nil {
@@ -68,6 +69,7 @@ func (v *WithdrawHelper) parseValidatorExaMap(ctx context.Context, validatorByte
 			validator = &consensusApi.Validator{
 				Balance: 32e9,
 			}
+			v.ValidatorUnknownCount++
 		}
 
 		validatorExa := &ValidatorExa{

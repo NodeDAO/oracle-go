@@ -400,6 +400,11 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 
 	v.largeStakeOracleHelper = largestake.NewLargeStakeHelper(v.refSlot, big.NewInt(CONSENSUS_VERSION), v.executionBlock.BlockNumber)
 
+	v.curPendingBalances, err = contracts.WithdrawOracleContract.Contract.PendingBalances(nil)
+	if err != nil {
+		return errors.Wrap(err, "Failed to get WithdrawOracleContract PendingBalances.")
+	}
+
 	return nil
 }
 
@@ -480,15 +485,20 @@ func (v *WithdrawHelper) obtainWithdrawOracleReportData(ctx context.Context) err
 		reportExitedCount = big.NewInt(int64(len(v.exitValidatorInfos)))
 	}
 
+	if v.ValidatorUnknownCount > 0 {
+		logger.Debugf("[WithdrawOracle] ValidatorUnknownCount:%v", v.ValidatorUnknownCount)
+	}
+
 	v.reportData = &withdrawOracle.WithdrawOracleReportData{
-		ConsensusVersion:   v.consensusVersion,
-		RefSlot:            v.refSlot,
-		ClBalance:          v.clBalance,
-		ClVaultBalance:     v.clVaultBalance,
-		ReportExitedCount:  reportExitedCount,
-		WithdrawInfos:      v.withdrawInfos,
-		ExitValidatorInfos: v.exitValidatorInfos,
-		ClSettleAmount:     v.clSettleAmount,
+		ConsensusVersion:      v.consensusVersion,
+		RefSlot:               v.refSlot,
+		ClBalance:             v.clBalance,
+		ClVaultBalance:        v.clVaultBalance,
+		ReportExitedCount:     reportExitedCount,
+		WithdrawInfos:         v.withdrawInfos,
+		ExitValidatorInfos:    v.exitValidatorInfos,
+		ClSettleAmount:        v.clSettleAmount,
+		ReportPendingBalances: v.curPendingBalances,
 	}
 
 	return nil

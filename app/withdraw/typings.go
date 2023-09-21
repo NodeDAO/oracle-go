@@ -29,6 +29,7 @@ type WithdrawHelper struct {
 	exitRequestLimit         *big.Int
 	keyTransactOpts          *bind.TransactOpts
 	withdrawOracleModuleId   *big.Int
+	curPendingBalances       *big.Int
 
 	// compute process
 	validatorExaMap            map[string]*ValidatorExa
@@ -36,6 +37,7 @@ type WithdrawHelper struct {
 	totalOperatorClCapital     *big.Int
 	totalNftCountOfStakingPool *big.Int
 	isComputeOperatorReward    bool
+	ValidatorUnknownCount      uint64
 
 	// process res
 	clBalance          *big.Int

@@ -32,7 +32,7 @@ var (
 // CLStakingExitInfo is an auto generated low-level Go binding around an user-defined struct.
 type CLStakingExitInfo struct {
 	StakingId *big.Int
-	Pubkey    []byte
+	Pubkeys   [][]byte
 }
 
 // CLStakingSlashInfo is an auto generated low-level Go binding around an user-defined struct.
@@ -58,7 +58,7 @@ type LargeStakingStakingInfo struct {
 
 // LargeStakingMetaData contains all meta data concerning the LargeStaking contract.
 var LargeStakingMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[],\"name\":\"DuplicatePubKey\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InsufficientFunds\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InsufficientMargin\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidAddr\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidAmount\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidParameter\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidReport\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidRewardAddr\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidRewardRatio\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidWithdrawalCredentials\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PermissionDenied\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RequireOperatorTrusted\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SharedRewardPoolNotOpened\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SharedRewardPoolOpened\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakeAmounts\",\"type\":\"uint256\"}],\"name\":\"AppendMigretaStake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"AppendStake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldConsensusOracleContractAddr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_consensusOracleContractAddr\",\"type\":\"address\"}],\"name\":\"ConsensusOracleChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDao\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"DaoAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_oldDaoElCommissionRate\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_daoElCommissionRate\",\"type\":\"uint256\"}],\"name\":\"DaoELCommissionRateChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_daoRewards\",\"type\":\"uint256\"}],\"name\":\"DaoPrivateRewardClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"daoVaultAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_daoRewards\",\"type\":\"uint256\"}],\"name\":\"DaoSharedRewardClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDaoVaultAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"}],\"name\":\"DaoVaultAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldElRewardFactory\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_elRewardFactory\",\"type\":\"address\"}],\"name\":\"ELRewardFactoryChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_daoReward\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorReward\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_poolReward\",\"type\":\"uint256\"}],\"name\":\"ELShareingRewardSettle\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_daoReward\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorReward\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_poolReward\",\"type\":\"uint256\"}],\"name\":\"ElPrivateRewardSettle\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_unstakeAmount\",\"type\":\"uint256\"}],\"name\":\"FastUnstake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_curStakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_elRewardAddr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_withdrawCredentials\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"_isELRewardSharing\",\"type\":\"bool\"}],\"name\":\"LargeStake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingIds\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorIds\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"_pubkey\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amounts\",\"type\":\"uint256\"}],\"name\":\"LargeStakingSlash\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"LargeUnstake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_curStakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_elRewardAddr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_withdrawCredentials\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"_isELRewardSharing\",\"type\":\"bool\"}],\"name\":\"MigretaStake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_oldMinStakeAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_minStakeAmount\",\"type\":\"uint256\"}],\"name\":\"MinStakeAmountChange\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldNodeOperatorRegistryContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryAddress\",\"type\":\"address\"}],\"name\":\"NodeOperatorsRegistryChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorRewards\",\"type\":\"uint256\"}],\"name\":\"OperatorPrivateRewardClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_rewardAddresses\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewardAmounts\",\"type\":\"uint256\"}],\"name\":\"OperatorRewardClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorRewards\",\"type\":\"uint256\"}],\"name\":\"OperatorSharedRewardClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldOperatorSlashContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_operatorSlashContract\",\"type\":\"address\"}],\"name\":\"OperatorSlashChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_elRewardPoolAddr\",\"type\":\"address\"}],\"name\":\"SharedRewardPoolStart\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_beneficiary\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"UserRewardClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"_pubkey\",\"type\":\"bytes\"}],\"name\":\"ValidatorExitReport\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakeingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"_pubKey\",\"type\":\"bytes\"}],\"name\":\"ValidatorRegistered\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"MAX_SLASH_AMOUNT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MIN_STAKE_AMOUNT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_withdrawCredentials\",\"type\":\"address\"}],\"name\":\"appendLargeStake\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_withdrawCredentials\",\"type\":\"address\"},{\"internalType\":\"bytes[]\",\"name\":\"_pubKeys\",\"type\":\"bytes[]\"}],\"name\":\"appendMigrateStake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_stakingIds\",\"type\":\"uint256[]\"}],\"name\":\"claimRewardsOfDao\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256[]\",\"name\":\"_privatePoolStakingIds\",\"type\":\"uint256[]\"}],\"name\":\"claimRewardsOfOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"rewards\",\"type\":\"uint256\"}],\"name\":\"claimRewardsOfUser\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"consensusOracleContractAddr\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dao\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"daoElCommissionRate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"daoPrivateRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"daoSharedRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"daoVaultAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"depositContract\",\"outputs\":[{\"internalType\":\"contractIDepositContract\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"eLSharedRewardSettleInfo\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"valuePerSharePoint\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"rewardBalance\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"elPrivateRewardPool\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"elRewardFactory\",\"outputs\":[{\"internalType\":\"contractIELRewardFactory\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"elSharedRewardPool\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"getOperatorValidatorCounts\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"}],\"name\":\"getRewardPoolInfo\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"operatorId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"rewardPoolAddr\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"rewards\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"getStakingInfoOfOwner\",\"outputs\":[{\"components\":[{\"internalType\":\"bool\",\"name\":\"isELRewardSharing\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"stakingId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"stakingAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"alreadyUsedAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"unstakeRequestAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"unstakeAmount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"elRewardAddr\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"withdrawCredentials\",\"type\":\"bytes32\"}],\"internalType\":\"structLargeStaking.StakingInfo[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"}],\"name\":\"getValidatorsOfStakingId\",\"outputs\":[{\"internalType\":\"bytes[]\",\"name\":\"\",\"type\":\"bytes[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_withdrawCredentials\",\"type\":\"address\"}],\"name\":\"getWithdrawCredentials\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_operatorSlashContract\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_consensusOracleContractAddr\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_elRewardFactory\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_depositContract\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_elRewardAddr\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_withdrawCredentials\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"_isELRewardSharing\",\"type\":\"bool\"}],\"name\":\"largeStake\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"largeStakings\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"isELRewardSharing\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"stakingId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"stakingAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"alreadyUsedAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"unstakeRequestAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"unstakeAmount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"elRewardAddr\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"withdrawCredentials\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"largeUnstake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_elRewardAddr\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_withdrawCredentials\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"_isELRewardSharing\",\"type\":\"bool\"},{\"internalType\":\"bytes[]\",\"name\":\"_pubKeys\",\"type\":\"bytes[]\"}],\"name\":\"migrateStake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nodeOperatorRegistryContract\",\"outputs\":[{\"internalType\":\"contractINodeOperatorsRegistry\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorPrivateRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorSharedRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"operatorSlashContract\",\"outputs\":[{\"internalType\":\"contractIOperatorSlash\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"internalType\":\"bytes[]\",\"name\":\"_pubkeys\",\"type\":\"bytes[]\"},{\"internalType\":\"bytes[]\",\"name\":\"_signatures\",\"type\":\"bytes[]\"},{\"internalType\":\"bytes32[]\",\"name\":\"_depositDataRoots\",\"type\":\"bytes32[]\"}],\"name\":\"registerValidator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"uint128\",\"name\":\"stakingId\",\"type\":\"uint128\"},{\"internalType\":\"bytes\",\"name\":\"pubkey\",\"type\":\"bytes\"}],\"internalType\":\"structCLStakingExitInfo[]\",\"name\":\"_clStakingExitInfo\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint128\",\"name\":\"stakingId\",\"type\":\"uint128\"},{\"internalType\":\"uint128\",\"name\":\"slashAmount\",\"type\":\"uint128\"},{\"internalType\":\"bytes\",\"name\":\"pubkey\",\"type\":\"bytes\"}],\"internalType\":\"structCLStakingSlashInfo[]\",\"name\":\"_clStakingSlashInfo\",\"type\":\"tuple[]\"}],\"name\":\"reportCLStakingData\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"}],\"name\":\"reward\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"userReward\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_daoElCommissionRate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_MIN_STAKE_AMOUNT\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_consensusOracleContractAddr\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_elRewardFactory\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_operatorSlashContract\",\"type\":\"address\"}],\"name\":\"setLargeStakingSetting\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"}],\"name\":\"settleElPrivateReward\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"settleElSharedReward\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"startupSharedRewardPool\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalLargeStakingCounts\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"totalShares\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"unclaimedPrivateRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"unclaimedSharedRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"validatorInfo\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"stakingId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"registerBlock\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exitBlock\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"slashAmount\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"valuePerShare\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[],\"name\":\"DuplicatePubKey\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InsufficientFunds\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InsufficientMargin\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidAddr\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidAmount\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidParameter\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidReport\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidRewardAddr\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidRewardRatio\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidWithdrawalCredentials\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PermissionDenied\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RequireOperatorTrusted\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SharedRewardPoolNotOpened\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SharedRewardPoolOpened\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakeAmounts\",\"type\":\"uint256\"}],\"name\":\"AppendMigretaStake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"AppendStake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldLargeOracleContractAddr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_largeOracleContractAddr\",\"type\":\"address\"}],\"name\":\"ConsensusOracleChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDao\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"DaoAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_oldDaoElCommissionRate\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_daoElCommissionRate\",\"type\":\"uint256\"}],\"name\":\"DaoELCommissionRateChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_daoRewards\",\"type\":\"uint256\"}],\"name\":\"DaoPrivateRewardClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"daoVaultAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_daoRewards\",\"type\":\"uint256\"}],\"name\":\"DaoSharedRewardClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDaoVaultAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"}],\"name\":\"DaoVaultAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldElRewardFactory\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_elRewardFactory\",\"type\":\"address\"}],\"name\":\"ELRewardFactoryChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_daoReward\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorReward\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_poolReward\",\"type\":\"uint256\"}],\"name\":\"ELShareingRewardSettle\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_daoReward\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorReward\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_poolReward\",\"type\":\"uint256\"}],\"name\":\"ElPrivateRewardSettle\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldElRewardAddr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_elRewardAddr\",\"type\":\"address\"}],\"name\":\"ElRewardAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_unstakeAmount\",\"type\":\"uint256\"}],\"name\":\"FastUnstake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_curStakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_elRewardAddr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_withdrawCredentials\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"_isELRewardSharing\",\"type\":\"bool\"}],\"name\":\"LargeStake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingIds\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorIds\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"_pubkey\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amounts\",\"type\":\"uint256\"}],\"name\":\"LargeStakingSlash\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"LargeUnstake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_oldMaxSlashAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_maxSlashAmount\",\"type\":\"uint256\"}],\"name\":\"MaxSlashAmountChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_curStakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_elRewardAddr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_withdrawCredentials\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"_isELRewardSharing\",\"type\":\"bool\"}],\"name\":\"MigretaStake\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_oldMinStakeAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_minStakeAmount\",\"type\":\"uint256\"}],\"name\":\"MinStakeAmountChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldNodeOperatorRegistryContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryAddress\",\"type\":\"address\"}],\"name\":\"NodeOperatorsRegistryChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorRewards\",\"type\":\"uint256\"}],\"name\":\"OperatorPrivateRewardClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_rewardAddresses\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewardAmounts\",\"type\":\"uint256\"}],\"name\":\"OperatorRewardClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorRewards\",\"type\":\"uint256\"}],\"name\":\"OperatorSharedRewardClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldOperatorSlashContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_operatorSlashContract\",\"type\":\"address\"}],\"name\":\"OperatorSlashChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_elRewardPoolAddr\",\"type\":\"address\"}],\"name\":\"SharedRewardPoolStart\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_beneficiary\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_rewards\",\"type\":\"uint256\"}],\"name\":\"UserRewardClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes[]\",\"name\":\"_pubkey\",\"type\":\"bytes[]\"}],\"name\":\"ValidatorExitReport\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_stakeingId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"_pubKey\",\"type\":\"bytes\"}],\"name\":\"ValidatorRegistered\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"MAX_SLASH_AMOUNT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MIN_STAKE_AMOUNT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_withdrawCredentials\",\"type\":\"address\"}],\"name\":\"appendLargeStake\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_withdrawCredentials\",\"type\":\"address\"},{\"internalType\":\"bytes[]\",\"name\":\"_pubKeys\",\"type\":\"bytes[]\"}],\"name\":\"appendMigrateStake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_elRewardAddr\",\"type\":\"address\"}],\"name\":\"changeElRewardAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_stakingIds\",\"type\":\"uint256[]\"}],\"name\":\"claimRewardsOfDao\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256[]\",\"name\":\"_privatePoolStakingIds\",\"type\":\"uint256[]\"}],\"name\":\"claimRewardsOfOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"rewards\",\"type\":\"uint256\"}],\"name\":\"claimRewardsOfUser\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dao\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"daoElCommissionRate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"daoPrivateRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"daoSharedRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"daoVaultAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"depositContract\",\"outputs\":[{\"internalType\":\"contractIDepositContract\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"eLSharedRewardSettleInfo\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"valuePerSharePoint\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"rewardBalance\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"elPrivateRewardPool\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"elRewardFactory\",\"outputs\":[{\"internalType\":\"contractIELRewardFactory\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"elSharedRewardPool\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"getOperatorValidatorCounts\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"}],\"name\":\"getRewardPoolInfo\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"operatorId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"rewardPoolAddr\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"rewards\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"getStakingInfoOfOwner\",\"outputs\":[{\"components\":[{\"internalType\":\"bool\",\"name\":\"isELRewardSharing\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"stakingId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"stakingAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"alreadyUsedAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"unstakeRequestAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"unstakeAmount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"elRewardAddr\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"withdrawCredentials\",\"type\":\"bytes32\"}],\"internalType\":\"structLargeStaking.StakingInfo[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"}],\"name\":\"getValidatorsOfStakingId\",\"outputs\":[{\"internalType\":\"bytes[]\",\"name\":\"\",\"type\":\"bytes[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_withdrawCredentials\",\"type\":\"address\"}],\"name\":\"getWithdrawCredentials\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_operatorSlashContract\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_largeOracleContractAddr\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_elRewardFactory\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_depositContract\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"largeOracleContractAddr\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_elRewardAddr\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_withdrawCredentials\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"_isELRewardSharing\",\"type\":\"bool\"}],\"name\":\"largeStake\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"largeStakings\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"isELRewardSharing\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"stakingId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"operatorId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"stakingAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"alreadyUsedAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"unstakeRequestAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"unstakeAmount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"elRewardAddr\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"withdrawCredentials\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"largeUnstake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_elRewardAddr\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_withdrawCredentials\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"_isELRewardSharing\",\"type\":\"bool\"},{\"internalType\":\"bytes[]\",\"name\":\"_pubKeys\",\"type\":\"bytes[]\"}],\"name\":\"migrateStake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nodeOperatorRegistryContract\",\"outputs\":[{\"internalType\":\"contractINodeOperatorsRegistry\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorPrivateRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"operatorSharedRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"operatorSlashContract\",\"outputs\":[{\"internalType\":\"contractIOperatorSlash\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"},{\"internalType\":\"bytes[]\",\"name\":\"_pubkeys\",\"type\":\"bytes[]\"},{\"internalType\":\"bytes[]\",\"name\":\"_signatures\",\"type\":\"bytes[]\"},{\"internalType\":\"bytes32[]\",\"name\":\"_depositDataRoots\",\"type\":\"bytes32[]\"}],\"name\":\"registerValidator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"uint128\",\"name\":\"stakingId\",\"type\":\"uint128\"},{\"internalType\":\"bytes[]\",\"name\":\"pubkeys\",\"type\":\"bytes[]\"}],\"internalType\":\"structCLStakingExitInfo[]\",\"name\":\"_clStakingExitInfo\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint128\",\"name\":\"stakingId\",\"type\":\"uint128\"},{\"internalType\":\"uint128\",\"name\":\"slashAmount\",\"type\":\"uint128\"},{\"internalType\":\"bytes\",\"name\":\"pubkey\",\"type\":\"bytes\"}],\"internalType\":\"structCLStakingSlashInfo[]\",\"name\":\"_clStakingSlashInfo\",\"type\":\"tuple[]\"}],\"name\":\"reportCLStakingData\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"}],\"name\":\"reward\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"userReward\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_daoVaultAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_daoElCommissionRate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_MIN_STAKE_AMOUNT\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_MAX_SLASH_AMOUNT\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_nodeOperatorRegistryAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_largeOracleContractAddr\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_elRewardFactory\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_operatorSlashContract\",\"type\":\"address\"}],\"name\":\"setLargeStakingSetting\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_stakingId\",\"type\":\"uint256\"}],\"name\":\"settleElPrivateReward\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"settleElSharedReward\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_operatorId\",\"type\":\"uint256\"}],\"name\":\"startupSharedRewardPool\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalLargeStakingCounts\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"totalShares\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"unclaimedPrivateRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"unclaimedSharedRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"validatorInfo\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"stakingId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"registerBlock\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exitBlock\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"slashAmount\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"valuePerShare\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // LargeStakingABI is the input ABI used to generate the binding from.
@@ -267,37 +267,6 @@ func (_LargeStaking *LargeStakingSession) MINSTAKEAMOUNT() (*big.Int, error) {
 // Solidity: function MIN_STAKE_AMOUNT() view returns(uint256)
 func (_LargeStaking *LargeStakingCallerSession) MINSTAKEAMOUNT() (*big.Int, error) {
 	return _LargeStaking.Contract.MINSTAKEAMOUNT(&_LargeStaking.CallOpts)
-}
-
-// ConsensusOracleContractAddr is a free data retrieval call binding the contract method 0xa10e3a1c.
-//
-// Solidity: function consensusOracleContractAddr() view returns(address)
-func (_LargeStaking *LargeStakingCaller) ConsensusOracleContractAddr(opts *bind.CallOpts) (common.Address, error) {
-	var out []interface{}
-	err := _LargeStaking.contract.Call(opts, &out, "consensusOracleContractAddr")
-
-	if err != nil {
-		return *new(common.Address), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
-
-	return out0, err
-
-}
-
-// ConsensusOracleContractAddr is a free data retrieval call binding the contract method 0xa10e3a1c.
-//
-// Solidity: function consensusOracleContractAddr() view returns(address)
-func (_LargeStaking *LargeStakingSession) ConsensusOracleContractAddr() (common.Address, error) {
-	return _LargeStaking.Contract.ConsensusOracleContractAddr(&_LargeStaking.CallOpts)
-}
-
-// ConsensusOracleContractAddr is a free data retrieval call binding the contract method 0xa10e3a1c.
-//
-// Solidity: function consensusOracleContractAddr() view returns(address)
-func (_LargeStaking *LargeStakingCallerSession) ConsensusOracleContractAddr() (common.Address, error) {
-	return _LargeStaking.Contract.ConsensusOracleContractAddr(&_LargeStaking.CallOpts)
 }
 
 // Dao is a free data retrieval call binding the contract method 0x4162169f.
@@ -796,6 +765,37 @@ func (_LargeStaking *LargeStakingSession) GetWithdrawCredentials(_withdrawCreden
 // Solidity: function getWithdrawCredentials(address _withdrawCredentials) pure returns(bytes32)
 func (_LargeStaking *LargeStakingCallerSession) GetWithdrawCredentials(_withdrawCredentials common.Address) ([32]byte, error) {
 	return _LargeStaking.Contract.GetWithdrawCredentials(&_LargeStaking.CallOpts, _withdrawCredentials)
+}
+
+// LargeOracleContractAddr is a free data retrieval call binding the contract method 0xc6215ca2.
+//
+// Solidity: function largeOracleContractAddr() view returns(address)
+func (_LargeStaking *LargeStakingCaller) LargeOracleContractAddr(opts *bind.CallOpts) (common.Address, error) {
+	var out []interface{}
+	err := _LargeStaking.contract.Call(opts, &out, "largeOracleContractAddr")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
+}
+
+// LargeOracleContractAddr is a free data retrieval call binding the contract method 0xc6215ca2.
+//
+// Solidity: function largeOracleContractAddr() view returns(address)
+func (_LargeStaking *LargeStakingSession) LargeOracleContractAddr() (common.Address, error) {
+	return _LargeStaking.Contract.LargeOracleContractAddr(&_LargeStaking.CallOpts)
+}
+
+// LargeOracleContractAddr is a free data retrieval call binding the contract method 0xc6215ca2.
+//
+// Solidity: function largeOracleContractAddr() view returns(address)
+func (_LargeStaking *LargeStakingCallerSession) LargeOracleContractAddr() (common.Address, error) {
+	return _LargeStaking.Contract.LargeOracleContractAddr(&_LargeStaking.CallOpts)
 }
 
 // LargeStakings is a free data retrieval call binding the contract method 0x7d54dcf4.
@@ -1352,6 +1352,27 @@ func (_LargeStaking *LargeStakingTransactorSession) AppendMigrateStake(_stakingI
 	return _LargeStaking.Contract.AppendMigrateStake(&_LargeStaking.TransactOpts, _stakingId, _owner, _withdrawCredentials, _pubKeys)
 }
 
+// ChangeElRewardAddress is a paid mutator transaction binding the contract method 0x1c07445f.
+//
+// Solidity: function changeElRewardAddress(uint256 _stakingId, address _elRewardAddr) returns()
+func (_LargeStaking *LargeStakingTransactor) ChangeElRewardAddress(opts *bind.TransactOpts, _stakingId *big.Int, _elRewardAddr common.Address) (*types.Transaction, error) {
+	return _LargeStaking.contract.Transact(opts, "changeElRewardAddress", _stakingId, _elRewardAddr)
+}
+
+// ChangeElRewardAddress is a paid mutator transaction binding the contract method 0x1c07445f.
+//
+// Solidity: function changeElRewardAddress(uint256 _stakingId, address _elRewardAddr) returns()
+func (_LargeStaking *LargeStakingSession) ChangeElRewardAddress(_stakingId *big.Int, _elRewardAddr common.Address) (*types.Transaction, error) {
+	return _LargeStaking.Contract.ChangeElRewardAddress(&_LargeStaking.TransactOpts, _stakingId, _elRewardAddr)
+}
+
+// ChangeElRewardAddress is a paid mutator transaction binding the contract method 0x1c07445f.
+//
+// Solidity: function changeElRewardAddress(uint256 _stakingId, address _elRewardAddr) returns()
+func (_LargeStaking *LargeStakingTransactorSession) ChangeElRewardAddress(_stakingId *big.Int, _elRewardAddr common.Address) (*types.Transaction, error) {
+	return _LargeStaking.Contract.ChangeElRewardAddress(&_LargeStaking.TransactOpts, _stakingId, _elRewardAddr)
+}
+
 // ClaimRewardsOfDao is a paid mutator transaction binding the contract method 0x694f0b11.
 //
 // Solidity: function claimRewardsOfDao(uint256[] _stakingIds) returns()
@@ -1417,23 +1438,23 @@ func (_LargeStaking *LargeStakingTransactorSession) ClaimRewardsOfUser(_stakingI
 
 // Initialize is a paid mutator transaction binding the contract method 0x35876476.
 //
-// Solidity: function initialize(address _dao, address _daoVaultAddress, address _nodeOperatorRegistryAddress, address _operatorSlashContract, address _consensusOracleContractAddr, address _elRewardFactory, address _depositContract) returns()
-func (_LargeStaking *LargeStakingTransactor) Initialize(opts *bind.TransactOpts, _dao common.Address, _daoVaultAddress common.Address, _nodeOperatorRegistryAddress common.Address, _operatorSlashContract common.Address, _consensusOracleContractAddr common.Address, _elRewardFactory common.Address, _depositContract common.Address) (*types.Transaction, error) {
-	return _LargeStaking.contract.Transact(opts, "initialize", _dao, _daoVaultAddress, _nodeOperatorRegistryAddress, _operatorSlashContract, _consensusOracleContractAddr, _elRewardFactory, _depositContract)
+// Solidity: function initialize(address _dao, address _daoVaultAddress, address _nodeOperatorRegistryAddress, address _operatorSlashContract, address _largeOracleContractAddr, address _elRewardFactory, address _depositContract) returns()
+func (_LargeStaking *LargeStakingTransactor) Initialize(opts *bind.TransactOpts, _dao common.Address, _daoVaultAddress common.Address, _nodeOperatorRegistryAddress common.Address, _operatorSlashContract common.Address, _largeOracleContractAddr common.Address, _elRewardFactory common.Address, _depositContract common.Address) (*types.Transaction, error) {
+	return _LargeStaking.contract.Transact(opts, "initialize", _dao, _daoVaultAddress, _nodeOperatorRegistryAddress, _operatorSlashContract, _largeOracleContractAddr, _elRewardFactory, _depositContract)
 }
 
 // Initialize is a paid mutator transaction binding the contract method 0x35876476.
 //
-// Solidity: function initialize(address _dao, address _daoVaultAddress, address _nodeOperatorRegistryAddress, address _operatorSlashContract, address _consensusOracleContractAddr, address _elRewardFactory, address _depositContract) returns()
-func (_LargeStaking *LargeStakingSession) Initialize(_dao common.Address, _daoVaultAddress common.Address, _nodeOperatorRegistryAddress common.Address, _operatorSlashContract common.Address, _consensusOracleContractAddr common.Address, _elRewardFactory common.Address, _depositContract common.Address) (*types.Transaction, error) {
-	return _LargeStaking.Contract.Initialize(&_LargeStaking.TransactOpts, _dao, _daoVaultAddress, _nodeOperatorRegistryAddress, _operatorSlashContract, _consensusOracleContractAddr, _elRewardFactory, _depositContract)
+// Solidity: function initialize(address _dao, address _daoVaultAddress, address _nodeOperatorRegistryAddress, address _operatorSlashContract, address _largeOracleContractAddr, address _elRewardFactory, address _depositContract) returns()
+func (_LargeStaking *LargeStakingSession) Initialize(_dao common.Address, _daoVaultAddress common.Address, _nodeOperatorRegistryAddress common.Address, _operatorSlashContract common.Address, _largeOracleContractAddr common.Address, _elRewardFactory common.Address, _depositContract common.Address) (*types.Transaction, error) {
+	return _LargeStaking.Contract.Initialize(&_LargeStaking.TransactOpts, _dao, _daoVaultAddress, _nodeOperatorRegistryAddress, _operatorSlashContract, _largeOracleContractAddr, _elRewardFactory, _depositContract)
 }
 
 // Initialize is a paid mutator transaction binding the contract method 0x35876476.
 //
-// Solidity: function initialize(address _dao, address _daoVaultAddress, address _nodeOperatorRegistryAddress, address _operatorSlashContract, address _consensusOracleContractAddr, address _elRewardFactory, address _depositContract) returns()
-func (_LargeStaking *LargeStakingTransactorSession) Initialize(_dao common.Address, _daoVaultAddress common.Address, _nodeOperatorRegistryAddress common.Address, _operatorSlashContract common.Address, _consensusOracleContractAddr common.Address, _elRewardFactory common.Address, _depositContract common.Address) (*types.Transaction, error) {
-	return _LargeStaking.Contract.Initialize(&_LargeStaking.TransactOpts, _dao, _daoVaultAddress, _nodeOperatorRegistryAddress, _operatorSlashContract, _consensusOracleContractAddr, _elRewardFactory, _depositContract)
+// Solidity: function initialize(address _dao, address _daoVaultAddress, address _nodeOperatorRegistryAddress, address _operatorSlashContract, address _largeOracleContractAddr, address _elRewardFactory, address _depositContract) returns()
+func (_LargeStaking *LargeStakingTransactorSession) Initialize(_dao common.Address, _daoVaultAddress common.Address, _nodeOperatorRegistryAddress common.Address, _operatorSlashContract common.Address, _largeOracleContractAddr common.Address, _elRewardFactory common.Address, _depositContract common.Address) (*types.Transaction, error) {
+	return _LargeStaking.Contract.Initialize(&_LargeStaking.TransactOpts, _dao, _daoVaultAddress, _nodeOperatorRegistryAddress, _operatorSlashContract, _largeOracleContractAddr, _elRewardFactory, _depositContract)
 }
 
 // LargeStake is a paid mutator transaction binding the contract method 0x1bbe36de.
@@ -1541,46 +1562,46 @@ func (_LargeStaking *LargeStakingTransactorSession) RenounceOwnership() (*types.
 	return _LargeStaking.Contract.RenounceOwnership(&_LargeStaking.TransactOpts)
 }
 
-// ReportCLStakingData is a paid mutator transaction binding the contract method 0xa036ec84.
+// ReportCLStakingData is a paid mutator transaction binding the contract method 0xe3681415.
 //
-// Solidity: function reportCLStakingData((uint128,bytes)[] _clStakingExitInfo, (uint128,uint128,bytes)[] _clStakingSlashInfo) returns()
+// Solidity: function reportCLStakingData((uint128,bytes[])[] _clStakingExitInfo, (uint128,uint128,bytes)[] _clStakingSlashInfo) returns()
 func (_LargeStaking *LargeStakingTransactor) ReportCLStakingData(opts *bind.TransactOpts, _clStakingExitInfo []CLStakingExitInfo, _clStakingSlashInfo []CLStakingSlashInfo) (*types.Transaction, error) {
 	return _LargeStaking.contract.Transact(opts, "reportCLStakingData", _clStakingExitInfo, _clStakingSlashInfo)
 }
 
-// ReportCLStakingData is a paid mutator transaction binding the contract method 0xa036ec84.
+// ReportCLStakingData is a paid mutator transaction binding the contract method 0xe3681415.
 //
-// Solidity: function reportCLStakingData((uint128,bytes)[] _clStakingExitInfo, (uint128,uint128,bytes)[] _clStakingSlashInfo) returns()
+// Solidity: function reportCLStakingData((uint128,bytes[])[] _clStakingExitInfo, (uint128,uint128,bytes)[] _clStakingSlashInfo) returns()
 func (_LargeStaking *LargeStakingSession) ReportCLStakingData(_clStakingExitInfo []CLStakingExitInfo, _clStakingSlashInfo []CLStakingSlashInfo) (*types.Transaction, error) {
 	return _LargeStaking.Contract.ReportCLStakingData(&_LargeStaking.TransactOpts, _clStakingExitInfo, _clStakingSlashInfo)
 }
 
-// ReportCLStakingData is a paid mutator transaction binding the contract method 0xa036ec84.
+// ReportCLStakingData is a paid mutator transaction binding the contract method 0xe3681415.
 //
-// Solidity: function reportCLStakingData((uint128,bytes)[] _clStakingExitInfo, (uint128,uint128,bytes)[] _clStakingSlashInfo) returns()
+// Solidity: function reportCLStakingData((uint128,bytes[])[] _clStakingExitInfo, (uint128,uint128,bytes)[] _clStakingSlashInfo) returns()
 func (_LargeStaking *LargeStakingTransactorSession) ReportCLStakingData(_clStakingExitInfo []CLStakingExitInfo, _clStakingSlashInfo []CLStakingSlashInfo) (*types.Transaction, error) {
 	return _LargeStaking.Contract.ReportCLStakingData(&_LargeStaking.TransactOpts, _clStakingExitInfo, _clStakingSlashInfo)
 }
 
-// SetLargeStakingSetting is a paid mutator transaction binding the contract method 0x3454ea16.
+// SetLargeStakingSetting is a paid mutator transaction binding the contract method 0x6f57adf9.
 //
-// Solidity: function setLargeStakingSetting(address _dao, address _daoVaultAddress, uint256 _daoElCommissionRate, uint256 _MIN_STAKE_AMOUNT, address _nodeOperatorRegistryAddress, address _consensusOracleContractAddr, address _elRewardFactory, address _operatorSlashContract) returns()
-func (_LargeStaking *LargeStakingTransactor) SetLargeStakingSetting(opts *bind.TransactOpts, _dao common.Address, _daoVaultAddress common.Address, _daoElCommissionRate *big.Int, _MIN_STAKE_AMOUNT *big.Int, _nodeOperatorRegistryAddress common.Address, _consensusOracleContractAddr common.Address, _elRewardFactory common.Address, _operatorSlashContract common.Address) (*types.Transaction, error) {
-	return _LargeStaking.contract.Transact(opts, "setLargeStakingSetting", _dao, _daoVaultAddress, _daoElCommissionRate, _MIN_STAKE_AMOUNT, _nodeOperatorRegistryAddress, _consensusOracleContractAddr, _elRewardFactory, _operatorSlashContract)
+// Solidity: function setLargeStakingSetting(address _dao, address _daoVaultAddress, uint256 _daoElCommissionRate, uint256 _MIN_STAKE_AMOUNT, uint256 _MAX_SLASH_AMOUNT, address _nodeOperatorRegistryAddress, address _largeOracleContractAddr, address _elRewardFactory, address _operatorSlashContract) returns()
+func (_LargeStaking *LargeStakingTransactor) SetLargeStakingSetting(opts *bind.TransactOpts, _dao common.Address, _daoVaultAddress common.Address, _daoElCommissionRate *big.Int, _MIN_STAKE_AMOUNT *big.Int, _MAX_SLASH_AMOUNT *big.Int, _nodeOperatorRegistryAddress common.Address, _largeOracleContractAddr common.Address, _elRewardFactory common.Address, _operatorSlashContract common.Address) (*types.Transaction, error) {
+	return _LargeStaking.contract.Transact(opts, "setLargeStakingSetting", _dao, _daoVaultAddress, _daoElCommissionRate, _MIN_STAKE_AMOUNT, _MAX_SLASH_AMOUNT, _nodeOperatorRegistryAddress, _largeOracleContractAddr, _elRewardFactory, _operatorSlashContract)
 }
 
-// SetLargeStakingSetting is a paid mutator transaction binding the contract method 0x3454ea16.
+// SetLargeStakingSetting is a paid mutator transaction binding the contract method 0x6f57adf9.
 //
-// Solidity: function setLargeStakingSetting(address _dao, address _daoVaultAddress, uint256 _daoElCommissionRate, uint256 _MIN_STAKE_AMOUNT, address _nodeOperatorRegistryAddress, address _consensusOracleContractAddr, address _elRewardFactory, address _operatorSlashContract) returns()
-func (_LargeStaking *LargeStakingSession) SetLargeStakingSetting(_dao common.Address, _daoVaultAddress common.Address, _daoElCommissionRate *big.Int, _MIN_STAKE_AMOUNT *big.Int, _nodeOperatorRegistryAddress common.Address, _consensusOracleContractAddr common.Address, _elRewardFactory common.Address, _operatorSlashContract common.Address) (*types.Transaction, error) {
-	return _LargeStaking.Contract.SetLargeStakingSetting(&_LargeStaking.TransactOpts, _dao, _daoVaultAddress, _daoElCommissionRate, _MIN_STAKE_AMOUNT, _nodeOperatorRegistryAddress, _consensusOracleContractAddr, _elRewardFactory, _operatorSlashContract)
+// Solidity: function setLargeStakingSetting(address _dao, address _daoVaultAddress, uint256 _daoElCommissionRate, uint256 _MIN_STAKE_AMOUNT, uint256 _MAX_SLASH_AMOUNT, address _nodeOperatorRegistryAddress, address _largeOracleContractAddr, address _elRewardFactory, address _operatorSlashContract) returns()
+func (_LargeStaking *LargeStakingSession) SetLargeStakingSetting(_dao common.Address, _daoVaultAddress common.Address, _daoElCommissionRate *big.Int, _MIN_STAKE_AMOUNT *big.Int, _MAX_SLASH_AMOUNT *big.Int, _nodeOperatorRegistryAddress common.Address, _largeOracleContractAddr common.Address, _elRewardFactory common.Address, _operatorSlashContract common.Address) (*types.Transaction, error) {
+	return _LargeStaking.Contract.SetLargeStakingSetting(&_LargeStaking.TransactOpts, _dao, _daoVaultAddress, _daoElCommissionRate, _MIN_STAKE_AMOUNT, _MAX_SLASH_AMOUNT, _nodeOperatorRegistryAddress, _largeOracleContractAddr, _elRewardFactory, _operatorSlashContract)
 }
 
-// SetLargeStakingSetting is a paid mutator transaction binding the contract method 0x3454ea16.
+// SetLargeStakingSetting is a paid mutator transaction binding the contract method 0x6f57adf9.
 //
-// Solidity: function setLargeStakingSetting(address _dao, address _daoVaultAddress, uint256 _daoElCommissionRate, uint256 _MIN_STAKE_AMOUNT, address _nodeOperatorRegistryAddress, address _consensusOracleContractAddr, address _elRewardFactory, address _operatorSlashContract) returns()
-func (_LargeStaking *LargeStakingTransactorSession) SetLargeStakingSetting(_dao common.Address, _daoVaultAddress common.Address, _daoElCommissionRate *big.Int, _MIN_STAKE_AMOUNT *big.Int, _nodeOperatorRegistryAddress common.Address, _consensusOracleContractAddr common.Address, _elRewardFactory common.Address, _operatorSlashContract common.Address) (*types.Transaction, error) {
-	return _LargeStaking.Contract.SetLargeStakingSetting(&_LargeStaking.TransactOpts, _dao, _daoVaultAddress, _daoElCommissionRate, _MIN_STAKE_AMOUNT, _nodeOperatorRegistryAddress, _consensusOracleContractAddr, _elRewardFactory, _operatorSlashContract)
+// Solidity: function setLargeStakingSetting(address _dao, address _daoVaultAddress, uint256 _daoElCommissionRate, uint256 _MIN_STAKE_AMOUNT, uint256 _MAX_SLASH_AMOUNT, address _nodeOperatorRegistryAddress, address _largeOracleContractAddr, address _elRewardFactory, address _operatorSlashContract) returns()
+func (_LargeStaking *LargeStakingTransactorSession) SetLargeStakingSetting(_dao common.Address, _daoVaultAddress common.Address, _daoElCommissionRate *big.Int, _MIN_STAKE_AMOUNT *big.Int, _MAX_SLASH_AMOUNT *big.Int, _nodeOperatorRegistryAddress common.Address, _largeOracleContractAddr common.Address, _elRewardFactory common.Address, _operatorSlashContract common.Address) (*types.Transaction, error) {
+	return _LargeStaking.Contract.SetLargeStakingSetting(&_LargeStaking.TransactOpts, _dao, _daoVaultAddress, _daoElCommissionRate, _MIN_STAKE_AMOUNT, _MAX_SLASH_AMOUNT, _nodeOperatorRegistryAddress, _largeOracleContractAddr, _elRewardFactory, _operatorSlashContract)
 }
 
 // SettleElPrivateReward is a paid mutator transaction binding the contract method 0x1c40b6cf.
@@ -2327,14 +2348,14 @@ func (it *LargeStakingConsensusOracleChangedIterator) Close() error {
 
 // LargeStakingConsensusOracleChanged represents a ConsensusOracleChanged event raised by the LargeStaking contract.
 type LargeStakingConsensusOracleChanged struct {
-	OldConsensusOracleContractAddr common.Address
-	ConsensusOracleContractAddr    common.Address
-	Raw                            types.Log // Blockchain specific contextual infos
+	OldLargeOracleContractAddr common.Address
+	LargeOracleContractAddr    common.Address
+	Raw                        types.Log // Blockchain specific contextual infos
 }
 
 // FilterConsensusOracleChanged is a free log retrieval operation binding the contract event 0xb92a521dda1a9cd90eb9401c62c27b3cb0f2f441e4a0c6b5c72e3eebb3d0f2d6.
 //
-// Solidity: event ConsensusOracleChanged(address _oldConsensusOracleContractAddr, address _consensusOracleContractAddr)
+// Solidity: event ConsensusOracleChanged(address _oldLargeOracleContractAddr, address _largeOracleContractAddr)
 func (_LargeStaking *LargeStakingFilterer) FilterConsensusOracleChanged(opts *bind.FilterOpts) (*LargeStakingConsensusOracleChangedIterator, error) {
 
 	logs, sub, err := _LargeStaking.contract.FilterLogs(opts, "ConsensusOracleChanged")
@@ -2346,7 +2367,7 @@ func (_LargeStaking *LargeStakingFilterer) FilterConsensusOracleChanged(opts *bi
 
 // WatchConsensusOracleChanged is a free log subscription operation binding the contract event 0xb92a521dda1a9cd90eb9401c62c27b3cb0f2f441e4a0c6b5c72e3eebb3d0f2d6.
 //
-// Solidity: event ConsensusOracleChanged(address _oldConsensusOracleContractAddr, address _consensusOracleContractAddr)
+// Solidity: event ConsensusOracleChanged(address _oldLargeOracleContractAddr, address _largeOracleContractAddr)
 func (_LargeStaking *LargeStakingFilterer) WatchConsensusOracleChanged(opts *bind.WatchOpts, sink chan<- *LargeStakingConsensusOracleChanged) (event.Subscription, error) {
 
 	logs, sub, err := _LargeStaking.contract.WatchLogs(opts, "ConsensusOracleChanged")
@@ -2383,7 +2404,7 @@ func (_LargeStaking *LargeStakingFilterer) WatchConsensusOracleChanged(opts *bin
 
 // ParseConsensusOracleChanged is a log parse operation binding the contract event 0xb92a521dda1a9cd90eb9401c62c27b3cb0f2f441e4a0c6b5c72e3eebb3d0f2d6.
 //
-// Solidity: event ConsensusOracleChanged(address _oldConsensusOracleContractAddr, address _consensusOracleContractAddr)
+// Solidity: event ConsensusOracleChanged(address _oldLargeOracleContractAddr, address _largeOracleContractAddr)
 func (_LargeStaking *LargeStakingFilterer) ParseConsensusOracleChanged(log types.Log) (*LargeStakingConsensusOracleChanged, error) {
 	event := new(LargeStakingConsensusOracleChanged)
 	if err := _LargeStaking.contract.UnpackLog(event, "ConsensusOracleChanged", log); err != nil {
@@ -3480,6 +3501,141 @@ func (_LargeStaking *LargeStakingFilterer) ParseElPrivateRewardSettle(log types.
 	return event, nil
 }
 
+// LargeStakingElRewardAddressChangedIterator is returned from FilterElRewardAddressChanged and is used to iterate over the raw logs and unpacked data for ElRewardAddressChanged events raised by the LargeStaking contract.
+type LargeStakingElRewardAddressChangedIterator struct {
+	Event *LargeStakingElRewardAddressChanged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *LargeStakingElRewardAddressChangedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(LargeStakingElRewardAddressChanged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(LargeStakingElRewardAddressChanged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *LargeStakingElRewardAddressChangedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *LargeStakingElRewardAddressChangedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// LargeStakingElRewardAddressChanged represents a ElRewardAddressChanged event raised by the LargeStaking contract.
+type LargeStakingElRewardAddressChanged struct {
+	OldElRewardAddr common.Address
+	ElRewardAddr    common.Address
+	Raw             types.Log // Blockchain specific contextual infos
+}
+
+// FilterElRewardAddressChanged is a free log retrieval operation binding the contract event 0x6a2d16cdff41ffed5a57649efa8eb31ac061d12d71e565b6a799e1cd074d7df0.
+//
+// Solidity: event ElRewardAddressChanged(address _oldElRewardAddr, address _elRewardAddr)
+func (_LargeStaking *LargeStakingFilterer) FilterElRewardAddressChanged(opts *bind.FilterOpts) (*LargeStakingElRewardAddressChangedIterator, error) {
+
+	logs, sub, err := _LargeStaking.contract.FilterLogs(opts, "ElRewardAddressChanged")
+	if err != nil {
+		return nil, err
+	}
+	return &LargeStakingElRewardAddressChangedIterator{contract: _LargeStaking.contract, event: "ElRewardAddressChanged", logs: logs, sub: sub}, nil
+}
+
+// WatchElRewardAddressChanged is a free log subscription operation binding the contract event 0x6a2d16cdff41ffed5a57649efa8eb31ac061d12d71e565b6a799e1cd074d7df0.
+//
+// Solidity: event ElRewardAddressChanged(address _oldElRewardAddr, address _elRewardAddr)
+func (_LargeStaking *LargeStakingFilterer) WatchElRewardAddressChanged(opts *bind.WatchOpts, sink chan<- *LargeStakingElRewardAddressChanged) (event.Subscription, error) {
+
+	logs, sub, err := _LargeStaking.contract.WatchLogs(opts, "ElRewardAddressChanged")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(LargeStakingElRewardAddressChanged)
+				if err := _LargeStaking.contract.UnpackLog(event, "ElRewardAddressChanged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseElRewardAddressChanged is a log parse operation binding the contract event 0x6a2d16cdff41ffed5a57649efa8eb31ac061d12d71e565b6a799e1cd074d7df0.
+//
+// Solidity: event ElRewardAddressChanged(address _oldElRewardAddr, address _elRewardAddr)
+func (_LargeStaking *LargeStakingFilterer) ParseElRewardAddressChanged(log types.Log) (*LargeStakingElRewardAddressChanged, error) {
+	event := new(LargeStakingElRewardAddressChanged)
+	if err := _LargeStaking.contract.UnpackLog(event, "ElRewardAddressChanged", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
 // LargeStakingFastUnstakeIterator is returned from FilterFastUnstake and is used to iterate over the raw logs and unpacked data for FastUnstake events raised by the LargeStaking contract.
 type LargeStakingFastUnstakeIterator struct {
 	Event *LargeStakingFastUnstake // Event containing the contract specifics and raw log
@@ -4161,6 +4317,141 @@ func (_LargeStaking *LargeStakingFilterer) ParseLargeUnstake(log types.Log) (*La
 	return event, nil
 }
 
+// LargeStakingMaxSlashAmountChangedIterator is returned from FilterMaxSlashAmountChanged and is used to iterate over the raw logs and unpacked data for MaxSlashAmountChanged events raised by the LargeStaking contract.
+type LargeStakingMaxSlashAmountChangedIterator struct {
+	Event *LargeStakingMaxSlashAmountChanged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *LargeStakingMaxSlashAmountChangedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(LargeStakingMaxSlashAmountChanged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(LargeStakingMaxSlashAmountChanged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *LargeStakingMaxSlashAmountChangedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *LargeStakingMaxSlashAmountChangedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// LargeStakingMaxSlashAmountChanged represents a MaxSlashAmountChanged event raised by the LargeStaking contract.
+type LargeStakingMaxSlashAmountChanged struct {
+	OldMaxSlashAmount *big.Int
+	MaxSlashAmount    *big.Int
+	Raw               types.Log // Blockchain specific contextual infos
+}
+
+// FilterMaxSlashAmountChanged is a free log retrieval operation binding the contract event 0x4bd8b668b4dbaba9dad9c94061fc4c72c9ecee21fff52688ad17a3517cce93a0.
+//
+// Solidity: event MaxSlashAmountChanged(uint256 _oldMaxSlashAmount, uint256 _maxSlashAmount)
+func (_LargeStaking *LargeStakingFilterer) FilterMaxSlashAmountChanged(opts *bind.FilterOpts) (*LargeStakingMaxSlashAmountChangedIterator, error) {
+
+	logs, sub, err := _LargeStaking.contract.FilterLogs(opts, "MaxSlashAmountChanged")
+	if err != nil {
+		return nil, err
+	}
+	return &LargeStakingMaxSlashAmountChangedIterator{contract: _LargeStaking.contract, event: "MaxSlashAmountChanged", logs: logs, sub: sub}, nil
+}
+
+// WatchMaxSlashAmountChanged is a free log subscription operation binding the contract event 0x4bd8b668b4dbaba9dad9c94061fc4c72c9ecee21fff52688ad17a3517cce93a0.
+//
+// Solidity: event MaxSlashAmountChanged(uint256 _oldMaxSlashAmount, uint256 _maxSlashAmount)
+func (_LargeStaking *LargeStakingFilterer) WatchMaxSlashAmountChanged(opts *bind.WatchOpts, sink chan<- *LargeStakingMaxSlashAmountChanged) (event.Subscription, error) {
+
+	logs, sub, err := _LargeStaking.contract.WatchLogs(opts, "MaxSlashAmountChanged")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(LargeStakingMaxSlashAmountChanged)
+				if err := _LargeStaking.contract.UnpackLog(event, "MaxSlashAmountChanged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseMaxSlashAmountChanged is a log parse operation binding the contract event 0x4bd8b668b4dbaba9dad9c94061fc4c72c9ecee21fff52688ad17a3517cce93a0.
+//
+// Solidity: event MaxSlashAmountChanged(uint256 _oldMaxSlashAmount, uint256 _maxSlashAmount)
+func (_LargeStaking *LargeStakingFilterer) ParseMaxSlashAmountChanged(log types.Log) (*LargeStakingMaxSlashAmountChanged, error) {
+	event := new(LargeStakingMaxSlashAmountChanged)
+	if err := _LargeStaking.contract.UnpackLog(event, "MaxSlashAmountChanged", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
 // LargeStakingMigretaStakeIterator is returned from FilterMigretaStake and is used to iterate over the raw logs and unpacked data for MigretaStake events raised by the LargeStaking contract.
 type LargeStakingMigretaStakeIterator struct {
 	Event *LargeStakingMigretaStake // Event containing the contract specifics and raw log
@@ -4301,9 +4592,9 @@ func (_LargeStaking *LargeStakingFilterer) ParseMigretaStake(log types.Log) (*La
 	return event, nil
 }
 
-// LargeStakingMinStakeAmountChangeIterator is returned from FilterMinStakeAmountChange and is used to iterate over the raw logs and unpacked data for MinStakeAmountChange events raised by the LargeStaking contract.
-type LargeStakingMinStakeAmountChangeIterator struct {
-	Event *LargeStakingMinStakeAmountChange // Event containing the contract specifics and raw log
+// LargeStakingMinStakeAmountChangedIterator is returned from FilterMinStakeAmountChanged and is used to iterate over the raw logs and unpacked data for MinStakeAmountChanged events raised by the LargeStaking contract.
+type LargeStakingMinStakeAmountChangedIterator struct {
+	Event *LargeStakingMinStakeAmountChanged // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -4317,7 +4608,7 @@ type LargeStakingMinStakeAmountChangeIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *LargeStakingMinStakeAmountChangeIterator) Next() bool {
+func (it *LargeStakingMinStakeAmountChangedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -4326,7 +4617,7 @@ func (it *LargeStakingMinStakeAmountChangeIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(LargeStakingMinStakeAmountChange)
+			it.Event = new(LargeStakingMinStakeAmountChanged)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -4341,7 +4632,7 @@ func (it *LargeStakingMinStakeAmountChangeIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(LargeStakingMinStakeAmountChange)
+		it.Event = new(LargeStakingMinStakeAmountChanged)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -4357,42 +4648,42 @@ func (it *LargeStakingMinStakeAmountChangeIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *LargeStakingMinStakeAmountChangeIterator) Error() error {
+func (it *LargeStakingMinStakeAmountChangedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *LargeStakingMinStakeAmountChangeIterator) Close() error {
+func (it *LargeStakingMinStakeAmountChangedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// LargeStakingMinStakeAmountChange represents a MinStakeAmountChange event raised by the LargeStaking contract.
-type LargeStakingMinStakeAmountChange struct {
+// LargeStakingMinStakeAmountChanged represents a MinStakeAmountChanged event raised by the LargeStaking contract.
+type LargeStakingMinStakeAmountChanged struct {
 	OldMinStakeAmount *big.Int
 	MinStakeAmount    *big.Int
 	Raw               types.Log // Blockchain specific contextual infos
 }
 
-// FilterMinStakeAmountChange is a free log retrieval operation binding the contract event 0x59993a665fbc5ab65fc6d986fb877821545f1dbfe0d7bc73ef1db7953734a904.
+// FilterMinStakeAmountChanged is a free log retrieval operation binding the contract event 0x3b8dcd7d08f8aa9e93d2afc54830c8b23db9b7264f3bc503eb5fc2a0289bc2cb.
 //
-// Solidity: event MinStakeAmountChange(uint256 _oldMinStakeAmount, uint256 _minStakeAmount)
-func (_LargeStaking *LargeStakingFilterer) FilterMinStakeAmountChange(opts *bind.FilterOpts) (*LargeStakingMinStakeAmountChangeIterator, error) {
+// Solidity: event MinStakeAmountChanged(uint256 _oldMinStakeAmount, uint256 _minStakeAmount)
+func (_LargeStaking *LargeStakingFilterer) FilterMinStakeAmountChanged(opts *bind.FilterOpts) (*LargeStakingMinStakeAmountChangedIterator, error) {
 
-	logs, sub, err := _LargeStaking.contract.FilterLogs(opts, "MinStakeAmountChange")
+	logs, sub, err := _LargeStaking.contract.FilterLogs(opts, "MinStakeAmountChanged")
 	if err != nil {
 		return nil, err
 	}
-	return &LargeStakingMinStakeAmountChangeIterator{contract: _LargeStaking.contract, event: "MinStakeAmountChange", logs: logs, sub: sub}, nil
+	return &LargeStakingMinStakeAmountChangedIterator{contract: _LargeStaking.contract, event: "MinStakeAmountChanged", logs: logs, sub: sub}, nil
 }
 
-// WatchMinStakeAmountChange is a free log subscription operation binding the contract event 0x59993a665fbc5ab65fc6d986fb877821545f1dbfe0d7bc73ef1db7953734a904.
+// WatchMinStakeAmountChanged is a free log subscription operation binding the contract event 0x3b8dcd7d08f8aa9e93d2afc54830c8b23db9b7264f3bc503eb5fc2a0289bc2cb.
 //
-// Solidity: event MinStakeAmountChange(uint256 _oldMinStakeAmount, uint256 _minStakeAmount)
-func (_LargeStaking *LargeStakingFilterer) WatchMinStakeAmountChange(opts *bind.WatchOpts, sink chan<- *LargeStakingMinStakeAmountChange) (event.Subscription, error) {
+// Solidity: event MinStakeAmountChanged(uint256 _oldMinStakeAmount, uint256 _minStakeAmount)
+func (_LargeStaking *LargeStakingFilterer) WatchMinStakeAmountChanged(opts *bind.WatchOpts, sink chan<- *LargeStakingMinStakeAmountChanged) (event.Subscription, error) {
 
-	logs, sub, err := _LargeStaking.contract.WatchLogs(opts, "MinStakeAmountChange")
+	logs, sub, err := _LargeStaking.contract.WatchLogs(opts, "MinStakeAmountChanged")
 	if err != nil {
 		return nil, err
 	}
@@ -4402,8 +4693,8 @@ func (_LargeStaking *LargeStakingFilterer) WatchMinStakeAmountChange(opts *bind.
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(LargeStakingMinStakeAmountChange)
-				if err := _LargeStaking.contract.UnpackLog(event, "MinStakeAmountChange", log); err != nil {
+				event := new(LargeStakingMinStakeAmountChanged)
+				if err := _LargeStaking.contract.UnpackLog(event, "MinStakeAmountChanged", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -4424,12 +4715,12 @@ func (_LargeStaking *LargeStakingFilterer) WatchMinStakeAmountChange(opts *bind.
 	}), nil
 }
 
-// ParseMinStakeAmountChange is a log parse operation binding the contract event 0x59993a665fbc5ab65fc6d986fb877821545f1dbfe0d7bc73ef1db7953734a904.
+// ParseMinStakeAmountChanged is a log parse operation binding the contract event 0x3b8dcd7d08f8aa9e93d2afc54830c8b23db9b7264f3bc503eb5fc2a0289bc2cb.
 //
-// Solidity: event MinStakeAmountChange(uint256 _oldMinStakeAmount, uint256 _minStakeAmount)
-func (_LargeStaking *LargeStakingFilterer) ParseMinStakeAmountChange(log types.Log) (*LargeStakingMinStakeAmountChange, error) {
-	event := new(LargeStakingMinStakeAmountChange)
-	if err := _LargeStaking.contract.UnpackLog(event, "MinStakeAmountChange", log); err != nil {
+// Solidity: event MinStakeAmountChanged(uint256 _oldMinStakeAmount, uint256 _minStakeAmount)
+func (_LargeStaking *LargeStakingFilterer) ParseMinStakeAmountChanged(log types.Log) (*LargeStakingMinStakeAmountChanged, error) {
+	event := new(LargeStakingMinStakeAmountChanged)
+	if err := _LargeStaking.contract.UnpackLog(event, "MinStakeAmountChanged", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -5751,13 +6042,13 @@ func (it *LargeStakingValidatorExitReportIterator) Close() error {
 // LargeStakingValidatorExitReport represents a ValidatorExitReport event raised by the LargeStaking contract.
 type LargeStakingValidatorExitReport struct {
 	OperatorId *big.Int
-	Pubkey     []byte
+	Pubkey     [][]byte
 	Raw        types.Log // Blockchain specific contextual infos
 }
 
-// FilterValidatorExitReport is a free log retrieval operation binding the contract event 0xce36d5425f5ded39d8f3fdf6993fa1813765eda9036a01723ca907fc617d7b86.
+// FilterValidatorExitReport is a free log retrieval operation binding the contract event 0x14f255fd365d839be346d5f2e36dd7212560ca5e9d59dd88071f7b1c1d50f03d.
 //
-// Solidity: event ValidatorExitReport(uint256 _operatorId, bytes _pubkey)
+// Solidity: event ValidatorExitReport(uint256 _operatorId, bytes[] _pubkey)
 func (_LargeStaking *LargeStakingFilterer) FilterValidatorExitReport(opts *bind.FilterOpts) (*LargeStakingValidatorExitReportIterator, error) {
 
 	logs, sub, err := _LargeStaking.contract.FilterLogs(opts, "ValidatorExitReport")
@@ -5767,9 +6058,9 @@ func (_LargeStaking *LargeStakingFilterer) FilterValidatorExitReport(opts *bind.
 	return &LargeStakingValidatorExitReportIterator{contract: _LargeStaking.contract, event: "ValidatorExitReport", logs: logs, sub: sub}, nil
 }
 
-// WatchValidatorExitReport is a free log subscription operation binding the contract event 0xce36d5425f5ded39d8f3fdf6993fa1813765eda9036a01723ca907fc617d7b86.
+// WatchValidatorExitReport is a free log subscription operation binding the contract event 0x14f255fd365d839be346d5f2e36dd7212560ca5e9d59dd88071f7b1c1d50f03d.
 //
-// Solidity: event ValidatorExitReport(uint256 _operatorId, bytes _pubkey)
+// Solidity: event ValidatorExitReport(uint256 _operatorId, bytes[] _pubkey)
 func (_LargeStaking *LargeStakingFilterer) WatchValidatorExitReport(opts *bind.WatchOpts, sink chan<- *LargeStakingValidatorExitReport) (event.Subscription, error) {
 
 	logs, sub, err := _LargeStaking.contract.WatchLogs(opts, "ValidatorExitReport")
@@ -5804,9 +6095,9 @@ func (_LargeStaking *LargeStakingFilterer) WatchValidatorExitReport(opts *bind.W
 	}), nil
 }
 
-// ParseValidatorExitReport is a log parse operation binding the contract event 0xce36d5425f5ded39d8f3fdf6993fa1813765eda9036a01723ca907fc617d7b86.
+// ParseValidatorExitReport is a log parse operation binding the contract event 0x14f255fd365d839be346d5f2e36dd7212560ca5e9d59dd88071f7b1c1d50f03d.
 //
-// Solidity: event ValidatorExitReport(uint256 _operatorId, bytes _pubkey)
+// Solidity: event ValidatorExitReport(uint256 _operatorId, bytes[] _pubkey)
 func (_LargeStaking *LargeStakingFilterer) ParseValidatorExitReport(log types.Log) (*LargeStakingValidatorExitReport, error) {
 	event := new(LargeStakingValidatorExitReport)
 	if err := _LargeStaking.contract.UnpackLog(event, "ValidatorExitReport", log); err != nil {

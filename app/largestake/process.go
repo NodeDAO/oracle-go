@@ -26,7 +26,7 @@ import (
 )
 
 func EncodeLargeStakeReportData(reportData *largeStakeOracle.LargeStakeOracleReportData) ([32]byte, error) {
-	json, err := abi.JSON(strings.NewReader("[{\"inputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"consensusVersion\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"uint128\",\"name\":\"stakingId\",\"type\":\"uint128\"},{\"internalType\":\"bytes\",\"name\":\"pubkey\",\"type\":\"bytes\"}],\"internalType\":\"struct CLStakingExitInfo[]\",\"name\":\"clStakingExitInfos\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint128\",\"name\":\"stakingId\",\"type\":\"uint128\"},{\"internalType\":\"uint128\",\"name\":\"slashAmount\",\"type\":\"uint128\"},{\"internalType\":\"bytes\",\"name\":\"pubkey\",\"type\":\"bytes\"}],\"internalType\":\"struct CLStakingSlashInfo[]\",\"name\":\"clStakingSlashInfos\",\"type\":\"tuple[]\"}],\"internalType\":\"struct LargeStakeOracle.ReportData\",\"name\":\"data\",\"type\":\"tuple\"}],\"name\":\"submitReportData\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"))
+	json, err := abi.JSON(strings.NewReader("[{\"inputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"consensusVersion\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"uint128\",\"name\":\"stakingId\",\"type\":\"uint128\"},{\"internalType\":\"bytes[]\",\"name\":\"pubkeys\",\"type\":\"bytes[]\"}],\"internalType\":\"struct CLStakingExitInfo[]\",\"name\":\"clStakingExitInfos\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint128\",\"name\":\"stakingId\",\"type\":\"uint128\"},{\"internalType\":\"uint128\",\"name\":\"slashAmount\",\"type\":\"uint128\"},{\"internalType\":\"bytes\",\"name\":\"pubkey\",\"type\":\"bytes\"}],\"internalType\":\"struct CLStakingSlashInfo[]\",\"name\":\"clStakingSlashInfos\",\"type\":\"tuple[]\"}],\"internalType\":\"struct LargeStakeOracle.ReportData\",\"name\":\"data\",\"type\":\"tuple\"}],\"name\":\"submitReportData\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"))
 	encodedData, err := json.Methods["submitReportData"].Inputs.Pack(reportData)
 
 	// Code the data using the Pack method of the abi.Arguments structure
@@ -79,9 +79,6 @@ func (v *LargeStakeHelper) ProcessReportData(ctx context.Context) (*LargeStakeRe
 	// If the exit validator is greater than the exit limit, only the exit limit is taken
 	if len(clStakingExitInfos) > int(exitLimit.Int64()) {
 		logger.Warn("[LargeStakeOracle] exited validator count is more than exit limit.")
-		sort.Slice(clStakingExitInfos, func(i, j int) bool {
-			return string(clStakingExitInfos[i].Pubkey) < string(clStakingExitInfos[j].Pubkey)
-		})
 		clStakingExitInfos = clStakingExitInfos[:exitLimit.Int64()]
 
 		if len(clStakingSlashInfos) > int(exitLimit.Int64()) {
@@ -169,6 +166,8 @@ func (v *LargeStakeHelper) filterExitedSlashedValidator(
 	clStakingExitInfos := make([]largeStakeOracle.CLStakingExitInfo, 0)
 	clStakingSlashInfos := make([]largeStakeOracle.CLStakingSlashInfo, 0)
 
+	exitStakingIdMap := make(map[uint64][][]byte)
+
 	for pubkey, validatorExa := range validatorExaMap {
 		pubkeyByte, err := hexutil.Decode(pubkey)
 		if err != nil {
@@ -183,10 +182,10 @@ func (v *LargeStakeHelper) filterExitedSlashedValidator(
 		if validatorExa.Validator.Status == consensusApi.ValidatorStateUnknown {
 			if validatorInfo.RegisterBlock.Cmp(v.refBlockNumber) < 0 && validatorInfo.ExitBlock.Cmp(big.NewInt(0)) == 0 {
 				if new(big.Int).Sub(v.refBlockNumber, validatorInfo.RegisterBlock).Cmp(big.NewInt(TWO_DAY_BLOCK_NUMBER)) > 0 {
-					clStakingExitInfos = append(clStakingExitInfos, largeStakeOracle.CLStakingExitInfo{
-						StakingId: validatorExa.StakingId,
-						Pubkey:    pubkeyByte,
-					})
+					if _, ok := exitStakingIdMap[validatorExa.StakingId.Uint64()]; !ok {
+						exitStakingIdMap[validatorExa.StakingId.Uint64()] = make([][]byte, 0)
+					}
+					exitStakingIdMap[validatorExa.StakingId.Uint64()] = append(exitStakingIdMap[validatorExa.StakingId.Uint64()], pubkeyByte)
 				}
 			}
 			continue
@@ -194,10 +193,10 @@ func (v *LargeStakeHelper) filterExitedSlashedValidator(
 
 		if beacon.ValidatorIsFullExited(validatorExa.Validator) {
 			if validatorInfo.ExitBlock.Cmp(big.NewInt(0)) == 0 {
-				clStakingExitInfos = append(clStakingExitInfos, largeStakeOracle.CLStakingExitInfo{
-					StakingId: validatorExa.StakingId,
-					Pubkey:    pubkeyByte,
-				})
+				if _, ok := exitStakingIdMap[validatorExa.StakingId.Uint64()]; !ok {
+					exitStakingIdMap[validatorExa.StakingId.Uint64()] = make([][]byte, 0)
+				}
+				exitStakingIdMap[validatorExa.StakingId.Uint64()] = append(exitStakingIdMap[validatorExa.StakingId.Uint64()], pubkeyByte)
 			}
 		}
 
@@ -222,6 +221,16 @@ func (v *LargeStakeHelper) filterExitedSlashedValidator(
 				})
 			}
 		}
+	}
+
+	for stakingId, pubkeyBytes := range exitStakingIdMap {
+		sort.Slice(pubkeyBytes, func(i, j int) bool {
+			return string(pubkeyBytes[i]) < string(pubkeyBytes[j])
+		})
+		clStakingExitInfos = append(clStakingExitInfos, largeStakeOracle.CLStakingExitInfo{
+			StakingId: big.NewInt(int64(stakingId)),
+			Pubkeys:   pubkeyBytes,
+		})
 	}
 
 	return clStakingExitInfos, clStakingSlashInfos, nil

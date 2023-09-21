@@ -54,19 +54,20 @@ type WithdrawOracleProcessingState struct {
 
 // WithdrawOracleReportData is an auto generated low-level Go binding around an user-defined struct.
 type WithdrawOracleReportData struct {
-	ConsensusVersion   *big.Int
-	RefSlot            *big.Int
-	ClBalance          *big.Int
-	ClVaultBalance     *big.Int
-	ClSettleAmount     *big.Int
-	ReportExitedCount  *big.Int
-	WithdrawInfos      []WithdrawInfo
-	ExitValidatorInfos []ExitValidatorInfo
+	ConsensusVersion      *big.Int
+	RefSlot               *big.Int
+	ClBalance             *big.Int
+	ClVaultBalance        *big.Int
+	ClSettleAmount        *big.Int
+	ReportExitedCount     *big.Int
+	WithdrawInfos         []WithdrawInfo
+	ExitValidatorInfos    []ExitValidatorInfo
+	ReportPendingBalances *big.Int
 }
 
 // WithdrawOracleMetaData contains all meta data concerning the WithdrawOracle contract.
 var WithdrawOracleMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[],\"name\":\"AddressCannotBeSame\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AddressCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ArgumentOutOfBounds\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ClVaultBalanceNotMinSettleLimit\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ClVaultMinSettleLimitNotZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DaoCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ExitRequestLimitNotZero\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"initialRefSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"processingRefSlot\",\"type\":\"uint256\"}],\"name\":\"InitialRefSlotCannotBeLessThanProcessingOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidAddr\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidContractVersionIncrement\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidRequestsData\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidRequestsDataLength\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"curTotal\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minTotal\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxTotal\",\"type\":\"uint256\"}],\"name\":\"InvalidTotalBalance\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ModuleIdIsZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ModuleIdNotEqual\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NonZeroContractVersionOnInit\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OnlyConsensusContractCanSubmitReport\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PermissionDenied\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"ProcessingDeadlineMissed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RefSlotAlreadyProcessing\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"prevRefSlot\",\"type\":\"uint256\"}],\"name\":\"RefSlotCannotDecrease\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"processingRefSlot\",\"type\":\"uint256\"}],\"name\":\"RefSlotMustBeGreaterThanProcessingOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SenderNotAllowed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"UnexpectedChainConfig\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"expectedVersion\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"receivedVersion\",\"type\":\"uint256\"}],\"name\":\"UnexpectedConsensusVersion\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"expected\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"received\",\"type\":\"uint256\"}],\"name\":\"UnexpectedContractVersion\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"consensusHash\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"receivedHash\",\"type\":\"bytes32\"}],\"name\":\"UnexpectedDataHash\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"consensusRefSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"dataRefSlot\",\"type\":\"uint256\"}],\"name\":\"UnexpectedRefSlot\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"UnexpectedRequestsDataLength\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"format\",\"type\":\"uint256\"}],\"name\":\"UnsupportedRequestsDataFormat\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"ValidatorReportedExited\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"VersionCannotBeSame\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"prevAddr\",\"type\":\"address\"}],\"name\":\"ConsensusHashContractSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"version\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"prevVersion\",\"type\":\"uint256\"}],\"name\":\"ConsensusVersionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"version\",\"type\":\"uint256\"}],\"name\":\"ContractVersionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDao\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"DaoAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldLiq\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newLiq\",\"type\":\"address\"}],\"name\":\"LiquidStakingChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_addBalance\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_totalBalance\",\"type\":\"uint256\"}],\"name\":\"PendingBalancesAdd\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalBalance\",\"type\":\"uint256\"}],\"name\":\"PendingBalancesReset\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"ProcessingStarted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"reportExitedCount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"clBalance\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"clVaultBalance\",\"type\":\"uint256\"}],\"name\":\"ReportDataSuccess\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"processingDeadlineTime\",\"type\":\"uint256\"}],\"name\":\"ReportSubmitted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"clVaultMinSettleLimit\",\"type\":\"uint256\"}],\"name\":\"UpdateClVaultMinSettleLimit\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"exitRequestLimit\",\"type\":\"uint256\"}],\"name\":\"UpdateExitRequestLimit\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"old\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalBalanceTolerate\",\"type\":\"uint256\"}],\"name\":\"UpdateTotalBalanceTolerate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldVaultManager\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newVaultManager\",\"type\":\"address\"}],\"name\":\"VaultManagerChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"exitRequestLimit\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"reportExitedCount\",\"type\":\"uint256\"}],\"name\":\"WarnDataIncompleteProcessing\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"}],\"name\":\"WarnProcessingMissed\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"GENESIS_TIME\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"SECONDS_PER_SLOT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pendingBalance\",\"type\":\"uint256\"}],\"name\":\"addPendingBalances\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"clBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"clVaultBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"clVaultMinSettleLimit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dao\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"exitRequestLimit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getClBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getClVaultBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getConsensusContract\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getConsensusReport\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"processingDeadlineTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"processingStarted\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getConsensusVersion\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getContractVersion\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getLastClSettleAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getLastProcessingRefSlot\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPendingBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getProcessingState\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"currentFrameRefSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"processingDeadlineTime\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"dataHash\",\"type\":\"bytes32\"},{\"internalType\":\"bool\",\"name\":\"dataSubmitted\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"reportExitedCount\",\"type\":\"uint256\"}],\"internalType\":\"structWithdrawOracle.ProcessingState\",\"name\":\"result\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"secondsPerSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"genesisTime\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"consensusContract\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"consensusVersion\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lastProcessingRefSlot\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_exitRequestLimit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_clVaultMinSettleLimit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_clBalance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_pendingBalance\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_consensus\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_lastProcessingRefSlot\",\"type\":\"uint256\"}],\"name\":\"initializeV2\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"lastClSettleAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"lastRefSlot\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"liquidStakingContractAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pendingBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_clVaultMinSettleLimit\",\"type\":\"uint256\"}],\"name\":\"setClVaultMinSettleLimit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"setConsensusContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"version\",\"type\":\"uint256\"}],\"name\":\"setConsensusVersion\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"setDaoAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_exitRequestLimit\",\"type\":\"uint256\"}],\"name\":\"setExitRequestLimit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_liquidStakingContractAddress\",\"type\":\"address\"}],\"name\":\"setLiquidStaking\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_totalBalanceTolerate\",\"type\":\"uint256\"}],\"name\":\"setTotalBalanceTolerate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_vaultManagerContractAddress\",\"type\":\"address\"}],\"name\":\"setVaultManager\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"reportHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_moduleId\",\"type\":\"uint256\"}],\"name\":\"submitConsensusReport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"consensusVersion\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"clBalance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"clVaultBalance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"clSettleAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"reportExitedCount\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"operatorId\",\"type\":\"uint64\"},{\"internalType\":\"uint96\",\"name\":\"clReward\",\"type\":\"uint96\"},{\"internalType\":\"uint96\",\"name\":\"clCapital\",\"type\":\"uint96\"}],\"internalType\":\"structWithdrawInfo[]\",\"name\":\"withdrawInfos\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"exitTokenId\",\"type\":\"uint64\"},{\"internalType\":\"uint96\",\"name\":\"exitBlockNumber\",\"type\":\"uint96\"},{\"internalType\":\"uint96\",\"name\":\"slashAmount\",\"type\":\"uint96\"}],\"internalType\":\"structExitValidatorInfo[]\",\"name\":\"exitValidatorInfos\",\"type\":\"tuple[]\"}],\"internalType\":\"structWithdrawOracle.ReportData\",\"name\":\"data\",\"type\":\"tuple\"},{\"internalType\":\"uint256\",\"name\":\"_contractVersion\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_moduleId\",\"type\":\"uint256\"}],\"name\":\"submitReportData\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalBalanceTolerate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"version\",\"type\":\"uint256\"}],\"name\":\"updateContractVersion\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultManager\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[],\"name\":\"AddressCannotBeSame\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AddressCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ArgumentOutOfBounds\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ClVaultBalanceNotMinSettleLimit\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ClVaultMinSettleLimitNotZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DaoCannotBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ExitRequestLimitNotZero\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"initialRefSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"processingRefSlot\",\"type\":\"uint256\"}],\"name\":\"InitialRefSlotCannotBeLessThanProcessingOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidAddr\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidContractVersionIncrement\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidRequestsData\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidRequestsDataLength\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"curTotal\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minTotal\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxTotal\",\"type\":\"uint256\"}],\"name\":\"InvalidTotalBalance\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ModuleIdIsZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ModuleIdNotEqual\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NonZeroContractVersionOnInit\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OnlyConsensusContractCanSubmitReport\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PermissionDenied\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"ProcessingDeadlineMissed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RefSlotAlreadyProcessing\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"prevRefSlot\",\"type\":\"uint256\"}],\"name\":\"RefSlotCannotDecrease\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"processingRefSlot\",\"type\":\"uint256\"}],\"name\":\"RefSlotMustBeGreaterThanProcessingOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SenderNotAllowed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"UnexpectedChainConfig\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"expectedVersion\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"receivedVersion\",\"type\":\"uint256\"}],\"name\":\"UnexpectedConsensusVersion\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"expected\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"received\",\"type\":\"uint256\"}],\"name\":\"UnexpectedContractVersion\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"consensusHash\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"receivedHash\",\"type\":\"bytes32\"}],\"name\":\"UnexpectedDataHash\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"consensusRefSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"dataRefSlot\",\"type\":\"uint256\"}],\"name\":\"UnexpectedRefSlot\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"UnexpectedRequestsDataLength\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"format\",\"type\":\"uint256\"}],\"name\":\"UnsupportedRequestsDataFormat\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"ValidatorReportedExited\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"VersionCannotBeSame\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"prevAddr\",\"type\":\"address\"}],\"name\":\"ConsensusHashContractSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"version\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"prevVersion\",\"type\":\"uint256\"}],\"name\":\"ConsensusVersionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"version\",\"type\":\"uint256\"}],\"name\":\"ContractVersionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_oldDao\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"DaoAddressChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldLiq\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newLiq\",\"type\":\"address\"}],\"name\":\"LiquidStakingChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_addBalance\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_totalBalance\",\"type\":\"uint256\"}],\"name\":\"PendingBalancesAdd\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalBalance\",\"type\":\"uint256\"}],\"name\":\"PendingBalancesReported\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"reportExitedCount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"clBalance\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"clVaultBalance\",\"type\":\"uint256\"}],\"name\":\"ReportDataSuccess\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"clVaultMinSettleLimit\",\"type\":\"uint256\"}],\"name\":\"UpdateClVaultMinSettleLimit\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"exitRequestLimit\",\"type\":\"uint256\"}],\"name\":\"UpdateExitRequestLimit\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"old\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalBalanceTolerate\",\"type\":\"uint256\"}],\"name\":\"UpdateTotalBalanceTolerate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldVaultManager\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newVaultManager\",\"type\":\"address\"}],\"name\":\"VaultManagerChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"}],\"name\":\"WarnProcessingMissed\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"GENESIS_TIME\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"SECONDS_PER_SLOT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pendingBalance\",\"type\":\"uint256\"}],\"name\":\"addPendingBalances\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"clBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"clVaultBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"clVaultMinSettleLimit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dao\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"exitRequestLimit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getClBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getClVaultBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getConsensusContract\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getConsensusReport\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"processingDeadlineTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"processingStarted\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getConsensusVersion\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getContractVersion\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getLastClSettleAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getLastProcessingRefSlot\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPendingBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getProcessingState\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"currentFrameRefSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"processingDeadlineTime\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"dataHash\",\"type\":\"bytes32\"},{\"internalType\":\"bool\",\"name\":\"dataSubmitted\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"reportExitedCount\",\"type\":\"uint256\"}],\"internalType\":\"structWithdrawOracle.ProcessingState\",\"name\":\"result\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"secondsPerSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"genesisTime\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"consensusContract\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"consensusVersion\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lastProcessingRefSlot\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_exitRequestLimit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_clVaultMinSettleLimit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_clBalance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_pendingBalance\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_consensus\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_lastProcessingRefSlot\",\"type\":\"uint256\"}],\"name\":\"initializeV2\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"lastClSettleAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"lastRefSlot\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"liquidStakingContractAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pendingBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_clVaultMinSettleLimit\",\"type\":\"uint256\"}],\"name\":\"setClVaultMinSettleLimit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"setConsensusContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"version\",\"type\":\"uint256\"}],\"name\":\"setConsensusVersion\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"}],\"name\":\"setDaoAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_exitRequestLimit\",\"type\":\"uint256\"}],\"name\":\"setExitRequestLimit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_liquidStakingContractAddress\",\"type\":\"address\"}],\"name\":\"setLiquidStaking\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_totalBalanceTolerate\",\"type\":\"uint256\"}],\"name\":\"setTotalBalanceTolerate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_vaultManagerContractAddress\",\"type\":\"address\"}],\"name\":\"setVaultManager\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"reportHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_moduleId\",\"type\":\"uint256\"}],\"name\":\"submitConsensusReport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"consensusVersion\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"refSlot\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"clBalance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"clVaultBalance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"clSettleAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"reportExitedCount\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"operatorId\",\"type\":\"uint64\"},{\"internalType\":\"uint96\",\"name\":\"clReward\",\"type\":\"uint96\"},{\"internalType\":\"uint96\",\"name\":\"clCapital\",\"type\":\"uint96\"}],\"internalType\":\"structWithdrawInfo[]\",\"name\":\"withdrawInfos\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"exitTokenId\",\"type\":\"uint64\"},{\"internalType\":\"uint96\",\"name\":\"exitBlockNumber\",\"type\":\"uint96\"},{\"internalType\":\"uint96\",\"name\":\"slashAmount\",\"type\":\"uint96\"}],\"internalType\":\"structExitValidatorInfo[]\",\"name\":\"exitValidatorInfos\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"reportPendingBalances\",\"type\":\"uint256\"}],\"internalType\":\"structWithdrawOracle.ReportData\",\"name\":\"data\",\"type\":\"tuple\"},{\"internalType\":\"uint256\",\"name\":\"_contractVersion\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_moduleId\",\"type\":\"uint256\"}],\"name\":\"submitReportData\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalBalanceTolerate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"version\",\"type\":\"uint256\"}],\"name\":\"updateContractVersion\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultManager\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // WithdrawOracleABI is the input ABI used to generate the binding from.
@@ -1339,23 +1340,23 @@ func (_WithdrawOracle *WithdrawOracleTransactorSession) SubmitConsensusReport(re
 	return _WithdrawOracle.Contract.SubmitConsensusReport(&_WithdrawOracle.TransactOpts, reportHash, refSlot, deadline, _moduleId)
 }
 
-// SubmitReportData is a paid mutator transaction binding the contract method 0x0e82572c.
+// SubmitReportData is a paid mutator transaction binding the contract method 0xbcd66e77.
 //
-// Solidity: function submitReportData((uint256,uint256,uint256,uint256,uint256,uint256,(uint64,uint96,uint96)[],(uint64,uint96,uint96)[]) data, uint256 _contractVersion, uint256 _moduleId) returns()
+// Solidity: function submitReportData((uint256,uint256,uint256,uint256,uint256,uint256,(uint64,uint96,uint96)[],(uint64,uint96,uint96)[],uint256) data, uint256 _contractVersion, uint256 _moduleId) returns()
 func (_WithdrawOracle *WithdrawOracleTransactor) SubmitReportData(opts *bind.TransactOpts, data WithdrawOracleReportData, _contractVersion *big.Int, _moduleId *big.Int) (*types.Transaction, error) {
 	return _WithdrawOracle.contract.Transact(opts, "submitReportData", data, _contractVersion, _moduleId)
 }
 
-// SubmitReportData is a paid mutator transaction binding the contract method 0x0e82572c.
+// SubmitReportData is a paid mutator transaction binding the contract method 0xbcd66e77.
 //
-// Solidity: function submitReportData((uint256,uint256,uint256,uint256,uint256,uint256,(uint64,uint96,uint96)[],(uint64,uint96,uint96)[]) data, uint256 _contractVersion, uint256 _moduleId) returns()
+// Solidity: function submitReportData((uint256,uint256,uint256,uint256,uint256,uint256,(uint64,uint96,uint96)[],(uint64,uint96,uint96)[],uint256) data, uint256 _contractVersion, uint256 _moduleId) returns()
 func (_WithdrawOracle *WithdrawOracleSession) SubmitReportData(data WithdrawOracleReportData, _contractVersion *big.Int, _moduleId *big.Int) (*types.Transaction, error) {
 	return _WithdrawOracle.Contract.SubmitReportData(&_WithdrawOracle.TransactOpts, data, _contractVersion, _moduleId)
 }
 
-// SubmitReportData is a paid mutator transaction binding the contract method 0x0e82572c.
+// SubmitReportData is a paid mutator transaction binding the contract method 0xbcd66e77.
 //
-// Solidity: function submitReportData((uint256,uint256,uint256,uint256,uint256,uint256,(uint64,uint96,uint96)[],(uint64,uint96,uint96)[]) data, uint256 _contractVersion, uint256 _moduleId) returns()
+// Solidity: function submitReportData((uint256,uint256,uint256,uint256,uint256,uint256,(uint64,uint96,uint96)[],(uint64,uint96,uint96)[],uint256) data, uint256 _contractVersion, uint256 _moduleId) returns()
 func (_WithdrawOracle *WithdrawOracleTransactorSession) SubmitReportData(data WithdrawOracleReportData, _contractVersion *big.Int, _moduleId *big.Int) (*types.Transaction, error) {
 	return _WithdrawOracle.Contract.SubmitReportData(&_WithdrawOracle.TransactOpts, data, _contractVersion, _moduleId)
 }
@@ -3010,9 +3011,9 @@ func (_WithdrawOracle *WithdrawOracleFilterer) ParsePendingBalancesAdd(log types
 	return event, nil
 }
 
-// WithdrawOraclePendingBalancesResetIterator is returned from FilterPendingBalancesReset and is used to iterate over the raw logs and unpacked data for PendingBalancesReset events raised by the WithdrawOracle contract.
-type WithdrawOraclePendingBalancesResetIterator struct {
-	Event *WithdrawOraclePendingBalancesReset // Event containing the contract specifics and raw log
+// WithdrawOraclePendingBalancesReportedIterator is returned from FilterPendingBalancesReported and is used to iterate over the raw logs and unpacked data for PendingBalancesReported events raised by the WithdrawOracle contract.
+type WithdrawOraclePendingBalancesReportedIterator struct {
+	Event *WithdrawOraclePendingBalancesReported // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -3026,7 +3027,7 @@ type WithdrawOraclePendingBalancesResetIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *WithdrawOraclePendingBalancesResetIterator) Next() bool {
+func (it *WithdrawOraclePendingBalancesReportedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -3035,7 +3036,7 @@ func (it *WithdrawOraclePendingBalancesResetIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(WithdrawOraclePendingBalancesReset)
+			it.Event = new(WithdrawOraclePendingBalancesReported)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -3050,7 +3051,7 @@ func (it *WithdrawOraclePendingBalancesResetIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(WithdrawOraclePendingBalancesReset)
+		it.Event = new(WithdrawOraclePendingBalancesReported)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -3066,41 +3067,41 @@ func (it *WithdrawOraclePendingBalancesResetIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *WithdrawOraclePendingBalancesResetIterator) Error() error {
+func (it *WithdrawOraclePendingBalancesReportedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *WithdrawOraclePendingBalancesResetIterator) Close() error {
+func (it *WithdrawOraclePendingBalancesReportedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// WithdrawOraclePendingBalancesReset represents a PendingBalancesReset event raised by the WithdrawOracle contract.
-type WithdrawOraclePendingBalancesReset struct {
+// WithdrawOraclePendingBalancesReported represents a PendingBalancesReported event raised by the WithdrawOracle contract.
+type WithdrawOraclePendingBalancesReported struct {
 	TotalBalance *big.Int
 	Raw          types.Log // Blockchain specific contextual infos
 }
 
-// FilterPendingBalancesReset is a free log retrieval operation binding the contract event 0x1944dc21941697055aa945cbccb8d3edd04161a51aff2d83089d1a82de3031a7.
+// FilterPendingBalancesReported is a free log retrieval operation binding the contract event 0xf8d4b79cf4fe5b3356e6d8fa690be25e56cd224b8edab748793874925d31c7b4.
 //
-// Solidity: event PendingBalancesReset(uint256 totalBalance)
-func (_WithdrawOracle *WithdrawOracleFilterer) FilterPendingBalancesReset(opts *bind.FilterOpts) (*WithdrawOraclePendingBalancesResetIterator, error) {
+// Solidity: event PendingBalancesReported(uint256 totalBalance)
+func (_WithdrawOracle *WithdrawOracleFilterer) FilterPendingBalancesReported(opts *bind.FilterOpts) (*WithdrawOraclePendingBalancesReportedIterator, error) {
 
-	logs, sub, err := _WithdrawOracle.contract.FilterLogs(opts, "PendingBalancesReset")
+	logs, sub, err := _WithdrawOracle.contract.FilterLogs(opts, "PendingBalancesReported")
 	if err != nil {
 		return nil, err
 	}
-	return &WithdrawOraclePendingBalancesResetIterator{contract: _WithdrawOracle.contract, event: "PendingBalancesReset", logs: logs, sub: sub}, nil
+	return &WithdrawOraclePendingBalancesReportedIterator{contract: _WithdrawOracle.contract, event: "PendingBalancesReported", logs: logs, sub: sub}, nil
 }
 
-// WatchPendingBalancesReset is a free log subscription operation binding the contract event 0x1944dc21941697055aa945cbccb8d3edd04161a51aff2d83089d1a82de3031a7.
+// WatchPendingBalancesReported is a free log subscription operation binding the contract event 0xf8d4b79cf4fe5b3356e6d8fa690be25e56cd224b8edab748793874925d31c7b4.
 //
-// Solidity: event PendingBalancesReset(uint256 totalBalance)
-func (_WithdrawOracle *WithdrawOracleFilterer) WatchPendingBalancesReset(opts *bind.WatchOpts, sink chan<- *WithdrawOraclePendingBalancesReset) (event.Subscription, error) {
+// Solidity: event PendingBalancesReported(uint256 totalBalance)
+func (_WithdrawOracle *WithdrawOracleFilterer) WatchPendingBalancesReported(opts *bind.WatchOpts, sink chan<- *WithdrawOraclePendingBalancesReported) (event.Subscription, error) {
 
-	logs, sub, err := _WithdrawOracle.contract.WatchLogs(opts, "PendingBalancesReset")
+	logs, sub, err := _WithdrawOracle.contract.WatchLogs(opts, "PendingBalancesReported")
 	if err != nil {
 		return nil, err
 	}
@@ -3110,8 +3111,8 @@ func (_WithdrawOracle *WithdrawOracleFilterer) WatchPendingBalancesReset(opts *b
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(WithdrawOraclePendingBalancesReset)
-				if err := _WithdrawOracle.contract.UnpackLog(event, "PendingBalancesReset", log); err != nil {
+				event := new(WithdrawOraclePendingBalancesReported)
+				if err := _WithdrawOracle.contract.UnpackLog(event, "PendingBalancesReported", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -3132,157 +3133,12 @@ func (_WithdrawOracle *WithdrawOracleFilterer) WatchPendingBalancesReset(opts *b
 	}), nil
 }
 
-// ParsePendingBalancesReset is a log parse operation binding the contract event 0x1944dc21941697055aa945cbccb8d3edd04161a51aff2d83089d1a82de3031a7.
+// ParsePendingBalancesReported is a log parse operation binding the contract event 0xf8d4b79cf4fe5b3356e6d8fa690be25e56cd224b8edab748793874925d31c7b4.
 //
-// Solidity: event PendingBalancesReset(uint256 totalBalance)
-func (_WithdrawOracle *WithdrawOracleFilterer) ParsePendingBalancesReset(log types.Log) (*WithdrawOraclePendingBalancesReset, error) {
-	event := new(WithdrawOraclePendingBalancesReset)
-	if err := _WithdrawOracle.contract.UnpackLog(event, "PendingBalancesReset", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// WithdrawOracleProcessingStartedIterator is returned from FilterProcessingStarted and is used to iterate over the raw logs and unpacked data for ProcessingStarted events raised by the WithdrawOracle contract.
-type WithdrawOracleProcessingStartedIterator struct {
-	Event *WithdrawOracleProcessingStarted // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *WithdrawOracleProcessingStartedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(WithdrawOracleProcessingStarted)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(WithdrawOracleProcessingStarted)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *WithdrawOracleProcessingStartedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *WithdrawOracleProcessingStartedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// WithdrawOracleProcessingStarted represents a ProcessingStarted event raised by the WithdrawOracle contract.
-type WithdrawOracleProcessingStarted struct {
-	RefSlot *big.Int
-	Hash    [32]byte
-	Raw     types.Log // Blockchain specific contextual infos
-}
-
-// FilterProcessingStarted is a free log retrieval operation binding the contract event 0xf73febded7d4502284718948a3e1d75406151c6326bde069424a584a4f6af87a.
-//
-// Solidity: event ProcessingStarted(uint256 indexed refSlot, bytes32 hash)
-func (_WithdrawOracle *WithdrawOracleFilterer) FilterProcessingStarted(opts *bind.FilterOpts, refSlot []*big.Int) (*WithdrawOracleProcessingStartedIterator, error) {
-
-	var refSlotRule []interface{}
-	for _, refSlotItem := range refSlot {
-		refSlotRule = append(refSlotRule, refSlotItem)
-	}
-
-	logs, sub, err := _WithdrawOracle.contract.FilterLogs(opts, "ProcessingStarted", refSlotRule)
-	if err != nil {
-		return nil, err
-	}
-	return &WithdrawOracleProcessingStartedIterator{contract: _WithdrawOracle.contract, event: "ProcessingStarted", logs: logs, sub: sub}, nil
-}
-
-// WatchProcessingStarted is a free log subscription operation binding the contract event 0xf73febded7d4502284718948a3e1d75406151c6326bde069424a584a4f6af87a.
-//
-// Solidity: event ProcessingStarted(uint256 indexed refSlot, bytes32 hash)
-func (_WithdrawOracle *WithdrawOracleFilterer) WatchProcessingStarted(opts *bind.WatchOpts, sink chan<- *WithdrawOracleProcessingStarted, refSlot []*big.Int) (event.Subscription, error) {
-
-	var refSlotRule []interface{}
-	for _, refSlotItem := range refSlot {
-		refSlotRule = append(refSlotRule, refSlotItem)
-	}
-
-	logs, sub, err := _WithdrawOracle.contract.WatchLogs(opts, "ProcessingStarted", refSlotRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(WithdrawOracleProcessingStarted)
-				if err := _WithdrawOracle.contract.UnpackLog(event, "ProcessingStarted", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseProcessingStarted is a log parse operation binding the contract event 0xf73febded7d4502284718948a3e1d75406151c6326bde069424a584a4f6af87a.
-//
-// Solidity: event ProcessingStarted(uint256 indexed refSlot, bytes32 hash)
-func (_WithdrawOracle *WithdrawOracleFilterer) ParseProcessingStarted(log types.Log) (*WithdrawOracleProcessingStarted, error) {
-	event := new(WithdrawOracleProcessingStarted)
-	if err := _WithdrawOracle.contract.UnpackLog(event, "ProcessingStarted", log); err != nil {
+// Solidity: event PendingBalancesReported(uint256 totalBalance)
+func (_WithdrawOracle *WithdrawOracleFilterer) ParsePendingBalancesReported(log types.Log) (*WithdrawOraclePendingBalancesReported, error) {
+	event := new(WithdrawOraclePendingBalancesReported)
+	if err := _WithdrawOracle.contract.UnpackLog(event, "PendingBalancesReported", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -3430,152 +3286,6 @@ func (_WithdrawOracle *WithdrawOracleFilterer) WatchReportDataSuccess(opts *bind
 func (_WithdrawOracle *WithdrawOracleFilterer) ParseReportDataSuccess(log types.Log) (*WithdrawOracleReportDataSuccess, error) {
 	event := new(WithdrawOracleReportDataSuccess)
 	if err := _WithdrawOracle.contract.UnpackLog(event, "ReportDataSuccess", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// WithdrawOracleReportSubmittedIterator is returned from FilterReportSubmitted and is used to iterate over the raw logs and unpacked data for ReportSubmitted events raised by the WithdrawOracle contract.
-type WithdrawOracleReportSubmittedIterator struct {
-	Event *WithdrawOracleReportSubmitted // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *WithdrawOracleReportSubmittedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(WithdrawOracleReportSubmitted)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(WithdrawOracleReportSubmitted)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *WithdrawOracleReportSubmittedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *WithdrawOracleReportSubmittedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// WithdrawOracleReportSubmitted represents a ReportSubmitted event raised by the WithdrawOracle contract.
-type WithdrawOracleReportSubmitted struct {
-	RefSlot                *big.Int
-	Hash                   [32]byte
-	ProcessingDeadlineTime *big.Int
-	Raw                    types.Log // Blockchain specific contextual infos
-}
-
-// FilterReportSubmitted is a free log retrieval operation binding the contract event 0xaed7d1a7a1831158dcda1e4214f5862f450bd3eb5721a5f322bf8c9fe1790b0a.
-//
-// Solidity: event ReportSubmitted(uint256 indexed refSlot, bytes32 hash, uint256 processingDeadlineTime)
-func (_WithdrawOracle *WithdrawOracleFilterer) FilterReportSubmitted(opts *bind.FilterOpts, refSlot []*big.Int) (*WithdrawOracleReportSubmittedIterator, error) {
-
-	var refSlotRule []interface{}
-	for _, refSlotItem := range refSlot {
-		refSlotRule = append(refSlotRule, refSlotItem)
-	}
-
-	logs, sub, err := _WithdrawOracle.contract.FilterLogs(opts, "ReportSubmitted", refSlotRule)
-	if err != nil {
-		return nil, err
-	}
-	return &WithdrawOracleReportSubmittedIterator{contract: _WithdrawOracle.contract, event: "ReportSubmitted", logs: logs, sub: sub}, nil
-}
-
-// WatchReportSubmitted is a free log subscription operation binding the contract event 0xaed7d1a7a1831158dcda1e4214f5862f450bd3eb5721a5f322bf8c9fe1790b0a.
-//
-// Solidity: event ReportSubmitted(uint256 indexed refSlot, bytes32 hash, uint256 processingDeadlineTime)
-func (_WithdrawOracle *WithdrawOracleFilterer) WatchReportSubmitted(opts *bind.WatchOpts, sink chan<- *WithdrawOracleReportSubmitted, refSlot []*big.Int) (event.Subscription, error) {
-
-	var refSlotRule []interface{}
-	for _, refSlotItem := range refSlot {
-		refSlotRule = append(refSlotRule, refSlotItem)
-	}
-
-	logs, sub, err := _WithdrawOracle.contract.WatchLogs(opts, "ReportSubmitted", refSlotRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(WithdrawOracleReportSubmitted)
-				if err := _WithdrawOracle.contract.UnpackLog(event, "ReportSubmitted", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseReportSubmitted is a log parse operation binding the contract event 0xaed7d1a7a1831158dcda1e4214f5862f450bd3eb5721a5f322bf8c9fe1790b0a.
-//
-// Solidity: event ReportSubmitted(uint256 indexed refSlot, bytes32 hash, uint256 processingDeadlineTime)
-func (_WithdrawOracle *WithdrawOracleFilterer) ParseReportSubmitted(log types.Log) (*WithdrawOracleReportSubmitted, error) {
-	event := new(WithdrawOracleReportSubmitted)
-	if err := _WithdrawOracle.contract.UnpackLog(event, "ReportSubmitted", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -4392,152 +4102,6 @@ func (_WithdrawOracle *WithdrawOracleFilterer) WatchVaultManagerChanged(opts *bi
 func (_WithdrawOracle *WithdrawOracleFilterer) ParseVaultManagerChanged(log types.Log) (*WithdrawOracleVaultManagerChanged, error) {
 	event := new(WithdrawOracleVaultManagerChanged)
 	if err := _WithdrawOracle.contract.UnpackLog(event, "VaultManagerChanged", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// WithdrawOracleWarnDataIncompleteProcessingIterator is returned from FilterWarnDataIncompleteProcessing and is used to iterate over the raw logs and unpacked data for WarnDataIncompleteProcessing events raised by the WithdrawOracle contract.
-type WithdrawOracleWarnDataIncompleteProcessingIterator struct {
-	Event *WithdrawOracleWarnDataIncompleteProcessing // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *WithdrawOracleWarnDataIncompleteProcessingIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(WithdrawOracleWarnDataIncompleteProcessing)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(WithdrawOracleWarnDataIncompleteProcessing)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *WithdrawOracleWarnDataIncompleteProcessingIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *WithdrawOracleWarnDataIncompleteProcessingIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// WithdrawOracleWarnDataIncompleteProcessing represents a WarnDataIncompleteProcessing event raised by the WithdrawOracle contract.
-type WithdrawOracleWarnDataIncompleteProcessing struct {
-	RefSlot           *big.Int
-	ExitRequestLimit  *big.Int
-	ReportExitedCount *big.Int
-	Raw               types.Log // Blockchain specific contextual infos
-}
-
-// FilterWarnDataIncompleteProcessing is a free log retrieval operation binding the contract event 0xefc67aab43195093a8d8ed25d52281d96de480748ece2787888c586e8e1e79b4.
-//
-// Solidity: event WarnDataIncompleteProcessing(uint256 indexed refSlot, uint256 exitRequestLimit, uint256 reportExitedCount)
-func (_WithdrawOracle *WithdrawOracleFilterer) FilterWarnDataIncompleteProcessing(opts *bind.FilterOpts, refSlot []*big.Int) (*WithdrawOracleWarnDataIncompleteProcessingIterator, error) {
-
-	var refSlotRule []interface{}
-	for _, refSlotItem := range refSlot {
-		refSlotRule = append(refSlotRule, refSlotItem)
-	}
-
-	logs, sub, err := _WithdrawOracle.contract.FilterLogs(opts, "WarnDataIncompleteProcessing", refSlotRule)
-	if err != nil {
-		return nil, err
-	}
-	return &WithdrawOracleWarnDataIncompleteProcessingIterator{contract: _WithdrawOracle.contract, event: "WarnDataIncompleteProcessing", logs: logs, sub: sub}, nil
-}
-
-// WatchWarnDataIncompleteProcessing is a free log subscription operation binding the contract event 0xefc67aab43195093a8d8ed25d52281d96de480748ece2787888c586e8e1e79b4.
-//
-// Solidity: event WarnDataIncompleteProcessing(uint256 indexed refSlot, uint256 exitRequestLimit, uint256 reportExitedCount)
-func (_WithdrawOracle *WithdrawOracleFilterer) WatchWarnDataIncompleteProcessing(opts *bind.WatchOpts, sink chan<- *WithdrawOracleWarnDataIncompleteProcessing, refSlot []*big.Int) (event.Subscription, error) {
-
-	var refSlotRule []interface{}
-	for _, refSlotItem := range refSlot {
-		refSlotRule = append(refSlotRule, refSlotItem)
-	}
-
-	logs, sub, err := _WithdrawOracle.contract.WatchLogs(opts, "WarnDataIncompleteProcessing", refSlotRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(WithdrawOracleWarnDataIncompleteProcessing)
-				if err := _WithdrawOracle.contract.UnpackLog(event, "WarnDataIncompleteProcessing", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseWarnDataIncompleteProcessing is a log parse operation binding the contract event 0xefc67aab43195093a8d8ed25d52281d96de480748ece2787888c586e8e1e79b4.
-//
-// Solidity: event WarnDataIncompleteProcessing(uint256 indexed refSlot, uint256 exitRequestLimit, uint256 reportExitedCount)
-func (_WithdrawOracle *WithdrawOracleFilterer) ParseWarnDataIncompleteProcessing(log types.Log) (*WithdrawOracleWarnDataIncompleteProcessing, error) {
-	event := new(WithdrawOracleWarnDataIncompleteProcessing)
-	if err := _WithdrawOracle.contract.UnpackLog(event, "WarnDataIncompleteProcessing", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

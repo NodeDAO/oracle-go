@@ -10,6 +10,7 @@ import (
 	"github.com/NodeDAO/oracle-go/app/withdraw"
 	"github.com/NodeDAO/oracle-go/common/errs"
 	"github.com/NodeDAO/oracle-go/common/logger"
+	"github.com/NodeDAO/oracle-go/config"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
@@ -25,6 +26,7 @@ var (
 		PreRun: func(*cobra.Command, []string) {
 			ctx := context.Background()
 			app.InitServer(ctx)
+			logger.Info("NodeDAO oracle-go oracle server.", zap.String("version", config.Config.Server.Version))
 		},
 		Run: func(cmd *cobra.Command, args []string) {
 			for {
