@@ -29,6 +29,7 @@ func TestValidatorBalance(t *testing.T) {
 
 	w := new(WithdrawHelper)
 	w.clBalance = big.NewInt(0)
+	w.validatorExaMap = make(map[string]*ValidatorExa)
 
 	consensusContract, err := w.oracle.GetConsensusContract(ctx)
 	require.NoError(t, err)
@@ -52,9 +53,10 @@ func TestValidatorBalance(t *testing.T) {
 
 	logger.Debug("-------start calculate validator balance-----", zap.Int("count", len(w.validatorExaMap)))
 	for pubkey, exa := range w.validatorExaMap {
-		// sum cl balance
-		w.clBalance = new(big.Int).Add(w.clBalance, big.NewInt(int64(exa.Validator.Balance)))
-
+		if exa.VnftOwner == LiquidStaking {
+			// sum cl balance
+			w.clBalance = new(big.Int).Add(w.clBalance, big.NewInt(int64(exa.Validator.Balance)))
+		}
 		fmt.Printf("pubkey:%s balance:%v status:%s \n", pubkey, exa.Validator.Balance, exa.Validator.Status)
 	}
 	logger.Debug("-------end calculate validator balance-----")
@@ -74,6 +76,12 @@ func TestNodeDAOValidatorForSlot(t *testing.T) {
 		refSlot:      big.NewInt(6355903),
 		deadlineSlot: big.NewInt(6356223),
 	}
+
+	logger.Info("block info",
+		zap.String("block number", elBlockNumber.String()),
+		zap.String("refSlot", v.refSlot.String()),
+	)
+
 	v.validatorExaMap = make(map[string]*ValidatorExa)
 	v.requireReportValidator = make(map[string]*ValidatorExa)
 
@@ -107,7 +115,7 @@ func TestNodeDAOValidatorForSlot(t *testing.T) {
 		exa.OperatorId = operatorId
 
 		// IsExited
-		if exa.Validator.Status == consensusApi.ValidatorStateWithdrawalDone && exa.Validator.Balance == 0 {
+		if (exa.Validator.Status == consensusApi.ValidatorStateWithdrawalDone || exa.Validator.Status == consensusApi.ValidatorStateWithdrawalPossible) && exa.Validator.Balance == 0 {
 			exa.IsExited = true
 			// ExitedSlot
 			exitedSlot := consensus.ConsensusClient.ChainTimeService.FirstSlotOfEpoch(exa.Validator.Validator.ExitEpoch)
@@ -137,7 +145,10 @@ func TestNodeDAOValidatorForSlot(t *testing.T) {
 				if exitTokenIds[i] == exa.TokenId {
 					exa.IsNeedOracleReportExit = true
 
-					logger.Info("IsNeedOracleReportExit.", zap.String("pubkey", pubkey), zap.String("tokenId", exa.TokenId.String()))
+					logger.Info("IsNeedOracleReportExit.",
+						zap.String("pubkey", pubkey),
+						zap.String("tokenId", exa.TokenId.String()),
+					)
 					break
 				}
 			}

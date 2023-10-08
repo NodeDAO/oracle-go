@@ -9,6 +9,7 @@ import (
 	"github.com/NodeDAO/oracle-go/app/largestake"
 	"github.com/NodeDAO/oracle-go/consensus/beacon"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
+	"github.com/NodeDAO/oracle-go/eth1"
 	"github.com/NodeDAO/oracle-go/utils/timetool"
 	consensusApi "github.com/attestantio/go-eth2-client/api/v1"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -103,6 +104,10 @@ const (
 	SECONDS_PER_SLOT  = 12
 	SECONDS_PER_EPOCH = SLOTS_PER_EPOCH * SECONDS_PER_SLOT
 )
+
+func ClRewardMax() *big.Int {
+	return eth1.ETH32().BigInt()
+}
 
 func DefaultRandomSleep() {
 	minSleep := time.Second * SECONDS_PER_EPOCH

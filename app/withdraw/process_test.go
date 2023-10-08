@@ -9,6 +9,8 @@ import (
 	"github.com/NodeDAO/oracle-go/common/logger"
 	"github.com/NodeDAO/oracle-go/config"
 	"github.com/NodeDAO/oracle-go/contracts/withdrawOracle"
+	"github.com/NodeDAO/oracle-go/eth1"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/require"
@@ -42,8 +44,8 @@ func TestProcessReport(t *testing.T) {
 func TestProcessReportLoop(t *testing.T) {
 	var err error
 	ctx := context.Background()
-	//config.InitConfig("../../conf/config-mainnet.dev.yaml")
-	config.InitConfig("../../conf/config-goerli.dev.yaml")
+	config.InitConfig("../../conf/config-mainnet.dev.yaml")
+	//config.InitConfig("../../conf/config-goerli.dev.yaml")
 	logger.InitLog("debug", "console")
 	app.InitServer(ctx)
 	w := new(WithdrawHelper)
@@ -185,4 +187,19 @@ func TestCheckTotalClBalance(t *testing.T) {
 	s1 := h2.Sub(h1)
 	// 0.272701086 ether
 	fmt.Println(s1.Div(ether1).String())
+}
+
+func TestBalance(t *testing.T) {
+	var err error
+	ctx := context.Background()
+	config.InitConfig("../../conf/config-mainnet.dev.yaml")
+	//config.InitConfig("../../conf/config-goerli.dev.yaml")
+	logger.InitLog("debug", "console")
+
+	eth1.ElClient, err = eth1.NewEthClient(ctx, config.Config.Eth.ElAddr)
+	require.NoError(t, err)
+
+	balanceAt, err := eth1.ElClient.Client.BalanceAt(ctx, common.HexToAddress("0x4b8Dc35b44296D8D6DCc7aFEBBbe283c997E80Ae"), big.NewInt(18205397))
+	require.NoError(t, err)
+	fmt.Println("balanceAt", balanceAt.String())
 }
