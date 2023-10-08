@@ -153,26 +153,24 @@ func (v *WithdrawHelper) calculationOperatorClReward(ctx context.Context, effect
 	}
 	v.totalNftCountOfStakingPool = big.NewInt(int64(len(activeNftsOfStakingPool)))
 
-	oldClTotalBalance := new(big.Int).Sub(v.clVaultBalance, v.totalOperatorClCapital)
+	clTotalReward := new(big.Int).Sub(v.clVaultBalance, v.totalOperatorClCapital)
+	if clTotalReward.Cmp(ClRewardMax()) >= 0 {
+		logger.Error("[WithdrawOracle] clTotalReward >= ClRewardMax().",
+			zap.String("clTotalReward", clTotalReward.String()),
+			zap.String("ClRewardMax", ClRewardMax().String()),
+		)
 
-	newClTotalReward, err := v.calculationClTotalReward()
-	if err != nil {
-		return errors.Wrap(err, "calculationClTotalReward err.")
+		return errs.NewSleepError("clTotalReward >= ClRewardMax()", RandomSleepTime())
 	}
 
-	logger.Debug("[WithdrawOracle] ClTotalBalance.", zap.String("oldClTotalBalance", oldClTotalBalance.String()), zap.String("newClTotalReward", newClTotalReward.String()))
-
-	// Temporarily check for new rules
-	if newClTotalReward.Cmp(oldClTotalBalance) != 0 {
-		return errs.NewSleepError("oldClTotalBalance != newClTotalReward.", RandomSleepTime())
-	}
+	logger.Debug("[WithdrawOracle] ClTotalBalance.", zap.String("clTotalReward", clTotalReward.String()))
 
 	for _, op := range effectiveOperators {
-		mul := new(big.Int).Mul(newClTotalReward, big.NewInt(int64(op.VnftCountOfStakingPool)))
+		mul := new(big.Int).Mul(clTotalReward, big.NewInt(int64(op.VnftCountOfStakingPool)))
 		op.OperatorReward.ClReward = new(big.Int).Div(mul, v.totalNftCountOfStakingPool)
 	}
 
-	v.clSettleAmount = new(big.Int).Add(v.clSettleAmount, newClTotalReward)
+	v.clSettleAmount = new(big.Int).Add(v.clSettleAmount, clTotalReward)
 
 	// deal accuracy
 	sumSettle := big.NewInt(0)
@@ -211,6 +209,8 @@ func (v *WithdrawHelper) getAllOperatorId(ctx context.Context) (*big.Int, error)
 	return contracts.OperatorContract.Contract.GetNodeOperatorsCount(nil)
 }
 
+// +deprecated("ThisFunction is deprecated, use NewFunction instead.")
+// old: clVaultBalance - totalOperatorClCapital
 // ClTotalReward = (_curClVaultBalance + _curClBalances - pendingBalances) - (clVaultBalance + clBalances - lastClSettleAmount)
 func (v *WithdrawHelper) calculationClTotalReward() (*big.Int, error) {
 	preClVaultBalance, err := contracts.WithdrawOracleContract.Contract.ClVaultBalance(nil)
@@ -235,6 +235,15 @@ func (v *WithdrawHelper) calculationClTotalReward() (*big.Int, error) {
 		Sub(decimal.NewFromBigInt(lastClSettleAmount, 0))
 
 	clTotalBalance := l.Sub(r).BigInt()
+
+	logger.Debug("[WithdrawOracle] new ClTotalReward.",
+		zap.String("_curClVaultBalance", v.clVaultBalance.String()),
+		zap.String("_curClBalances", v.clBalance.String()),
+		zap.String("pendingBalances", v.curPendingBalances.String()),
+		zap.String("preClVaultBalance", preClVaultBalance.String()),
+		zap.String("preClBalance", preClBalance.String()),
+		zap.String("lastClSettleAmount", lastClSettleAmount.String()),
+	)
 
 	return clTotalBalance, nil
 }

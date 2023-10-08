@@ -92,7 +92,11 @@ func (v *WithdrawHelper) reportHashArr(ctx context.Context) error {
 	// Whether the processing is escalated
 	if v.isWithdrawOracleNeedReport {
 		if err := v.buildWithdrawOracleReportData(ctx); err != nil {
-			return errors.Wrap(err, "[WithdrawOracle] buildWithdrawOracleReportData err.")
+			withdrawOracleReportJson, _ := json.Marshal(v.reportData)
+			logger.Errorf("[WithdrawOracle] debug report data.",
+				zap.String("WithdrawOracle report data", string(withdrawOracleReportJson)),
+			)
+			return errors.Wrapf(err, "[WithdrawOracle] buildWithdrawOracleReportData err.withdrawOracleReportJson:%s", withdrawOracleReportJson)
 		}
 
 		withdrawOracleReportDataHash, err := EncodeReportData(v.reportData)
@@ -161,7 +165,7 @@ func (v *WithdrawHelper) buildWithdrawOracleReportData(ctx context.Context) erro
 	}
 
 	if err := v.obtainWithdrawOracleReportData(ctx); err != nil {
-		return errors.Wrap(err, "buildWithdrawOracleReportData err.")
+		return errors.Wrapf(err, "buildWithdrawOracleReportData err.")
 	}
 
 	return nil
@@ -363,6 +367,9 @@ func (v *WithdrawHelper) setup(ctx context.Context) error {
 		KeyTransactOpts: v.keyTransactOpts,
 	}
 
+	// dev test to use
+	//v.hashConsensusHelper.KeyTransactOpts.From = common.HexToAddress("0x22E0cAF2B2dD1E11602D58eEfE9865f80aA949c6")
+
 	consensusVersion, err := contracts.WithdrawOracleContract.Contract.GetConsensusVersion(nil)
 	if err != nil {
 		return errors.Wrap(err, "Failed to get WithdrawOracleContract GetConsensusVersion.")
@@ -500,6 +507,11 @@ func (v *WithdrawHelper) obtainWithdrawOracleReportData(ctx context.Context) err
 		ClSettleAmount:        v.clSettleAmount,
 		ReportPendingBalances: v.curPendingBalances,
 	}
+
+	withdrawOracleReportJson, _ := json.Marshal(v.reportData)
+	logger.Debug("[WithdrawOracle] debug report data.",
+		zap.String("WithdrawOracle report data", string(withdrawOracleReportJson)),
+	)
 
 	return nil
 }

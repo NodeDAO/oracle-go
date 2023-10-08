@@ -122,7 +122,7 @@ func (v *WithdrawHelper) calculationValidatorExa(ctx context.Context) error {
 		exa.OperatorId = operatorId
 
 		// IsExited
-		if exa.Validator.Status == consensusApi.ValidatorStateWithdrawalDone && exa.Validator.Balance == 0 {
+		if (exa.Validator.Status == consensusApi.ValidatorStateWithdrawalDone || exa.Validator.Status == consensusApi.ValidatorStateWithdrawalPossible) && exa.Validator.Balance == 0 {
 			exa.IsExited = true
 			// ExitedSlot
 			exitedSlot := consensus.ConsensusClient.ChainTimeService.FirstSlotOfEpoch(exa.Validator.Validator.ExitEpoch)
